@@ -1,25 +1,26 @@
 // #Task route solution
-const router = require('express').Router();
-let User = require('../Models/User');
+const router = require("express").Router();
+let User = require("../Models/User");
 
-router.route('/').get((req, res) => {
+router.route("/").get((req, res) => {
   User.find()
-    .then(users => res.json(users))
-    .catch(err => res.status(400).json('Error: ' + err));
- });
-router.route('/getTA').get((req, res) => {
-  User.find( {Job:/TA/})
-    .then(users => res.json(users))
-    .catch(err => res.status(400).json('Error: ' + err));
+    .then((users) => res.json(users))
+    .catch((err) => res.status(400).json("Error: " + err));
+});
+router.route("/getTA").get((req, res) => {
+  User.find({ Job: /TA/ })
+    .then((users) => res.json(users))
+    .catch((err) => res.status(400).json("Error: " + err));
 });
 
-router.route('/getAvenger').get((req, res) => {
-  User.find( {Job:/Avenger/})
-    .then(users => res.json(users))
-    .catch(err => res.status(400).json('Error: ' + err));
-});
+// Method that inserted the Administrator
+// router.route("/setAdmin").get((req, res) => {
+//   User.create({ Username: "Administrator", Password: "1234" })
+//     .then(() => res.json("User added!"))
+//     .catch((err) => res.status(400).json("Error: " + err));
+// });
 
-router.route('/add').post((req, res) => {
+router.route("/add").post((req, res) => {
   const FirstName = req.body.FirstName;
   const LastName = req.body.LastName;
   const HomeAddress = req.body.HomeAddress;
@@ -30,22 +31,24 @@ router.route('/add').post((req, res) => {
   const Username = req.body.Username;
   const Password = req.body.Password;
 
-  const newUser = new User({Name,
+  const newUser = new User({
+    Name,
     FirstName,
     LastName,
     HomeAddress,
-    CountryCode,    
+    CountryCode,
     TelephoneNumbers,
     Email,
     PassportNumber,
     Email,
     Username,
-    Password
-});
+    Password,
+  });
 
-  newUser.save()
-    .then(() => res.json('User added!'))
-    .catch(err => res.status(400).json('Error: ' + err));
+  newUser
+    .save()
+    .then(() => res.json("User added!"))
+    .catch((err) => res.status(400).json("Error: " + err));
 });
 
 module.exports = router;
