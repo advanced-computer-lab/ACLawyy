@@ -1,6 +1,6 @@
 
 import './App.css';
-import DropdownCabin from './components/DropdownCabin'
+import Dropdown from './components/Dropdown'
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 
@@ -16,7 +16,12 @@ function App() {
                    top: 300, 
                    left:400}}>
         <h4>Class :  </h4> 
-        <DropdownCabin />
+        <Dropdown options ={[
+    { value: 'economy', label: 'Economy' },
+    { value: 'first', label: 'First' },
+    { value: 'business', label: 'Business bla' },
+    { value: 'all', label: 'All' },
+  ]} />
        </div>
        <div style = {{width : '10%' , 
                     position:'absolute',

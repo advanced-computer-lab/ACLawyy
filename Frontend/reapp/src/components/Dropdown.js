@@ -8,7 +8,7 @@ const options = [
     { value: 'all', label: 'All' },
   ];
 
-export default function DropdownCabin() {
+export default function Dropdown(props) {
   const [ setSelectedOption] = useState(null);
   const [ selectedOption] = useState(null);
 
@@ -17,7 +17,7 @@ export default function DropdownCabin() {
       <Select
         defaultValue={selectedOption}
         onChange={setSelectedOption}
-        options={options}
+        options={props.options}
       />
     </div>
   );
