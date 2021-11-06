@@ -1,23 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
 
+import './App.css';
+import DropdownCabin from './components/DropdownCabin'
+import React, { useState } from "react";
+import DatePicker from "react-datepicker";
+
+import "react-datepicker/dist/react-datepicker.css";
 function App() {
+  const [startDate, setStartDate] = useState(new Date());
+  
+  const [startDate2, setStartDate2] = useState(new Date());
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div style = {{width : '10%' , 
+                  position:'absolute',
+                   top: 300, 
+                   left:400}}>
+        <h4>Class :  </h4> 
+        <DropdownCabin />
+       </div>
+       <div style = {{width : '10%' , 
+                    position:'absolute',
+                   top: 300, 
+                   left:600}}>
+        <h4>Departure Date :  </h4> 
+        <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
+       </div>
+       <div style = {{width : '10%' , 
+                  position:'absolute',
+                   top: 300, 
+                   left:800}}>
+        <h4>Arrival Date :  </h4> 
+        <DatePicker selected={startDate2} onChange={(date) => setStartDate2(date)} />
+       </div>
+        
     </div>
   );
 }
