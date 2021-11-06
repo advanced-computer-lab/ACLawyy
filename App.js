@@ -1,13 +1,17 @@
 // External variables
+require("dotenv").config()
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require("cors");
 
-const MongoURI =
-  "mongodb+srv://admin:1234@airline.qxh8k.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+//console.log( process.env.DATABASE_URL);
+const MongoURI = process.env.DATABASE_URL
+
+
 
 //App variables
 const app = express();
-const port = process.env.PORT || "3000";
+const port = process.env.PORT || "8000";
 // #Importing the userController
 const flightsCont = require("./Controller/FlightController");
 const usersCont = require("./Controller/UserController");

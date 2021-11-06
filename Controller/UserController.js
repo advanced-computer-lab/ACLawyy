@@ -12,7 +12,20 @@ router.route("/getTA").get((req, res) => {
     .then((users) => res.json(users))
     .catch((err) => res.status(400).json("Error: " + err));
 });
-
+router.route("/Login").post(async (req, res) => {
+  try {
+    const {Username,Password} = req.body
+    const user = await User.findOne({ Username: Username });
+    console.log(user)
+    if (user.Password !== Password) {
+      return res.status(403).json("Wrong Password!")
+    }
+    
+    return res.status(200).json({message: "This is an admin"})
+  } catch (error) {
+    console.log(error)
+  }
+});
 // Method that inserted the Administrator
 // router.route("/setAdmin").get((req, res) => {
 //   User.create({ Username: "Administrator", Password: "1234" })
