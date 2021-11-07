@@ -59,15 +59,18 @@ router.route("/Search").get((req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 //..flights/search -> returns all flights with specific search criteria
-router.route("/SearchNoDate").get((req, res) => {
+router.route("/SearchNoDate").post((req, res) => {
+  console.log(req.body);
+  console.log(req.body.FlightNumber == true);
   console.log(req.body.FlightNumber);
-  Flight.find({
-    //_id: req.body.id,
-    FlightNumber: req.body.FlightNumber,
-    // Cabin: { $regex: req.body.Cabin },
-    // DepartureAirport: { $regex: req.body.DepartureAirport },
-    // ArrivalAirport: { $regex: req.body.ArrivalAirport },
-  })
+  Flight.find(
+    req.body
+    // _id: req.body.id,
+    // FlightNumber: req.body.FlightNumber,
+    // Cabin: req.body.Cabin,
+    // DepartureAirport: req.body.DepartureAirport,
+    // ArrivalAirport: req.body.ArrivalAirport,
+  )
     .then((flights) => res.json(flights))
     .catch((err) => res.status(400).json("Error: " + err));
 });

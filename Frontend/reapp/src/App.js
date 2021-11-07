@@ -15,6 +15,7 @@ function App() {
   const [departureDateC, setDepartureDate] = useState("");
   const [departureAirportC, setDepartureAirport] = useState("");
   const [arrivalAirportC, setArrivalAirport] = useState("");
+  const [jsonObject, setJsonObject] = useState();
 
   function handleAllFlights() {
     const data = axios
@@ -109,17 +110,38 @@ function App() {
     departureAirport1,
     arrivalAirport1
   ) {
+    var obj = {};
+    if (id.length !== 0) {
+      obj = { ...obj, ["_id"]: id };
+    }
+    if (flightNumberC.length !== 0) {
+      obj = { ...obj, ["FlightNumber"]: flightNumberC };
+    }
+    if (cabinC.length !== 0) {
+      obj = { ...obj, ["Cabin"]: cabinC };
+    }
+    if (departureAirportC.length !== 0) {
+      obj = { ...obj, ["DepartureAirport"]: departureAirportC };
+    }
+    if (arrivalAirportC.length !== 0) {
+      obj = { ...obj, ["ArrivalAirport"]: arrivalAirportC };
+    }
     const data = axios
-      .get("http://localhost:8000/Flights/SearchNoDate", {
-        //id: id1,
-        FlightNumber: flightNumber1,
+      .post(
+        "http://localhost:8000/Flights/SearchNoDate",
+        obj
+        //{
+
+        // id: id1,
+        // FlightNumber: flightNumber1,
         // Cabin: cabin1,
         // SeatsAvailable: seatsAvailable1,
         // // ArrivalDate: arrivalDate1,
         // // DepartureDate: departureDate1,
         // DepartureAirport: departureAirport1,
         // ArrivalAirport: arrivalAirport1,
-      })
+        //}
+      )
       .then((res) => {
         setBody(JSON.stringify(res.data));
         console.log(id1);
