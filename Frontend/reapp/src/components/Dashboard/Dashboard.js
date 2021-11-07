@@ -12,7 +12,7 @@ function Dashboard(props) {
           />
         </div>
         <div className="dashboard-logo">
-          <a href="/">THE LOGO</a>
+          <a>You are an admin ;)</a>
         </div>
         <div className="spacer"></div>
         <div className="dashboard-navigation-items">

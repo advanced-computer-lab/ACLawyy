@@ -47,10 +47,11 @@ router.route("/").get((req, res) => {
 //..flights/search -> returns all flights with specific search criteria
 router.route("/Search").get((req, res) => {
   Flight.find({
+    _id: req.body.id,
     FlightNumber: { $regex: req.body.FlightNumber },
     Cabin: { $regex: req.body.Cabin },
-    ArrivalDate: req.body.ArrivalDate + "T22:00:00.000Z",
-    DepartureDate: req.body.DepartureDate + "T22:00:00.000Z",
+    ArrivalDate: { $regex: req.body.ArrivalDate + "T22:00:00.000Z" },
+    DepartureDate: { $regex: req.body.DepartureDate + "T22:00:00.000Z" },
     DepartureAirport: { $regex: req.body.DepartureAirport },
     ArrivalAirport: { $regex: req.body.ArrivalAirport },
   })
@@ -59,11 +60,13 @@ router.route("/Search").get((req, res) => {
 });
 //..flights/search -> returns all flights with specific search criteria
 router.route("/SearchNoDate").get((req, res) => {
+  console.log(req.body.FlightNumber);
   Flight.find({
-    FlightNumber: { $regex: req.body.FlightNumber },
-    Cabin: { $regex: req.body.Cabin },
-    DepartureAirport: { $regex: req.body.DepartureAirport },
-    ArrivalAirport: { $regex: req.body.ArrivalAirport },
+    //_id: req.body.id,
+    FlightNumber: req.body.FlightNumber,
+    // Cabin: { $regex: req.body.Cabin },
+    // DepartureAirport: { $regex: req.body.DepartureAirport },
+    // ArrivalAirport: { $regex: req.body.ArrivalAirport },
   })
     .then((flights) => res.json(flights))
     .catch((err) => res.status(400).json("Error: " + err));
@@ -73,12 +76,12 @@ router.route("/Search2").get((req, res) => {
   date = new Date("2022-02-21").toISOString();
   console.log(date);
   Flight.find({
-    FlightNumber: { $regex: "7" },
-    Cabin: { $regex: "Economy" },
-    ArrivalDate: "2022-02-20" + "T22:00:00.000Z",
-    DepartureDate: "2022-02-20" + "T22:00:00.000Z",
-    DepartureAirport: { $regex: "JFK" },
-    ArrivalAirport: { $regex: "LHR" },
+    FlightNumber: { $regex: "" },
+    Cabin: { $regex: "" },
+    //ArrivalDate: "2022-02-20" + "T22:00:00.000Z",
+    //DepartureDate: "2022-02-20" + "T22:00:00.000Z",
+    DepartureAirport: { $regex: "" },
+    ArrivalAirport: { $regex: "" },
   })
     .then((flights) => res.json(flights))
     .catch((err) => res.status(400).json("Error: " + err));
@@ -112,8 +115,8 @@ router.route("/CreateFlight").post((req, res) => {
 });
 
 //../flights/deleteFlight
-router.route("/DeleteFlight").get((req, res) => {
-  Flight.findByIdAndDelete(id, function (err) {
+router.route("/DeleteFlight").post((req, res) => {
+  Flight.findByIdAndDelete(req.body.id, function (err) {
     if (err) console.log(err);
     console.log("Flight deleted successfully");
   });
@@ -122,7 +125,7 @@ router.route("/DeleteFlight").get((req, res) => {
 //../flights/UpdateFlight
 router.route("/UpdateFlight").post((req, res) => {
   Flight.findByIdAndUpdate(
-    id,
+    req.body.id,
     {
       FlightNumber: req.body.FlightNumber,
       Cabin: req.body.Cabin,

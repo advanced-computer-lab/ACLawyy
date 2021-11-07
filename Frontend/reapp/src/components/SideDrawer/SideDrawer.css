@@ -27,6 +27,21 @@
   text-decoration: none;
   font-size: 1.2rem;
 }
+.side-drawer button {
+  color: #000033;
+  text-decoration: none;
+  font-size: 1.2rem;
+  padding-left: 0;
+  background: transparent;
+  border: transparent;
+}
+.side-drawer button:hover,
+.side-drawer button:active {
+  color: thistle;
+  text-decoration: none;
+  cursor: pointer;
+}
+
 .side-drawer a:hover,
 .side-drawer a:active {
   color: thistle;
