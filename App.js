@@ -1,13 +1,15 @@
+
 // External variables
 const express = require("express");
 const mongoose = require("mongoose");
+var cors= require('cors');
 
 const MongoURI =
   "mongodb+srv://admin:1234@airline.qxh8k.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 
 //App variables
 const app = express();
-const port = process.env.PORT || "3000";
+const port = process.env.PORT || "5000";
 // #Importing the userController
 const flightsCont = require("./Controller/FlightController");
 const usersCont = require("./Controller/UserController");
@@ -29,6 +31,11 @@ app.get("/", (req, res) => {
 
 app.use("/Flights", flightsCont);
 app.use("/Users", usersCont);
+app.use(cors());
+
+app.get("/honey", (req, res) => {
+  console.log("please");
+});
 /*
                                                     End of your code
 */
@@ -37,3 +44,4 @@ app.use("/Users", usersCont);
 app.listen(port, () => {
   console.log(`Listening to requests on http://localhost:${port}`);
 });
+
