@@ -1,12 +1,11 @@
-//import './App.css';
+import "./App.css";
 import React, { useState } from "react";
-import Dashboard from "./components/Dashboard/Dashboard";
-import SideDrawer from "./components/SideDrawer/SideDrawer";
-import Backdrop from "./components/Backdrop/Backdrop";
+import { DataGrid } from "@mui/x-data-grid";
 import axios from "axios";
 
 function App() {
-  const [body, setBody] = useState("hellotest");
+  const [body, setBody] = useState([]);
+  const [rows, setRows] = useState([]);
   const [id, setID] = useState("");
   const [flightNumberC, setFlightNumber] = useState("");
   const [cabinC, setCabin] = useState("");
@@ -18,12 +17,66 @@ function App() {
   const [departureTimeC, setDepartureTime] = useState("");
   const [arrivalTimeC, setArrivalTime] = useState("");
 
+  const columns = [
+    { field: "id", headerName: "ID", width: 200 },
+    {
+      field: "FlightNumber",
+      headerName: "Flight #",
+      type: "number",
+      width: 150,
+    },
+    {
+      field: "Cabin",
+      headerName: "Cabin",
+      width: 120,
+    },
+    {
+      field: "SeatsAvailable",
+      headerName: "Seats",
+      type: "number",
+      width: 130,
+      editable: true,
+    },
+    {
+      field: "DepartureAirport",
+      headerName: "Departure Airport",
+      width: 200,
+    },
+    {
+      field: "DepartureDate",
+      headerName: "Departure Date",
+      width: 180,
+    },
+    {
+      field: "DepartureTime",
+      headerName: "Departure Time",
+      width: 180,
+    },
+    {
+      field: "ArrivalAirport",
+      headerName: "Arrival Airport",
+      width: 180,
+    },
+    {
+      field: "ArrivalDate",
+      headerName: "Arrival Date",
+      width: 160,
+    },
+    {
+      field: "ArrivalTime",
+      headerName: "Arrival Time",
+      width: 160,
+    },
+  ];
+ 
+
   function handleAllFlights() {
     const data = axios
       .get("http://localhost:8000/flights")
       .then((res) => {
         const x = res.data;
-        setBody(JSON.stringify(x));
+        setBody(x);
+        setRows(x.map(obj=> ({ ...obj, id:obj._id})));
         console.log("hallooo");
       })
       .catch(() => {
@@ -162,37 +215,133 @@ function App() {
 
   return (
     <div>
-      <ul>
-        <li>
-          <button
-            onClick={() => {
-              handleAllFlights();
-            }}
-          >
-            Show All Flights
-          </button>
-        </li>
-        <li>
-          <button
-            onClick={() =>
-              handleCreateFlights(
-                flightNumberC,
-                cabinC,
-                seatsAvailableC,
-                arrivalDateC,
-                departureDateC,
-                departureAirportC,
-                arrivalAirportC,
-                departureTimeC,
-                arrivalTimeC
+      <div>
+        <h4>Flight Information:</h4>
+        <label>
+          Flight ID:
+          <input type="text" onChange={(e) => setID(e.target.value)} />
+        </label>
+      </div>
+      <div>
+        <label>
+          Flight Number:
+          <input
+            placeholder="ex. 123"
+            type="text"
+            onChange={(e) => setFlightNumber(e.target.value)}
+          />
+        </label>
+        <label>
+          Cabin:
+          <input
+            placeholder="ex. Economy"
+            type="text"
+            onChange={(e) => setCabin(e.target.value)}
+          />
+        </label>
+        <label>
+          Seats Available:
+          <input
+            placeholder="ex. 20"
+            type="Number"
+            onChange={(e) => setSeatsAvailable(e.target.value)}
+          />
+        </label>
+      </div>
+      <div className="Departure">
+        <h4>Departure Information:</h4>
+        <label>
+          Departure Airport:
+          <input
+            placeholder="Departure Airport"
+            type="text"
+            onChange={(b) => setDepartureAirport(b.target.value)}
+          />
+        </label>
+        <label>
+          Departure Date:
+          <input
+            placeholder="DD/MM/YYYY"
+            type="date"
+            onChange={(c) =>
+              setDepartureDate(
+                c.target.value.replace("/", "-").split("-").reverse().join("-")
               )
             }
-          >
-            Create New Flight
-          </button>
-        </li>
-        <li>
-          <div>
+          />
+        </label>
+        <label>
+          Departure Time:
+          <input
+            placeholder="HH:MM"
+            type="time"
+            onChange={(c) => setDepartureTime(c.target.value)}
+          />
+        </label>
+      </div>
+      <div className="Arrival">
+        <h4>Arrival Information:</h4>
+        <label>
+          Arrival Airport:
+          <input
+            placeholder="Arrival Airport"
+            type="text"
+            onChange={(a) => setArrivalAirport(a.target.value)}
+          />
+        </label>
+        <label>
+          Arrival Date:
+          <input
+            placeholder="DD/MM/YYYY"
+            type="date"
+            onChange={(v) =>
+              setArrivalDate(
+                v.target.value.replace("/", "-").split("-").reverse().join("-")
+              )
+            }
+          />
+        </label>
+        <label>
+          Arrival Time:
+          <input
+            placeholder="HH:MM"
+            type="time"
+            onChange={(v) => setArrivalTime(v.target.value)}
+          />
+        </label>
+      </div>
+
+      <nav>
+        <ul>
+          <li>
+            <button
+              onClick={() => {
+                handleAllFlights();
+              }}
+            >
+              Show All Flights
+            </button>
+          </li>
+          <li>
+            <button
+              onClick={() =>
+                handleCreateFlights(
+                  flightNumberC,
+                  cabinC,
+                  seatsAvailableC,
+                  arrivalDateC,
+                  departureDateC,
+                  departureAirportC,
+                  arrivalAirportC,
+                  departureTimeC,
+                  arrivalTimeC
+                )
+              }
+            >
+              Create New Flight
+            </button>
+          </li>
+          <li>
             <button
               onClick={() =>
                 handleUpdateFlights(
@@ -209,97 +358,8 @@ function App() {
             >
               Edit a Flight
             </button>
-            <label>
-              Flight ID:
-              <input type="text" onChange={(e) => setID(e.target.value)} />
-            </label>
-            <label>
-              <input
-                placeholder="Flight Number"
-                type="text"
-                onChange={(e) => setFlightNumber(e.target.value)}
-              />
-            </label>
-            <label>
-              <input
-                placeholder="Cabin"
-                type="text"
-                onChange={(e) => setCabin(e.target.value)}
-              />
-            </label>
-            <label>
-              <input
-                placeholder="Seats Available"
-                type="Number"
-                onChange={(e) => setSeatsAvailable(e.target.value)}
-              />
-            </label>
-            <label>
-              <input
-                placeholder="Arrival Airport"
-                type="text"
-                onChange={(a) => setArrivalAirport(a.target.value)}
-              />
-            </label>
-            <label>
-              <input
-                placeholder="Departure Airport"
-                type="text"
-                onChange={(b) => setDepartureAirport(b.target.value)}
-              />
-            </label>
-            <label>
-              Departure Date:
-              <input
-                placeholder="DD/MM/YYYY"
-                type="date"
-                onChange={(c) =>
-                  setDepartureDate(
-                    c.target.value
-                      .replace("/", "-")
-                      .split("-")
-                      .reverse()
-                      .join("-")
-                  )
-                }
-              />
-            </label>
-            <label>
-              Arrival Date:
-              <input
-                placeholder="DD/MM/YYYY"
-                type="date"
-                onChange={(v) =>
-                  setArrivalDate(
-                    v.target.value
-                      .replace("/", "-")
-                      .split("-")
-                      .reverse()
-                      .join("-")
-                  )
-                }
-              />
-            </label>
-            <label>
-              Departure Time:
-              <input
-                placeholder="HH:MM"
-                type="time"
-                onChange={(c) => setDepartureTime(c.target.value)}
-              />
-            </label>
-            <label>
-              Arrival Time:
-              <input
-                placeholder="HH:MM"
-                type="time"
-                onChange={(v) => setArrivalTime(v.target.value)}
-              />
-            </label>
-          </div>
-        </li>
-        <li>
-          <div>
+          </li>
+          <li>
             <button
               onClick={() => {
                 if (
@@ -314,28 +374,32 @@ function App() {
             >
               Delete a Flight
             </button>
-          </div>
-        </li>
-        <li>
-          <button
-            onClick={() =>
-              handleSearchFlights(
-                id,
-                flightNumberC,
-                cabinC,
-                seatsAvailableC,
-                arrivalDateC,
-                departureDateC,
-                departureAirportC,
-                arrivalAirportC
-              )
-            }
-          >
-            Search for a Flight
-          </button>
-        </li>
-      </ul>
-      <p>{body}</p>
+          </li>
+          <li>
+            <button
+              onClick={() =>
+                handleSearchFlights(
+                  id,
+                  flightNumberC,
+                  cabinC,
+                  seatsAvailableC,
+                  arrivalDateC,
+                  departureDateC,
+                  departureAirportC,
+                  arrivalAirportC
+                )
+              }
+            >
+              Search for a Flight
+            </button>
+          </li>
+        </ul>
+      </nav>
+      <div  style={{ display:'flex', height: 550, width: '100%' }}>
+      <div style={{ flexGrow: 1 }}>
+      <DataGrid rows={rows} columns={columns} />
+      </div>
+      </div>
     </div>
   );
 }
