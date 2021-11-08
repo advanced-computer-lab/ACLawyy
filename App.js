@@ -1,9 +1,9 @@
 // External variables
 const express = require("express");
 const mongoose = require("mongoose");
+require("dotenv").config();
 
-const MongoURI =
-  "mongodb+srv://admin:1234@airline.qxh8k.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+const MongoURI = process.env.DATABASE_URL;
 var cors = require("cors");
 //App variables
 const app = express();
