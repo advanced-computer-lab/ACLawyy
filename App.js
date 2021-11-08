@@ -1,20 +1,20 @@
 // External variables
 const express = require("express");
 const mongoose = require("mongoose");
+require("dotenv").config();
 
-const MongoURI =
-  "mongodb+srv://admin:1234@airline.qxh8k.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
-
+const MongoURI = process.env.DATABASE_URL;
+var cors = require("cors");
 //App variables
 const app = express();
-const port = process.env.PORT || "3000";
+const port = process.env.PORT || "8000";
 // #Importing the userController
 const flightsCont = require("./Controller/FlightController");
 const usersCont = require("./Controller/UserController");
 const bodyParser = require("body-parser");
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
-
+app.use(cors());
 // configurations
 // Mongo DB
 
