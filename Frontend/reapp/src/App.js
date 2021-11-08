@@ -314,10 +314,6 @@ function App() {
             >
               Delete a Flight
             </button>
-            <label>
-              Flight ID:
-              <input type="text" onChange={(e) => setID(e.target.value)} />
-            </label>
           </div>
         </li>
         <li>
