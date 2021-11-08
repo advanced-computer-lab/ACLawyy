@@ -9,15 +9,17 @@ const fs = require("fs");
 // fs.createReadStream("Flights.csv")
 //   .pipe(csv())
 //   .on("data", (row) => {
-//     date = row.FlightDate.split("-").reverse().join("-");
-//     console.log(date);
+//     // date = row.FlightDate.split("-").reverse().join("-");
+//     // console.log(date);
 //     const FlightNumber = row.ID;
 //     const Cabin = row.Cabin;
 //     const SeatsAvailable = row.Seats;
-//     const ArrivalDate = new Date(date);
-//     const DepartureDate = new Date(date);
+//     const ArrivalDate = row.FlightDate;
+//     const DepartureDate = row.FlightDate;
 //     const DepartureAirport = row.From;
 //     const ArrivalAirport = row.To;
+//     const DepartureTime = row.DepartureTime;
+//     const ArrivalTime = row.ArrivalTime;
 
 //     const newFlight = new Flight({
 //       FlightNumber,
@@ -27,6 +29,8 @@ const fs = require("fs");
 //       DepartureDate,
 //       DepartureAirport,
 //       ArrivalAirport,
+//       DepartureTime,
+//       ArrivalTime,
 //     });
 
 //     newFlight.save();
@@ -45,35 +49,27 @@ router.route("/").get((req, res) => {
 });
 
 //..flights/search -> returns all flights with specific search criteria
-router.route("/Search").get((req, res) => {
-  Flight.find({
-    _id: req.body.id,
-    FlightNumber: { $regex: req.body.FlightNumber },
-    Cabin: { $regex: req.body.Cabin },
-    ArrivalDate: { $regex: req.body.ArrivalDate + "T22:00:00.000Z" },
-    DepartureDate: { $regex: req.body.DepartureDate + "T22:00:00.000Z" },
-    DepartureAirport: { $regex: req.body.DepartureAirport },
-    ArrivalAirport: { $regex: req.body.ArrivalAirport },
-  })
+router.route("/Search").post((req, res) => {
+  Flight.find(req.body)
     .then((flights) => res.json(flights))
     .catch((err) => res.status(400).json("Error: " + err));
 });
 //..flights/search -> returns all flights with specific search criteria
-router.route("/SearchNoDate").post((req, res) => {
-  console.log(req.body);
-  console.log(req.body.FlightNumber == true);
-  console.log(req.body.FlightNumber);
-  Flight.find(
-    req.body
-    // _id: req.body.id,
-    // FlightNumber: req.body.FlightNumber,
-    // Cabin: req.body.Cabin,
-    // DepartureAirport: req.body.DepartureAirport,
-    // ArrivalAirport: req.body.ArrivalAirport,
-  )
-    .then((flights) => res.json(flights))
-    .catch((err) => res.status(400).json("Error: " + err));
-});
+// router.route("/SearchNoDate").post((req, res) => {
+//   console.log(req.body);
+//   console.log(req.body.FlightNumber == true);
+//   console.log(req.body.FlightNumber);
+//   Flight.find(
+//     req.body
+//     // _id: req.body.id,
+//     // FlightNumber: req.body.FlightNumber,
+//     // Cabin: req.body.Cabin,
+//     // DepartureAirport: req.body.DepartureAirport,
+//     // ArrivalAirport: req.body.ArrivalAirport,
+//   )
+//     .then((flights) => res.json(flights))
+//     .catch((err) => res.status(400).json("Error: " + err));
+// });
 
 router.route("/Search2").get((req, res) => {
   date = new Date("2022-02-21").toISOString();
@@ -96,10 +92,12 @@ router.route("/CreateFlight").post((req, res) => {
   const FlightNumber = req.body.FlightNumber;
   const Cabin = req.body.Cabin;
   const SeatsAvailable = req.body.SeatsAvailable;
-  const ArrivalDate = new Date(req.body.ArrivalDate);
-  const DepartureDate = new Date(req.body.DepartureDate);
+  const ArrivalDate = req.body.ArrivalDate;
+  const DepartureDate = req.body.DepartureDate;
   const DepartureAirport = req.body.DepartureAirport;
   const ArrivalAirport = req.body.ArrivalAirport;
+  const DepartureTime = req.body.DepartureTime;
+  const ArrivalTime = req.body.ArrivalTime;
 
   const newFlight = new Flight({
     FlightNumber,
@@ -109,6 +107,8 @@ router.route("/CreateFlight").post((req, res) => {
     DepartureDate,
     DepartureAirport,
     ArrivalAirport,
+    DepartureTime,
+    ArrivalTime,
   });
 
   newFlight
@@ -125,6 +125,7 @@ router.route("/DeleteFlight").post((req, res) => {
   });
 });
 
+// ****** Try to turn into json obj *********
 //../flights/UpdateFlight
 router.route("/UpdateFlight").post((req, res) => {
   Flight.findByIdAndUpdate(
@@ -137,6 +138,8 @@ router.route("/UpdateFlight").post((req, res) => {
       DepartureDate: req.body.DepartureDate,
       DepartureAirport: req.body.DepartureAirport,
       ArrivalAirport: req.body.ArrivalAirport,
+      DepartureTime: req.body.DepartureTime,
+      ArrivalTime: req.body.ArrivalTime,
     },
     function (err) {
       if (err) console.log(err);

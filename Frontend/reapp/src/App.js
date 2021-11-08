@@ -15,7 +15,8 @@ function App() {
   const [departureDateC, setDepartureDate] = useState("");
   const [departureAirportC, setDepartureAirport] = useState("");
   const [arrivalAirportC, setArrivalAirport] = useState("");
-  const [jsonObject, setJsonObject] = useState();
+  const [departureTimeC, setDepartureTime] = useState("");
+  const [arrivalTimeC, setArrivalTime] = useState("");
 
   function handleAllFlights() {
     const data = axios
@@ -36,7 +37,10 @@ function App() {
       })
       .then((res) => {
         console.log("delet");
-        handleAllFlights();
+        alert(
+          "please click show all flights to see your changes! (you can search as well)"
+        );
+        window.location.reload(false);
       })
       .catch(() => {
         alert("error");
@@ -51,7 +55,9 @@ function App() {
     arrivalDate1,
     departureDate1,
     departureAirport1,
-    arrivalAirport1
+    arrivalAirport1,
+    departureTime1,
+    arrivalTime1
   ) {
     const data = axios
       .post("http://localhost:8000/Flights/UpdateFlight", {
@@ -63,10 +69,15 @@ function App() {
         DepartureDate: departureDate1,
         DepartureAirport: departureAirport1,
         ArrivalAirport: arrivalAirport1,
+        DepartureTime: departureTime1,
+        ArrivalTime: arrivalTime1,
       })
       .then((res) => {
         console.log("Update");
-        handleAllFlights();
+        alert(
+          "Flight updated successfully >w<, please click show all flights to see your updated flight! (you can search as well)"
+        );
+        window.location.reload(false);
       })
       .catch(() => {
         alert("error");
@@ -79,7 +90,9 @@ function App() {
     arrivalDate1,
     departureDate1,
     departureAirport1,
-    arrivalAirport1
+    arrivalAirport1,
+    departureTime1,
+    arrivalTime1
   ) {
     const data = axios
       .post("http://localhost:8000/Flights/CreateFlight", {
@@ -90,26 +103,22 @@ function App() {
         DepartureDate: departureDate1,
         DepartureAirport: departureAirport1,
         ArrivalAirport: arrivalAirport1,
+        DepartureTime: departureTime1,
+        ArrivalTime: arrivalTime1,
       })
       .then((res) => {
         console.log("Create");
-        handleAllFlights();
+        alert(
+          "Flight created successfully UwU, Please click show all flights to see your new flight!"
+        );
+        window.location.reload(false);
       })
       .catch(() => {
         alert("error");
       });
   }
 
-  function handleSearchFlights(
-    id1,
-    flightNumber1,
-    cabin1,
-    seatsAvailable1,
-    arrivalDate1,
-    departureDate1,
-    departureAirport1,
-    arrivalAirport1
-  ) {
+  function handleSearchFlights() {
     var obj = {};
     if (id.length !== 0) {
       obj = { ...obj, ["_id"]: id };
@@ -120,36 +129,37 @@ function App() {
     if (cabinC.length !== 0) {
       obj = { ...obj, ["Cabin"]: cabinC };
     }
+    if (seatsAvailableC.length !== 0) {
+      obj = { ...obj, ["SeatsAvailable"]: seatsAvailableC };
+    }
+    if (arrivalDateC.length !== 0) {
+      obj = { ...obj, ["ArrivalDate"]: arrivalDateC };
+    }
+    if (departureDateC.length !== 0) {
+      obj = { ...obj, ["DepartureDate"]: departureDateC };
+    }
     if (departureAirportC.length !== 0) {
       obj = { ...obj, ["DepartureAirport"]: departureAirportC };
     }
     if (arrivalAirportC.length !== 0) {
       obj = { ...obj, ["ArrivalAirport"]: arrivalAirportC };
     }
+    if (departureTimeC.length !== 0) {
+      obj = { ...obj, ["DepartureTime"]: departureTimeC };
+    }
+    if (arrivalTimeC.length !== 0) {
+      obj = { ...obj, ["ArrivalTime"]: arrivalTimeC };
+    }
     const data = axios
-      .post(
-        "http://localhost:8000/Flights/SearchNoDate",
-        obj
-        //{
-
-        // id: id1,
-        // FlightNumber: flightNumber1,
-        // Cabin: cabin1,
-        // SeatsAvailable: seatsAvailable1,
-        // // ArrivalDate: arrivalDate1,
-        // // DepartureDate: departureDate1,
-        // DepartureAirport: departureAirport1,
-        // ArrivalAirport: arrivalAirport1,
-        //}
-      )
+      .post("http://localhost:8000/Flights/Search", obj)
       .then((res) => {
         setBody(JSON.stringify(res.data));
-        console.log(id1);
       })
       .catch(() => {
         alert("error");
       });
   }
+
   return (
     <div>
       <ul>
@@ -172,7 +182,9 @@ function App() {
                 arrivalDateC,
                 departureDateC,
                 departureAirportC,
-                arrivalAirportC
+                arrivalAirportC,
+                departureTimeC,
+                arrivalTimeC
               )
             }
           >
@@ -218,7 +230,7 @@ function App() {
             <label>
               <input
                 placeholder="Seats Available"
-                type="text"
+                type="Number"
                 onChange={(e) => setSeatsAvailable(e.target.value)}
               />
             </label>
@@ -239,17 +251,49 @@ function App() {
             <label>
               Departure Date:
               <input
-                placeholder="YYYY-MM-DD"
-                type="text"
-                onChange={(c) => setDepartureDate(c.target.value)}
+                placeholder="DD/MM/YYYY"
+                type="date"
+                onChange={(c) =>
+                  setDepartureDate(
+                    c.target.value
+                      .replace("/", "-")
+                      .split("-")
+                      .reverse()
+                      .join("-")
+                  )
+                }
               />
             </label>
             <label>
               Arrival Date:
               <input
-                placeholder="YYYY-MM-DD"
-                type="text"
-                onChange={(v) => setArrivalDate(v.target.value)}
+                placeholder="DD/MM/YYYY"
+                type="date"
+                onChange={(v) =>
+                  setArrivalDate(
+                    v.target.value
+                      .replace("/", "-")
+                      .split("-")
+                      .reverse()
+                      .join("-")
+                  )
+                }
+              />
+            </label>
+            <label>
+              Departure Time:
+              <input
+                placeholder="HH:MM"
+                type="time"
+                onChange={(c) => setDepartureTime(c.target.value)}
+              />
+            </label>
+            <label>
+              Arrival Time:
+              <input
+                placeholder="HH:MM"
+                type="time"
+                onChange={(v) => setArrivalTime(v.target.value)}
               />
             </label>
           </div>
