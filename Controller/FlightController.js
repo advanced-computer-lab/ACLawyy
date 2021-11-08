@@ -123,29 +123,24 @@ router.route("/DeleteFlight").post((req, res) => {
     if (err) console.log(err);
     console.log("Flight deleted successfully");
   });
+  res.send();
 });
 
 // ****** Try to turn into json obj *********
 //../flights/UpdateFlight
 router.route("/UpdateFlight").post((req, res) => {
   Flight.findByIdAndUpdate(
-    req.body.id,
-    {
-      FlightNumber: req.body.FlightNumber,
-      Cabin: req.body.Cabin,
-      SeatsAvailable: req.body.SeatsAvailable,
-      ArrivalDate: req.body.ArrivalDate,
-      DepartureDate: req.body.DepartureDate,
-      DepartureAirport: req.body.DepartureAirport,
-      ArrivalAirport: req.body.ArrivalAirport,
-      DepartureTime: req.body.DepartureTime,
-      ArrivalTime: req.body.ArrivalTime,
-    },
+    req.body._id,
+    req.body,
     function (err) {
       if (err) console.log(err);
       console.log("Flight updated successfully");
+      console.log(req.body.id);
+      
     }
+    
   );
+  res.send();
 });
 
 //..flights/deleteAll

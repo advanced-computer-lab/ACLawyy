@@ -18,7 +18,7 @@ function App() {
   const [arrivalTimeC, setArrivalTime] = useState("");
 
   const columns = [
-    { field: "id", headerName: "ID", width: 200 },
+    { field: "id", headerName: "ID", width: 230 },
     {
       field: "FlightNumber",
       headerName: "Flight #",
@@ -28,7 +28,7 @@ function App() {
     {
       field: "Cabin",
       headerName: "Cabin",
-      width: 120,
+      width: 140,
     },
     {
       field: "SeatsAvailable",
@@ -40,17 +40,17 @@ function App() {
     {
       field: "DepartureAirport",
       headerName: "Departure Airport",
-      width: 200,
+      width: 220,
     },
     {
       field: "DepartureDate",
       headerName: "Departure Date",
-      width: 180,
+      width: 200,
     },
     {
       field: "DepartureTime",
       headerName: "Departure Time",
-      width: 180,
+      width: 200,
     },
     {
       field: "ArrivalAirport",
@@ -93,44 +93,53 @@ function App() {
         alert(
           "please click show all flights to see your changes! (you can search as well)"
         );
-        window.location.reload(false);
+          handleAllFlights();
       })
       .catch(() => {
         alert("error");
       });
   }
 
-  function handleUpdateFlights(
-    id1,
-    flightNumber1,
-    cabin1,
-    seatsAvailable1,
-    arrivalDate1,
-    departureDate1,
-    departureAirport1,
-    arrivalAirport1,
-    departureTime1,
-    arrivalTime1
-  ) {
+  function handleUpdateFlights(  ) {
+    var obj = {};
+    if (id.length !== 0) {
+      obj = { ...obj, ["_id"]: id };
+    }
+    if (flightNumberC.length !== 0) {
+      obj = { ...obj, ["FlightNumber"]: flightNumberC };
+    }
+    if (cabinC.length !== 0) {
+      obj = { ...obj, ["Cabin"]: cabinC };
+    }
+    if (seatsAvailableC.length !== 0) {
+      obj = { ...obj, ["SeatsAvailable"]: seatsAvailableC };
+    }
+    if (arrivalDateC.length !== 0) {
+      obj = { ...obj, ["ArrivalDate"]: arrivalDateC };
+    }
+    if (departureDateC.length !== 0) {
+      obj = { ...obj, ["DepartureDate"]: departureDateC };
+    }
+    if (departureAirportC.length !== 0) {
+      obj = { ...obj, ["DepartureAirport"]: departureAirportC };
+    }
+    if (arrivalAirportC.length !== 0) {
+      obj = { ...obj, ["ArrivalAirport"]: arrivalAirportC };
+    }
+    if (departureTimeC.length !== 0) {
+      obj = { ...obj, ["DepartureTime"]: departureTimeC };
+    }
+    if (arrivalTimeC.length !== 0) {
+      obj = { ...obj, ["ArrivalTime"]: arrivalTimeC };
+    }
     const data = axios
-      .post("http://localhost:8000/Flights/UpdateFlight", {
-        id: id1,
-        FlightNumber: flightNumber1,
-        Cabin: cabin1,
-        SeatsAvailable: seatsAvailable1,
-        ArrivalDate: arrivalDate1,
-        DepartureDate: departureDate1,
-        DepartureAirport: departureAirport1,
-        ArrivalAirport: arrivalAirport1,
-        DepartureTime: departureTime1,
-        ArrivalTime: arrivalTime1,
-      })
-      .then((res) => {
+      .post("http://localhost:8000/Flights/UpdateFlight", obj)
+      .then(() => {
         console.log("Update");
         alert(
           "Flight updated successfully >w<, please click show all flights to see your updated flight! (you can search as well)"
         );
-        window.location.reload(false);
+        handleAllFlights()
       })
       .catch(() => {
         alert("error");
@@ -164,7 +173,8 @@ function App() {
         alert(
           "Flight created successfully UwU, Please click show all flights to see your new flight!"
         );
-        window.location.reload(false);
+
+        handleAllFlights()
       })
       .catch(() => {
         alert("error");
@@ -206,7 +216,10 @@ function App() {
     const data = axios
       .post("http://localhost:8000/Flights/Search", obj)
       .then((res) => {
-        setBody(JSON.stringify(res.data));
+        const x = res.data;
+        setBody(x);
+        setRows(x.map(obj=> ({ ...obj, id:obj._id})));
+        //alert("search? fy datagrid");
       })
       .catch(() => {
         alert("error");
@@ -344,16 +357,7 @@ function App() {
           <li>
             <button
               onClick={() =>
-                handleUpdateFlights(
-                  id,
-                  flightNumberC,
-                  cabinC,
-                  seatsAvailableC,
-                  arrivalDateC,
-                  departureDateC,
-                  departureAirportC,
-                  arrivalAirportC
-                )
+                handleUpdateFlights(                )
               }
             >
               Edit a Flight
