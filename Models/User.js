@@ -21,7 +21,7 @@ const userSchema = new Schema(
       //required: true,
     },
     TelephoneNumbers: {
-      type: Object,
+      type: Array,
       //required: true
     },
     Email: {
@@ -32,14 +32,19 @@ const userSchema = new Schema(
       type: String,
       //required: true
     },
-    Username: {
-      type: String,
-      required: true,
-    },
     Password: {
       type: String,
       required: true,
     },
+    UserType: {
+      type: String ,
+      required: true,
+    },
+    ReservedTickets: {
+      type:  Array ,
+      required: true,
+    },
+    
   },
   { timestamps: true }
 );

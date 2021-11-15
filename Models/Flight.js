@@ -5,15 +5,7 @@ mongoose.Promise = global.Promise;
 const flightSchema = new Schema(
   {
     FlightNumber: {
-      type: String,
-      required: true,
-    },
-    Cabin: {
-      type: String,
-      required: true,
-    },
-    SeatsAvailable: {
-      type: Number,
+      type: Integer,
       required: true,
     },
     ArrivalDate: {
@@ -40,6 +32,50 @@ const flightSchema = new Schema(
       type: String,
       required: true,
     },
+
+
+
+    DepartureCity: {
+      type: String,
+      required: true,
+    },
+    ArrivalCity: {
+      type: String,
+      required: true,
+    },
+    BaggageAllowance: {
+      type: Integer ,
+      required: true,
+    },
+    FirstClassSeats: {
+      type: Integer ,
+      required: true,
+    },
+    FirstClassSeatsAvailable: {
+      type: Array ,
+      required: true,
+    },
+    BusinessClassSeats: {
+      type: Integer ,
+      required: true,
+    },
+    BusinessClassSeatsAvailable: {
+      type: Array ,
+      required: true,
+    },
+    EconomyClassSeats: {
+      type: Integer ,
+      required: true,
+    },
+    BusinessClassSeatsAvailable: {
+      type: Array ,
+      required: true,
+    },
+    EconomyPrice: {
+      type: Double ,
+      required: true,
+    },
+    
   },
   { timestamps: true }
 );

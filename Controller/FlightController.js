@@ -90,25 +90,44 @@ router.route("/Search2").get((req, res) => {
 
 router.route("/CreateFlight").post((req, res) => {
   const FlightNumber = req.body.FlightNumber;
-  const Cabin = req.body.Cabin;
-  const SeatsAvailable = req.body.SeatsAvailable;
   const ArrivalDate = req.body.ArrivalDate;
   const DepartureDate = req.body.DepartureDate;
   const DepartureAirport = req.body.DepartureAirport;
   const ArrivalAirport = req.body.ArrivalAirport;
   const DepartureTime = req.body.DepartureTime;
   const ArrivalTime = req.body.ArrivalTime;
+  const DepartureCity = req.body.DepartureCity;
+  const ArrivalCity = req.body.ArrivalCity;
+  const BaggageAllowance = req.body.BaggageAllowance;
+  const FirstClassSeats = req.body.FirstClassSeats;
+  const FirstClassSeatsAvailable = req.body.FirstClassSeatsAvailable;
+  const BusinessClassSeats = req.body.BusinessClassSeats;
+  const BusinessClassSeatsAvailable = req.body.BusinessClassSeatsAvailable;
+  const EconomyClassSeats = req.body.EconomyClassSeats;
+  const EconomyClassSeatsAvailable = req.body.EconomyClassSeatsAvailable;
+  const EconomyPrice = req.body.EconomyPrice;
+  
+
+
 
   const newFlight = new Flight({
     FlightNumber,
-    Cabin,
-    SeatsAvailable,
     ArrivalDate,
     DepartureDate,
     DepartureAirport,
     ArrivalAirport,
     DepartureTime,
     ArrivalTime,
+    DepartureCity,
+    ArrivalCity,
+    BaggageAllowance ,
+    FirstClassSeats,
+    FirstClassSeatsAvailable,
+    BusinessClassSeats ,
+    BusinessClassSeatsAvailable ,
+    EconomyClassSeats,
+    EconomyClassSeatsAvailable,
+    EconomyPrice ,
   });
 
   newFlight
