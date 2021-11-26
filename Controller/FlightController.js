@@ -5,6 +5,7 @@ let Flight = require("../Models/Flight");
 const csv = require("csv-parser");
 const fs = require("fs");
 
+
 //first run to import csv file into db
 // fs.createReadStream("Flights.csv")
 //   .pipe(csv())
@@ -12,25 +13,45 @@ const fs = require("fs");
 //     // date = row.FlightDate.split("-").reverse().join("-");
 //     // console.log(date);
 //     const FlightNumber = row.ID;
-//     const Cabin = row.Cabin;
-//     const SeatsAvailable = row.Seats;
 //     const ArrivalDate = row.FlightDate;
 //     const DepartureDate = row.FlightDate;
 //     const DepartureAirport = row.From;
 //     const ArrivalAirport = row.To;
 //     const DepartureTime = row.DepartureTime;
 //     const ArrivalTime = row.ArrivalTime;
+//     const DepartureCity = DepartureAirport + " City";
+//     const ArrivalCity = ArrivalAirport + " City";
+//     const BaggageAllowance = row.Baggage;
+//     const FirstClassSeats = row.FirstClassSeats;
+//     const FirstClassSeatsAvailable=[]; 
+//     for (let i=0; i<FirstClassSeats; i++) FirstClassSeatsAvailable.push(0); 
+//     const BusinessClassSeats = row.BusinessClassSeats;
+//     const BusinessClassSeatsAvailable=[]; 
+//     for (let i=0; i<BusinessClassSeats; i++) BusinessClassSeatsAvailable.push(0);  
+//     const EconomyClassSeats = row.EconomyClassSeats;
+//     const EconomyClassSeatsAvailable = []; 
+//     for (let i=0; i<EconomyClassSeats; i++) EconomyClassSeatsAvailable.push(0);  
+
+//     const EconomyPrice = row.Price;
 
 //     const newFlight = new Flight({
 //       FlightNumber,
-//       Cabin,
-//       SeatsAvailable,
 //       ArrivalDate,
 //       DepartureDate,
 //       DepartureAirport,
 //       ArrivalAirport,
 //       DepartureTime,
 //       ArrivalTime,
+//       DepartureCity,
+//       ArrivalCity,
+//       BaggageAllowance,
+//       FirstClassSeats,
+//       FirstClassSeatsAvailable,
+//       BusinessClassSeats,
+//       BusinessClassSeatsAvailable,
+//       EconomyClassSeats,
+//       EconomyClassSeatsAvailable,
+//       EconomyPrice
 //     });
 
 //     newFlight.save();
@@ -38,6 +59,8 @@ const fs = require("fs");
 //   .on("end", () => {
 //     console.log("CSV file successfully processed");
 //   });
+
+
 
 //beginning of flight methods
 
@@ -138,7 +161,7 @@ router.route("/CreateFlight").post((req, res) => {
 
 //../flights/deleteFlight
 router.route("/DeleteFlight").post((req, res) => {
-  Flight.findByIdAndDelete(req.body.id, function (err) {
+  Flight.findByIdAndDelete(req.body._id, function (err) {
     if (err) console.log(err);
     console.log("Flight deleted successfully");
   });

@@ -22,19 +22,19 @@ const ticketSchema = new Schema(
         },
 
       AwayPrice: {
-        type: Double,
+        type: Number,
         required: true,
       },
       ReturnPrice: {
-          type: Double,
+          type: Number,
           required: true,
         },
       AwaySeat: {
-        type: Integer,
+        type: Number,
         required: false,
       },
       ReturnSeat: {
-          type: Integer,
+          type: Number,
           required: false,
         },
       Type :{
