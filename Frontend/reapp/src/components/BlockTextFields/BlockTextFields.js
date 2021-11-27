@@ -5,6 +5,7 @@ import BasicDatePicker from "../BasicDatePicker/BasicDatePicker";
 import BasicTimePicker from "../BasicTimePicker/BasicTimePicker";
 import { CgSearch } from "react-icons/cg";
 import { CgAdd } from "react-icons/cg";
+import { FiX } from "react-icons/fi";
 function BlockTextFields(props) {
   if (props.type == 0) {
     return <div></div>;
@@ -122,6 +123,15 @@ function BlockTextFields(props) {
           </div>
         </div>
         <div className="block-button">
+          <Button
+            variant="contained"
+            color="error"
+            endIcon={<FiX />}
+            onClick={props.blockRemover}
+          >
+            Cancel
+          </Button>
+          <div className="spacer"></div>
           <Button variant="contained" endIcon={<CgSearch />}>
             Search
           </Button>
@@ -242,6 +252,15 @@ function BlockTextFields(props) {
           </div>
         </div>
         <div className="block-button">
+          <Button
+            variant="contained"
+            color="error"
+            endIcon={<FiX />}
+            onClick={props.blockRemover}
+          >
+            Cancel
+          </Button>
+          <div className="spacer"></div>
           <Button variant="contained" endIcon={<CgAdd />}>
             Create
           </Button>

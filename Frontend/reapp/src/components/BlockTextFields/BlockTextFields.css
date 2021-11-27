@@ -1,14 +1,17 @@
 .block {
   position: fixed;
-  top: 30%;
+  top: 31%;
   left: 15%;
   width: 70%;
   background: #e6e6fa;
-  height: 51%;
+  height: 52%;
   box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
 }
 .block-button {
-  padding-left: 88.5%;
+  padding-left: 2.5%;
+  padding-top: 0.5%;
+  padding-right: 2.5%;
+  display: flex;
 }
 .container {
   display: flex;
