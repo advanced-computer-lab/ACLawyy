@@ -2,9 +2,12 @@ import NavBar from "./components/NavBar/NavBar";
 import BlockTextFields from "./components/BlockTextFields/BlockTextFields";
 import Button from "@mui/material/Button";
 import React, { useState } from "react";
+import axios from "axios";
 import "./AppTest.css";
 function AppTest() {
   const [block, setBlock] = useState(0);
+  const [body, setBody] = useState([]);
+ 
   const handleRemoveBlock = () => {
     setBlock(0);
   };
@@ -14,6 +17,15 @@ function AppTest() {
   const handleCreateBlock = () => {
     setBlock(2);
   };
+
+  const handleSearch=(e)=>{
+
+  setBody(JSON.stringify(e));
+
+  }
+  
+
+ 
 
   return (
     <div>
@@ -30,8 +42,11 @@ function AppTest() {
         </Button>
       </div>
       <div>
-        <BlockTextFields type={block} blockRemover={handleRemoveBlock} />
+        <BlockTextFields type={block} blockRemover={handleRemoveBlock} searchHandler={handleSearch} />
       </div>
+      <p>
+        {body}
+      </p>
     </div>
   );
 }

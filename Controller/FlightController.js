@@ -100,11 +100,15 @@ router.route("/CreateFlight").post((req, res) => {
   const ArrivalCity = req.body.ArrivalCity;
   const BaggageAllowance = req.body.BaggageAllowance;
   const FirstClassSeats = req.body.FirstClassSeats;
-  const FirstClassSeatsAvailable = req.body.FirstClassSeatsAvailable;
+  const FirstClassSeatsAvailable=[]; 
+  for (let i=0; i<FirstClassSeats; i++) FirstClassSeatsAvailable.push(0); 
   const BusinessClassSeats = req.body.BusinessClassSeats;
-  const BusinessClassSeatsAvailable = req.body.BusinessClassSeatsAvailable;
+  const BusinessClassSeatsAvailable = []; 
+  for (let i=0; i<BusinessClassSeats; i++) BusinessClassSeatsAvailable.push(0);  
   const EconomyClassSeats = req.body.EconomyClassSeats;
-  const EconomyClassSeatsAvailable = req.body.EconomyClassSeatsAvailable;
+  const EconomyClassSeatsAvailable = []; 
+  for (let i=0; i<EconomyClassSeats; i++) EconomyClassSeatsAvailable.push(0);  
+  
   const EconomyPrice = req.body.EconomyPrice;
   
 
@@ -133,7 +137,7 @@ router.route("/CreateFlight").post((req, res) => {
   newFlight
     .save()
     .then(() => res.json("Flight added!"))
-    .catch((err) => res.status(400).json("Error: " + err));
+    .catch((err) => console.log(err));
 });
 
 //../flights/deleteFlight
