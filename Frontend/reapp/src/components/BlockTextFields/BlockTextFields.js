@@ -37,10 +37,10 @@ function BlockTextFields(props) {
       obj = { ...obj, ["FlightNumber"]: flightNumberC };
     }
     if (arrivalDateC.length !== 0) {
-      obj = { ...obj, ["ArrivalDate"]: arrivalDateC };
+      obj = { ...obj, ["ArrivalDate"]: (JSON.stringify(arrivalDateC)).slice(0,11) };
     }
     if (departureDateC.length !== 0) {
-      obj = { ...obj, ["DepartureDate"]: departureDateC };
+      obj = { ...obj, ["DepartureDate"]: (JSON.stringify(departureDateC)).slice(0,11) };
     }
     if (departureAirportC.length !== 0) {
       obj = { ...obj, ["DepartureAirport"]: departureAirportC };
@@ -49,10 +49,10 @@ function BlockTextFields(props) {
       obj = { ...obj, ["ArrivalAirport"]: arrivalAirportC };
     }
     if (departureTimeC.length !== 0) {
-      obj = { ...obj, ["DepartureTime"]: departureTimeC };
+      obj = { ...obj, ["DepartureTime"]: (JSON.stringify(departureTimeC)).slice(12,17) };
     }
     if (arrivalTimeC.length !== 0) {
-      obj = { ...obj, ["ArrivalTime"]: arrivalTimeC };
+      obj = { ...obj, ["ArrivalTime"]: (JSON.stringify(arrivalTimeC)).slice(12,17)};
     }
     if (departureCityC.length !== 0) {
       obj = { ...obj, ["DepartureCity"]: departureCityC };
@@ -97,12 +97,12 @@ function BlockTextFields(props) {
     const data = axios
       .post("http://localhost:8000/Flights/CreateFlight", {
     FlightNumber :flightNumberC,
-    ArrivalDate: arrivalDateC,
-    DepartureDate: departureDateC,
+    ArrivalDate:(JSON.stringify(arrivalDateC)).slice(0,11),
+    DepartureDate:(JSON.stringify(departureDateC)).slice(0,11),
     DepartureAirport: departureAirportC,
     ArrivalAirport: arrivalAirportC,
-    DepartureTime: departureTimeC,
-    ArrivalTime: arrivalTimeC,
+    DepartureTime: (JSON.stringify(departureTimeC)).slice(12,17),
+    ArrivalTime: (JSON.stringify(arrivalTimeC)).slice(12,17),
     DepartureCity: departureCityC,
     ArrivalCity: arrivalCityC,
     BaggageAllowance: baggageAllowanceC,
