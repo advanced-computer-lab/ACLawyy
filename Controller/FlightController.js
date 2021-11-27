@@ -110,6 +110,52 @@ router.route("/Search2").get((req, res) => {
 });
 
 // --/flights/createflight -> this creates a new flight object and adds it to Flight collection
+//     const FlightNumber = row.ID;
+//     const ArrivalDate = row.FlightDate;
+//     const DepartureDate = row.FlightDate;
+//     const DepartureAirport = row.From;
+//     const ArrivalAirport = row.To;
+//     const DepartureTime = row.DepartureTime;
+//     const ArrivalTime = row.ArrivalTime;
+//     const DepartureCity = DepartureAirport + " City";
+//     const ArrivalCity = ArrivalAirport + " City";
+//     const BaggageAllowance = row.Baggage;
+//     const FirstClassSeats = row.FirstClassSeats;
+//     const FirstClassSeatsAvailable=[]; 
+//     for (let i=0; i<FirstClassSeats; i++) FirstClassSeatsAvailable.push(0); 
+//     const BusinessClassSeats = row.BusinessClassSeats;
+//     const BusinessClassSeatsAvailable=[]; 
+//     for (let i=0; i<BusinessClassSeats; i++) BusinessClassSeatsAvailable.push(0);  
+//     const EconomyClassSeats = row.EconomyClassSeats;
+//     const EconomyClassSeatsAvailable = []; 
+//     for (let i=0; i<EconomyClassSeats; i++) EconomyClassSeatsAvailable.push(0);  
+
+//     const EconomyPrice = row.Price;
+
+//     const newFlight = new Flight({
+//       FlightNumber,
+//       ArrivalDate,
+//       DepartureDate,
+//       DepartureAirport,
+//       ArrivalAirport,
+//       DepartureTime,
+//       ArrivalTime,
+//       DepartureCity,
+//       ArrivalCity,
+//       BaggageAllowance,
+//       FirstClassSeats,
+//       FirstClassSeatsAvailable,
+//       BusinessClassSeats,
+//       BusinessClassSeatsAvailable,
+//       EconomyClassSeats,
+//       EconomyClassSeatsAvailable,
+//       EconomyPrice
+//     });
+
+//     newFlight.save();
+//   })
+
+
 
 router.route("/CreateFlight").post((req, res) => {
   const FlightNumber = req.body.FlightNumber;
@@ -123,11 +169,14 @@ router.route("/CreateFlight").post((req, res) => {
   const ArrivalCity = req.body.ArrivalCity;
   const BaggageAllowance = req.body.BaggageAllowance;
   const FirstClassSeats = req.body.FirstClassSeats;
-  const FirstClassSeatsAvailable = req.body.FirstClassSeatsAvailable;
+  const FirstClassSeatsAvailable=[]; 
+  for (let i=0; i<FirstClassSeats; i++) FirstClassSeatsAvailable.push(0); 
   const BusinessClassSeats = req.body.BusinessClassSeats;
-  const BusinessClassSeatsAvailable = req.body.BusinessClassSeatsAvailable;
+  for (let i=0; i<BusinessClassSeats; i++) BusinessClassSeatsAvailable.push(0);  
   const EconomyClassSeats = req.body.EconomyClassSeats;
-  const EconomyClassSeatsAvailable = req.body.EconomyClassSeatsAvailable;
+  const EconomyClassSeatsAvailable = []; 
+  for (let i=0; i<EconomyClassSeats; i++) EconomyClassSeatsAvailable.push(0);  
+  
   const EconomyPrice = req.body.EconomyPrice;
   
 
