@@ -1,0 +1,32 @@
+.block {
+  position: fixed;
+  top: 30%;
+  left: 15%;
+  width: 70%;
+  background: #e6e6fa;
+  height: 51%;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+}
+.block-button {
+  padding-left: 88.5%;
+}
+.container {
+  display: flex;
+  padding: 0% 7%;
+  padding-top: 1%;
+}
+.field {
+  padding: 0.5% 0.5%;
+}
+.align {
+  padding: 0.5% 5%;
+  display: flex;
+  flex-direction: row;
+}
+.flightInfo {
+  padding: 0.5% 5%;
+  font-size: large;
+}
+.depInfo {
+  font-size: large;
+}
