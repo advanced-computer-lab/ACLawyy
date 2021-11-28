@@ -1,0 +1,7 @@
+.buttondiv {
+  margin: 20% 30%;
+  display: flex;
+}
+.spacer {
+  flex: 1;
+}
