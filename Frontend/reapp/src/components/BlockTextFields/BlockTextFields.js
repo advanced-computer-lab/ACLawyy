@@ -27,6 +27,7 @@ function BlockTextFields(props) {
   const [economyPriceC, setEconomyPrice] = useState("");
 
   function handleSearchFlights() {
+    props.blockRemover();
     var obj = {};
 
     if (flightNumberC.length !== 0) {
@@ -98,6 +99,7 @@ function BlockTextFields(props) {
   }
 
   function handleCreateFlight() {
+    props.blockRemover();
     axios
       .post("http://localhost:8000/Flights/CreateFlight", {
         FlightNumber: flightNumberC,
@@ -431,7 +433,7 @@ function BlockTextFields(props) {
           <Button
             variant="contained"
             endIcon={<CgAdd />}
-            onClick={(() => handleCreateFlight, props.blockRemover)}
+            onClick={handleCreateFlight}
           >
             Create
           </Button>
