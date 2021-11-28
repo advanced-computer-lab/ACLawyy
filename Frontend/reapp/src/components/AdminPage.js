@@ -14,6 +14,7 @@ import {
 
 function AdminPage(props) {
     const [rows, setRows] = useState([]);
+    const [results, setResults] = useState([]);
     const columns = ["Flight Number","Departure Airport","Departure Date","Arrival Airport", "Arrival Date","Total Seats"];
     const [block, setBlock] = useState(0);
 
@@ -30,20 +31,23 @@ function AdminPage(props) {
 
       const handleSearch=(e)=>{
 
-        setRows(e.map(obj=> ({ ...obj, id:obj._id})));
+        setResults(e.map(obj=> ({ ...obj, id:obj._id})));
+        table = <AdminTable rows={results} columns = {columns} refresh = {handleAllFlights}/>;
      // console.log(JSON.stringify(e))
         }
         
 
-    let table = <AdminTable rows={rows} columns = {columns} refresh = {handleAllFlights}/>
+    let   table = results.length ===0 ?(<AdminTable rows={rows} columns = {columns} refresh = {handleAllFlights}/>):
+    (<AdminTable rows={results} columns = {columns} refresh = {handleAllFlights}/>)
 
     useEffect(() => {
-       table = <AdminTable rows={rows} columns = {columns} refresh = {handleAllFlights}/>;
+       table = results.length ===0 ?(<AdminTable rows={rows} columns = {columns} refresh = {handleAllFlights}/>):
+       (<AdminTable rows={results} columns = {columns} refresh = {handleAllFlights}/>)
          //console.log(JSON.stringify(rows));
-      },[rows]);
+      },[results]);
 
 
-    const fullTable = <div> 
+    let fullTable = <div> 
         <div>
 
       <div className="buttondiv">

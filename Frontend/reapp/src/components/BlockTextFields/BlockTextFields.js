@@ -10,8 +10,7 @@ import React, { useState } from "react";
 import axios from "axios";
 
 function BlockTextFields(props) {
-  
-  const [id, setID] = useState("");
+
   const [flightNumberC, setFlightNumber] = useState("");
   const [arrivalDateC, setArrivalDate] = useState("");
   const [departureDateC, setDepartureDate] = useState("");
@@ -77,7 +76,7 @@ function BlockTextFields(props) {
 
     }
 
-    const data = axios
+     axios
       .post("http://localhost:8000/Flights/Search", obj)
       .then((res) => {
         const x = res.data;
@@ -94,7 +93,7 @@ function BlockTextFields(props) {
    
    
   ) {
-    const data = axios
+     axios
       .post("http://localhost:8000/Flights/CreateFlight", {
     FlightNumber :flightNumberC,
     ArrivalDate:(JSON.stringify(arrivalDateC)).slice(0,11),
@@ -128,9 +127,9 @@ function BlockTextFields(props) {
 
 
 
-  if (props.type == 0) {
+  if (props.type === 0) {
     return <div></div>;
-  } else if (props.type == 1) {
+  } else if (props.type === 1) {
     //search
     return (
       <div className="block">

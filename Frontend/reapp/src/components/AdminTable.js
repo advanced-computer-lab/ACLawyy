@@ -25,21 +25,21 @@ import EditIcon from '@mui/icons-material/Edit';
 
 
 function AdminTable(props){
-  const [selected, setSelected] = React.useState([]);
-  const [editable,setEditable] = React.useState(-1);
-  const [depAir,setDepAir] = React.useState();
-  const [depCity,setDepCity] = React.useState();
-  const [depDate,setDepDate] = React.useState();
-  const [depTime,setDepTime] = React.useState();
-  const [arrAir,setArrAir] = React.useState();
-  const [arrCity,setArrCity] = React.useState();
-  const [arrDate,setArrDate] = React.useState();
-  const [arrTime,setArrTime] = React.useState();
-  const [bag,setBag] = React.useState();
-  const [firstSeats,setFirstSeats] = React.useState();
-  const [busSeats,setBusSeats] = React.useState();
-  const [econSeats,setEconSeats] = React.useState();
-  const [price,setPrice] = React.useState();
+  const [selected, setSelected] = useState([]);
+  const [editable,setEditable] = useState(-1);
+  const [depAir,setDepAir] = useState();
+  const [depCity,setDepCity] = useState();
+  const [depDate,setDepDate] = useState();
+  const [depTime,setDepTime] = useState();
+  const [arrAir,setArrAir] = useState();
+  const [arrCity,setArrCity] = useState();
+  const [arrDate,setArrDate] = useState();
+  const [arrTime,setArrTime] = useState();
+  const [bag,setBag] = useState();
+  const [firstSeats,setFirstSeats] = useState();
+  const [busSeats,setBusSeats] = useState();
+  const [econSeats,setEconSeats] =useState();
+  const [price,setPrice] = useState();
   const onChanges = [setDepAir,setDepCity,setDepDate,setDepTime,setArrAir,setArrCity,setArrDate,setArrTime,setBag,setFirstSeats,setBusSeats,setEconSeats,setPrice];
 
  
