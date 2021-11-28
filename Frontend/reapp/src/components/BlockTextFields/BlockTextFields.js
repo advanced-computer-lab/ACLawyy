@@ -26,8 +26,23 @@ function BlockTextFields(props) {
   const [economyClassSeatsC, setEconomyClassSeats] = useState("");
   const [economyPriceC, setEconomyPrice] = useState("");
 
+  function handleAllFlights() {
+    axios
+      .get("http://localhost:8000/Flights/")
+      .then((res) => {
+        const x = res.data;
+        props.searchHandler(x);
+        //alert("search? fy datagrid");
+      })
+      .catch((e) => {
+        alert("error");
+        console.log(e);
+      });
+  }
+
   function handleSearchFlights() {
     props.blockRemover();
+    handleAllFlights();
     var obj = {};
 
     if (flightNumberC.length !== 0) {
