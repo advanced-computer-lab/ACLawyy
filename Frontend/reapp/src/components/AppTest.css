@@ -1,9 +1,7 @@
 .buttondiv {
-    position: relative;
-    margin: 12% 30%;
-    display: flex;
-  }
-  .spacer{
-  
-    flex:1;
-  }
+  margin: 20% 30%;
+  display: flex;
+}
+.spacer {
+  flex: 1;
+}
