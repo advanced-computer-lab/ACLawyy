@@ -42,28 +42,28 @@ router.route("/ChooseSeat").post((req, res) => {
 
 router.route("/findMyTickets").post((req, res) => {
   const UserID = mongoose.Types.ObjectId(req.body.UserID);
-  Ticket.find(UserID)
-    .then((tickets) => res.json(tickets))
-    .catch((err) => res.status(400).json("Error: " + err));
+  const sort = { created_at: -1 }
+  Ticket.find({UserID}).sort('-createdAt').exec((err, docs) => res.json(docs));
+   
 });
 
 router.route("/getUserDetails").post((req, res) => {
   const UserID = mongoose.Types.ObjectId(req.body.UserID);
-  Ticket.find(UserID)
+  User.find({UserID})
     .then((flight) => res.json(flight))
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
 router.route("/getAwayDetails").post((req, res) => {
-  const AwayFlight = mongoose.Types.ObjectId(req.body.AwayFlight);
-  Flight.find(AwayFlight)
+  //const AwayFlight = mongoose.Types.ObjectId(req.body.AwayFlight);
+  Flight.findById(req.body.AwayFlight)
     .then((flight) => res.json(flight))
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
 router.route("/getReturnDetails").post((req, res) => {
-  const AwayFlight = mongoose.Types.ObjectId(req.body.ReturnFlight);
-  Flight.find(ReturnFlight)
+  //const AwayFlight = mongoose.Types.ObjectId(req.body.ReturnFlight);
+  Flight.findById(req.body.ReturnFlight)
     .then((flight) => res.json(flight))
     .catch((err) => res.status(400).json("Error: " + err));
 });
