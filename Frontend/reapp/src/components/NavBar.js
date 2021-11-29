@@ -12,7 +12,7 @@ function NavBar(props) {
             <img src={logo} alt="Logo" />
           </div>
           <div className="navbar-slogan">
-            <a href="/">Flying made easy ;)</a>
+            <a href="/">Love At First Flight  ; )</a>
           </div>
           <div className="spacer"></div>
           <div className="navbar-nav-items">
@@ -41,7 +41,7 @@ function NavBar(props) {
             <img src={logo} alt="Logo" />
           </div>
           <div className="navbar-slogan">
-            <a href="/">Flying made easy ;)</a>
+            <a href="/">Love At First Flight  ; )</a>
           </div>
           <div className="spacer"></div>
           <div className="navbar-nav-items">
@@ -72,7 +72,7 @@ function NavBar(props) {
             <img src={logo} alt="Logo" />
           </div>
           <div className="navbar-slogan">
-            <a href="/">Flying made easy ;)</a>
+            <a href="/">Love At First Flight  ; )</a>
           </div>
           <div className="spacer"></div>
           <div className="navbar-nav-items">
