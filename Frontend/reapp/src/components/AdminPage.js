@@ -40,12 +40,6 @@ function AdminPage(props) {
     let   table = results.length ===0 ?(<AdminTable rows={rows} columns = {columns} refresh = {handleAllFlights}/>):
     (<AdminTable rows={results} columns = {columns} refresh = {handleAllFlights}/>)
 
-    useEffect(() => {
-       table = results.length ===0 ?(<AdminTable rows={rows} columns = {columns} refresh = {handleAllFlights}/>):
-       (<AdminTable rows={results} columns = {columns} refresh = {handleAllFlights}/>)
-         //console.log(JSON.stringify(rows));
-      },[results]);
-
 
     let fullTable = <div> 
         <div>

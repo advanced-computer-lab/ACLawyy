@@ -1,0 +1,65 @@
+.item1 {
+
+    float : left;
+    position : absolute;
+    top : 30px;
+    left : 10px;
+  }
+  .item2 {
+
+    float : right;
+    position : absolute;
+    top : 30px;
+    left : 200px;
+
+  }
+  .container {
+    display: flex;
+  }
+  .depair {
+    display: flex;
+    color: dimgrey;
+    float : middle;
+    position : absolute;
+    top : 15px;
+    left : 1px;
+  }
+  .arrair {
+    display: flex;
+    color: dimgrey;
+    float : right;
+    position : absolute;
+    top : 15px;
+    right : 1px;
+  }
+  .dur {
+    display: flex;
+    color: rgb(0, 0, 0);
+    float : middle;
+    position : absolute;
+    top : 25px;
+    left : 110px;
+  }
+  .deptime {
+    display: flex;
+    color: rgb(0, 0, 0);
+    float : left;
+    position: relative;
+    right : 5px;
+  }
+  .arrtime {
+    display: flex;
+    color: rgb(0, 0, 0);
+    float : right;
+    position: relative;
+    left : 5px;
+
+  }
+  .arricon {
+    display: flex;
+    color: dimgrey;
+    float : left;
+    position: relative;
+    font-size : 100px;
+
+  }

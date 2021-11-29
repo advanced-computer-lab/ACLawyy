@@ -195,7 +195,7 @@ function AdminTable(props){
             return(
   
 
-            <Row key={row.FlightNumber}
+            <Row key={row._id}
              row={row} isSelected = {isSelected} 
              handleChange = { handleClick} 
              isSelectedForUpdate = {isSelectedForUpdate} 
