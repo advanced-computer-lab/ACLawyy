@@ -10,7 +10,7 @@
     float : right;
     position : absolute;
     top : 30px;
-    left : 200px;
+    right : 10px;
 
   }
   .container {
@@ -21,7 +21,7 @@
     color: dimgrey;
     float : middle;
     position : absolute;
-    top : 15px;
+    top : 17px;
     left : 1px;
   }
   .arrair {
@@ -29,7 +29,7 @@
     color: dimgrey;
     float : right;
     position : absolute;
-    top : 15px;
+    top : 17px;
     right : 1px;
   }
   .dur {
@@ -58,8 +58,41 @@
   .arricon {
     display: flex;
     color: dimgrey;
-    float : left;
-    position: relative;
-    font-size : 100px;
 
+    font-size : 30;
+    position: relative;
+
+  }
+  .expand {
+    display: flex;
+    position: relative;
+    left : 130px
+  }
+
+  .attribute {
+    display: flex;
+    flex-direction: row;
+    height : 25px;
+    margin-left: 7.5px;
+  }
+  .attribute h4{
+    
+    position: relative;
+    bottom : 20px;
+  }
+  .details{
+    display: flex;
+    flex-direction: column;
+    gap: 0px 0px;
+    
+
+  }
+
+
+
+  .icon {
+
+
+    color : dimgrey;
+    height: 1px;
   }

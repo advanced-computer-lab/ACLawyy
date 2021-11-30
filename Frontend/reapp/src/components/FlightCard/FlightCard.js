@@ -13,27 +13,48 @@ import { CardActionArea } from '@mui/material';
 import FlightTakeoffIcon from '@mui/icons-material/FlightTakeoff';
 import FlightLandIcon from '@mui/icons-material/FlightLand';
 import IconButton from '@material-ui/core/IconButton';
-const flight =    {
-  "_id": "61a0aaa76f8ca666a0b5a33f",
-  "FlightNumber": 1,
-  "ArrivalDate": "2021-11-26",
-  "DepartureDate": "2000-04-29",
-  "DepartureAirport": "CAI",
-  "ArrivalAirport": "NYC",
-  "DepartureTime": "22:00",
-  "ArrivalTime": "23:00",
-  "DepartureCity": "Cairo",
-  "ArrivalCity": "New York",
-  "BaggageAllowance": 70,
-  "FirstClassSeats": 12,
-  "BusinessClassSeats": 23,
-  "EconomyClassSeats": 34,  
-  "EconomyPrice": 420000,
-  "createdAt": "2021-11-26T09:36:39.341Z",
-  "updatedAt": "2021-11-27T11:31:01.328Z",
-  "__v": 0,
-  "id": "61a0aaa76f8ca666a0b5a33f"
-}
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { styled } from '@mui/material/styles';
+import Collapse from '@mui/material/Collapse';
+import LuggageIcon from '@mui/icons-material/Luggage';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import AirlineSeatReclineNormalIcon from '@mui/icons-material/AirlineSeatReclineNormal';
+
+
+const ExpandMore = styled((props) => {
+  const { expand, ...other } = props;
+  return <IconButton {...other} />;
+})(({ theme, expand }) => ({
+  transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
+  marginLeft: 'auto',
+  transition: theme.transitions.create('transform', {
+    duration: theme.transitions.duration.shortest,
+  }),
+}));
+
+
+
+// const flight =    {
+//   "_id": "61a0aaa76f8ca666a0b5a33f",
+//   "FlightNumber": 1,
+//   "ArrivalDate": "2021-11-26",
+//   "DepartureDate": "2000-04-29",
+//   "DepartureAirport": "CAI",
+//   "ArrivalAirport": "NYC",
+//   "DepartureTime": "22:00",
+//   "ArrivalTime": "23:00",
+//   "DepartureCity": "Cairo",
+//   "ArrivalCity": "New York",
+//   "BaggageAllowance": 70,
+//   "FirstClassSeats": 12,
+//   "BusinessClassSeats": 23,
+//   "EconomyClassSeats": 34,  
+//   "EconomyPrice": 1000,
+//   "createdAt": "2021-11-26T09:36:39.341Z",
+//   "updatedAt": "2021-11-27T11:31:01.328Z",
+//   "__v": 0,
+//   "id": "61a0aaa76f8ca666a0b5a33f"
+// }
 const useStyles = makeStyles((theme) => ({
   arrIcon: {
     '& svg': {
@@ -41,52 +62,111 @@ const useStyles = makeStyles((theme) => ({
       marginTop : 1,
     }
   },
-  deleteIcon2: {
+  expIcon: {
     '& svg': {
-      fontSize: 50
+      fontSize: 20,
+      color: 'dimgrey',
     }
   },
 
 }));
 function FlightCard(props){
-  // const flight = props.flight;
-
+   const flight = props.flight;
+  const ref1 = useRef(null);
+  const ref2 = useRef(null);
   const classes = useStyles();
+  const cabin = props.cabin;
+  let multiplier = 1;
+  let color = "lightgreen";
+  let seats = flight.EconomyClassSeats;
+  if (cabin == "first"){
+    color = '#D099E2';
+    multiplier = 2;
+    seats = flight.FirstClassSeats;
+  }
+  if (cabin == "business"){
+    color = "lightblue";
+    multiplier = 1.5;
+    seats = flight.BusinessClassSeats;
+  }
+
+  const mystyle = {background : color}
+
+  const [expanded, setExpanded] = React.useState(false);
+
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
+  let bgCol = 'white';
+  if (props.isSelected(flight._id))
+    bgCol = '#ECECEC';
+
+
 
   return(
-    <Card variant="outlined" sx={{ maxWidth: 300 , maxHeight: 100, minHeight: 100 ,boxShadow: 3}}>
-      <CardActionArea>
+    <Card variant="outlined" sx={{ maxWidth: 300 ,minWidth: 300 , boxShadow: 3,borderColor: color,borderWidth: 2,backgroundColor:bgCol,flexGrow :0}}>
+      <CardActionArea onClick = {()=>{
+        if (props.isSelected(flight._id))
+          props.onClick(null,null)
+        else
+          props.onClick(flight,props.cabin)}
+          }>
       <CardContent>
 
       <h3 class = "deptime">{flight.DepartureTime} </h3>
       <h3 class = "arrtime"> {flight.ArrivalTime} </h3>
 
-        <div id = "dep"class = "item1" > <h2> {flight.DepartureCity}  </h2>
+        <div id = "dep" ref = {ref1} class = "item1" > <h2> {flight.DepartureCity}  </h2>
                                         <h4 class = "depair"> {flight.DepartureAirport}  
                                         <div className={classes.arrIcon}> <FlightTakeoffIcon  /></div>
                                         
                                         </h4>
         </div>
         <h4 class = "dur">  5h 20m</h4>
-        <div id = "arr" class = "item2"> <h2>{flight.ArrivalCity} </h2> 
+        <div id = "arr" ref = {ref2} class = "item2"> <h2>{flight.ArrivalCity} </h2> 
         
         <h4 class = "arrair"> <div className={classes.arrIcon}> <FlightLandIcon  /></div>  {flight.ArrivalAirport}</h4>
         
         </div>
 
         <Xarrow
-                color = "#87ceeb"
-                headSize = '6'
-                strokeWidth = '1'
-                start="dep" 
-                end="arr"
+                color = {color}
+                headSize = {6}
+                strokeWidth = {1}
+                start= {ref1}
+                end= {ref2}
                 animateDrawing = {true}
                 
             />
 
 
       </CardContent>
+
+
+
     </CardActionArea>
+
+    <ExpandMore
+          className = "expand"
+          expand={expanded || props.perm}
+          onClick={handleExpandClick}
+          aria-expanded={expanded || props.perm}
+          aria-label="show more"
+        >
+          <ExpandMoreIcon  />
+        </ExpandMore>
+        <Collapse in={expanded || props.perm} timeout="auto" unmountOnExit >
+          <div  className = "details" style={mystyle}>  
+
+            <div className =  "attribute"> <div className = "icon"><LuggageIcon /> </div><h4 class = "arricon">  {flight.BaggageAllowance} Kg </h4></div>
+
+            <div className =  "attribute"> <div className = "icon"><AttachMoneyIcon /> </div><h4 class = "arricon"> {flight.EconomyPrice * multiplier}  </h4></div>
+          
+            <div className =  "attribute"> <div className = "icon"><AirlineSeatReclineNormalIcon /> </div><h4 class = "arricon">  {seats} available seats  </h4></div>
+          
+           </div>
+        </Collapse>
+
   </Card>
   );
   }

@@ -24,40 +24,13 @@ function AdminPage(props) {
       const handleSearchBlock = () => {
         setBlock(1);
       };
-      const handleCreateBlock = () => {
-        setBlock(2);
-      };
       const handleSearch=(e)=>{
 
         setResults(e.map(obj=> ({ ...obj, id:obj._id})));
         table = <AdminTable rows={results} columns = {columns} refresh = {handleAllFlights}/>;
      // console.log(JSON.stringify(e))
         }
-        
 
-    let   table = results.length ===0 ?(<AdminTable rows={rows} columns = {columns} refresh = {handleAllFlights}/>):
-    (<AdminTable rows={results} columns = {columns} refresh = {handleAllFlights}/>)
-
-
-    let fullTable = <div> 
-        <div>
-
-      <div className="buttondiv">
-        <Button variant="contained" onClick={handleSearchBlock} size="large">
-          Search
-        </Button>
-        <div className="spacer"></div>
-        <Button variant="contained" onClick={handleCreateBlock} size="large">
-          Create
-        </Button>
-      </div>
-      <div>
-        <BlockTextFields type={block} blockRemover={handleRemoveBlock} searchHandler={handleSearch} />
-      </div>
-      {table}
-    </div>
-
-        </div>
     function handleAllFlights() {
         axios
         .get("http://localhost:8000/flights")
@@ -71,16 +44,15 @@ function AdminPage(props) {
     }
 
     return (
-        <Router>
-            <div className="App">
-                <Switch>
-                    <Route path="/adminhome" element = { <AdminHome/>}> </Route>
+      <div className="buttondiv">
+        <Button variant="contained" onClick={handleSearchBlock} size="large">
+          Search
+        </Button>
+      <div>
+        <BlockTextFields type={block} blockRemover={handleRemoveBlock} searchHandler={handleSearch} />
+      </div>
+    </div>
 
-                    <Route path='/manageflights' element = { fullTable}></Route>
-                </Switch>
-
-            </div>
-        </Router>
     );
 
 }

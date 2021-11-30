@@ -12,8 +12,10 @@ function App() {
 
 
     return(
-      
+      <div>
       <FlightResults/>
+      <NavBar type="0" goTo = {setCurrPage} />
+      </div>
     );
 
 

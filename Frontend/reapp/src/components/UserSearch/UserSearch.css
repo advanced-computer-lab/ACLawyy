@@ -1,0 +1,35 @@
+.block {
+  position: relative;
+  top: 24%;
+  margin-right: 15%;
+  width: 100%;
+  background: #e6e6fa;
+  height: 55%;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+}
+.block-button {
+  padding-left: 2.5%;
+  padding-top: 0.5%;
+  padding-right: 2.5%;
+  display: flex;
+}
+.container {
+  display: flex;
+  padding: 0% 7%;
+  padding-top: 1%;
+}
+.field {
+  padding: 0.5% 0.5%;
+}
+.align {
+  padding: 0.5% 5%;
+  display: flex;
+  flex-direction: row;
+}
+.flightInfo {
+  padding: 0.5% 5%;
+  font-size: large;
+}
+.depInfo {
+  font-size: large;
+}
