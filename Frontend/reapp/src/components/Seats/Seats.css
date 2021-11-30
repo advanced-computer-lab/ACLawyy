@@ -1,0 +1,33 @@
+.planeimg{
+    color: #bbb;
+    size: 200px;
+}
+
+
+/*
+.seats{
+
+}
+.plane{
+    top: 200px;
+    color: #BBB;
+}
+
+.seats-top{
+    color: purple;
+    display:flex;
+    position:absolute;
+    flex-direction: column;
+}
+.top-top{
+    color: purple;
+    display:flex;
+    position:absolute;
+    flex-direction: row;
+}
+.bottom-top{
+    color: purple;
+    display:flex;
+    position:absolute;
+    flex-direction: row;
+} */

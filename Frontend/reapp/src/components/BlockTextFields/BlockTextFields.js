@@ -28,6 +28,7 @@ function BlockTextFields(props) {
 
   function handleSearchFlights() {
     var obj = {};
+    props.blockRemover();
 
     if (flightNumberC.length !== 0) {
       obj = { ...obj, ["FlightNumber"]: flightNumberC };
@@ -98,6 +99,8 @@ function BlockTextFields(props) {
   }
 
   function handleCreateFlight() {
+    props.blockRemover();
+
     axios
       .post("http://localhost:8000/Flights/CreateFlight", {
         FlightNumber: flightNumberC,
