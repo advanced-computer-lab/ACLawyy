@@ -69,16 +69,22 @@ function Booking(props) {
       {myFlights.map((f, i) => {
         var x = parseInt(i / 2);
         var away = false;
+        var khat = <div z-index="100"></div>;
         if (i % 2 == 0) {
           away = true;
+        } else {
+          khat = <div z-index="100">aaaaaaaaaaaaaaaaaaaaaaaaaa</div>;
         }
         return (
-          <BoardingPass
-            props={f}
-            type={myTickets[x]}
-            isAway={away}
-            user={user}
-          />
+          <div>
+            <BoardingPass
+              props={f}
+              type={myTickets[x]}
+              isAway={away}
+              user={user}
+            />
+            {khat}
+          </div>
         );
       })}
     </div>

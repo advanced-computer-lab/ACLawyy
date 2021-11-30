@@ -6,11 +6,7 @@ import { FaPlane } from "react-icons/fa";
 
 function BoardingPass({ props, type, isAway, user, drawLine }) {
   console.log(props);
-  console.log(type.Seat);
-  var line = <div></div>;
-  if (drawLine) {
-    line = <div>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</div>;
-  }
+
   var cabin = {};
   var mySeat = type.Seat;
   if (type.Seat === undefined) {
@@ -25,7 +21,6 @@ function BoardingPass({ props, type, isAway, user, drawLine }) {
   if (cabin === "Economy") {
     return (
       <div className="ticket">
-        <div>{line}</div>
         <img src={EconomyTicket} alt="Economy Ticket" />
         <div className="big">
           <div className="left">
