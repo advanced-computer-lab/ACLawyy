@@ -42,14 +42,16 @@ router.route("/ChooseSeat").post((req, res) => {
 
 router.route("/findMyTickets").post((req, res) => {
   const UserID = mongoose.Types.ObjectId(req.body.UserID);
-  const sort = { created_at: -1 }
-  Ticket.find({UserID}).sort('-createdAt').exec((err, docs) => res.json(docs));
-   
+  const sort = { created_at: -1 };
+  Ticket.find({ UserID })
+    .sort("-createdAt")
+    .then((docs) => res.json(docs))
+    .catch((err) => res.status(400).json("Error: " + err));
 });
 
 router.route("/getUserDetails").post((req, res) => {
   const UserID = mongoose.Types.ObjectId(req.body.UserID);
-  User.find({UserID})
+  User.find({ UserID })
     .then((flight) => res.json(flight))
     .catch((err) => res.status(400).json("Error: " + err));
 });

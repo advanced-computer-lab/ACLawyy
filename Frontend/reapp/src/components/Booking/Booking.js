@@ -1,37 +1,49 @@
 import "./Booking.css";
 import BoardingPass from "./BoardingPass";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 function Booking(props) {
- const flightHandler=()=>{
-  axios
-  .post("http://localhost:8000/Tickets/findMyTickets", props.UserID)
-  .then((res) => {
-   
-    res.map((ticket)=> {
+  const [myTickets, setMyTickets] = useState([]);
+  const [myFlights, setMyFlights] = useState([]);
 
+  useEffect(() => {
+    axios
+      .post("http://localhost:8000/Tickets/findMyTickets", {
+        UserID: props.UserID,
+      })
+      .then((res) => {
+        console.log(res.data);
+        setMyTickets(res.data);
+        debugger;
+      });
+  }, []);
 
-      return (
-        <BoardingPass
-        departureAirport = {}
-        />
-          
+  useEffect(() => {
+    myTickets.map((ticket) => {
+      axios
+        .post("http://localhost:8000/Tickets/getAwayDetails", {
+          AwayFlight: ticket.AwayFlight,
+        })
+        .then((res) => {
+          console.log(JSON.stringify(res.data));
+          setMyFlights((prevFlights) => prevFlights.concat(res.data));
+        });
 
-      );
-    })
-  })
-  .catch((e) => {
-    alert("error");
-    console.log(e);
-  });
-}
+      axios
+        .post("http://localhost:8000/Tickets/getReturnDetails", {
+          ReturnFlight: ticket.ReturnFlight,
+        })
+        .then((res) => {
+          console.log(JSON.stringify(res.data));
+          setMyFlights((prevFlights) => prevFlights.concat(res.data));
+        });
+    });
+  }, [myTickets]);
+
   return (
     <div className="booking">
-        <div className="booking-top">
-        <BoardingPass type="0"/>
-        </div>
-        <div className="booking-bottom">
-        <BoardingPass type="2"/>
-        </div>
+      <p>{myTickets}</p>
     </div>
   );
 }
