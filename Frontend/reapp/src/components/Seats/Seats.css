@@ -1,33 +1,138 @@
-.planeimg{
-    color: #bbb;
-    size: 200px;
+.img{
+    margin-left:500px;
+    height:500px;
+    width:500px;
+    background-size:cover;
+    transform: scale(3.5,6);
+    z-index: -1;;
 }
-
-
-/*
 .seats{
-
-}
-.plane{
-    top: 200px;
-    color: #BBB;
-}
-
-.seats-top{
-    color: purple;
     display:flex;
-    position:absolute;
+    position:relative;
     flex-direction: column;
+    margin-top: 400px;
+    margin-left: 150px;
+    height: 70%;
+    width: 70%;
 }
-.top-top{
-    color: purple;
-    display:flex;
-    position:absolute;
+
+.seatsTop {
+    display: flex;
+    position: relative;
     flex-direction: row;
+    top:240px;
+    left: 200px;
+    height: 150px;
+    width: 100%;
+  }
+  
+  .seatsBottom {
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    top:-235px;
+    left: 200px;
+    width: 100%;
+  }
+
+.av{
+    background-color: #3f51b5;
 }
-.bottom-top{
-    color: purple;
-    display:flex;
-    position:absolute;
+
+.notAv{
+    
+    filter:blur(2px) grayscale(70%);
+}
+.notAv:hover{
+    cursor: not-allowed;
+}
+
+
+.first {
+    position: relative;
+    display: flex;
     flex-direction: row;
-} */
+    flex-wrap: wrap;
+    column-gap: 10px;
+    row-gap: 10px;
+    width: 170px;
+    height: 100px;
+  }
+  
+  .business {
+      position: relative;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      column-gap: 10px;
+      row-gap: 10px;
+      width: 320px;
+      height: 100px;
+    }
+    
+    .economy {
+      position: relative;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      column-gap: 10px;
+      row-gap: 10px;
+      width: 400px;
+      height: 100px;
+    }
+
+  .first li {
+    transition: 0.2s ease-in-out;
+    border-radius: 10px;
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    background-color:purple;
+    height: 40px;
+    width: 40px;
+  }
+  
+  .first li:hover {
+    transform: scale(0.95);
+  }
+  
+  
+  .business li {
+    transition: 0.2s ease-in-out;
+    border-radius: 10px;
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    background-color:blue;
+    height: 40px;
+    width: 40px;
+  }
+  
+  .business li:hover {
+    transform: scale(0.95);
+  }
+  
+  .economy li {
+    transition: 0.2s ease-in-out;
+    border-radius: 10px;
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    background-color:green;
+    height: 40px;
+    width: 40px;
+  }
+  
+  .economy li:hover {
+    transform: scale(0.95);
+  }
+  
+  
+  
+

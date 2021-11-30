@@ -1,95 +1,10 @@
 import "./Seats.css";
-import { IoAirplaneSharp } from 'react-icons/io5';
-import Checkbox from '@mui/material/Checkbox';
-import CheckIcon from '@mui/icons-material/Check';
-import {makeStyles} from '@material-ui/styles';
 import React, { useState,useEffect } from "react";
 import axios from "axios";
 
-
-const useStyles = makeStyles((theme) => ({
-    seats:{
-  
-           
-             display:'flex',
-             position:'relative',
-             flexDirection: 'column',
-             height: '100%',
-             width: '100%',
-        
-    },
-    seatsTop:{
-        
-             display:'flex',
-             position:'relative',
-             flexDirection: 'row',
-             columnGap: '20px',
-             top: '270px',
-             left: '170px',
-        
-    },
-    seatsBottom:{
-        
-             display:'flex',
-             position:'relative',
-             flexDirection: 'row',
-             columnGap: '20px',
-             top: '370px',
-             left: '170px',
-        
-    },
-    first:{
-        '& svg':{
-            color: 'purple',
-        },
-        color: 'purple',
-        position:'relative',
-        display:'flex',
-        flexWrap: 'wrap',
-        flexDirection:'row',
-        rowGap: '0px',
-        width:'140px',
-        height:'100px',
-        
-    },
-    business:{
-        '& svg':{
-            color: 'blue',
-        },
-        color: 'blue',
-        position:'relative',
-        display:'flex',
-        flexWrap: 'wrap',
-        flexDirection:'row',
-        rowGap: '0px',
-        width:'250px',
-        height:'100px',
-        
-    },
-    economy:{
-        '& svg':{
-            color: 'green',
-        },
-        color: 'green',
-        position:'relative',
-        display:'flex',
-        flexWrap: 'wrap',
-        flexDirection:'row',
-        rowGap: '0px',
-        width:'400px',
-        height:'100px',
-        
-    },
-    notAv:{
-        color:'red',
-        
-    }
- 
-    
-}))
-
+//flightID is prop to seats function???
+//should also have cabin type
 function Seats() {
-    const classes = useStyles();
     const [FirstClassSeats, setFirstClassSeats]= useState();
     const [BusinessSeats, setBusinessSeats]= useState();
     const [EconomySeats, setEconomySeats]= useState();
@@ -118,66 +33,67 @@ function Seats() {
 }, []);
 
     return (
-  <div className= {classes.seats}>
-      <div className= {classes.seatsTop} >
-         <div className= {classes.first}>
+  <div className= "seats">  
+      <div className= "seatsTop" >
+         <ul className= "first">
          {
          Array.from({length: FirstClassSeats/2 })
             .map((_, index) => (
                 FirstAvailable[index]==1
-                  ? (<div><button className= {classes.notAv}> first</button></div>)
-                  :<div> <button > first</button> </div>
+                  ? (<li className= "notAv"> </li>)
+                  : <li className="av"> </li>
               )) }
-         </div>
-         <div className= {classes.business}>
+         </ul>
+         <ul className= "business">
          {
          Array.from({length: BusinessSeats/2})
             .map((_, index) => (
                 BusinessAvailable[index]==1
-                  ? (<div><button className= {classes.notAv}> busi</button></div>)
-                  :<div> <button > busi</button> </div>
+                  ? (<li className= "notAv"> </li>)
+                  : <li className= "av" > </li>
               )) }
-         </div>
-         <div className= {classes.economy}>
+         </ul>
+         <ul className= "economy">
          {
          Array.from({length: EconomySeats/2})
             .map((_, index) => (
                 EconomyAvailable[index]==1
-                  ? (<div><button className= {classes.notAv}> econ</button></div>)
-                  :<div> <button > econ</button> </div>
+                  ? (<li className= "notAv"> </li>)
+                  :<li className= "av"> </li> 
               )) }
-         </div>
+         </ul>
         </div>
 
+        <img className="img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/BSicon_exFLUG.svg/500px-BSicon_exFLUG.svg.png"/>
 
-        <div className= {classes.seatsBottom} >
-         <div className= {classes.first}>
+        <div className= "seatsBottom" >
+         <ul className= "first">
          {
          Array.from({length: FirstClassSeats/2})
             .map((_, index) => (
                 FirstAvailable[index+(FirstClassSeats/2)+1]==1
-                  ? (<div><button className= {classes.notAv}> first</button></div>)
-                  :<div> <button > first</button> </div>
+                  ? (<li className= "notAv"> </li>)
+                  : <li className= "av"> </li> 
               )) }
-         </div>
-         <div className= {classes.business}>
+         </ul>
+         <ul className= "business">
          {
          Array.from({length: BusinessSeats/2})
             .map((_, index) => (
                 BusinessAvailable[index+(BusinessSeats/2)]==1
-                  ? (<div><button className= {classes.notAv}> busi</button></div>)
-                  :<div> <button > busi</button> </div>
+                  ? (<li className= "notAv"> </li>)
+                  :<li className="av"> </li> 
               )) }
-         </div>
-         <div className= {classes.economy}>
+         </ul>
+         <ul className= "economy">
          {
          Array.from({length: EconomySeats/2})
             .map((_, index) => (
                 EconomyAvailable[index+(EconomySeats/2)]==1
-                  ? (<div><button className= {classes.notAv}> econ</button></div>)
-                  :<div> <button > econ</button> </div>
+                  ? (<li className= "notAv"> </li>)
+                  :<li className="av" > </li> 
               )) }
-         </div>
+         </ul>
         </div>
   </div> )
 }
