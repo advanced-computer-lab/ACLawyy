@@ -6,6 +6,8 @@ import axios from "axios";
 function Booking(props) {
   const [myTickets, setMyTickets] = useState([]);
   const [myFlights, setMyFlights] = useState([]);
+  const [myPurchases, setMyPurchases] = useState([]);
+  const [user, setUser] = useState([]);
 
   useEffect(() => {
     axios
@@ -15,7 +17,28 @@ function Booking(props) {
       .then((res) => {
         console.log(res.data);
         setMyTickets(res.data);
-        debugger;
+      });
+  }, []);
+
+  useEffect(() => {
+    axios
+      .post("http://localhost:8000/Tickets/findMyPurchases", {
+        UserID: props.UserID,
+      })
+      .then((res) => {
+        console.log(res.data);
+        setMyPurchases(res.data);
+      });
+  }, []);
+
+  useEffect(() => {
+    axios
+      .post("http://localhost:8000/Tickets/getUserDetails", {
+        UserID: props.UserID,
+      })
+      .then((res) => {
+        console.log(res.data);
+        setUser(res.data);
       });
   }, []);
 
@@ -43,7 +66,21 @@ function Booking(props) {
 
   return (
     <div className="booking">
-      <p>{myTickets}</p>
+      {myFlights.map((f, i) => {
+        var x = parseInt(i / 2);
+        var away = false;
+        if (i % 2 == 0) {
+          away = true;
+        }
+        return (
+          <BoardingPass
+            props={f}
+            type={myTickets[x]}
+            isAway={away}
+            user={user}
+          />
+        );
+      })}
     </div>
   );
 }

@@ -2,6 +2,7 @@ const router = require("express").Router();
 let Ticket = require("../Models/Ticket");
 let Flight = require("../Models/Flight");
 let User = require("../Models/User");
+let Purchase = require("../Models/Purchase");
 const mongoose = require("mongoose");
 
 router.route("/CreateTicket").post((req, res) => {
@@ -45,14 +46,20 @@ router.route("/findMyTickets").post((req, res) => {
   const sort = { created_at: -1 };
   Ticket.find({ UserID })
     .sort("-createdAt")
-    .then((docs) => res.json(docs))
-    .catch((err) => res.status(400).json("Error: " + err));
+    .exec((err, docs) => res.json(docs));
+});
+
+router.route("/findMyPurchases").post((req, res) => {
+  const UserID = mongoose.Types.ObjectId(req.body.UserID);
+  const sort = { created_at: -1 };
+  Ticket.find({ UserID })
+    .sort("-createdAt")
+    .exec((err, docs) => res.json(docs));
 });
 
 router.route("/getUserDetails").post((req, res) => {
-  const UserID = mongoose.Types.ObjectId(req.body.UserID);
-  User.find({ UserID })
-    .then((flight) => res.json(flight))
+  User.findById(req.body.UserID)
+    .then((user) => res.json(user))
     .catch((err) => res.status(400).json("Error: " + err));
 });
 

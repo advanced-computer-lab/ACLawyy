@@ -4,15 +4,33 @@ import BusinessTicket from "./TicketImg/BusinessTicket.png";
 import FirstClassTicket from "./TicketImg/FirstClassTicket.png";
 import { FaPlane } from "react-icons/fa";
 
-function BoardingPass(props) {
-  if (props.type == 0) {
+function BoardingPass({ props, type, isAway, user, drawLine }) {
+  console.log(props);
+  console.log(type.Seat);
+  var line = <div></div>;
+  if (drawLine) {
+    line = <div>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</div>;
+  }
+  var cabin = {};
+  var mySeat = type.Seat;
+  if (type.Seat === undefined) {
+    mySeat = <a href="/">Assign Seat</a>;
+  }
+
+  if (isAway) {
+    cabin = type.AwayCabin;
+  } else {
+    cabin = type.ReturnCabin;
+  }
+  if (cabin === "Economy") {
     return (
       <div className="ticket">
+        <div>{line}</div>
         <img src={EconomyTicket} alt="Economy Ticket" />
         <div className="big">
           <div className="left">
             <div className="top">
-              <label className="big-label">{props.departureAirport}</label>
+              <label className="big-label">{props.DepartureAirport}</label>
               <div className="plane">
                 <FaPlane size="24pt" />
               </div>
@@ -38,48 +56,193 @@ function BoardingPass(props) {
             </div>
             <div className="right-middle">
               <label className="smol-label-left">Passenger Name:</label>
-              <label className="big-label-bottom">{props.PassengerName}</label>
+              <label className="big-label-bottom">
+                {user.FirstName} {user.LastName}
+              </label>
             </div>
             <div className="right-bottom">
               <label className="smol-label-left">Seat:</label>
-              <label className="big-label-bottom">{props.Seat}</label>
+              <label className="big-label-bottom">{mySeat}</label>
             </div>
           </div>
         </div>
         <div className="smol">
           <div className="right-top">
             <label className="smol-label-left">Passenger Name:</label>
-            <label className="big-label-bottom">John Smith</label>
+            <label className="big-label-bottom">
+              {user.FirstName} {user.LastName}
+            </label>
           </div>
           <div className="right-middle">
             <label className="smol-label-left">Dep. Date:</label>
-            <label className="big-label-bottom">07-06-2000</label>
+            <label className="big-label-bottom">{props.DepartureDate}</label>
           </div>
           <div className="right-bottom">
             <label className="smol-label-left">From:</label>
-            <label className="big-label-bottom">Alexandria/DAP/12:00</label>
-          </div>{" "}
+            <label className="big-label-bottom">
+              {props.DepartureCity}/{props.DepartureAirport}/
+              {props.DepartureTime}
+            </label>
+          </div>
           <div className="right-top">
             <label className="smol-label-left">To:</label>
-            <label className="big-label-bottom">Alexandria/AAP/01:00</label>
+            <label className="big-label-bottom">
+              {props.ArrivalCity}/{props.ArrivalAirport}/{props.ArrivalTime}
+            </label>
           </div>
           <div className="right-middle">
             <label className="smol-label-left">Seat:</label>
-            <label className="big-label-bottom">20A</label>
+            <label className="big-label-bottom">{mySeat}</label>
           </div>
         </div>
       </div>
     );
-  } else if (props.type == 1) {
+  } else if (cabin === "Business") {
     return (
       <div className="ticket">
         <img src={BusinessTicket} alt="Business Ticket" />
+        <div className="big">
+          <div className="left">
+            <div className="top">
+              <label className="big-label">{props.DepartureAirport}</label>
+              <div className="plane">
+                <FaPlane size="24pt" />
+              </div>
+
+              <label className="big-label">{props.ArrivalAirport}</label>
+              <label className="smol-label-left">{props.DepartureCity}</label>
+              <div className="spacer"></div>
+              <label className="smol-label-right">{props.ArrivalCity}</label>
+            </div>
+            <div className="bottom">
+              <label className="big-label-bottom">{props.DepartureDate}</label>
+              <div className="spacer"></div>
+              <label className="big-label-bottom">{props.ArrivalDate}</label>
+              <label className="smol-label-left">{props.DepartureTime}</label>
+              <div className="spacer"></div>
+              <label className="smol-label-right">{props.ArrivalTime}</label>
+            </div>
+          </div>
+          <div className="right">
+            <div className="right-top">
+              <label className="smol-label-left">Flight Number:</label>
+              <label className="big-label-bottom">{props.FlightNumber}</label>
+            </div>
+            <div className="right-middle">
+              <label className="smol-label-left">Passenger Name:</label>
+              <label className="big-label-bottom">
+                {user.FirstName} {user.LastName}
+              </label>
+            </div>
+            <div className="right-bottom">
+              <label className="smol-label-left">Seat:</label>
+              <label className="big-label-bottom">{mySeat}</label>
+            </div>
+          </div>
+        </div>
+        <div className="smol">
+          <div className="right-top">
+            <label className="smol-label-left">Passenger Name:</label>
+            <label className="big-label-bottom">
+              {user.FirstName} {user.LastName}
+            </label>
+          </div>
+          <div className="right-middle">
+            <label className="smol-label-left">Dep. Date:</label>
+            <label className="big-label-bottom">{props.DepartureDate}</label>
+          </div>
+          <div className="right-bottom">
+            <label className="smol-label-left">From:</label>
+            <label className="big-label-bottom">
+              {props.DepartureCity}/{props.DepartureAirport}/
+              {props.DepartureTime}
+            </label>
+          </div>
+          <div className="right-top">
+            <label className="smol-label-left">To:</label>
+            <label className="big-label-bottom">
+              {props.ArrivalCity}/{props.ArrivalAirport}/{props.ArrivalTime}
+            </label>
+          </div>
+          <div className="right-middle">
+            <label className="smol-label-left">Seat:</label>
+            <label className="big-label-bottom">{mySeat}</label>
+          </div>
+        </div>
       </div>
     );
   } else {
     return (
       <div className="ticket">
         <img src={FirstClassTicket} alt="First Class Ticket" />
+        <div className="big">
+          <div className="left">
+            <div className="top">
+              <label className="big-label">{props.DepartureAirport}</label>
+              <div className="plane">
+                <FaPlane size="24pt" />
+              </div>
+
+              <label className="big-label">{props.ArrivalAirport}</label>
+              <label className="smol-label-left">{props.DepartureCity}</label>
+              <div className="spacer"></div>
+              <label className="smol-label-right">{props.ArrivalCity}</label>
+            </div>
+            <div className="bottom">
+              <label className="big-label-bottom">{props.DepartureDate}</label>
+              <div className="spacer"></div>
+              <label className="big-label-bottom">{props.ArrivalDate}</label>
+              <label className="smol-label-left">{props.DepartureTime}</label>
+              <div className="spacer"></div>
+              <label className="smol-label-right">{props.ArrivalTime}</label>
+            </div>
+          </div>
+          <div className="right">
+            <div className="right-top">
+              <label className="smol-label-left">Flight Number:</label>
+              <label className="big-label-bottom">{props.FlightNumber}</label>
+            </div>
+            <div className="right-middle">
+              <label className="smol-label-left">Passenger Name:</label>
+              <label className="big-label-bottom">
+                {user.FirstName} {user.LastName}
+              </label>
+            </div>
+            <div className="right-bottom">
+              <label className="smol-label-left">Seat:</label>
+              <label className="big-label-bottom">{mySeat}</label>
+            </div>
+          </div>
+        </div>
+        <div className="smol">
+          <div className="right-top">
+            <label className="smol-label-left">Passenger Name:</label>
+            <label className="big-label-bottom">
+              {user.FirstName} {user.LastName}
+            </label>
+          </div>
+          <div className="right-middle">
+            <label className="smol-label-left">Dep. Date:</label>
+            <label className="big-label-bottom">{props.DepartureDate}</label>
+          </div>
+          <div className="right-bottom">
+            <label className="smol-label-left">From:</label>
+            <label className="big-label-bottom">
+              {props.DepartureCity}/{props.DepartureAirport}/
+              {props.DepartureTime}
+            </label>
+          </div>
+          <div className="right-top">
+            <label className="smol-label-left">To:</label>
+            <label className="big-label-bottom">
+              {props.ArrivalCity}/{props.ArrivalAirport}/{props.ArrivalTime}
+            </label>
+          </div>
+          <div className="right-middle">
+            <label className="smol-label-left">Seat:</label>
+            <label className="big-label-bottom">{mySeat}</label>
+          </div>
+        </div>
       </div>
     );
   }
