@@ -1,3 +1,10 @@
+.header{
+    font-family: lato;
+    font-size: 20pt;
+    color:black;
+    margin-left: 100px;
+}
+
 .img{
     margin-left:500px;
     height:500px;
@@ -35,8 +42,12 @@
     width: 100%;
   }
 
+  .notAllowed li{
+    background-color: gray;
+    cursor:not-allowed;
+  }
+
 .av{
-    background-color: #3f51b5;
 }
 
 .notAv{
@@ -47,6 +58,29 @@
     cursor: not-allowed;
 }
 
+.firstNotAllowed{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    column-gap: 10px;
+    row-gap: 10px;
+    width: 170px;
+    height: 100px;
+}
+
+.firstNotAllowed li{
+    transition: 0.2s ease-in-out;
+    border-radius: 10px;
+    position: relative;
+    cursor: not-allowed;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    background-color:gray;
+    height: 40px;
+    width: 40px;
+}
 
 .first {
     position: relative;
@@ -59,6 +93,31 @@
     height: 100px;
   }
   
+  .businessNotAllowed{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    column-gap: 10px;
+    row-gap: 10px;
+    width: 320px;
+    height: 100px;
+  }
+
+  .businessNotAllowed li{
+    transition: 0.2s ease-in-out;
+    border-radius: 10px;
+    position: relative;
+    cursor: not-allowed;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    background-color:gray;
+    height: 40px;
+    width: 40px;
+
+  }
+
   .business {
       position: relative;
       display: flex;
@@ -68,6 +127,30 @@
       row-gap: 10px;
       width: 320px;
       height: 100px;
+    }
+
+    .economyNotAllowed{
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        column-gap: 10px;
+        row-gap: 10px;
+        width: 400px;
+        height: 100px;
+    }
+
+    .economyNotAllowed li{
+        transition: 0.2s ease-in-out;
+        border-radius: 10px;
+        position: relative;
+        cursor: not-allowed;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        background-color:gray;
+        height: 40px;
+        width: 40px;
     }
     
     .economy {
