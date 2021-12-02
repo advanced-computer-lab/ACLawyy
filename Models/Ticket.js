@@ -36,10 +36,12 @@ const ticketSchema = new Schema(
     AwaySeat: {
       type: Number,
       required: false,
+      default:-1,
     },
     ReturnSeat: {
       type: Number,
       required: false,
+      default:-1,
     },
     Type: {
       type: String,

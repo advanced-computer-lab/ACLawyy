@@ -4,7 +4,7 @@ import BusinessTicket from "./TicketImg/BusinessTicket.png";
 import FirstClassTicket from "./TicketImg/FirstClassTicket.png";
 import { FaPlane } from "react-icons/fa";
 
-function BoardingPass({ props, type, isAway, user, drawLine }) {
+function BoardingPass({ props, type, isAway, user }) {
   console.log(props);
 
   var cabin = {};

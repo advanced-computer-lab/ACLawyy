@@ -4,44 +4,14 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 function Booking(props) {
-  const [myTickets, setMyTickets] = useState([]);
-  const [myFlights, setMyFlights] = useState([]);
-  const [myPurchases, setMyPurchases] = useState([]);
-  const [user, setUser] = useState([]);
+  // const purchase = props.purchase;
+ // const tickets = props.Tickets;
+  const {number,tickets,price,userID,_id} = props.p;
 
-  // useEffect(() => {
-  //   axios
-  //     .post("http://localhost:8000/Tickets/findMyTickets", {
-  //       UserID: props.UserID,
-  //     })
-  //     .then((res) => {
-  //       console.log(res.data);
-  //       setMyTickets(res.data);
-  //     });
-  // }, []);
-
-  useEffect(() => {
-    axios
-      .post("http://localhost:8000/Tickets/findMyPurchases", {
-        UserID: props.UserID,
-      })
-      .then((res) => {
-        console.log(res.data);
-        setMyPurchases(res.data);
-      
-             });
-  }, []);
+  const [user,setUser] = useState(null);
+  const [awayFlight,setAwayFlight]=useState(null);
+  const [returnFlight,setReturnFlight]=useState(null);
   
-  useEffect(() => {
-    console.log(myPurchases);
-  myPurchases.map((p)=>{
-    console.log(p.Tickets); 
-   setMyTickets((prevTickets) => prevTickets.concat(p.Tickets));
-   console.log(p.Tickets); 
-   console.log("halloooooo");
-  });
-}, []);
-
 
   useEffect(() => {
     axios
@@ -54,54 +24,94 @@ function Booking(props) {
       });
   }, []);
 
-  useEffect(() => {
-    
-    myTickets.map((ticket) => {
-      axios
-        .post("http://localhost:8000/Tickets/getAwayDetails", {
-          AwayFlight: ticket.AwayFlight,
-        })
-        .then((res) => {
-          console.log(JSON.stringify(res.data));
-          setMyFlights((prevFlights) => prevFlights.concat(res.data));
-        });
 
-      axios
-        .post("http://localhost:8000/Tickets/getReturnDetails", {
-          ReturnFlight: ticket.ReturnFlight,
-        })
-        .then((res) => {
-          console.log(JSON.stringify(res.data));
-          setMyFlights((prevFlights) => prevFlights.concat(res.data));
-        });
+  useEffect(() => {
+    console.log(props.p.NumberOfTickets);
+    console.log(props.p.Tickets);
+    if(props.p.Tickets!=undefined){
+    console.log(tickets);
+    axios
+    .post("http://localhost:8000/Tickets/getReturnDetails", {
+      ReturnFlight: props.p.Tickets[0].ReturnFlight,
+    })
+    .then((res) => {
+      console.log(JSON.stringify(res.data));
+      setReturnFlight(res.data);
     });
-  }, [myTickets]);
+    axios
+    .post("http://localhost:8000/Tickets/getAwayDetails", {
+      AwayFlight: props.p.Tickets[0].AwayFlight,
+    })
+    .then((res) => {
+      console.log(JSON.stringify(res.data));
+      setAwayFlight(res.data);
+
+    
+    });
+  }
+ }, []);
+
+
+
+
+
+
+
+
+//   useEffect(() => {
+//     axios
+//       .post("http://localhost:8000/Tickets/findMyPurchases", {
+//         UserID: props.UserID,
+//       })
+//       .then((res) => {
+//         console.log(res.data);
+//         setMyPurchases(res.data);
+        
+//              });
+//   }, []);
+  
+//   useEffect(() => {
+
+
+// setCurrPurchase(myPurchases[0]);
+   
+    
+//    setMyTickets((prevTickets) => [].concat(currPurchase.Tickets));
+    
+//    console.log("halloooooo");
+  
+// }, [myPurchases]);
+
+
+
+if (awayFlight==null||user ==null) return (<div> </div>) 
+
+
 
   return (
     <div className="booking">
-      {myFlights.map((f, i) => {
-        var x = parseInt(i / 2);
-        var away = false;
-        var khat = <div z-index="100"></div>;
-        if (i % 2 == 0) {
-          away = true;
-        } else {
-          khat = <div z-index="100">aaaaaaaaaaaaaaaaaaaaaaaaaa</div>;
-        }
-        return (
-          <div>
-            <BoardingPass
-              props={f}
-              type={myTickets[x]}
-              isAway={away}
-              user={user}
-            />
-            {khat}
-          </div>
-        );
-      })}
+      <div>    
+      <label>Booking Number:</label><label>{props.p._id}</label>
+      <label>Number of Tickets:</label><label>{props.p.NumberOfTickets}</label>
+      <label>Total Price of Booking:</label><label>{props.p.TotalPrice}</label>
+      </div>
+      <div>
+         {
+       
+      props.p.Tickets.map((ticket)=>{
+        console.log(ticket.AwayCabin);
+        return(
+        <div>
+        <BoardingPass props = {awayFlight} type = {ticket} isAway={true} user={user}></BoardingPass>
+        <BoardingPass props = {returnFlight} type = {ticket} isAway={false} user={user}></BoardingPass>
+        </div>)
+      }
+      )        
+      }
+     </div>
+ 
     </div>
   );
-}
 
+}
 export default Booking;
