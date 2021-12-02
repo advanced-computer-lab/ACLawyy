@@ -5,22 +5,21 @@ import Fab from '@mui/material/Fab';
 import FlightCard from "../FlightCard/FlightCard"
 import FlightsSummary from "../FlightsSummary/FlightsSummary"
 import Popover from '@mui/material/Popover';
-
+import Stack from '@mui/material/Stack';
 import axios from "axios";
 
 
 import UserSearch from "../FlightsSummary/FlightsSummary"
 
-function FlightResults() {
+function FlightResults(props) {
     const [flights,setFlights] = useState([]);
-
     const [inboundFlight,setInboundFlight] = useState(null);
     const [outboundFlight,setOutboundFlight] = useState(null);
     const [outboundCabin,setOutboundCabin] = useState(null);
     const [inboundCabin,setInboundCabin] = useState(null);
-
     const [anchorEl, setAnchorEl] = React.useState(null);
-
+    const outFlights = props.outFlights;
+    const inFlights = props.inFlights;
     const handleClick = (event) => {
       setAnchorEl(event.currentTarget);
     };
@@ -28,7 +27,8 @@ function FlightResults() {
     const handleClose = () => {
       setAnchorEl(null);
     };
- const open = Boolean(anchorEl);
+
+  const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
 
 
@@ -41,14 +41,14 @@ function FlightResults() {
         setInboundFlight(flight);
         setInboundCabin(cabin);
     }
-    const isSelectedOut = (id)=>{
+    const isSelectedOut = (id,cab)=>{
         if (outboundFlight!= null)
-            return outboundFlight._id === id;
+            return outboundFlight._id === id && outboundCabin === cab;
         return false;
     }
-    const isSelectedIn = (id)=>{
+    const isSelectedIn = (id,cab)=>{
         if (inboundFlight!= null)
-         return inboundFlight._id === id;
+         return inboundFlight._id === id && inboundCabin === cab;
         return false;
     }
     function handleAllFlights() {
@@ -71,17 +71,20 @@ function FlightResults() {
     }
 
     return(
-        <div>
-    <div className = "page" >
-   
+        <div className = "container1">
+    <Stack direction="row" spacing={5} >
         <div className = "outbound">
             <h2 style = {{textAlign : 'center'}}> Outbound</h2>
-        {flights.map((flight) => (
-            <FlightCard cabin = "economy" flight = {flight} onClick = {handleOut} isSelected = {isSelectedOut}/>
+        {outFlights.map((flight) => (
+             <Stack direction="column" spacing={2} >
+            {props.econ&&props.enoughSeats(flight,"economy")?<FlightCard key = {flight._id +"e" }cabin = "economy" flight = {flight} onClick = {handleOut} isSelected = {isSelectedOut}/>:null}
+            {props.bus&&props.enoughSeats(flight,"business")?<FlightCard key = {flight._id +"b"}cabin = "business" flight = {flight} onClick = {handleOut} isSelected = {isSelectedOut}/>:null}
+            {props.first&&props.enoughSeats(flight,"first")?<FlightCard key = {flight._id +"f"}cabin = "first" flight = {flight} onClick = {handleOut} isSelected = {isSelectedOut}/>:null}
+            </Stack>
             )
           )}
         </div>
- 
+
         <Popover
         id={id}
         open={open}
@@ -96,26 +99,31 @@ function FlightResults() {
             horizontal: 'center',
           }}
       >
+ 
+
         <FlightsSummary flight1 = {outboundFlight}  cabin1 = {outboundCabin} flight2 = {inboundFlight}  cabin2 = {inboundCabin}></FlightsSummary>
      
 
       </Popover>
 
-        < Fab className = "button" variant="extended" size = "medium" disabled = {!bothSelected()}  onClick={handleClick}>Select</Fab>
-      
+       
 
         <div className = "inbound">
+ 
         <h2 style = {{textAlign : 'center'}}> Inbound</h2>
-        {flights.map((flight) => (
-            <FlightCard cabin = "business" flight = {flight} isSelected = {isSelectedIn} onClick = {handleIn} id = {flight._id}/>
+        {inFlights.map((flight) => (
+              <Stack direction="column" spacing={2} >
+              {props.isAfter(flight)&&props.econ&&props.enoughSeats(flight,"economy")?<FlightCard key = {flight._id +"e" }cabin = "economy" flight = {flight} onClick = {handleIn} isSelected = {isSelectedIn}/>:null}
+              {props.isAfter(flight)&&props.bus&&props.enoughSeats(flight,"business")?<FlightCard key = {flight._id +"b"}cabin = "business" flight = {flight} onClick = {handleIn} isSelected = {isSelectedIn}/>:null}
+              {props.isAfter(flight)&&props.first&&props.enoughSeats(flight,"first")?<FlightCard key = {flight._id +"f"}cabin = "first" flight = {flight} onClick = {handleIn} isSelected = {isSelectedIn}/>:null}
+              </Stack>
             )
           )}
         </div>
 
-    </div>
-    
-
-</div>
+</Stack>
+ < Fab className = "button" variant="extended" size = "medium" disabled = {!bothSelected()}  onClick={handleClick}>Select</Fab>
+       </div>
     );
 
 

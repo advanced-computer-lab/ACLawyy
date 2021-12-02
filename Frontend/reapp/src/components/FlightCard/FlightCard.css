@@ -44,17 +44,35 @@
     display: flex;
     color: rgb(0, 0, 0);
     float : left;
-    position: relative;
-    right : 5px;
+    position: absolute;
+    left : 10px;
   }
+  .date {
+    display: flex;
+    color: rgb(0, 0, 0);
+    float : left;
+    position: absolute;
+    left : 10px;
+    top:0px;
+  }
+
+
   .arrtime {
     display: flex;
     color: rgb(0, 0, 0);
     float : right;
     position: relative;
     left : 5px;
-
   }
+  .num {
+    display: flex;
+    color: rgb(0, 0, 0);
+    float : right;
+    position: absolute;
+    right : 10px;
+    bottom : 15px;
+  }
+
   .arricon {
     display: flex;
     color: dimgrey;
