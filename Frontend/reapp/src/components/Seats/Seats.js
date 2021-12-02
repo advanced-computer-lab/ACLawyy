@@ -1,6 +1,8 @@
 import "./Seats.css";
 import React, { useState,useEffect } from "react";
 import axios from "axios";
+import { set } from "date-fns";
+import Button from '@mui/material/Button';
 
 //flightID and cabin type are props to seats function???
 //seat chosen needs to be tied to backend
@@ -9,7 +11,9 @@ function Seats() {
     const [BusinessSeats, setBusinessSeats]= useState();
     const [EconomySeats, setEconomySeats]= useState();
     const flightID= "61a0aaa76f8ca666a0b5a33f";
-    const cabinType="business";
+    const cabinType="economy";
+    const nbOfSeats= 100;
+    const[chosen, setChosen]=useState(0);
     var firstCss="firstNotAllowed";
     var businessCss="businessNotAllowed";
     var economyCss="economyNotAllowed";
@@ -38,46 +42,77 @@ function Seats() {
 
 }, []);
 //to pick seat onClick:
-function handleSeatsFirst(index){
+function handleSeatsFirst(index,firstCss){
+    if(chosen<nbOfSeats && firstCss=="first"){
     console.log("seat is",index);
     let list=[...FirstAvailable];
-    console.log(list[index]);
-    list[index]=1;
     console.log("now it's index in list is ",list[index]);
-    var popup= window.confirm("Book this seat?")
-    if (popup == true) {
-         //it doesnt set it in db, resets the value upon refresh.
-        setFirstAvailable(list);
+    list[index]=2;
+    setFirstAvailable(list);
+    console.log(list[index]);
+    setChosen((prev) => (prev +1));
       } else {
       }
-  }
+    }
+  
 
-  function handleSeatsBusiness(index){
+  function handleSeatsBusiness(index, businessCss){
+      if(chosen<nbOfSeats && businessCss=="business"){
     console.log("seat is",index);
     let list=[...BusinessAvailable];
     console.log(list[index]);
-    list[index]=1;
     console.log("now it's index in list is ",list[index]);
-    var popup= window.confirm("Book this seat?")
-    if (popup == true) {
-         //it doesnt set it in db, resets the value upon refresh.
-        setBusinessAvailable(list);
+    list[index]=2;
+    setBusinessAvailable(list);
+    console.log(list[index]);
+    setChosen((prev) => (prev +1));
       } else {
       }
   }
 
-  function handleSeatsEconomy(index){
+  function handleSeatsEconomy(index,economyCss){
+      if(chosen<nbOfSeats && economyCss=="economy"){
     console.log("seat is",index);
     let list=[...EconomyAvailable];
     console.log(list[index]);
-    list[index]=1;
     console.log("now it's index in list is ",list[index]);
-    var popup= window.confirm("Book this seat?")
-    if (popup == true) {
-         //it doesnt set it in db, resets the value upon refresh.
-        setEconomyAvailable(list);
+    list[index]=2;
+    setEconomyAvailable(list);
+    console.log(list[index]);
+    setChosen((prev) => (prev +1));
       } else {
       }
+  }
+
+function indexOfSeats(array){
+    var res=[];
+    for(var i=0;i<array.length;i++){
+        if (array[i]==2)
+            res.push(i);
+    }
+  return res;
+}
+
+  function backToOne(array){
+      var res=[];
+      for(var i=0;i<array.length;i++){
+          if (array[i]==2){
+              res[i]=1;
+          }
+          else{
+              res[i]=array[i];
+          }
+      }
+    return res;
+  }
+
+  function confirmSeat(){
+      if(cabinType=="first")
+       setFirstAvailable(backToOne(FirstAvailable));
+      else if(cabinType=="business")
+        setBusinessAvailable(backToOne(BusinessAvailable));
+      else if (cabinType=="economy")
+        setEconomyAvailable(backToOne(EconomyAvailable));
   }
 
   //to render the right cabin
@@ -90,71 +125,141 @@ function handleSeatsFirst(index){
     else if(cabinType=="business"){
         businessCss= "business";
     }
-
     return (
   <div className= "seats">  
       <h1 className="header">Seat selection: </h1>
+      <h2> {chosen} seats out of {nbOfSeats} selected. </h2>
       <div className= "seatsTop" >
          <ul className= {firstCss}>
          {
-         Array.from({length: FirstClassSeats/2 })
+         Array.from({length: (FirstAvailable.length)/4 })
             .map((_, index) => (
-                FirstAvailable[index]===1
-                  ? (<li className= "notAv"> </li>)
-                  : <li className="av" onClick={()=>handleSeatsFirst(index)} > </li>
-              )) }
+                <div>
+                {(FirstAvailable[index]==1)&&(<li className= "notAv"> </li>)}
+                {(FirstAvailable[index]==0)&&(<li className="av" onClick={()=>handleSeatsFirst(index,firstCss)}> </li>)}
+                {(FirstAvailable[index]==2)&&(<li className="selected"> </li>)  } 
+                </div>    
+)) }
+
+{
+         Array.from({length: (FirstAvailable.length)/4 })
+            .map((_, index) => (
+                <div>
+                {(FirstAvailable[index+((FirstAvailable.length)/4)]==1)&&(<li className= "notAv"> </li>)}
+                {(FirstAvailable[index+((FirstAvailable.length)/4)]==0)&&(<li className="av" onClick={()=>handleSeatsFirst(index+(FirstAvailable.length/4),firstCss)}> </li>)}
+                {(FirstAvailable[index+((FirstAvailable.length)/4)]==2)&&(<li className="selected"> </li>)  } 
+                </div>    
+)) }
          </ul>
          <ul className= {businessCss}>
          {
-         Array.from({length: BusinessSeats/2})
+         Array.from({length: (BusinessAvailable.length)/4})
             .map((_, index) => (
-                BusinessAvailable[index]===1
-                  ? (<li className= "notAv"> </li>)
-                  : <li className= "av" onClick={()=>handleSeatsBusiness(index)}> </li>
-              )) }
+                <div>
+                {(BusinessAvailable[index]===1)&&(<li className= "notAv"> </li>)}
+                {(BusinessAvailable[index]===0)&&(<li className="av" onClick={()=>handleSeatsBusiness(index,businessCss)}> </li>)}
+                {(BusinessAvailable[index]===2)&&(<li className="selected"> </li>)  } 
+                </div> 
+                 )) }
+                 {
+         Array.from({length: BusinessSeats/4})
+            .map((_, index) => (
+                <div>
+                {(BusinessAvailable[index+((BusinessAvailable.length)/4)]===1)&&(<li className= "notAv"> </li>)}
+                {(BusinessAvailable[index+((BusinessAvailable.length)/4)]===0)&&(<li className="av" onClick={()=>handleSeatsBusiness(index+((BusinessAvailable.length)/4),businessCss)}> </li>)}
+                {(BusinessAvailable[index+((BusinessAvailable.length)/4)]===2)&&(<li className="selected"> </li>)  } 
+                </div> 
+                 )) }
+                 
          </ul>
          <ul className= {economyCss}>
          {
-         Array.from({length: EconomySeats/2})
+         Array.from({length: (EconomyAvailable.length)/4})
             .map((_, index) => (
-                EconomyAvailable[index]===1
-                  ? (<li className= "notAv"> </li>)
-                  :<li className= "av" onClick={()=>handleSeatsEconomy(index)}> </li> 
+                <div>
+                {(EconomyAvailable[index]===1)&&(<li className= "notAv"> </li>)}
+                {(EconomyAvailable[index]===0)&&(<li className="av" onClick={()=>handleSeatsEconomy(index,economyCss)}> </li>)}
+                {(EconomyAvailable[index]===2)&&(<li className="selected"> </li>)  } 
+                </div> 
+              )) }
+
+{
+         Array.from({length: (EconomyAvailable.length)/4})
+            .map((_, index) => (
+                <div>
+                {(EconomyAvailable[index+((EconomyAvailable.length)/4)]===1)&&(<li className= "notAv"> </li>)}
+                {(EconomyAvailable[index+((EconomyAvailable.length)/4)]===0)&&(<li className="av" onClick={()=>handleSeatsEconomy(index+((EconomyAvailable.length)/4),economyCss)}> </li>)}
+                {(EconomyAvailable[index+((EconomyAvailable.length)/4)]===2)&&(<li className="selected"> </li>)  } 
+                </div> 
               )) }
          </ul>
         </div>
-
         <img className="img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/BSicon_exFLUG.svg/500px-BSicon_exFLUG.svg.png" alt="plane"/>
 
         <div className= "seatsBottom" >
          <ul className= {firstCss}>
          {
-         Array.from({length: FirstClassSeats/2})
+         Array.from({length: (FirstAvailable.length)/4})
             .map((_, index) => (
-                FirstAvailable[index+(FirstClassSeats/2)+1]===1
-                  ? (<li className= "notAv"> </li>)
-                  : <li className= "av" onClick={()=>handleSeatsFirst(index+(FirstClassSeats/2))}> </li> 
+                <div>
+                {(FirstAvailable[index+((FirstAvailable.length)/2)]==1)&&(<li className= "notAv"> </li>)}
+                {(FirstAvailable[index+((FirstAvailable.length)/2)]==0)&&(<li className="av" onClick={()=>handleSeatsFirst(index+((FirstAvailable.length)/2),firstCss)}> </li>)}
+                {(FirstAvailable[index+((FirstAvailable.length)/2)]==2)&&(<li className="selected"> </li>)  } 
+                </div>  
               )) }
-         </ul>
+         {
+         Array.from({length: (FirstAvailable.length)/4})
+            .map((_, index) => (
+                <div>
+                {(FirstAvailable[index+(3*(FirstAvailable.length)/4)]==1)&&(<li className= "notAv"> </li>)}
+                {(FirstAvailable[index+(3*(FirstAvailable.length)/4)]==0)&&(<li className="av" onClick={()=>handleSeatsFirst(index+(3*(FirstAvailable.length)/4),firstCss)}> </li>)}
+                {(FirstAvailable[index+(3*(FirstAvailable.length)/4)]==2)&&(<li className="selected"> </li>)  } 
+                </div>  
+              )) }
+         </ul> 
          <ul className= {businessCss}>
          {
-         Array.from({length: BusinessSeats/2})
+         Array.from({length: (BusinessAvailable.length)/4})
             .map((_, index) => (
-                BusinessAvailable[index+(BusinessSeats/2)]===1
-                  ? (<li className= "notAv"> </li>)
-                  :<li className="av" onClick={()=>handleSeatsBusiness(index+(BusinessSeats/2))}> </li> 
+                <div>
+                {(BusinessAvailable[index+((BusinessAvailable.length)/2)]===1)&&(<li className= "notAv"> </li>)}
+                {(BusinessAvailable[index+((BusinessAvailable.length)/2)]===0)&&(<li className="av" onClick={()=>handleSeatsBusiness(index+((BusinessAvailable.length)/2),businessCss)}> </li>)}
+                {(BusinessAvailable[index+((BusinessAvailable.length)/2)]===2)&&(<li className="selected"> </li>)  } 
+                </div> 
               )) }
+{
+         Array.from({length: (BusinessAvailable.length)/4})
+            .map((_, index) => (
+                <div>
+                {(BusinessAvailable[index+(3*(BusinessAvailable.length)/4)]===1)&&(<li className= "notAv"> </li>)}
+                {(BusinessAvailable[index+(3*(BusinessAvailable.length)/4)]===0)&&(<li className="av" onClick={()=>handleSeatsBusiness(index+(3*(BusinessAvailable.length)/4),businessCss)}> </li>)}
+                {(BusinessAvailable[index+(3*(BusinessAvailable.length)/4)]===2)&&(<li className="selected"> </li>)  } 
+                </div> 
+              )) }
+
          </ul>
          <ul className= {economyCss}>
          {
-         Array.from({length: EconomySeats/2})
+         Array.from({length: (EconomyAvailable.length)/4})
             .map((_, index) => (
-                EconomyAvailable[index+(EconomySeats/2)]===1
-                  ? (<li className= "notAv"> </li>)
-                  :<li className="av" onClick={()=>handleSeatsEconomy(index+(EconomySeats/2))}> </li> 
+                <div>
+                {(EconomyAvailable[index+((EconomyAvailable.length)/2)]===1)&&(<li className= "notAv"> </li>)}
+                {(EconomyAvailable[index+((EconomyAvailable.length)/2)]===0)&&(<li className="av" onClick={()=>handleSeatsEconomy(index+((EconomyAvailable.length)/2),economyCss)}> </li>)}
+                {(EconomyAvailable[index+((EconomyAvailable.length)/2)]===2)&&(<li className="selected"> </li>)  } 
+                </div>
+              )) }
+              {
+         Array.from({length: (EconomyAvailable.length)/4})
+            .map((_, index) => (
+                <div>
+                {(EconomyAvailable[index+(3*(EconomyAvailable.length)/4)]===1)&&(<li className= "notAv"> </li>)}
+                {(EconomyAvailable[index+(3*(EconomyAvailable.length)/4)]===0)&&(<li className="av" onClick={()=>handleSeatsEconomy(index+(3*(EconomyAvailable.length)/4),economyCss)}> </li>)}
+                {(EconomyAvailable[index+(3*(EconomyAvailable.length)/4)]===2)&&(<li className="selected"> </li>)  } 
+                </div>
               )) }
          </ul>
         </div>
-  </div> )
+        <Button sx={{width: "100px", left:"100px"}} onClick={()=>confirmSeat()} variant="contained">Confirm</Button>
+          </div> )
 }
   export default Seats;

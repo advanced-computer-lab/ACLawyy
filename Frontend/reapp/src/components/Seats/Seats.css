@@ -18,7 +18,7 @@
     position:relative;
     flex-direction: column;
     margin-top: 400px;
-    margin-left: 150px;
+    margin-left: 330px;
     height: 70%;
     width: 70%;
 }
@@ -28,7 +28,7 @@
     position: relative;
     flex-direction: row;
     top:240px;
-    left: 200px;
+    left: 130px;
     height: 150px;
     width: 100%;
   }
@@ -38,7 +38,7 @@
     position: relative;
     flex-direction: row;
     top:-235px;
-    left: 200px;
+    left: 130px;
     width: 100%;
   }
 
@@ -47,8 +47,25 @@
     cursor:not-allowed;
   }
 
-.av{
+  .first .selected{
+    transition: 0.2 ease-out;
+    transform:scale(0.9);
+   filter: drop-shadow(5px 5px 10px black);
 }
+
+.business .selected{
+    transition: 0.2 ease-out;
+    transform:scale(0.9);
+   filter: drop-shadow(5px 5px 10px black);
+}
+
+.economy .selected{
+    transition: 0.2 ease-out;
+    transform:scale(0.9);
+   filter: drop-shadow(5px 5px 10px black);
+}
+
+
 
 .notAv{
     
@@ -61,11 +78,11 @@
 .firstNotAllowed{
     position: relative;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: wrap;
     column-gap: 10px;
     row-gap: 10px;
-    width: 170px;
+    width: 200px;
     height: 100px;
 }
 
@@ -85,22 +102,22 @@
 .first {
     position: relative;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: wrap;
     column-gap: 10px;
     row-gap: 10px;
-    width: 170px;
+    width: 200px;
     height: 100px;
   }
   
   .businessNotAllowed{
     position: relative;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: wrap;
     column-gap: 10px;
     row-gap: 10px;
-    width: 320px;
+    width: 420px;
     height: 100px;
   }
 
@@ -121,22 +138,22 @@
   .business {
       position: relative;
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
       flex-wrap: wrap;
       column-gap: 10px;
       row-gap: 10px;
-      width: 320px;
+      width: 420px;
       height: 100px;
     }
 
     .economyNotAllowed{
         position: relative;
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         flex-wrap: wrap;
-        column-gap: 10px;
+        column-gap: 25px;
         row-gap: 10px;
-        width: 400px;
+        width: 500px;
         height: 100px;
     }
 
@@ -156,11 +173,11 @@
     .economy {
       position: relative;
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
       flex-wrap: wrap;
-      column-gap: 10px;
+      column-gap: 25px;
       row-gap: 10px;
-      width: 400px;
+      width: 500px;
       height: 100px;
     }
 
