@@ -9,16 +9,16 @@ function Booking(props) {
   const [myPurchases, setMyPurchases] = useState([]);
   const [user, setUser] = useState([]);
 
-  useEffect(() => {
-    axios
-      .post("http://localhost:8000/Tickets/findMyTickets", {
-        UserID: props.UserID,
-      })
-      .then((res) => {
-        console.log(res.data);
-        setMyTickets(res.data);
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .post("http://localhost:8000/Tickets/findMyTickets", {
+  //       UserID: props.UserID,
+  //     })
+  //     .then((res) => {
+  //       console.log(res.data);
+  //       setMyTickets(res.data);
+  //     });
+  // }, []);
 
   useEffect(() => {
     axios
@@ -28,8 +28,20 @@ function Booking(props) {
       .then((res) => {
         console.log(res.data);
         setMyPurchases(res.data);
-      });
+      
+             });
   }, []);
+  
+  useEffect(() => {
+    console.log(myPurchases);
+  myPurchases.map((p)=>{
+    console.log(p.Tickets); 
+   setMyTickets((prevTickets) => prevTickets.concat(p.Tickets));
+   console.log(p.Tickets); 
+   console.log("halloooooo");
+  });
+}, []);
+
 
   useEffect(() => {
     axios
@@ -43,6 +55,7 @@ function Booking(props) {
   }, []);
 
   useEffect(() => {
+    
     myTickets.map((ticket) => {
       axios
         .post("http://localhost:8000/Tickets/getAwayDetails", {

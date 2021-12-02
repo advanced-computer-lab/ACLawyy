@@ -52,7 +52,7 @@ router.route("/findMyTickets").post((req, res) => {
 router.route("/findMyPurchases").post((req, res) => {
   const UserID = mongoose.Types.ObjectId(req.body.UserID);
   const sort = { created_at: -1 };
-  Ticket.find({ UserID })
+  Purchase.find({ UserID })
     .sort("-createdAt")
     .exec((err, docs) => res.json(docs));
 });
