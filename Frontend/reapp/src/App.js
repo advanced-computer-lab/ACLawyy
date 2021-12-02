@@ -1,10 +1,8 @@
 import "./App.css";
 import React, { useState,useEffect } from "react";
 import AdminPage from "./components/AdminPage";
-import NavBar from "./components/NavBar"
-
-import FlightResults from "./components/FlightResults/FlightResults"
-
+import NavBar from "./components/NavBar";
+import UserHome from "./components/UserHome/UserHome"
 
 
 function App() {
@@ -13,8 +11,8 @@ function App() {
 
     return(
       <div>
-      <FlightResults/>
       <NavBar type="0" goTo = {setCurrPage} />
+      <UserHome/>
       </div>
     );
 
