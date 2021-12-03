@@ -11,21 +11,21 @@ function Seats(props) {
     const [BusinessSeats, setBusinessSeats]= useState();
     const [EconomySeats, setEconomySeats]= useState();
     
-    const flightID= "61a9f38d12bf9a68fa37bfe4";
-   // const flightID= props.flightID;
+   // const flightID= "61a9f38d12bf9a68fa37bfe4";
+    const flightID= props.flightID;
 
-    const ticketID = "61aa17a2bf62ad1df817235c"
-    //const ticketID = props.ticketID;
+    //const ticketID = "61aa17a2bf62ad1df817235c"
+    const ticketID = props.ticketID;
 
 
-    const cabinType="economy";
-    //const cabinType=props.cabinType;
+    //const cabinType="economy";
+    const cabinType=props.cabinType;
     
-    const nbOfSeats= 100;
-    //const nbOfSeats= props.seats;
+    //const nbOfSeats= 100;
+    const nbOfSeats= props.seats;
     
-    const isAway = true;
-    //const isAway = props.isAway;
+    //const isAway = true;
+    const isAway = props.isAway;
     
     const[chosen, setChosen]=useState(0);
     var firstCss="firstNotAllowed";

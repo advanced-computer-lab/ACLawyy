@@ -3,8 +3,42 @@ import EconomyTicket from "./TicketImg/EconomyTicket.png";
 import BusinessTicket from "./TicketImg/BusinessTicket.png";
 import FirstClassTicket from "./TicketImg/FirstClassTicket.png";
 import { FaPlane } from "react-icons/fa";
+import Popover from '@mui/material/Popover';
+import Seats from "../Seats/Seats"
+import React, { useState,useEffect } from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes as Switch
+} from 'react-router-dom';
+
+
+
 
 function BoardingPass({ props, type, isAway, user }) {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+const open = Boolean(anchorEl);
+const id = open ? 'simple-popover' : undefined;
+
+
+
+
+
+
+
+
+
+
+
   console.log(props);
   console.log(props.DepartureAirport);
   var cabin = {};
@@ -17,7 +51,7 @@ function BoardingPass({ props, type, isAway, user }) {
       type.AwaySeat === undefined ||
       type.AwaySeat === "-1"
     ) {
-      mySeat = <a href="/">Assign Seat</a>;
+      mySeat = <a onClick = {handleClick}>Assign Seat</a>;
     } else {
       mySeat = type.AwaySeat;
     }
@@ -28,7 +62,7 @@ function BoardingPass({ props, type, isAway, user }) {
       type.ReturnSeat === undefined ||
       type.AwaySeat === "-1"
     ) {
-      mySeat = <a href="/">Assign Seat</a>;
+      mySeat = <a onClick = {handleClick}>Assign Seat</a>;
     } else {
       mySeat = type.ReturnSeat;
     }
@@ -37,6 +71,33 @@ function BoardingPass({ props, type, isAway, user }) {
   if (cabin === "economy" || cabin === "Economy") {
     return (
       <div className="ticket">
+
+<Popover
+        id={id}
+        open={open}
+        anchorEl={anchorEl}
+        onClose={handleClose}
+        anchorReference="anchorPosition"
+        anchorPosition={{ top: 300, left: 600 }}
+        anchorOrigin={{
+          vertical: 'center',
+          horizontal: 'center',
+        }}
+        transformOrigin={{
+          vertical: 'center',
+          horizontal: 'center',
+        }}
+      >
+ 
+
+      <Seats userID = {user._id} flightID = {props._id} ticketID = {type._id} cabinType = {cabin} nbOfSeats = {1} isAway={isAway}/>
+
+      </Popover>
+
+
+
+
+
         <img src={EconomyTicket} alt="Economy Ticket" />
         <div className="big">
           <div className="left">
@@ -111,6 +172,29 @@ function BoardingPass({ props, type, isAway, user }) {
   } else if (cabin === "business"||cabin === "Business") {
     return (
       <div className="ticket">
+<Popover
+        id={id}
+        open={open}
+        anchorEl={anchorEl}
+        onClose={handleClose}
+        anchorReference="anchorPosition"
+        anchorPosition={{ top: 300, left: 600 }}
+        anchorOrigin={{
+          vertical: 'center',
+          horizontal: 'center',
+        }}
+        transformOrigin={{
+          vertical: 'center',
+          horizontal: 'center',
+        }}
+      >
+ 
+
+      <Seats userID = {user._id} flightID = {props._id} ticketID = {type._id} cabinType = {cabin.toLowerCase()} nbOfSeats = {5} isAway={isAway}/>
+
+      </Popover>
+
+
         <img src={BusinessTicket} alt="Business Ticket" />
         <div className="big">
           <div className="left">
