@@ -13,8 +13,8 @@ router.route("/CreateTicket").post((req, res) => {
   const ReturnCabin = req.body.ReturnCabin;
   const AwayPrice = req.body.AwayPrice;
   const ReturnPrice = req.body.ReturnPrice;
-  const AwaySeat=-1;
-  const ReturnSeat=-1;
+  const AwaySeat = -1;
+  const ReturnSeat = -1;
   const Type = req.body.Type;
 
   const newTicket = new Ticket({
@@ -33,6 +33,25 @@ router.route("/CreateTicket").post((req, res) => {
   newTicket
     .save()
     .then(() => res.json("Ticket Created!"))
+    .catch((err) => res.status(400).json("Error: " + err));
+});
+
+router.route("/CreatePurchase").post((req, res) => {
+  const UserID = mongoose.Types.ObjectId(req.body.UserID);
+  const NumberOfTickets = req.body.NumberOfTickets;
+  const TotalPrice = req.body.TotalPrice;
+  const Tickets = req.body.Tickets;
+
+  const newPurchase = new Purchase({
+    UserID,
+    NumberOfTickets,
+    TotalPrice,
+    Tickets,
+  });
+
+  newPurchase
+    .save()
+    .then(() => res.json("Purchase Created!"))
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
@@ -83,7 +102,7 @@ router.route("/getAwayDetails").post((req, res) => {
 
 router.route("/modifySeatsAvailable").post((req, res) => {
   //const AwayFlight = mongoose.Types.ObjectId(req.body.AwayFlight);
-  Flight.findByIdAndUpdate(req.body._id,req.body,function (err) {
+  Flight.findByIdAndUpdate(req.body._id, req.body, function (err) {
     if (err) console.log(err);
     console.log("Seats updated successfully");
     console.log(req.body.id);
@@ -93,35 +112,40 @@ router.route("/modifySeatsAvailable").post((req, res) => {
 
 router.route("/modifyAwaySeat").post((req, res) => {
   //include AwayFlight/UserID/AwaySeat=undefined
-  flightID=req.body.flightID;
-  userID=req.body.userID;
-  for(let i=0;i<req.body.modifiedSeats.length;i++){
-console.log(i);
-  Ticket.findOneAndUpdate(req.body,{AwaySeat:req.body.modifiedSeats[i]},function (err) {
-    if (err) console.log(err);
-    console.log("Seats updated successfully");
-    console.log(req.body.id);
-  });
-  
-}
-res.send();
+  flightID = req.body.flightID;
+  userID = req.body.userID;
+  for (let i = 0; i < req.body.modifiedSeats.length; i++) {
+    console.log(i);
+    Ticket.findOneAndUpdate(
+      req.body,
+      { AwaySeat: req.body.modifiedSeats[i] },
+      function (err) {
+        if (err) console.log(err);
+        console.log("Seats updated successfully");
+        console.log(req.body.id);
+      }
+    );
+  }
+  res.send();
 });
 
 router.route("/modifyReturnSeat").post((req, res) => {
   //include AwayFlight/UserID/AwaySeat=undefined
-  flightID=req.body.flightID;
-  userID=req.body.userID;
-  for(let i=0;i<req.body.modifiedSeats.length-1;i++){
-
-  Ticket.findOneAndUpdate(req.body,{ReturnSeat:modifiedSeats[i]},function (err) {
-    if (err) console.log(err);
-    console.log("Seats updated successfully");
-    console.log(req.body.id);
-  });
-  res.send();
-}
+  flightID = req.body.flightID;
+  userID = req.body.userID;
+  for (let i = 0; i < req.body.modifiedSeats.length - 1; i++) {
+    Ticket.findOneAndUpdate(
+      req.body,
+      { ReturnSeat: modifiedSeats[i] },
+      function (err) {
+        if (err) console.log(err);
+        console.log("Seats updated successfully");
+        console.log(req.body.id);
+      }
+    );
+    res.send();
+  }
 });
-
 
 router.route("/getReturnDetails").post((req, res) => {
   //const AwayFlight = mongoose.Types.ObjectId(req.body.ReturnFlight);
