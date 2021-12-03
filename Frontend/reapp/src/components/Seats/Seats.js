@@ -10,7 +10,7 @@ function Seats() {
     const [FirstClassSeats, setFirstClassSeats]= useState();
     const [BusinessSeats, setBusinessSeats]= useState();
     const [EconomySeats, setEconomySeats]= useState();
-    const flightID= "61a0aaa76f8ca666a0b5a33f";
+    const flightID= "61a9f38d12bf9a68fa37bfe4";
     const cabinType="economy";
     const nbOfSeats= 100;
     const[chosen, setChosen]=useState(0);
@@ -107,12 +107,37 @@ function indexOfSeats(array){
   }
 
   function confirmSeat(){
-      if(cabinType=="first")
+      let changedIndices = [];
+     
+      if(cabinType=="first"){
+        changedIndices = indexOfSeats(FirstAvailable);
        setFirstAvailable(backToOne(FirstAvailable));
-      else if(cabinType=="business")
+    }
+      else if(cabinType=="business"){
+        changedIndices = indexOfSeats(BusinessAvailable);
         setBusinessAvailable(backToOne(BusinessAvailable));
-      else if (cabinType=="economy")
+    }
+      else if (cabinType=="economy"){
+        changedIndices = indexOfSeats(EconomyAvailable);
         setEconomyAvailable(backToOne(EconomyAvailable));
+      }
+      axios
+      .post("http://localhost:8000/Tickets/waitingforsalma", obj)
+      .then((res) => {
+        const x = res.data;
+        props.searchHandler(x);
+        //alert("search? fy datagrid");
+      })
+      .catch((e) => {
+        alert("error");
+        console.log(e);
+      });  
+
+
+
+
+    
+    console.log("Changed indices are : " , changedIndices);
   }
 
   //to render the right cabin
