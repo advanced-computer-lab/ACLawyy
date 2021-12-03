@@ -34,7 +34,7 @@ function BoardingPass({ props, type, isAway, user }) {
     }
   }
 
-  if (cabin === "Economy") {
+  if (cabin === "economy" || cabin === "Economy") {
     return (
       <div className="ticket">
         <img src={EconomyTicket} alt="Economy Ticket" />
@@ -108,7 +108,7 @@ function BoardingPass({ props, type, isAway, user }) {
         </div>
       </div>
     );
-  } else if (cabin === "Business") {
+  } else if (cabin === "business"||cabin === "Business") {
     return (
       <div className="ticket">
         <img src={BusinessTicket} alt="Business Ticket" />

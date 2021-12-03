@@ -24,11 +24,8 @@ function Booking(props) {
   }, []);
 
   useEffect(() => {
-    console.log(props.p.NumberOfTickets);
-    console.log(props.p.Tickets);
-    console.log(props.p.Tickets[0].ReturnFlight);
-    console.log(props.p.Tickets[0].AwaySeat);
-    if (props.p.Tickets != undefined) {
+
+    if (props.p.Tickets != undefined && props.p.Tickets != null) {
       console.log(props.p.Tickets);
       axios
         .post("http://localhost:8000/Tickets/getReturnDetails", {
@@ -74,7 +71,7 @@ function Booking(props) {
   // }, [myPurchases]);
 
   if (awayFlight === null || user === null || returnFlight === null)
-    return <div> </div>;
+    return <div> Loading...</div>;
 
   return (
     <div className="booking">

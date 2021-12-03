@@ -31,7 +31,7 @@ function FlightsSummary (props)  {
   const confirmPurchase = () => {
     const adultTicket = {UserID : userID , AwayFlight : flight1._id,ReturnFlight: flight2._id , AwayCabin : cabin1, ReturnCabin : cabin2,AwayPrice:price1,ReturnPrice :price2 ,Type : "Adult"};
     const childTicket = {UserID : userID , AwayFlight : flight1._id,ReturnFlight: flight2._id , AwayCabin : cabin1, ReturnCabin : cabin2,AwayPrice:price1/2,ReturnPrice :price2 ,Type : "Child"};
-    console.log(userID);
+    console.log(adultTicket);
 
     const tickets = [];
     for(let i = 0 ; i< adults; i++){
@@ -57,14 +57,12 @@ function FlightsSummary (props)  {
 
 
 
-    const allTickets = adults.concat(children);
-    const purchaseBody = {UserID : userID , NumberOfTickets:parseInt(adults) + parseInt(children), TotalPrice : children*price1/2 + children*price2/2 +adults * price1+ adults * price2, Tickets : allTickets };
+    const purchaseBody = {UserID : userID , NumberOfTickets:parseInt(adults) + parseInt(children), TotalPrice : children*price1/2 + children*price2/2 +adults * price1+ adults * price2, Tickets : tickets };
     axios
     .post("http://localhost:8000/Tickets/CreatePurchase", purchaseBody)
     .then((res) => {})
     .catch((e) => {  alert("error"); });
 
-  
   
   }
   

@@ -3,6 +3,13 @@ import React, { useState,useEffect } from "react";
 import AdminPage from "./components/AdminPage";
 import NavBar from "./components/NavBar";
 import UserHome from "./components/UserHome/UserHome"
+import ReservedFlights from "./components/Booking/ReservedFlights"
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes as Switch
+} from 'react-router-dom';
+
 
 
 function App() {
@@ -10,10 +17,22 @@ function App() {
   const userID = "61a53ad5cbfb061456411e90";
 
     return(
+      <Router>
       <div>
-      <NavBar type="0" goTo = {setCurrPage} />
-      <UserHome userID = {userID}/>
+   
+
+      <Switch>
+                    <Route path="/" element = {  <UserHome userID = {userID}/>}> </Route>
+
+                    <Route path='/reservedflights' element = { <ReservedFlights UserID ={userID}  />}></Route>
+      </Switch>
+
+
+   
       </div>
+      <NavBar type="1"  />
+      </Router>
+  
     );
 
 
