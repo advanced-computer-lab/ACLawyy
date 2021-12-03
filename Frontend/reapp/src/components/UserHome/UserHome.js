@@ -20,7 +20,7 @@ function UserHome(props) {
   const [business,setBusiness] = useState(false);
   const [economy,setEconomy] = useState(false);
   const [midsearch,setMidsearch]=useState(true);
-  
+  console.log(props.userID);
   const checkIfSeatsEnough = (flight,cabin)=>{
 
     if (cabin == "first"){
@@ -58,7 +58,7 @@ function UserHome(props) {
       <Stack direction="row" spacing={0}>
 
         <UserSearch onSearch = {handleSearch}/>
-        {outboundFlights.length>0&&inboundFlights.length>0&&<FlightResults children = {children} adults = {adults} isAfter = {checkIfAfterDeparture} enoughSeats = {checkIfSeatsEnough} outFlights= {outboundFlights} inFlights = {inboundFlights} econ = {economy} bus = {business} first = {first}/>}
+        {outboundFlights.length>0&&inboundFlights.length>0&&<FlightResults userID = {props.userID} children = {children} adults = {adults} isAfter = {checkIfAfterDeparture} enoughSeats = {checkIfSeatsEnough} outFlights= {outboundFlights} inFlights = {inboundFlights} econ = {economy} bus = {business} first = {first}/>}
       </Stack>
 
     );

@@ -7,12 +7,12 @@ import UserHome from "./components/UserHome/UserHome"
 
 function App() {
   const [currPage, setCurrPage] = useState(0);
-
+  const userID = "61a53ad5cbfb061456411e90";
 
     return(
       <div>
       <NavBar type="0" goTo = {setCurrPage} />
-      <UserHome/>
+      <UserHome userID = {userID}/>
       </div>
     );
 

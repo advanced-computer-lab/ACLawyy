@@ -5,6 +5,9 @@ import { Button } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import ChildCareIcon from '@mui/icons-material/ChildCare';
+import axios from "axios";
+
+
 const calculatePrice = (flight,cabin)=>{
   if  (cabin == "first")
     return 2* flight.EconomyPrice;
@@ -13,19 +16,58 @@ const calculatePrice = (flight,cabin)=>{
   return flight.EconomyPrice;
 
 }
-const confirmPurchase = () => {
-
-
-
-}
 
 
 function FlightsSummary (props)  {
-  const {flight1,cabin1,flight2,cabin2,adults,children} = props;
+  const {flight1,cabin1,flight2,cabin2,adults,children,u} = props;
   const price1 = calculatePrice(flight1,cabin1);
   const price2 = calculatePrice(flight2,cabin2);
 
+  const userID = props.userID;
 
+
+
+
+  const confirmPurchase = () => {
+    const adultTicket = {UserID : userID , AwayFlight : flight1._id,ReturnFlight: flight2._id , AwayCabin : cabin1, ReturnCabin : cabin2,AwayPrice:price1,ReturnPrice :price2 ,Type : "Adult"};
+    const childTicket = {UserID : userID , AwayFlight : flight1._id,ReturnFlight: flight2._id , AwayCabin : cabin1, ReturnCabin : cabin2,AwayPrice:price1/2,ReturnPrice :price2 ,Type : "Child"};
+    console.log(userID);
+
+    const tickets = [];
+    for(let i = 0 ; i< adults; i++){
+      tickets.push(adultTicket);
+
+      axios
+      .post("http://localhost:8000/Tickets/CreateTicket", adultTicket)
+      .then((res) => {  })
+      .catch((e) => {  alert("error"); });
+
+    }
+  
+
+    for(let i = 0 ; i< children; i++){
+      tickets.push(childTicket);
+
+      axios
+      .post("http://localhost:8000/Tickets/CreateTicket", childTicket)
+      .then((res) => {  })
+      .catch((e) => {  alert("error"); });
+
+    }
+
+
+
+    const allTickets = adults.concat(children);
+    const purchaseBody = {UserID : userID , NumberOfTickets:parseInt(adults) + parseInt(children), TotalPrice : children*price1/2 + children*price2/2 +adults * price1+ adults * price2, Tickets : allTickets };
+    axios
+    .post("http://localhost:8000/Tickets/CreatePurchase", purchaseBody)
+    .then((res) => {})
+    .catch((e) => {  alert("error"); });
+
+  
+  
+  }
+  
   return (
     <div className = "container2">
       <h2 className = "title" >Summary</h2>

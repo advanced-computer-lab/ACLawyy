@@ -22,6 +22,7 @@ function FlightResults(props) {
     const inFlights = props.inFlights;
     const adults = props.adults;
     const children =props.children;
+    console.log(props.userID);
     const handleClick = (event) => {
       setAnchorEl(event.currentTarget);
     };
@@ -105,7 +106,7 @@ function FlightResults(props) {
       >
  
 
-        <FlightsSummary flight1 = {outboundFlight}  cabin1 = {outboundCabin} flight2 = {inboundFlight}  cabin2 = {inboundCabin} adults = {adults} children ={children}></FlightsSummary>
+        <FlightsSummary flight1 = {outboundFlight}  cabin1 = {outboundCabin} flight2 = {inboundFlight}  cabin2 = {inboundCabin} adults = {adults} children ={children} userID = {props.userID}></FlightsSummary>
      
 
       </Popover>

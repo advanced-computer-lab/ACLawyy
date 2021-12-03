@@ -19,8 +19,8 @@ function UserSearch(props) {
   const [arrivalAirportC, setArrivalAirport] = useState("");
   const [departureCityC, setDepartureCity] = useState("");
   const [arrivalCityC, setArrivalCity] = useState("");
-  const [adultsC, setAdults] = useState("");
-  const [childrenC, setChildren] = useState("");
+  const [adultsC, setAdults] = useState(0);
+  const [childrenC, setChildren] = useState(0);
   const [firstClassSeatsC, setFirstClassSeats] = useState("");
   const [businessClassSeatsC, setBusinessClassSeats] = useState("");
   const [economyClassSeatsC, setEconomyClassSeats] = useState("");
