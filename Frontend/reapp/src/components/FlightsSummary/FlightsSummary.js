@@ -13,6 +13,16 @@ const calculatePrice = (flight,cabin)=>{
   return flight.EconomyPrice;
 
 }
+const confirmPurchase = () => {
+
+
+
+
+
+
+
+
+}
 
 
 function FlightsSummary (props)  {
@@ -59,7 +69,7 @@ function FlightsSummary (props)  {
         </div>
     </Stack>
    
-    < Button  className = "button2"  >Reserve</Button>
+    < Button  className = "button2" onClick = {confirmPurchase}  >Reserve</Button>
 
 
     </div>
