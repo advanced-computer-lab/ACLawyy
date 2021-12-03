@@ -6,13 +6,27 @@ import Button from '@mui/material/Button';
 
 //flightID and cabin type are props to seats function???
 //seat chosen needs to be tied to backend
-function Seats() {
+function Seats(props) {
     const [FirstClassSeats, setFirstClassSeats]= useState();
     const [BusinessSeats, setBusinessSeats]= useState();
     const [EconomySeats, setEconomySeats]= useState();
+    
     const flightID= "61a9f38d12bf9a68fa37bfe4";
+   // const flightID= props.flightID;
+
+    const ticketID = "61aa17a2bf62ad1df817235c"
+    //const ticketID = props.ticketID;
+
+
     const cabinType="economy";
+    //const cabinType=props.cabinType;
+    
     const nbOfSeats= 100;
+    //const nbOfSeats= props.seats;
+    
+    const isAway = true;
+    //const isAway = props.isAway;
+    
     const[chosen, setChosen]=useState(0);
     var firstCss="firstNotAllowed";
     var businessCss="businessNotAllowed";
@@ -20,8 +34,6 @@ function Seats() {
     const[FirstAvailable, setFirstAvailable]= useState([]);
     const[BusinessAvailable, setBusinessAvailable]= useState([]);
     const[EconomyAvailable, setEconomyAvailable]= useState([]);
-
-
     useEffect(() => {
     axios
     .post("http://localhost:8000/Flights/Search", {_id: flightID})
@@ -108,33 +120,57 @@ function indexOfSeats(array){
 
   function confirmSeat(){
       let changedIndices = [];
-     
+      const obj ={_id:flightID};
+
       if(cabinType=="first"){
         changedIndices = indexOfSeats(FirstAvailable);
        setFirstAvailable(backToOne(FirstAvailable));
+       obj.FirstClassSeatsAvailable = backToOne(FirstAvailable) ; 
     }
       else if(cabinType=="business"){
         changedIndices = indexOfSeats(BusinessAvailable);
         setBusinessAvailable(backToOne(BusinessAvailable));
+        obj.BusinessClassSeatsAvailable = backToOne(BusinessAvailable) ;
     }
       else if (cabinType=="economy"){
         changedIndices = indexOfSeats(EconomyAvailable);
         setEconomyAvailable(backToOne(EconomyAvailable));
+        obj.EconomyClassSeatsAvailable = backToOne(EconomyAvailable) ;
       }
+
+
       axios
-      .post("http://localhost:8000/Tickets/waitingforsalma", obj)
+      .post("http://localhost:8000/Tickets/modifySeatsAvailable",obj )
       .then((res) => {
-        const x = res.data;
-        props.searchHandler(x);
-        //alert("search? fy datagrid");
-      })
+        console.log("updated");})
       .catch((e) => {
         alert("error");
         console.log(e);
       });  
 
+      if (isAway){
+      axios
+      .post("http://localhost:8000/Tickets/modifyAwaySeat", {modifiedSeats:changedIndices,AwayFlight:flightID,AwaySeat:-1})
+      .then((res) => {
 
+      })
+      .catch((e) => {
+        alert("error");
+        console.log(e);
+      });  
+    }
+    else{
+        axios
+        .post("http://localhost:8000/Tickets/modifyReturnSeat", {modifiedSeats:changedIndices,ReturnFlight:flightID,ReturnSeat:-1})
+        .then((res) => {
+  
+        })
+        .catch((e) => {
+          alert("error");
+          console.log(e);
+        });
 
+    }
 
     
     console.log("Changed indices are : " , changedIndices);

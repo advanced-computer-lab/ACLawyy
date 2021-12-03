@@ -11,7 +11,7 @@ function App() {
   });
   return (
     <div style={{ height: 400, width: "100%" }}>
-      <AdminPage currPage={currPage} />
+      {/* <AdminPage currPage={currPage} /> */}
       <NavBar type="1" goTo={setCurrPage} />
       <Seats />
     </div>
