@@ -103,10 +103,10 @@ function FlightsSummary (props)  {
           
         </div>
     </Stack>
-   
-    < Button  className = "button2" onClick = {confirmPurchase}  >Reserve</Button>
-
-
+    <Stack direction = "row" spacing = {30}>
+    < Button  variant = "outlined" onClick = {confirmPurchase}  ><h4>Reserve</h4></Button>
+    < Button   variant = "outlined" onClick = {confirmPurchase}  ><h4>Reserve & and choose seats</h4></Button>
+          </Stack>
     </div>
   );
 };
