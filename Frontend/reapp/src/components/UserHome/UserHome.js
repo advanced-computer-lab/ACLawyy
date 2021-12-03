@@ -58,7 +58,7 @@ function UserHome(props) {
       <Stack direction="row" spacing={0}>
 
         <UserSearch onSearch = {handleSearch}/>
-        {!midsearch&&<FlightResults isAfter = {checkIfAfterDeparture} enoughSeats = {checkIfSeatsEnough} outFlights= {outboundFlights} inFlights = {inboundFlights} econ = {economy} bus = {business} first = {first}/>}
+        {outboundFlights.length>0&&inboundFlights.length>0&&<FlightResults children = {children} adults = {adults} isAfter = {checkIfAfterDeparture} enoughSeats = {checkIfSeatsEnough} outFlights= {outboundFlights} inFlights = {inboundFlights} econ = {economy} bus = {business} first = {first}/>}
       </Stack>
 
     );

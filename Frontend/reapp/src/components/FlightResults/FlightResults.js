@@ -20,6 +20,8 @@ function FlightResults(props) {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const outFlights = props.outFlights;
     const inFlights = props.inFlights;
+    const adults = props.adults;
+    const children =props.children;
     const handleClick = (event) => {
       setAnchorEl(event.currentTarget);
     };
@@ -90,18 +92,20 @@ function FlightResults(props) {
         open={open}
         anchorEl={anchorEl}
         onClose={handleClose}
+        anchorReference="anchorPosition"
+        anchorPosition={{ top: 300, left: 600 }}
         anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'center',
-          }}
-          transformOrigin={{
-            vertical: 'bottom',
-            horizontal: 'center',
-          }}
+          vertical: 'center',
+          horizontal: 'center',
+        }}
+        transformOrigin={{
+          vertical: 'center',
+          horizontal: 'center',
+        }}
       >
  
 
-        <FlightsSummary flight1 = {outboundFlight}  cabin1 = {outboundCabin} flight2 = {inboundFlight}  cabin2 = {inboundCabin}></FlightsSummary>
+        <FlightsSummary flight1 = {outboundFlight}  cabin1 = {outboundCabin} flight2 = {inboundFlight}  cabin2 = {inboundCabin} adults = {adults} children ={children}></FlightsSummary>
      
 
       </Popover>
@@ -122,7 +126,8 @@ function FlightResults(props) {
         </div>
 
 </Stack>
- < Fab className = "button" variant="extended" size = "medium" disabled = {!bothSelected()}  onClick={handleClick}>Select</Fab>
+{bothSelected()&&
+ < Fab className = "button" variant="extended" size = "medium" disabled = {!bothSelected()}  onClick={handleClick}>Select</Fab>}
        </div>
     );
 

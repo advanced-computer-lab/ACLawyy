@@ -148,7 +148,7 @@ function FlightCard(props){
           aria-expanded={expanded || props.perm}
           aria-label="show more"
         >
-          <ExpandMoreIcon  />
+         { !props.perm&& <ExpandMoreIcon  />}
         </ExpandMore>
         <Collapse in={expanded || props.perm} timeout="auto" unmountOnExit >
           <div  className = "details" style={mystyle}>  
