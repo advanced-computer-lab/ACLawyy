@@ -17,11 +17,6 @@ const confirmPurchase = () => {
 
 
 
-
-
-
-
-
 }
 
 
