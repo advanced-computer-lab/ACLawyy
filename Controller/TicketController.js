@@ -112,8 +112,6 @@ router.route("/modifySeatsAvailable").post((req, res) => {
 
 router.route("/modifyAwaySeat").post((req, res) => {
   //include AwayFlight/UserID/AwaySeat=undefined
-  flightID = req.body.flightID;
-  userID = req.body.userID;
   for (let i = 0; i < req.body.modifiedSeats.length; i++) {
     console.log(i);
     Ticket.findOneAndUpdate(
@@ -146,6 +144,10 @@ router.route("/modifyReturnSeat").post((req, res) => {
     res.send();
   }
 });
+
+
+
+
 
 router.route("/getReturnDetails").post((req, res) => {
   //const AwayFlight = mongoose.Types.ObjectId(req.body.ReturnFlight);
