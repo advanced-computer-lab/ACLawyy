@@ -1,5 +1,6 @@
 import "./UserPage.css";
 import Booking from "../Booking/Booking";
+import ReservedFlights from "../Booking/ReservedFlights";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 
@@ -22,7 +23,7 @@ function UserPage(props) {
   }
   return (
     <div>
-      <Booking UserID="61a53ad5cbfb061456411e90" p={purchase} />
+      <ReservedFlights UserID="61a53ad5cbfb061456411e90" />
     </div>
   );
 }

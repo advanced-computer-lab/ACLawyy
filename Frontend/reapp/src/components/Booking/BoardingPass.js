@@ -6,28 +6,34 @@ import { FaPlane } from "react-icons/fa";
 
 function BoardingPass({ props, type, isAway, user }) {
   console.log(props);
-
+  console.log(props.DepartureAirport);
   var cabin = {};
   var mySeat = type.AwaySeat;
-  if (type.Seat === "-1" || type.Seat === undefined) {
-    mySeat = <a href="/">Assign Seat</a>;
-  }
 
   if (isAway) {
     cabin = type.AwayCabin;
-    if (type.AwaySeat === -1 || type.AwaySeat === undefined) {
+    if (
+      type.AwaySeat === -1 ||
+      type.AwaySeat === undefined ||
+      type.AwaySeat === "-1"
+    ) {
       mySeat = <a href="/">Assign Seat</a>;
     } else {
       mySeat = type.AwaySeat;
     }
   } else {
     cabin = type.ReturnCabin;
-    if (type.ReturnSeat === -1 || type.ReturnSeat === undefined) {
+    if (
+      type.ReturnSeat === -1 ||
+      type.ReturnSeat === undefined ||
+      type.AwaySeat === "-1"
+    ) {
       mySeat = <a href="/">Assign Seat</a>;
     } else {
       mySeat = type.ReturnSeat;
     }
   }
+
   if (cabin === "Economy") {
     return (
       <div className="ticket">

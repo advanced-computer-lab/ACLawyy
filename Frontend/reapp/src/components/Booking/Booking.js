@@ -73,7 +73,8 @@ function Booking(props) {
 
   // }, [myPurchases]);
 
-  if (awayFlight == null || user == null) return <div> </div>;
+  if (awayFlight === null || user === null || returnFlight === null)
+    return <div> </div>;
 
   return (
     <div className="booking">
