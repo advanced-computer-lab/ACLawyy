@@ -5,7 +5,6 @@ let Flight = require("../Models/Flight");
 const csv = require("csv-parser");
 const fs = require("fs");
 
-
 //first run to import csv file into db
 // fs.createReadStream("Flights.csv")
 //   .pipe(csv())
@@ -23,14 +22,14 @@ const fs = require("fs");
 //     const ArrivalCity = ArrivalAirport + " City";
 //     const BaggageAllowance = row.Baggage;
 //     const FirstClassSeats = row.FirstClassSeats;
-//     const FirstClassSeatsAvailable=[]; 
-//     for (let i=0; i<FirstClassSeats; i++) FirstClassSeatsAvailable.push(0); 
+//     const FirstClassSeatsAvailable=[];
+//     for (let i=0; i<FirstClassSeats; i++) FirstClassSeatsAvailable.push(0);
 //     const BusinessClassSeats = row.BusinessClassSeats;
-//     const BusinessClassSeatsAvailable=[]; 
-//     for (let i=0; i<BusinessClassSeats; i++) BusinessClassSeatsAvailable.push(0);  
+//     const BusinessClassSeatsAvailable=[];
+//     for (let i=0; i<BusinessClassSeats; i++) BusinessClassSeatsAvailable.push(0);
 //     const EconomyClassSeats = row.EconomyClassSeats;
-//     const EconomyClassSeatsAvailable = []; 
-//     for (let i=0; i<EconomyClassSeats; i++) EconomyClassSeatsAvailable.push(0);  
+//     const EconomyClassSeatsAvailable = [];
+//     for (let i=0; i<EconomyClassSeats; i++) EconomyClassSeatsAvailable.push(0);
 
 //     const EconomyPrice = row.Price;
 
@@ -59,8 +58,6 @@ const fs = require("fs");
 //   .on("end", () => {
 //     console.log("CSV file successfully processed");
 //   });
-
-
 
 //beginning of flight methods
 
@@ -121,14 +118,14 @@ router.route("/Search2").get((req, res) => {
 //     const ArrivalCity = ArrivalAirport + " City";
 //     const BaggageAllowance = row.Baggage;
 //     const FirstClassSeats = row.FirstClassSeats;
-//     const FirstClassSeatsAvailable=[]; 
-//     for (let i=0; i<FirstClassSeats; i++) FirstClassSeatsAvailable.push(0); 
+//     const FirstClassSeatsAvailable=[];
+//     for (let i=0; i<FirstClassSeats; i++) FirstClassSeatsAvailable.push(0);
 //     const BusinessClassSeats = row.BusinessClassSeats;
-//     const BusinessClassSeatsAvailable=[]; 
-//     for (let i=0; i<BusinessClassSeats; i++) BusinessClassSeatsAvailable.push(0);  
+//     const BusinessClassSeatsAvailable=[];
+//     for (let i=0; i<BusinessClassSeats; i++) BusinessClassSeatsAvailable.push(0);
 //     const EconomyClassSeats = row.EconomyClassSeats;
-//     const EconomyClassSeatsAvailable = []; 
-//     for (let i=0; i<EconomyClassSeats; i++) EconomyClassSeatsAvailable.push(0);  
+//     const EconomyClassSeatsAvailable = [];
+//     for (let i=0; i<EconomyClassSeats; i++) EconomyClassSeatsAvailable.push(0);
 
 //     const EconomyPrice = row.Price;
 
@@ -155,8 +152,6 @@ router.route("/Search2").get((req, res) => {
 //     newFlight.save();
 //   })
 
-
-
 router.route("/CreateFlight").post((req, res) => {
   const FlightNumber = req.body.FlightNumber;
   const ArrivalDate = req.body.ArrivalDate;
@@ -169,18 +164,18 @@ router.route("/CreateFlight").post((req, res) => {
   const ArrivalCity = req.body.ArrivalCity;
   const BaggageAllowance = req.body.BaggageAllowance;
   const FirstClassSeats = req.body.FirstClassSeats;
-  const FirstClassSeatsAvailable=[]; 
-  for (let i=0; i<FirstClassSeats; i++) FirstClassSeatsAvailable.push(0); 
+  const FirstClassSeatsAvailable = [];
+  for (let i = 0; i < FirstClassSeats; i++) FirstClassSeatsAvailable.push(0);
   const BusinessClassSeats = req.body.BusinessClassSeats;
-  for (let i=0; i<BusinessClassSeats; i++) BusinessClassSeatsAvailable.push(0);  
+  const BusinessClassSeatsAvailable = [];
+  for (let i = 0; i < BusinessClassSeats; i++)
+    BusinessClassSeatsAvailable.push(0);
   const EconomyClassSeats = req.body.EconomyClassSeats;
-  const EconomyClassSeatsAvailable = []; 
-  for (let i=0; i<EconomyClassSeats; i++) EconomyClassSeatsAvailable.push(0);  
-  
+  const EconomyClassSeatsAvailable = [];
+  for (let i = 0; i < EconomyClassSeats; i++)
+    EconomyClassSeatsAvailable.push(0);
+
   const EconomyPrice = req.body.EconomyPrice;
-  
-
-
 
   const newFlight = new Flight({
     FlightNumber,
@@ -192,14 +187,14 @@ router.route("/CreateFlight").post((req, res) => {
     ArrivalTime,
     DepartureCity,
     ArrivalCity,
-    BaggageAllowance ,
+    BaggageAllowance,
     FirstClassSeats,
     FirstClassSeatsAvailable,
-    BusinessClassSeats ,
-    BusinessClassSeatsAvailable ,
+    BusinessClassSeats,
+    BusinessClassSeatsAvailable,
     EconomyClassSeats,
     EconomyClassSeatsAvailable,
-    EconomyPrice ,
+    EconomyPrice,
   });
 
   newFlight
@@ -220,17 +215,11 @@ router.route("/DeleteFlight").post((req, res) => {
 // ****** Try to turn into json obj *********
 //../flights/UpdateFlight
 router.route("/UpdateFlight").post((req, res) => {
-  Flight.findByIdAndUpdate(
-    req.body._id,
-    req.body,
-    function (err) {
-      if (err) console.log(err);
-      console.log("Flight updated successfully");
-      console.log(req.body.id);
-      
-    }
-    
-  );
+  Flight.findByIdAndUpdate(req.body._id, req.body, function (err) {
+    if (err) console.log(err);
+    console.log("Flight updated successfully");
+    console.log(req.body.id);
+  });
   res.send();
 });
 

@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import AppTrial from './components/AppTrial/AppTrial';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App key = {1}/>
+    <AppTrial  />
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -37,6 +37,14 @@
   padding-right: 1%;
   margin: auto;
 }
+.navbar-profile-buttons {
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  padding-left: 1%;
+  padding-right: 1%;
+  margin: auto;
+}
 
 .navbar-profile a {
   font-size: 95%;
@@ -59,7 +67,7 @@
   flex: 1;
 }
 .navbar-logo {
-  margin-left: 1rem;
+  margin-left: 0.5rem;
   padding-right: 1%;
 }
 
