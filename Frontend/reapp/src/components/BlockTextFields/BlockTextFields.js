@@ -44,6 +44,7 @@ function BlockTextFields(props) {
     props.blockRemover();
     handleAllFlights();
     var obj = {};
+    props.blockRemover();
 
     if (flightNumberC.length !== 0) {
       obj = { ...obj, ["FlightNumber"]: flightNumberC };

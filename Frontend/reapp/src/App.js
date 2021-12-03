@@ -4,6 +4,7 @@ import AdminPage from "./components/AdminPage";
 import NavBar from "./components/NavBar";
 import UserHome from "./components/UserHome/UserHome"
 import ReservedFlights from "./components/Booking/ReservedFlights"
+import Seats from "./components/Seats/Seats";
 import {
   BrowserRouter as Router,
   Route,
