@@ -16,7 +16,7 @@ import {
 
 
 
-function BoardingPass({ props, type, isAway, user,onSeats }) {
+function BoardingPass({ props, type, isAway, user }) {
 
 
 
