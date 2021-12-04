@@ -3,14 +3,17 @@ import React, { useState,useEffect } from "react";
 import axios from "axios";
 import { set } from "date-fns";
 import Button from '@mui/material/Button';
+import {useParams } from "react-router-dom";
 
 //flightID and cabin type are props to seats function???
 //seat chosen needs to be tied to backend
-function Seats(props) {
+function Seats(prop) {
     const [FirstClassSeats, setFirstClassSeats]= useState();
     const [BusinessSeats, setBusinessSeats]= useState();
     const [EconomySeats, setEconomySeats]= useState();
-    
+
+    const  props  = JSON.parse(useParams().seatParams);
+    console.log("in seats with props", props);
    // const flightID= "61a9f38d12bf9a68fa37bfe4";
     const flightID= props.flightID;
 
@@ -172,7 +175,7 @@ function indexOfSeats(array){
 
     }
 
-    
+    window.location.href = "http://localhost:3000/ReservedFlights";
     console.log("Changed indices are : " , changedIndices);
   }
 
@@ -186,6 +189,7 @@ function indexOfSeats(array){
     else if(cabinType=="business"){
         businessCss= "business";
     }
+
     return (
   <div className= "seats">  
       <h1 className="header">Seat selection: </h1>

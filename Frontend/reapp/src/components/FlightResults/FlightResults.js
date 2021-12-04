@@ -106,7 +106,7 @@ function FlightResults(props) {
       >
  
 
-        <FlightsSummary flight1 = {outboundFlight}  cabin1 = {outboundCabin} flight2 = {inboundFlight}  cabin2 = {inboundCabin} adults = {adults} children ={children} userID = {props.userID}></FlightsSummary>
+        <FlightsSummary flight1 = {outboundFlight}  cabin1 = {outboundCabin} flight2 = {inboundFlight}  cabin2 = {inboundCabin} adults = {adults} children ={children} userID = {props.userID} ></FlightsSummary>
      
 
       </Popover>

@@ -26,7 +26,7 @@ function ReservedFlights(props) {
         console.log(purchases);
         return (
           <div>
-            <Booking UserID={props.UserID} p={pur} />
+            <Booking UserID={props.UserID} p={pur} onSeats = {props.onSeats}/>
           </div>
         );
       })}

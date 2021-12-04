@@ -2,6 +2,14 @@ import "./NavBar.css";
 import { CgProfile } from "react-icons/cg";
 import logo from "../logo.jpeg";
 import Button from "@mui/material/Button";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes as Switch,
+  Link
+} from 'react-router-dom';
+
+
 
 function NavBar(props) {
   if (props.type == 0) {
@@ -47,9 +55,9 @@ function NavBar(props) {
           <div className="navbar-nav-items">
             <ul>
               <li>
-                <a href="/">Home</a>
+                <Link to="/">Home</Link>
                 <a href="/">Book A Flight</a>
-                <a href="/ReservedFlights">Reserved Flights</a>
+                <Link to="/ReservedFlights">Reserved Flights</Link>
                 <a href="/">FAQ</a>
               </li>
             </ul>

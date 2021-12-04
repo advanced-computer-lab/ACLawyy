@@ -27,7 +27,6 @@ function FlightsSummary (props)  {
 
 
 
-
   const confirmPurchase = () => {
     const adultTicket = {UserID : userID , AwayFlight : flight1._id,ReturnFlight: flight2._id , AwayCabin : cabin1, ReturnCabin : cabin2,AwayPrice:price1,ReturnPrice :price2 ,Type : "Adult"};
     const childTicket = {UserID : userID , AwayFlight : flight1._id,ReturnFlight: flight2._id , AwayCabin : cabin1, ReturnCabin : cabin2,AwayPrice:price1/2,ReturnPrice :price2 ,Type : "Child"};
@@ -63,7 +62,7 @@ function FlightsSummary (props)  {
     .then((res) => {})
     .catch((e) => {  alert("error"); });
 
-  
+    window.location.href = "http://localhost:3000/ReservedFlights";
   }
   
   return (
@@ -105,7 +104,6 @@ function FlightsSummary (props)  {
     </Stack>
     <Stack direction = "row" spacing = {30}>
     < Button  variant = "outlined" onClick = {confirmPurchase}  ><h4>Reserve</h4></Button>
-    < Button   variant = "outlined" onClick = {confirmPurchase}  ><h4>Reserve & and choose seats</h4></Button>
           </Stack>
     </div>
   );

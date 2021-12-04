@@ -3,39 +3,20 @@ import EconomyTicket from "./TicketImg/EconomyTicket.png";
 import BusinessTicket from "./TicketImg/BusinessTicket.png";
 import FirstClassTicket from "./TicketImg/FirstClassTicket.png";
 import { FaPlane } from "react-icons/fa";
-import Popover from '@mui/material/Popover';
 import Seats from "../Seats/Seats"
 import React, { useState,useEffect } from "react";
+
+
 import {
   BrowserRouter as Router,
   Route,
-  Routes as Switch
+  Routes as Switch,
+  Link
 } from 'react-router-dom';
 
 
 
-
-function BoardingPass({ props, type, isAway, user }) {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-const open = Boolean(anchorEl);
-const id = open ? 'simple-popover' : undefined;
-
-
-
-
-
-
-
-
+function BoardingPass({ props, type, isAway, user,onSeats }) {
 
 
 
@@ -43,7 +24,8 @@ const id = open ? 'simple-popover' : undefined;
   console.log(props.DepartureAirport);
   var cabin = {};
   var mySeat = type.AwaySeat;
-
+  const cabinType = isAway ? type.AwayCabin : type.ReturnCabin;
+  const seatParams = {userID : user._id, flightID : props._id, ticketID : type._id, cabinType : cabinType.toLowerCase(), seats:1, isAway:isAway};
   if (isAway) {
     cabin = type.AwayCabin;
     if (
@@ -51,7 +33,7 @@ const id = open ? 'simple-popover' : undefined;
       type.AwaySeat === undefined ||
       type.AwaySeat === "-1"
     ) {
-      mySeat = <a onClick = {handleClick}>Assign Seat</a>;
+      mySeat = <Link to = { `/chooseSeats/${JSON.stringify(seatParams)}`} >Assign Seat</Link>;
     } else {
       mySeat = type.AwaySeat;
     }
@@ -62,7 +44,7 @@ const id = open ? 'simple-popover' : undefined;
       type.ReturnSeat === undefined ||
       type.AwaySeat === "-1"
     ) {
-      mySeat = <a onClick = {handleClick}>Assign Seat</a>;
+      mySeat = <Link to = { `/chooseSeats/${JSON.stringify(seatParams)}`} >Assign Seat</Link>;
     } else {
       mySeat = type.ReturnSeat;
     }
@@ -72,27 +54,6 @@ const id = open ? 'simple-popover' : undefined;
     return (
       <div className="ticket">
 
-<Popover
-        id={id}
-        open={open}
-        anchorEl={anchorEl}
-        onClose={handleClose}
-        anchorReference="anchorPosition"
-        anchorPosition={{ top: 300, left: 600 }}
-        anchorOrigin={{
-          vertical: 'center',
-          horizontal: 'center',
-        }}
-        transformOrigin={{
-          vertical: 'center',
-          horizontal: 'center',
-        }}
-      >
- 
-
-      <Seats userID = {user._id} flightID = {props._id} ticketID = {type._id} cabinType = {cabin} nbOfSeats = {1} isAway={isAway}/>
-
-      </Popover>
 
 
 
@@ -172,27 +133,9 @@ const id = open ? 'simple-popover' : undefined;
   } else if (cabin === "business"||cabin === "Business") {
     return (
       <div className="ticket">
-<Popover
-        id={id}
-        open={open}
-        anchorEl={anchorEl}
-        onClose={handleClose}
-        anchorReference="anchorPosition"
-        anchorPosition={{ top: 300, left: 600 }}
-        anchorOrigin={{
-          vertical: 'center',
-          horizontal: 'center',
-        }}
-        transformOrigin={{
-          vertical: 'center',
-          horizontal: 'center',
-        }}
-      >
- 
 
-      <Seats userID = {user._id} flightID = {props._id} ticketID = {type._id} cabinType = {cabin.toLowerCase()} nbOfSeats = {5} isAway={isAway}/>
 
-      </Popover>
+    
 
 
         <img src={BusinessTicket} alt="Business Ticket" />

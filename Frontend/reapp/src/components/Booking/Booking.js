@@ -93,12 +93,14 @@ function Booking(props) {
                 type={ticket}
                 isAway={true}
                 user={user}
+
               ></BoardingPass>
               <BoardingPass
                 props={returnFlight}
                 type={ticket}
                 isAway={false}
                 user={user}
+
               ></BoardingPass>
             </div>
           );
