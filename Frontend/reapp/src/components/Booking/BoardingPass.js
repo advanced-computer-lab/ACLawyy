@@ -18,7 +18,7 @@ import {
 
 function BoardingPass({ props, type, isAway, user }) {
 
-
+const [mySeat,setMySeat] = useState();
 
   console.log(props);
   console.log(props.DepartureAirport);
@@ -35,6 +35,7 @@ function BoardingPass({ props, type, isAway, user }) {
     ) {
       mySeat = <Link to = { `/chooseSeats/${JSON.stringify(seatParams)}`} >Assign Seat</Link>;
     } else {
+
       mySeat = type.AwaySeat;
     }
   } else {
