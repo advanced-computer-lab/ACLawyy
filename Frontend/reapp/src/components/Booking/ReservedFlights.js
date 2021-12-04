@@ -18,6 +18,7 @@ function ReservedFlights(props) {
         setPurchases(res.data);
       });
   }, []);
+
   if (purchases.length === 0) return <h1> LOADING </h1>;
 
   return (
