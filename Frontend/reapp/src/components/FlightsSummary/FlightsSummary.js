@@ -70,46 +70,48 @@ function FlightsSummary (props)  {
       .catch((e) => {  alert("error"); });
 
     }
-
-
-
-    const purchaseBody = {UserID : userID , NumberOfTickets:parseInt(adults) + parseInt(children), TotalPrice : children*price1/2 + children*price2/2 +adults * price1+ adults * price2, Tickets : tickets };
+    
     axios
-    .post("http://localhost:8000/Tickets/CreatePurchase", purchaseBody)
-    .then((res) => {
+    .post("http://localhost:8000/Tickets/findMyTickets", {UserID: userID}) 
+    .then((res) => { const mongotickets = res.data;
 
-
-
+      const mongotickets2 = mongotickets.slice(0, parseInt(adults)+parseInt(children));
+      const purchaseBody = {UserID : userID , NumberOfTickets:parseInt(adults) + parseInt(children), TotalPrice : children*price1/2 + children*price2/2 +adults * price1+ adults * price2, Tickets : mongotickets2 };
       axios
-      .post("http://localhost:8000/flights/updateflight", flight1update )
-      .then((res) => { 
-
+      .post("http://localhost:8000/Tickets/CreatePurchase", purchaseBody)
+      .then((res) => {
+  
+  
+  
         axios
-        .post("http://localhost:8000/flights/updateflight", flight2update )
-        .then((res) => { c++;})
+        .post("http://localhost:8000/flights/updateflight", flight1update )
+        .then((res) => { 
+  
+          axios
+          .post("http://localhost:8000/flights/updateflight", flight2update )
+          .then((res) => { c++;})
+          .catch(() => {
+            alert("error");
+          });
+    
+      
+          window.location.href = "http://localhost:3000/ReservedFlights";
+    
+        })
         .catch(() => {
           alert("error");
         });
   
-    
-        window.location.href = "http://localhost:3000/ReservedFlights";
+  
   
       })
-      .catch(() => {
-        alert("error");
-      });
+      .catch((e) => {  alert("error"); });
   
-  
-  
-
-
-
-
-
-
-
-    })
+   })
     .catch((e) => {  alert("error"); });
+    
+    
+
 
 
   }

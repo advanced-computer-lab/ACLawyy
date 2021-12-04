@@ -112,19 +112,40 @@ router.route("/modifySeatsAvailable").post((req, res) => {
 
 router.route("/modifyAwaySeat").post((req, res) => {
   //include AwayFlight/UserID/AwaySeat=undefined
-  for (let i = 0; i < req.body.modifiedSeats.length; i++) {
-    console.log(i);
+  flightID = req.body.flightID;
+  userID = req.body.userID;
+  for (let i = 0; i < req.body.modifiedSeats.length - 1; i++) {
     Ticket.findOneAndUpdate(
       req.body,
-      { AwaySeat: req.body.modifiedSeats[i] },
+      { AwaySeat: modifiedSeats[i] },
       function (err) {
         if (err) console.log(err);
         console.log("Seats updated successfully");
         console.log(req.body.id);
       }
     );
+    res.send();
   }
-  res.send();
+});
+
+router.route("/findAwaySeat").post((req, res) => {
+  ticketID = req.body.ticketID;
+  userID = req.body.userID;
+    Ticket.findById(req.body.ticketID)
+    .then((ticket) => res.json(ticket.AwaySeat))
+    .catch((err) => res.status(400).json("Error: " + err));
+    res.send();
+  
+});
+
+router.route("/findReturnSeat").post((req, res) => {
+  ticketID = req.body.ticketID;
+  userID = req.body.userID;
+    Ticket.findById(req.body.ticketID)
+    .then((ticket) => res.json(ticket.ReturnSeat))
+    .catch((err) => res.status(400).json("Error: " + err));
+    res.send();
+  
 });
 
 router.route("/modifyReturnSeat").post((req, res) => {
