@@ -1,0 +1,65 @@
+.icons {
+  transform: translateY(0) scale(4);
+  margin-top: 300px;
+  margin-left: 1225px;
+  margin-right: 0px;
+  margin-bottom: 0px;
+}
+.Label {
+  margin-top: 100px;
+  margin-left: 250px;
+  margin-right: 0;
+  margin-bottom: 0px;
+}
+.DistanceTravelled {
+  margin-top: 10px;
+  margin-left: 250px;
+  margin-right: 0px;
+  margin-bottom: 0px;
+}
+.HoursFlown {
+  margin-top: 10px;
+  margin-left: 250px;
+  margin-right: 0px;
+  margin-bottom: 0px;
+}
+.Rank {
+  margin-top: 10px;
+  margin-left: 250px;
+  margin-right: 0px;
+  margin-bottom: 0px;
+  border-image-width: 0px;
+}
+.biography {
+  margin-top: -450px;
+  margin-left: 1000px;
+  margin-right: 0px;
+  margin-bottom: 0px;
+}
+.TextBox {
+  width: 550%;
+  height: 125%;
+}
+.Submit {
+  top: 100px;
+  left: 400px;
+  width: 300px;
+  height: 50px;
+}
+.PopOver {
+  top: 100px;
+  left: -350px;
+  width: 300px;
+  height: 50px;
+}
+.realPopOut {
+  width: 800px;
+  height: 800px;
+}
+.popUps {
+  position: absolute;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  margin-left: 10px;
+}
