@@ -28,17 +28,34 @@ function FlightsSummary (props)  {
 
 
   const confirmPurchase = () => {
-    const adultTicket = {UserID : userID , AwayFlight : flight1._id,ReturnFlight: flight2._id , AwayCabin : cabin1, ReturnCabin : cabin2,AwayPrice:price1,ReturnPrice :price2 ,Type : "Adult"};
-    const childTicket = {UserID : userID , AwayFlight : flight1._id,ReturnFlight: flight2._id , AwayCabin : cabin1, ReturnCabin : cabin2,AwayPrice:price1/2,ReturnPrice :price2 ,Type : "Child"};
+    const adultTicket = {UserID : userID , AwayFlight : flight1._id,ReturnFlight: flight2._id , AwayCabin : cabin1, AwaySeat : -1,ReturnSeat : -1,ReturnCabin : cabin2,AwayPrice:price1,ReturnPrice :price2 ,Type : "Adult"};
+    const childTicket = {UserID : userID , AwayFlight : flight1._id,ReturnFlight: flight2._id , AwayCabin : cabin1,AwaySeat : -1,ReturnSeat : -1, ReturnCabin : cabin2,AwayPrice:price1/2,ReturnPrice :price2 ,Type : "Child"};
     console.log(adultTicket);
+    const flight1update = {_id : flight1._id};
+    if (cabin1 ==="first")
+      flight1update.FirstClassSeats = flight1.FirstClassSeats - (parseInt(adults) + parseInt(children));
+    if (cabin1 ==="business")
+      flight1update.BusinessClassSeats = flight1.BusinessClassSeats - (parseInt(adults) + parseInt(children))
+    else
+      flight1update.EconomyClassSeats = flight1.EconomyClassSeats - (parseInt(adults) + parseInt(children))
 
+    const flight2update = {_id : flight2._id};
+    if (cabin1 ==="first")
+      flight2update.FirstClassSeats = flight2.FirstClassSeats - (parseInt(adults) + parseInt(children));
+    if (cabin1 ==="business")
+      flight2update.BusinessClassSeats = flight2.BusinessClassSeats - (parseInt(adults) + parseInt(children))
+    else
+      flight2update.EconomyClassSeats = flight2.EconomyClassSeats - (parseInt(adults) + parseInt(children))
+
+
+    let c = 0;
     const tickets = [];
     for(let i = 0 ; i< adults; i++){
       tickets.push(adultTicket);
 
       axios
       .post("http://localhost:8000/Tickets/CreateTicket", adultTicket)
-      .then((res) => {  })
+      .then((res) => { })
       .catch((e) => {  alert("error"); });
 
     }
@@ -49,7 +66,7 @@ function FlightsSummary (props)  {
 
       axios
       .post("http://localhost:8000/Tickets/CreateTicket", childTicket)
-      .then((res) => {  })
+      .then((res) => {   })
       .catch((e) => {  alert("error"); });
 
     }
@@ -59,10 +76,42 @@ function FlightsSummary (props)  {
     const purchaseBody = {UserID : userID , NumberOfTickets:parseInt(adults) + parseInt(children), TotalPrice : children*price1/2 + children*price2/2 +adults * price1+ adults * price2, Tickets : tickets };
     axios
     .post("http://localhost:8000/Tickets/CreatePurchase", purchaseBody)
-    .then((res) => {})
+    .then((res) => {
+
+
+
+      axios
+      .post("http://localhost:8000/flights/updateflight", flight1update )
+      .then((res) => { 
+
+        axios
+        .post("http://localhost:8000/flights/updateflight", flight2update )
+        .then((res) => { c++;})
+        .catch(() => {
+          alert("error");
+        });
+  
+    
+        window.location.href = "http://localhost:3000/ReservedFlights";
+  
+      })
+      .catch(() => {
+        alert("error");
+      });
+  
+  
+  
+
+
+
+
+
+
+
+    })
     .catch((e) => {  alert("error"); });
 
-    window.location.href = "http://localhost:3000/ReservedFlights";
+
   }
   
   return (
