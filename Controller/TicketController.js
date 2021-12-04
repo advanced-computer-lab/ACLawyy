@@ -111,17 +111,16 @@ router.route("/modifySeatsAvailable").post((req, res) => {
 });
 
 router.route("/modifyAwaySeat").post((req, res) => {
-  //include AwayFlight/UserID/AwaySeat=undefined
-  flightID = req.body.flightID;
-  userID = req.body.userID;
-  for (let i = 0; i < req.body.modifiedSeats.length - 1; i++) {
+  //include AwayFlight/UserID/AwaySeat=-1
+
+  for (let i = 0; i < req.body.modifiedSeats.length; i++) {
     Ticket.findOneAndUpdate(
       req.body,
-      { AwaySeat: modifiedSeats[i] },
+      { AwaySeat: req.body.modifiedSeats[i] },
       function (err) {
         if (err) console.log(err);
         console.log("Seats updated successfully");
-        console.log(req.body.id);
+        console.log(req.body);
       }
     );
     res.send();
@@ -129,33 +128,25 @@ router.route("/modifyAwaySeat").post((req, res) => {
 });
 
 router.route("/findAwaySeat").post((req, res) => {
-  ticketID = req.body.ticketID;
-  userID = req.body.userID;
-    Ticket.findById(req.body.ticketID)
-    .then((ticket) => res.json(ticket.AwaySeat))
+  Ticket.findById(req.body.ticketID)
+    .then((ticket) => res.json(ticket))
     .catch((err) => res.status(400).json("Error: " + err));
-    res.send();
-  
 });
 
 router.route("/findReturnSeat").post((req, res) => {
-  ticketID = req.body.ticketID;
-  userID = req.body.userID;
-    Ticket.findById(req.body.ticketID)
-    .then((ticket) => res.json(ticket.ReturnSeat))
+  Ticket.findById(req.body.ticketID)
+    .then((ticket) => res.json(ticket))
     .catch((err) => res.status(400).json("Error: " + err));
-    res.send();
-  
 });
 
 router.route("/modifyReturnSeat").post((req, res) => {
   //include AwayFlight/UserID/AwaySeat=undefined
   flightID = req.body.flightID;
   userID = req.body.userID;
-  for (let i = 0; i < req.body.modifiedSeats.length - 1; i++) {
+  for (let i = 0; i < req.body.modifiedSeats.length; i++) {
     Ticket.findOneAndUpdate(
       req.body,
-      { ReturnSeat: modifiedSeats[i] },
+      { ReturnSeat: req.body.modifiedSeats[i] },
       function (err) {
         if (err) console.log(err);
         console.log("Seats updated successfully");
@@ -165,10 +156,6 @@ router.route("/modifyReturnSeat").post((req, res) => {
     res.send();
   }
 });
-
-
-
-
 
 router.route("/getReturnDetails").post((req, res) => {
   //const AwayFlight = mongoose.Types.ObjectId(req.body.ReturnFlight);
