@@ -35,3 +35,11 @@
     text-align: center;
 
   }
+  .selectbutt {
+
+    position : fixed ;
+    top : 80px;
+    height : 55px;
+    left : 10px;
+
+  }

@@ -75,9 +75,11 @@ function FlightResults(props) {
 
     return(
         <div className = "container1">
+
     <Stack direction="row" spacing={5} >
         <div className = "outbound">
             <h2 style = {{textAlign : 'center'}}> Outbound</h2>
+            
         {outFlights.map((flight) => (
              <Stack direction="column" spacing={2} >
             {props.econ&&props.enoughSeats(flight,"economy")?<FlightCard key = {flight._id +"e" }cabin = "economy" flight = {flight} onClick = {handleOut} isSelected = {isSelectedOut}/>:null}
@@ -87,6 +89,7 @@ function FlightResults(props) {
             )
           )}
         </div>
+    
 
         <Popover
         id={id}
@@ -111,8 +114,6 @@ function FlightResults(props) {
 
       </Popover>
 
-       
-
         <div className = "inbound">
  
         <h2 style = {{textAlign : 'center'}}> Inbound</h2>
@@ -127,8 +128,14 @@ function FlightResults(props) {
         </div>
 
 </Stack>
-{bothSelected()&&
- < Fab className = "button" variant="extended" size = "medium" disabled = {!bothSelected()}  onClick={handleClick}>Select</Fab>}
+  <Button
+    className = "selectbutt"
+    disabled = {!bothSelected()}
+       variant="contained"
+       onClick={handleClick}
+     >
+       Select
+     </Button >
        </div>
     );
 

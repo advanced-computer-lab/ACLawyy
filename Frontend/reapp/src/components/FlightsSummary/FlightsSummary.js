@@ -232,7 +232,7 @@ function FlightsSummary(props) {
           </div>
         </div>
       </Stack>
-      <Stack direction="row" spacing={30}>
+      <Stack direction="row"   justifyContent="center">
         <Button variant="outlined" onClick={confirmPurchase}>
           <h4>Reserve</h4>
         </Button>

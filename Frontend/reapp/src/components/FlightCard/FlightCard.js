@@ -73,15 +73,18 @@ function FlightCard(props){
   let multiplier = 1;
   let color = "lightgreen";
   let seats = flight.EconomyClassSeats;
+  let selectedColor = '#ccffcc ';
   if (cabin == "first"){
     color = '#D099E2';
     multiplier = 2;
     seats = flight.FirstClassSeats;
+    selectedColor = '#e6cce6'
   }
   if (cabin == "business"){
     color = "lightblue";
     multiplier = 1.5;
     seats = flight.BusinessClassSeats;
+    selectedColor = '#cce6ff '
   }
 
   const mystyle = {background : color}
@@ -93,7 +96,7 @@ function FlightCard(props){
   };
   let bgCol = 'white';
   if (props.isSelected(flight._id,cabin))
-    bgCol = '#ECECEC';
+    bgCol = selectedColor;
 
 
 

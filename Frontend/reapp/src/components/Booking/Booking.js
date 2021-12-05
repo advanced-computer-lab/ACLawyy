@@ -258,13 +258,14 @@ function Booking(props) {
           <label>Total Price of Booking:</label>
           <label>{props.p.TotalPrice}</label>
         </div>
+        <div className = "spacer"></div>
         <div>
           <Button onClick={handleDelete}>
             <CgTrash size="25px" />
           </Button>
         </div>
       </div>
-      <div>
+      <div className = "boarding">
         {props.p.Tickets.map((ticket) => {
           console.log(ticket.AwayCabin);
           return (
