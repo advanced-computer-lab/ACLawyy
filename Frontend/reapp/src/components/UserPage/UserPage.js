@@ -80,7 +80,7 @@ export function UserPage(props) {
   }
   function handleClickF5() {
     axios
-      .post("http://localhost:8000/Users/SearchEmail", { Email: user.Email })
+      .post("http://localhost:8000/Users/SearchEmail", { Email: userEmail })
       .then((res) => {
         if (res.data.length === 0) {
           setIsDisabled5(true);

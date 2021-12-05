@@ -4,12 +4,14 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { CgTrash } from "react-icons/cg";
 import Button from "@mui/material/Button";
+import emailjs from "emailjs-com";
+
 
 function Booking(props) {
   // const purchase = props.purchase;
   // const tickets = props.Tickets;
   const { number, tickets, price, userID, _id } = props.p;
-
+  const message ="Booking Cancelled ,you will be refunded with the amount of " + props.p.TotalPrice + "$";
   const [user, setUser] = useState(null);
   const [awayFlight, setAwayFlight] = useState(null);
   const [returnFlight, setReturnFlight] = useState(null);
@@ -49,6 +51,31 @@ function Booking(props) {
     }
   }, []);
 
+  function handleSubmit() {
+    sendFeedback("service_c3t9zmi", "template_fwz2z6b", {
+      message: message,
+      to_name: user.FirstName,
+      from_name: "Flights Awyy ;)",
+      email: user.Email,
+    });
+  }
+  function sendFeedback(serviceID, templateId, variables) {
+    emailjs
+      .send(serviceID, templateId, variables, "user_9PNzIckffJfZSC4iPp6I4")
+      .then((res) => {
+        console.log("Email successfully sent!");
+      })
+      // Handle errors here however you like, or use a React error boundary
+      .catch((err) =>
+        console.error(
+          "Oh well, you failed. Here some thoughts on the error that occured:",
+          err
+        )
+      );
+  }
+
+
+
   const handleDelete = () => {
     console.log(props.p.Tickets);
     console.log(props.p.Tickets[0]);
@@ -56,35 +83,42 @@ function Booking(props) {
     const realAwaySeats = [];
     const realReturnSeats = [];
 
+
+    console.log(props.p.Tickets);
     for (let i = 0; i < props.p.Tickets.length; i++) {
       axios
         .post("http://localhost:8000/Tickets/findAwaySeat", {
-          ticketID: props.p._id,
+          ticketID: props.p.Tickets[i]._id,
         })
         .then((res) => {
-          console.log(res.data._id);
+
+          console.log(res.data);
           console.log(res.data.AwaySeat);
           realAwaySeats.push(res.data.AwaySeat);
           realReturnSeats.push(res.data.ReturnSeat);
 
           axios
             .post("http://localhost:8000/Tickets/DeleteTicket", {
-              _id: props.p._id,
+              _id: props.p.Tickets[i]._id,
             })
             .then((res) => {
-              console.log("ticket deleted not nicely");
+              console.log("ticket deleted nicely");
             })
             .catch((err) => console.log("Error: " + err));
 
-          axios
-            .post("http://localhost:8000/Tickets/DeletePurchase", {
-              _id: props.p._id,
-            })
-            .then((res) => {
-              console.log("purchase deleted smoothly or nicely");
-            })
-            .catch((err) => console.log("Error: " + err));
         });
+      }
+
+
+      axios
+      .post("http://localhost:8000/Tickets/DeletePurchase", {
+        _id: props.p._id,
+      })
+      .then((res) => {
+        console.log("purchase deleted smoothly or nicely");
+      })
+      .catch((err) => console.log("Error: " + err));
+
 
       var seatsAvailable1 = [];
       var seatsAvailable2 = [];
@@ -171,7 +205,7 @@ function Booking(props) {
         .catch(() => {
           alert("error");
         });
-    }
+    
   };
 
   if (awayFlight === null || user === null || returnFlight === null)
@@ -179,6 +213,18 @@ function Booking(props) {
 
   return (
     <div className="booking">
+      <script
+        type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"
+      ></script>
+      <script type="text/javascript">
+        {function () {
+          emailjs.init("user_9PNzIckffJfZSC4iPp6I4");
+        }}
+        ();
+      </script>
+
+
       <div className="header">
         <div className="labels">
           <label>Booking Number:</label>
