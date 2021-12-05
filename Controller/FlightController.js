@@ -8,59 +8,59 @@ const csv = require("csv-parser");
 const fs = require("fs");
 
 //first run to import csv file into db
-fs.createReadStream("Flights.csv")
-  .pipe(csv())
-  .on("data", (row) => {
-    dateArr = row.FlightDate.split("/");
-    date = dateArr[2]+ "-" + dateArr[0] + "-" + dateArr[1];
+// fs.createReadStream("Flights.csv")
+//   .pipe(csv())
+//   .on("data", (row) => {
+//     dateArr = row.FlightDate.split("/");
+//     date = dateArr[2]+ "-" + dateArr[0] + "-" + dateArr[1];
 
-    const FlightNumber = row.ID;
-    const ArrivalDate = date;
-    const DepartureDate = date;
-    const DepartureAirport = row.From;
-    const ArrivalAirport = row.To;
-    const DepartureTime = row.DepartureTime;
-    const ArrivalTime = row.ArrivalTime;
-    const DepartureCity = row.FromCity;
-    const ArrivalCity = row.ToCity;
-    const BaggageAllowance = row.Baggage;
-    const FirstClassSeats = row.FirstClassSeats;
-    const FirstClassSeatsAvailable=[];
-    for (let i=0; i<FirstClassSeats; i++) FirstClassSeatsAvailable.push(0);
-    const BusinessClassSeats = row.BusinessClassSeats;
-    const BusinessClassSeatsAvailable=[];
-    for (let i=0; i<BusinessClassSeats; i++) BusinessClassSeatsAvailable.push(0);
-    const EconomyClassSeats = row.EconomyClassSeats;
-    const EconomyClassSeatsAvailable = [];
-    for (let i=0; i<EconomyClassSeats; i++) EconomyClassSeatsAvailable.push(0);
+//     const FlightNumber = row.ID;
+//     const ArrivalDate = date;
+//     const DepartureDate = date;
+//     const DepartureAirport = row.From;
+//     const ArrivalAirport = row.To;
+//     const DepartureTime = row.DepartureTime;
+//     const ArrivalTime = row.ArrivalTime;
+//     const DepartureCity = row.FromCity;
+//     const ArrivalCity = row.ToCity;
+//     const BaggageAllowance = row.Baggage;
+//     const FirstClassSeats = row.FirstClassSeats;
+//     const FirstClassSeatsAvailable=[];
+//     for (let i=0; i<FirstClassSeats; i++) FirstClassSeatsAvailable.push(0);
+//     const BusinessClassSeats = row.BusinessClassSeats;
+//     const BusinessClassSeatsAvailable=[];
+//     for (let i=0; i<BusinessClassSeats; i++) BusinessClassSeatsAvailable.push(0);
+//     const EconomyClassSeats = row.EconomyClassSeats;
+//     const EconomyClassSeatsAvailable = [];
+//     for (let i=0; i<EconomyClassSeats; i++) EconomyClassSeatsAvailable.push(0);
 
-    const EconomyPrice = row.Price;
+//     const EconomyPrice = row.Price;
 
-    const newFlight = new Flight({
-      FlightNumber,
-      ArrivalDate,
-      DepartureDate,
-      DepartureAirport,
-      ArrivalAirport,
-      DepartureTime,
-      ArrivalTime,
-      DepartureCity,
-      ArrivalCity,
-      BaggageAllowance,
-      FirstClassSeats,
-      FirstClassSeatsAvailable,
-      BusinessClassSeats,
-      BusinessClassSeatsAvailable,
-      EconomyClassSeats,
-      EconomyClassSeatsAvailable,
-      EconomyPrice
-    });
+//     const newFlight = new Flight({
+//       FlightNumber,
+//       ArrivalDate,
+//       DepartureDate,
+//       DepartureAirport,
+//       ArrivalAirport,
+//       DepartureTime,
+//       ArrivalTime,
+//       DepartureCity,
+//       ArrivalCity,
+//       BaggageAllowance,
+//       FirstClassSeats,
+//       FirstClassSeatsAvailable,
+//       BusinessClassSeats,
+//       BusinessClassSeatsAvailable,
+//       EconomyClassSeats,
+//       EconomyClassSeatsAvailable,
+//       EconomyPrice
+//     });
 
-    newFlight.save();
-  })
-  .on("end", () => {
-    console.log("CSV file successfully processed");
-  });
+//     newFlight.save();
+//   })
+//   .on("end", () => {
+//     console.log("CSV file successfully processed");
+//   });
 
 
 
