@@ -3,6 +3,7 @@ import React, { useState,useEffect } from "react";
 import axios from "axios";
 import { set } from "date-fns";
 import Button from '@mui/material/Button';
+import plane from "./planeACL1.png";
 
 //flightID and cabin type are props to seats function???
 //seat chosen needs to be tied to backend
@@ -189,7 +190,7 @@ function indexOfSeats(array){
     return (
   <div className= "seats">  
       <h1 className="header">Seat selection: </h1>
-      <h2> {chosen} seats out of {nbOfSeats} selected. </h2>
+      <h2 className="header"> {chosen} seat(s) out of {nbOfSeats} selected. </h2>
       <div className= "seatsTop" >
          <ul className= {firstCss}>
          {
@@ -255,7 +256,7 @@ function indexOfSeats(array){
               )) }
          </ul>
         </div>
-        <img className="img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/BSicon_exFLUG.svg/500px-BSicon_exFLUG.svg.png" alt="plane"/>
+        <img className="img" src={plane} alt="plane"/>
 
         <div className= "seatsBottom" >
          <ul className= {firstCss}>
@@ -320,7 +321,7 @@ function indexOfSeats(array){
               )) }
          </ul>
         </div>
-        <Button sx={{width: "100px", left:"100px"}} onClick={()=>confirmSeat()} variant="contained">Confirm</Button>
+        <Button sx={{width: "100px", left:"100px", top:"100px"}} onClick={()=>confirmSeat()} variant="contained">Confirm</Button>
           </div> )
 }
   export default Seats;

@@ -2,13 +2,13 @@
     font-family: lato;
     font-size: 20pt;
     color:black;
-    margin-left: 100px;
+    margin-left: 60px;
 }
 
 .img{
-    margin-left:500px;
-    height:500px;
-    width:500px;
+    margin-left:34%;
+    height:100%;
+    width:30%;
     background-size:cover;
     transform: scale(3.5,6);
     z-index: -1;;
@@ -17,8 +17,8 @@
     display:flex;
     position:relative;
     flex-direction: column;
-    margin-top: 400px;
-    margin-left: 330px;
+    margin-top: 10%;
+    margin-left: 15%;
     height: 70%;
     width: 70%;
 }
@@ -27,19 +27,20 @@
     display: flex;
     position: relative;
     flex-direction: row;
-    top:240px;
-    left: 130px;
-    height: 150px;
-    width: 100%;
+    top:14%;
+    left: 2%;
+    height: 10%;
+    width: 60%;
   }
   
   .seatsBottom {
     display: flex;
     position: relative;
     flex-direction: row;
-    top:-235px;
-    left: 130px;
-    width: 100%;
+    top:-30%;
+    left: 2%;
+    height: 10%;
+    width: 60%;
   }
 
   .notAllowed li{
@@ -80,8 +81,8 @@
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    column-gap: 10px;
-    row-gap: 10px;
+    column-gap: 5px;
+    row-gap: 5px;
     width: 200px;
     height: 100px;
 }
@@ -95,8 +96,8 @@
     flex-direction: row;
     flex-wrap: wrap;
     background-color:gray;
-    height: 40px;
-    width: 40px;
+    height: 35px;
+    width: 35px;
 }
 
 .first {
@@ -104,8 +105,8 @@
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    column-gap: 10px;
-    row-gap: 10px;
+    column-gap: 5px;
+    row-gap: 5px;
     width: 200px;
     height: 100px;
   }
@@ -115,8 +116,8 @@
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    column-gap: 10px;
-    row-gap: 10px;
+    column-gap: 5px;
+    row-gap: 5px;
     width: 420px;
     height: 100px;
   }
@@ -130,8 +131,8 @@
     flex-direction: row;
     flex-wrap: wrap;
     background-color:gray;
-    height: 40px;
-    width: 40px;
+    height: 35px;
+    width: 35px;
 
   }
 
@@ -140,8 +141,8 @@
       display: flex;
       flex-direction: column;
       flex-wrap: wrap;
-      column-gap: 10px;
-      row-gap: 10px;
+      column-gap: 5px;
+      row-gap: 5px;
       width: 420px;
       height: 100px;
     }
@@ -151,9 +152,9 @@
         display: flex;
         flex-direction: column;
         flex-wrap: wrap;
-        column-gap: 25px;
-        row-gap: 10px;
-        width: 500px;
+        column-gap: 5px;
+        row-gap: 5px;
+        width: 35%;
         height: 100px;
     }
 
@@ -166,8 +167,8 @@
         flex-direction: row;
         flex-wrap: wrap;
         background-color:gray;
-        height: 40px;
-        width: 40px;
+        height: 35px;
+        width: 35px;
     }
     
     .economy {
@@ -175,9 +176,9 @@
       display: flex;
       flex-direction: column;
       flex-wrap: wrap;
-      column-gap: 25px;
-      row-gap: 10px;
-      width: 500px;
+      column-gap: 5px;
+      row-gap: 5px;
+      width: 35%;
       height: 100px;
     }
 
@@ -190,8 +191,8 @@
     flex-direction: row;
     flex-wrap: wrap;
     background-color:purple;
-    height: 40px;
-    width: 40px;
+    height: 35px;
+    width: 35px;
   }
   
   .first li:hover {
@@ -208,8 +209,8 @@
     flex-direction: row;
     flex-wrap: wrap;
     background-color:blue;
-    height: 40px;
-    width: 40px;
+    height: 35px;
+    width: 35px;
   }
   
   .business li:hover {
@@ -225,8 +226,8 @@
     flex-direction: row;
     flex-wrap: wrap;
     background-color:green;
-    height: 40px;
-    width: 40px;
+    height: 35px;
+    width: 35px;
   }
   
   .economy li:hover {
