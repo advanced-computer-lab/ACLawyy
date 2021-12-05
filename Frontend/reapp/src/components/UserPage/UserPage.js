@@ -10,7 +10,7 @@ import TextField from "@mui/material/TextField";
 import FormLabel from "@mui/material/FormLabel";
 import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import Rank from "./pigeon.png";
+import Rank from "./pigeon.png"; 
 import CheckIcon from "@mui/icons-material/Check";
 import { IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
