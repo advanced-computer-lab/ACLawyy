@@ -74,9 +74,20 @@ function Booking(props) {
       );
   }
 
+  const handleDelete=()=>{
+
+    const con = window.confirm("Are you sure you want to cancel this purchase?");
+    if (con){
+
+      handleDeleteBackEnd();
+      handleSubmit();
+      window.alert("Your purchase has been cancelled, please check your email to see the refunded amount");
+      }
 
 
-  const handleDelete = () => {
+  }
+
+ const handleDeleteBackEnd = () => {
     console.log(props.p.Tickets);
     console.log(props.p.Tickets[0]);
     console.log(props.p.Tickets[0]._id);
@@ -103,19 +114,19 @@ function Booking(props) {
             })
             .then((res) => {
               console.log("ticket deleted nicely");
-            })
-            .catch((err) => console.log("Error: " + err));
-
-        });
-      }
-
-
+              if (i ==props.p.Tickets.length-1 ) {
+                
       axios
       .post("http://localhost:8000/Tickets/DeletePurchase", {
         _id: props.p._id,
       })
       .then((res) => {
         console.log("purchase deleted smoothly or nicely");
+  
+
+
+
+
       })
       .catch((err) => console.log("Error: " + err));
 
@@ -127,9 +138,9 @@ function Booking(props) {
       if (props.p.Tickets[0].AwayCabin === "first") {
         flight1update.FirstClassSeats =
           awayFlight.FirstClassSeats + props.p.NumberOfTickets;
+          seatsAvailable1 = [...awayFlight.FirstClassSeatsAvailable];
         for (let i = 0; i < realAwaySeats.length; i++) {
           if (realAwaySeats[i] != -1) {
-            seatsAvailable1 = [...awayFlight.FirstClassSeatsAvailable];
             seatsAvailable1[realAwaySeats[i]] = 0;
           }
         }
@@ -138,9 +149,10 @@ function Booking(props) {
       if (props.p.Tickets[0].AwayCabin === "business") {
         flight1update.BusinessClassSeats =
           awayFlight.BusinessClassSeats + props.p.NumberOfTickets;
+          seatsAvailable1 = [...awayFlight.BusinessClassSeatsAvailable];
         for (let i = 0; i < realAwaySeats.length; i++) {
           if (realAwaySeats[i] != -1) {
-            seatsAvailable1 = [...awayFlight.BusinessClassSeatsAvailable];
+
             seatsAvailable1[realAwaySeats[i]] = 0;
           }
         }
@@ -168,9 +180,10 @@ function Booking(props) {
       if (props.p.Tickets[0].ReturnCabin === "first") {
         flight2update.FirstClassSeats =
           returnFlight.FirstClassSeats + props.p.NumberOfTickets;
+          seatsAvailable2 = [...returnFlight.FirstClassSeatsAvailable];
         for (let i = 0; i < realReturnSeats.length; i++) {
           if (realReturnSeats[i] != -1) {
-            seatsAvailable2 = [...returnFlight.FirstClassSeatsAvailable];
+
             seatsAvailable2[realReturnSeats[i]] = 0;
           }
         }
@@ -179,9 +192,10 @@ function Booking(props) {
       if (props.p.Tickets[0].ReturnCabin === "business") {
         flight2update.BusinessClassSeats =
           returnFlight.BusinessClassSeats + props.p.NumberOfTickets;
+          seatsAvailable2 = [...returnFlight.BusinessClassSeatsAvailable];
         for (let i = 0; i < realReturnSeats.length; i++) {
           if (realReturnSeats[i] != -1) {
-            seatsAvailable2 = [...returnFlight.BusinessClassSeatsAvailable];
+
             seatsAvailable2[realReturnSeats[i]] = 0;
           }
         }
@@ -201,11 +215,21 @@ function Booking(props) {
 
       axios
         .post("http://localhost:8000/flights/updateflight", flight2update)
-        .then((res) => {})
+        .then((res) => { window.location.href = "http://localhost:3000/ReservedFlights";})
         .catch(() => {
           alert("error");
         });
+
+       
     
+              }
+
+
+            })
+            .catch((err) => console.log("Error: " + err));
+
+        });
+      }
   };
 
   if (awayFlight === null || user === null || returnFlight === null)

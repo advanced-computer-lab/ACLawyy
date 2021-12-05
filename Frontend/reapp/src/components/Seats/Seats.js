@@ -4,6 +4,7 @@ import axios from "axios";
 import { set } from "date-fns";
 import Button from "@mui/material/Button";
 import { useParams } from "react-router-dom";
+import plane from "./planeACL1.png";
 
 //flightID and cabin type are props to seats function???
 //seat chosen needs to be tied to backend
@@ -152,7 +153,13 @@ function Seats(prop) {
           AwayFlight: flightID,
           AwaySeat: -1,
         })
-        .then((res) => {})
+        .then((res) => {
+
+          window.location.href = "http://localhost:3000/ReservedFlights";
+          console.log("Changed indices are : ", changedIndices);
+
+
+        })
         .catch((e) => {
           alert("error");
           console.log(e);
@@ -165,15 +172,19 @@ function Seats(prop) {
           ReturnFlight: flightID,
           ReturnSeat: -1,
         })
-        .then((res) => {})
+        .then((res) => {
+          window.location.href = "http://localhost:3000/ReservedFlights";
+          console.log("Changed indices are : ", changedIndices);
+
+
+        })
         .catch((e) => {
           alert("error");
           console.log(e);
         });
     }
 
-    window.location.href = "http://localhost:3000/ReservedFlights";
-    console.log("Changed indices are : ", changedIndices);
+
   }
 
   //to render the right cabin
@@ -188,9 +199,9 @@ function Seats(prop) {
   return (
     <div className="seats">
       <h1 className="header">Seat selection: </h1>
-      <h2>
+      <h2 className="header">
         {" "}
-        {chosen} seats out of {nbOfSeats} selected.{" "}
+        {chosen} seat(s) out of {nbOfSeats} selected.{" "}
       </h2>
       <div className="seatsTop">
         <ul className={firstCss}>
@@ -323,7 +334,7 @@ function Seats(prop) {
       </div>
       <img
         className="img"
-        src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/BSicon_exFLUG.svg/500px-BSicon_exFLUG.svg.png"
+        src={plane}
         alt="plane"
       />
 
@@ -481,7 +492,7 @@ function Seats(prop) {
         </ul>
       </div>
       <Button
-        sx={{ width: "100px", left: "100px" }}
+        sx={{ width: "100px", left: "100px" ,top :"100px"}}
         onClick={() => confirmSeat()}
         variant="contained"
       >

@@ -51,7 +51,13 @@ function UserHome(props) {
     setBusiness(bus);
     setEconomy(eco);
     setMidsearch(false);
+    if (outflights.length === 0){
+      window.alert("Unfortunately, no flights depart from your chosen departure city on that day");
+    }
 
+    else if (inflights.length === 0){
+      window.alert("There are no return flights for your outbound flights, Why don't you pick a slightly earlier date?");
+    }
 
   }
     return (
