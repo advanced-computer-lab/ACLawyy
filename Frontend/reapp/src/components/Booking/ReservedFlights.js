@@ -18,7 +18,7 @@ function ReservedFlights(props) {
         setPurchases(res.data);
       });
   }, []);
-  if (purchases.length === 0) return <h1> LOADING </h1>;
+  if (purchases.length === 0) return <h1 className = "empty"> You don't have any reserved flights </h1>;
 
   return (
     <div className="flights-div">

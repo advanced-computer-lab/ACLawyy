@@ -1,8 +1,10 @@
 .UserPage{
+
   height: 25cm;
   width: 30cm;
 }
 .icons {
+
   transform: translateY(0) scale(4);
   margin-top: 5cm;
   margin-left: 19cm;
@@ -35,9 +37,9 @@
   border-image-width: 0px;
 }
 .biography {
-  position: fixed;
+  position: absolute;
   bottom: 0;
-  top: 5cm;
+  top: 4cm;
   right: 5cm;
 
 }

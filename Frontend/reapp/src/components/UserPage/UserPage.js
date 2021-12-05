@@ -103,7 +103,7 @@ export function UserPage(props) {
   }
   function handleSubmit() {
     sendFeedback("service_c3t9zmi", "template_fwz2z6b", {
-      message: "hafsha5ak ya kalb elsekak ya 7ayawan",
+      message: "This is a confirmation email.",
       to_name: user.FirstName,
       from_name: "Flights Awyy ;)",
       email: userEmail,
