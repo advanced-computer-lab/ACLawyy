@@ -67,7 +67,7 @@ router.route("/ChooseSeat").post((req, res) => {
 router.route("/findMyTickets").post((req, res) => {
   const UserID = mongoose.Types.ObjectId(req.body.UserID);
   const sort = { created_at: -1 };
-  Ticket.find({ UserID })
+  Ticket.find(req.body)
     .sort("-createdAt")
     .exec((err, docs) => res.json(docs));
 });
@@ -168,6 +168,14 @@ router.route("/DeleteTicket").post((req, res) => {
   Ticket.findByIdAndDelete(req.body._id, function (err) {
     if (err) console.log(err);
     console.log("Ticket deleted successfully");
+  });
+  res.send();
+});
+
+router.route("/DeletePurchase").post((req, res) => {
+  Purchase.findByIdAndDelete(req.body._id, function (err) {
+    if (err) console.log(err);
+    console.log("Purchase deleted successfully");
   });
   res.send();
 });

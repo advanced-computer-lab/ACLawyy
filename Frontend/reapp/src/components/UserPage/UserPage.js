@@ -36,7 +36,9 @@ export function UserPage(props) {
   const [newNumber, setNewNumber] = useState();
   useEffect(() => {
     axios
-      .get("http://localhost:8000/Users/getUserDetails")
+      .post("http://localhost:8000/Users/getUserDetails", {
+        UserID: props.userID,
+      })
       .then((res) => {
         setUser(res.data);
         setIsLoading(false);

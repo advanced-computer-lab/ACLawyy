@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import AdminPage from "./components/AdminPage";
 import NavBar from "./components/NavBar";
 import UserHome from "./components/UserHome/UserHome";
+import UserPage from "./components/UserPage/UserPage";
 import ReservedFlights from "./components/Booking/ReservedFlights";
 import Seats from "./components/Seats/Seats";
 import {
@@ -21,10 +22,12 @@ function App() {
     <Router>
       <div>
         <Switch>
-          <Route exact path="/" element={<UserHome userID={userID} />}>
-            {" "}
-          </Route>
-
+          <Route exact path="/" element={<UserHome userID={userID} />}></Route>
+          <Route
+            exact
+            path="/profile"
+            element={<UserPage userID={userID} />}
+          ></Route>
           <Route
             exact
             path="/reservedflights"
