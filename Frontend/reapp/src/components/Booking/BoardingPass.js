@@ -37,8 +37,7 @@ function BoardingPass({ props, type, isAway, user }) {
         ticketID: type._id,
       })
       .then((res) => {
-        console.log(res.data._id);
-        console.log(res.data.AwaySeat);
+
         setMySeat(res.data.AwaySeat);
       });
     console.log(mySeat);
