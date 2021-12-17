@@ -21,6 +21,10 @@ function BoardingPass({ props, type, isAway, user }) {
   var cabin = {};
   var realSeat;
   const cabinType = isAway ? type.AwayCabin : type.ReturnCabin;
+
+  
+  const seatNumber = isAway? type.AwaySeat : type.ReturnSeat; 
+
   const seatParams = {
     userID: user._id,
     flightID: props._id,
@@ -28,6 +32,7 @@ function BoardingPass({ props, type, isAway, user }) {
     cabinType: cabinType.toLowerCase(),
     seats: 1,
     isAway: isAway,
+    seatNumber : seatNumber
   };
 
   if (isAway) {
@@ -49,8 +54,12 @@ function BoardingPass({ props, type, isAway, user }) {
         </Link>
       );
     } else {
-      console.log(mySeat);
-      realSeat = cabin.charAt(0).toUpperCase() + "" + mySeat;
+      realSeat = (
+        <Link to={`/chooseSeats/${JSON.stringify(seatParams)}`}>
+          {cabin.charAt(0).toUpperCase() + "" + mySeat}
+        </Link>
+      );
+
     }
   } else {
     cabin = type.ReturnCabin;
@@ -69,7 +78,11 @@ function BoardingPass({ props, type, isAway, user }) {
         </Link>
       );
     } else {
-      realSeat = cabin.charAt(0).toUpperCase() + "" + mySeat;
+      realSeat = (
+        <Link to={`/chooseSeats/${JSON.stringify(seatParams)}`}>
+          {cabin.charAt(0).toUpperCase() + "" + mySeat}
+        </Link>
+      );
     }
   }
 
