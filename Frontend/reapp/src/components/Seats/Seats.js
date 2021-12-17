@@ -29,6 +29,8 @@ function Seats(prop) {
 
   //const isAway = true;
   const isAway = props.isAway;
+  
+  const seatNumber = props.seatNumber;
 
   const [chosen, setChosen] = useState(0);
   var firstCss = "firstNotAllowed";
@@ -121,18 +123,42 @@ function Seats(prop) {
     let changedIndices = [];
     const obj = { _id: flightID };
 
+
     if (cabinType == "first") {
+
+
+
+    
+
       changedIndices = indexOfSeats(FirstAvailable);
-      setFirstAvailable(backToOne(FirstAvailable));
-      obj.FirstClassSeatsAvailable = backToOne(FirstAvailable);
+
+      let finalSeats =backToOne(FirstAvailable)
+      if (seatNumber > -1){
+          finalSeats[seatNumber] = 0;
+ 
+      }
+      obj.FirstClassSeatsAvailable = finalSeats ;
     } else if (cabinType == "business") {
       changedIndices = indexOfSeats(BusinessAvailable);
-      setBusinessAvailable(backToOne(BusinessAvailable));
-      obj.BusinessClassSeatsAvailable = backToOne(BusinessAvailable);
+
+
+      let finalSeats =backToOne(BusinessAvailable)
+      if (seatNumber > -1){
+          finalSeats[seatNumber] = 0;
+
+     
+      }
+      obj.BusinessClassSeatsAvailable = finalSeats ;
     } else if (cabinType == "economy") {
       changedIndices = indexOfSeats(EconomyAvailable);
-      setEconomyAvailable(backToOne(EconomyAvailable));
-      obj.EconomyClassSeatsAvailable = backToOne(EconomyAvailable);
+
+      let finalSeats =backToOne(EconomyAvailable)
+      if (seatNumber > -1){
+          finalSeats[seatNumber] = 0;
+
+     
+      }
+      obj.EconomyClassSeatsAvailable = finalSeats ;
     }
 
     axios
@@ -151,7 +177,7 @@ function Seats(prop) {
           _id: ticketID,
           modifiedSeats: changedIndices,
           AwayFlight: flightID,
-          AwaySeat: -1,
+          AwaySeat: seatNumber
         })
         .then((res) => {
 
@@ -170,7 +196,7 @@ function Seats(prop) {
           _id: ticketID,
           modifiedSeats: changedIndices,
           ReturnFlight: flightID,
-          ReturnSeat: -1,
+          ReturnSeat: seatNumber,
         })
         .then((res) => {
           window.location.href = "http://localhost:3000/ReservedFlights";

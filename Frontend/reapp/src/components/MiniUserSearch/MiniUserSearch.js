@@ -12,7 +12,7 @@ import { inflateSync } from "zlib";
 
 
 
-function UserSearch(props) {
+function MiniUserSearch(props) {
 
   const [departureDateC, setDepartureDate] = useState("");
   const [departureAirportC, setDepartureAirport] = useState("");
@@ -60,18 +60,6 @@ function UserSearch(props) {
       setAnchorEl(event.currentTarget);
   };
 
-  const formatCityName= (name)=>{
-    let formattedName = name.trim(); 
-    formattedName = formattedName.toLowerCase();
-
-    for (var i = 0; i < formattedName.length; i++) {
-      if (i === 0 || ( i> 0 && formattedName.charAt(i-1) === ' ' )){
-        formattedName= formattedName.substring(0, i) + formattedName.charAt(i).toUpperCase() + formattedName.substring(i + 1);
-      }
-      }
-     return formattedName
-  }
-
   const handlePopoverClose = () => {
     setAnchorEl(null);
   };
@@ -95,25 +83,25 @@ function UserSearch(props) {
     var obj = {};
     var obj2 ={};
     if (departureAirportC.length !== 0) {
-      obj = { ...obj, ["DepartureAirport"]: departureAirportC.trim().toUpperCase() };
+      obj = { ...obj, ["DepartureAirport"]: departureAirportC };
 
-      obj2 = { ...obj2, ["DepartureAirport"]: arrivalAirportC.trim().toUpperCase() };
+      obj2 = { ...obj2, ["DepartureAirport"]: arrivalAirportC };
     }
     if (arrivalAirportC.length !== 0) {
-      obj = { ...obj, ["ArrivalAirport"]: arrivalAirportC.trim().toUpperCase() };
+      obj = { ...obj, ["ArrivalAirport"]: arrivalAirportC };
 
-      obj2 = { ...obj2, ["ArrivalAirport"]: departureAirportC.trim().toUpperCase() };
+      obj2 = { ...obj2, ["ArrivalAirport"]: departureAirportC };
     }
 
 
     if (departureCityC.length !== 0) {
-      obj = { ...obj, ["DepartureCity"]: formatCityName(departureCityC) };
-      obj2 = { ...obj2, ["DepartureCity"]: formatCityName(arrivalCityC) };
+      obj = { ...obj, ["DepartureCity"]: departureCityC };
+      obj2 = { ...obj2, ["DepartureCity"]: arrivalCityC };
     }
     if (arrivalCityC.length !== 0) {
-      obj = { ...obj, ["ArrivalCity"]: formatCityName(arrivalCityC) };
+      obj = { ...obj, ["ArrivalCity"]: arrivalCityC };
 
-      obj2 = { ...obj2, ["ArrivalCity"]: formatCityName(departureCityC) };
+      obj2 = { ...obj2, ["ArrivalCity"]: departureCityC };
     }
  
     if (firstClassSeatsC.length !== 0) {
@@ -252,4 +240,4 @@ function UserSearch(props) {
     );
   
     }
-export default UserSearch;
+export default MiniUserSearch;

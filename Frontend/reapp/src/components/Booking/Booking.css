@@ -17,8 +17,10 @@
 }
 
 .labels label {
-  color : dimgrey;
-  font-size: 20px;
+  color : rgb(0, 0, 51);
+
+  font-size: 18px;
+  font-family: Helvetica, Arial, sans-serif;
   padding-right: 5px;
 }
 .spacer  {

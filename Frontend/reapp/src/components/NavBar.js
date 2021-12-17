@@ -55,7 +55,7 @@ function NavBar(props) {
             <ul>
               <li>
                 <Link to="/">Home</Link>
-                <a href="/">Book A Flight</a>
+                <Link to = "/usersearch" >Book A Flight</Link>
                 <Link to="/ReservedFlights">Reserved Flights</Link>
                 <a href="/">FAQ</a>
               </li>
@@ -86,7 +86,7 @@ function NavBar(props) {
             <ul>
               <li>
                 <a href="/">Home</a>
-                <a href="/">Book A Flight</a>
+                <a href="/usersearch">Book A Flight</a>
                 <a href="/">FAQ</a>
               </li>
             </ul>

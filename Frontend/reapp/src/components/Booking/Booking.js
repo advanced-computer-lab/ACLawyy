@@ -171,54 +171,59 @@ function Booking(props) {
       }
       axios
         .post("http://localhost:8000/flights/updateflight", flight1update)
-        .then((res) => {})
+        .then((res) => {
+          const flight2update = { _id: returnFlight._id };
+          if (props.p.Tickets[0].ReturnCabin === "first") {
+            flight2update.FirstClassSeats =
+              returnFlight.FirstClassSeats + props.p.NumberOfTickets;
+              seatsAvailable2 = [...returnFlight.FirstClassSeatsAvailable];
+            for (let i = 0; i < realReturnSeats.length; i++) {
+              if (realReturnSeats[i] != -1) {
+    
+                seatsAvailable2[realReturnSeats[i]] = 0;
+              }
+            }
+            flight2update.FirstClassSeatsAvailable = seatsAvailable2;
+          }
+          if (props.p.Tickets[0].ReturnCabin === "business") {
+            flight2update.BusinessClassSeats =
+              returnFlight.BusinessClassSeats + props.p.NumberOfTickets;
+              seatsAvailable2 = [...returnFlight.BusinessClassSeatsAvailable];
+            for (let i = 0; i < realReturnSeats.length; i++) {
+              if (realReturnSeats[i] != -1) {
+    
+                seatsAvailable2[realReturnSeats[i]] = 0;
+              }
+            }
+            flight2update.BusinessClassSeatsAvailable = seatsAvailable2;
+          } else {
+            flight2update.EconomyClassSeats =
+              returnFlight.EconomyClassSeats + props.p.NumberOfTickets;
+            seatsAvailable2 = [...returnFlight.EconomyClassSeatsAvailable];
+            for (let i = 0; i < realReturnSeats.length; i++) {
+              if (realReturnSeats[i] != -1) {
+                seatsAvailable2[realReturnSeats[i].ReturnSeat] = 0;
+              }
+            }
+            flight2update.EconomyClassSeatsAvailable = seatsAvailable2;
+            console.log("seats avail 2 " + seatsAvailable2);
+          }
+    
+          axios
+            .post("http://localhost:8000/flights/updateflight", flight2update)
+            .then((res) => { window.location.href = "http://localhost:3000/ReservedFlights";})
+            .catch(() => {
+              alert("error");
+            });
+
+
+
+        })
         .catch(() => {
           alert("error");
         });
 
-      const flight2update = { _id: returnFlight._id };
-      if (props.p.Tickets[0].ReturnCabin === "first") {
-        flight2update.FirstClassSeats =
-          returnFlight.FirstClassSeats + props.p.NumberOfTickets;
-          seatsAvailable2 = [...returnFlight.FirstClassSeatsAvailable];
-        for (let i = 0; i < realReturnSeats.length; i++) {
-          if (realReturnSeats[i] != -1) {
 
-            seatsAvailable2[realReturnSeats[i]] = 0;
-          }
-        }
-        flight2update.FirstClassSeatsAvailable = seatsAvailable2;
-      }
-      if (props.p.Tickets[0].ReturnCabin === "business") {
-        flight2update.BusinessClassSeats =
-          returnFlight.BusinessClassSeats + props.p.NumberOfTickets;
-          seatsAvailable2 = [...returnFlight.BusinessClassSeatsAvailable];
-        for (let i = 0; i < realReturnSeats.length; i++) {
-          if (realReturnSeats[i] != -1) {
-
-            seatsAvailable2[realReturnSeats[i]] = 0;
-          }
-        }
-        flight2update.BusinessClassSeatsAvailable = seatsAvailable2;
-      } else {
-        flight2update.EconomyClassSeats =
-          returnFlight.EconomyClassSeats + props.p.NumberOfTickets;
-        seatsAvailable2 = [...returnFlight.EconomyClassSeatsAvailable];
-        for (let i = 0; i < realReturnSeats.length; i++) {
-          if (realReturnSeats[i] != -1) {
-            seatsAvailable2[realReturnSeats[i].ReturnSeat] = 0;
-          }
-        }
-        flight2update.EconomyClassSeatsAvailable = seatsAvailable2;
-        console.log("seats avail 2 " + seatsAvailable2);
-      }
-
-      axios
-        .post("http://localhost:8000/flights/updateflight", flight2update)
-        .then((res) => { window.location.href = "http://localhost:3000/ReservedFlights";})
-        .catch(() => {
-          alert("error");
-        });
 
        
     
@@ -251,12 +256,12 @@ function Booking(props) {
 
       <div className="header">
         <div className="labels">
-          <label>Booking Number:</label>
-          <label>{props.p._id}</label>
-          <label>Number of Tickets:</label>
+          <label> <b>Booking Number: </b></label>
+          <label>{props.p._id.toUpperCase().substring(props.p._id.length - 5 , props.p._id.length)}</label>
+          {/* <label>Number of Tickets:</label>
           <label>{props.p.NumberOfTickets}</label>
           <label>Total Price of Booking:</label>
-          <label>{props.p.TotalPrice}</label>
+          <label>{props.p.TotalPrice}</label> */}
         </div>
         <div className = "spacer"></div>
         <div>
