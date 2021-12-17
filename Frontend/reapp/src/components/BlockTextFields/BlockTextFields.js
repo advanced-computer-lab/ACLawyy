@@ -10,8 +10,6 @@ import React, { useState } from "react";
 import axios from "axios";
 
 function BlockTextFields(props) {
-  
-  const [id, setID] = useState("");
   const [flightNumberC, setFlightNumber] = useState("");
   const [arrivalDateC, setArrivalDate] = useState("");
   const [departureDateC, setDepartureDate] = useState("");
@@ -28,19 +26,40 @@ function BlockTextFields(props) {
   const [economyClassSeatsC, setEconomyClassSeats] = useState("");
   const [economyPriceC, setEconomyPrice] = useState("");
 
-
+  function handleAllFlights() {
+    axios
+      .get("http://localhost:8000/Flights/")
+      .then((res) => {
+        const x = res.data;
+        props.searchHandler(x);
+        //alert("search? fy datagrid");
+      })
+      .catch((e) => {
+        alert("error");
+        console.log(e);
+      });
+  }
 
   function handleSearchFlights() {
+    props.blockRemover();
+    handleAllFlights();
     var obj = {};
- 
+    props.blockRemover();
+
     if (flightNumberC.length !== 0) {
       obj = { ...obj, ["FlightNumber"]: flightNumberC };
     }
     if (arrivalDateC.length !== 0) {
-      obj = { ...obj, ["ArrivalDate"]: (JSON.stringify(arrivalDateC)).slice(0,11) };
+      obj = {
+        ...obj,
+        ["ArrivalDate"]: JSON.stringify(arrivalDateC).slice(0, 11),
+      };
     }
     if (departureDateC.length !== 0) {
-      obj = { ...obj, ["DepartureDate"]: (JSON.stringify(departureDateC)).slice(0,11) };
+      obj = {
+        ...obj,
+        ["DepartureDate"]: JSON.stringify(departureDateC).slice(0, 11),
+      };
     }
     if (departureAirportC.length !== 0) {
       obj = { ...obj, ["DepartureAirport"]: departureAirportC };
@@ -49,10 +68,16 @@ function BlockTextFields(props) {
       obj = { ...obj, ["ArrivalAirport"]: arrivalAirportC };
     }
     if (departureTimeC.length !== 0) {
-      obj = { ...obj, ["DepartureTime"]: (JSON.stringify(departureTimeC)).slice(12,17) };
+      obj = {
+        ...obj,
+        ["DepartureTime"]: JSON.stringify(departureTimeC).slice(12, 17),
+      };
     }
     if (arrivalTimeC.length !== 0) {
-      obj = { ...obj, ["ArrivalTime"]: (JSON.stringify(arrivalTimeC)).slice(12,17)};
+      obj = {
+        ...obj,
+        ["ArrivalTime"]: JSON.stringify(arrivalTimeC).slice(12, 17),
+      };
     }
     if (departureCityC.length !== 0) {
       obj = { ...obj, ["DepartureCity"]: departureCityC };
@@ -74,10 +99,9 @@ function BlockTextFields(props) {
     }
     if (economyPriceC.length !== 0) {
       obj = { ...obj, ["EconomyPrice"]: economyPriceC };
-
     }
-    debugger;
-    const data = axios
+
+    axios
       .post("http://localhost:8000/Flights/Search", obj)
       .then((res) => {
         const x = res.data;
@@ -90,47 +114,39 @@ function BlockTextFields(props) {
       });
   }
 
-  function handleCreateFlight(
-   
-   
-  ) {
-    const data = axios
+  function handleCreateFlight() {
+    props.blockRemover();
+    axios
       .post("http://localhost:8000/Flights/CreateFlight", {
-    FlightNumber :flightNumberC,
-    ArrivalDate:(JSON.stringify(arrivalDateC)).slice(0,11),
-    DepartureDate:(JSON.stringify(departureDateC)).slice(0,11),
-    DepartureAirport: departureAirportC,
-    ArrivalAirport: arrivalAirportC,
-    DepartureTime: (JSON.stringify(departureTimeC)).slice(12,17),
-    ArrivalTime: (JSON.stringify(arrivalTimeC)).slice(12,17),
-    DepartureCity: departureCityC,
-    ArrivalCity: arrivalCityC,
-    BaggageAllowance: baggageAllowanceC,
-    FirstClassSeats: firstClassSeatsC,
-    BusinessClassSeats: businessClassSeatsC,
-    EconomyClassSeats: economyClassSeatsC,
-    EconomyPrice: economyPriceC,
+        FlightNumber: flightNumberC,
+        ArrivalDate: JSON.stringify(arrivalDateC).slice(0, 11),
+        DepartureDate: JSON.stringify(departureDateC).slice(0, 11),
+        DepartureAirport: departureAirportC,
+        ArrivalAirport: arrivalAirportC,
+        DepartureTime: JSON.stringify(departureTimeC).slice(12, 17),
+        ArrivalTime: JSON.stringify(arrivalTimeC).slice(12, 17),
+        DepartureCity: departureCityC,
+        ArrivalCity: arrivalCityC,
+        BaggageAllowance: baggageAllowanceC,
+        FirstClassSeats: firstClassSeatsC,
+        BusinessClassSeats: businessClassSeatsC,
+        EconomyClassSeats: economyClassSeatsC,
+        EconomyPrice: economyPriceC,
       })
       .then((res) => {
         console.log("Create");
         alert(
           "Flight created successfully UwU, Please click show all flights to see your new flight!"
         );
-
-        
       })
       .catch(() => {
         alert("error");
-       
-        
       });
   }
 
-
-
-  if (props.type == 0) {
+  if (props.type === 0) {
     return <div></div>;
-  } else if (props.type == 1) {
+  } else if (props.type === 1) {
     //search
     return (
       <div className="block">
@@ -197,7 +213,10 @@ function BlockTextFields(props) {
             <label className="depInfo">Departure Information</label>
             <div className="container">
               <div className="field">
-                <BasicDatePicker label="Departure Date"  changeHandler={setDepartureDate}/>
+                <BasicDatePicker
+                  label="Departure Date"
+                  changeHandler={setDepartureDate}
+                />
               </div>
               <div className="field">
                 <TextField
@@ -210,7 +229,10 @@ function BlockTextFields(props) {
             </div>
             <div className="container">
               <div className="field">
-                <BasicTimePicker label="Departure Time" changeHandler={setDepartureTime} />
+                <BasicTimePicker
+                  label="Departure Time"
+                  changeHandler={setDepartureTime}
+                />
               </div>
               <div className="field">
                 <TextField
@@ -227,7 +249,10 @@ function BlockTextFields(props) {
 
             <div className="container">
               <div className="field">
-                <BasicDatePicker label="Arrival Date" changeHandler={setArrivalDate}/>
+                <BasicDatePicker
+                  label="Arrival Date"
+                  changeHandler={setArrivalDate}
+                />
               </div>
               <div className="field">
                 <TextField
@@ -240,7 +265,10 @@ function BlockTextFields(props) {
             </div>
             <div className="container">
               <div className="field">
-                <BasicTimePicker label="Arrival Time" changeHandler={setArrivalTime}/>
+                <BasicTimePicker
+                  label="Arrival Time"
+                  changeHandler={setArrivalTime}
+                />
               </div>
               <div className="field">
                 <TextField
@@ -263,7 +291,11 @@ function BlockTextFields(props) {
             Cancel
           </Button>
           <div className="spacer"></div>
-          <Button variant="contained" endIcon={<CgSearch />} onClick = {handleSearchFlights}>
+          <Button
+            variant="contained"
+            endIcon={<CgSearch />}
+            onClick={handleSearchFlights}
+          >
             Search
           </Button>
         </div>
@@ -336,7 +368,10 @@ function BlockTextFields(props) {
             <label className="depInfo">Departure Information</label>
             <div className="container">
               <div className="field">
-                <BasicDatePicker label="Departure Date" changeHandler={setDepartureDate}/>
+                <BasicDatePicker
+                  label="Departure Date"
+                  changeHandler={setDepartureDate}
+                />
               </div>
               <div className="field">
                 <TextField
@@ -349,7 +384,10 @@ function BlockTextFields(props) {
             </div>
             <div className="container">
               <div className="field">
-                <BasicTimePicker label="Departure Time" changeHandler={setDepartureTime} />
+                <BasicTimePicker
+                  label="Departure Time"
+                  changeHandler={setDepartureTime}
+                />
               </div>
               <div className="field">
                 <TextField
@@ -366,7 +404,10 @@ function BlockTextFields(props) {
 
             <div className="container">
               <div className="field">
-                <BasicDatePicker label="Arrival Date" changeHandler={setArrivalDate}/>
+                <BasicDatePicker
+                  label="Arrival Date"
+                  changeHandler={setArrivalDate}
+                />
               </div>
               <div className="field">
                 <TextField
@@ -379,7 +420,10 @@ function BlockTextFields(props) {
             </div>
             <div className="container">
               <div className="field">
-                <BasicTimePicker label="Arrival Time" changeHandler={setArrivalTime}/>
+                <BasicTimePicker
+                  label="Arrival Time"
+                  changeHandler={setArrivalTime}
+                />
               </div>
               <div className="field">
                 <TextField
@@ -402,7 +446,11 @@ function BlockTextFields(props) {
             Cancel
           </Button>
           <div className="spacer"></div>
-          <Button variant="contained" endIcon={<CgAdd />} onClick={handleCreateFlight}>
+          <Button
+            variant="contained"
+            endIcon={<CgAdd />}
+            onClick={handleCreateFlight}
+          >
             Create
           </Button>
         </div>

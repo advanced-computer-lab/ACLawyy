@@ -1,0 +1,6 @@
+POST http://localhost:8000/Tickets/findMyTickets 
+Content-Type: application/json
+
+{
+    "UserID":"61a53ad5cbfb061456411e90"
+}

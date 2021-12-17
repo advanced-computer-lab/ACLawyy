@@ -1,10 +1,10 @@
 .block {
-  position: fixed;
-  top: 34%;
-  left: 15%;
-  width: 70%;
+  position: relative;
+  top: 24%;
+  margin-right: 15%;
+  width: 100%;
   background: #e6e6fa;
-  height: 54%;
+  height: 55%;
   box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
 }
 .block-button {

@@ -1,0 +1,77 @@
+.Home {
+    font-family: sans-serif;
+    text-align: center; 
+    margin-top: 100px;
+  }
+  
+  .Revenue {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+  
+.clicks{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+  .Numbers {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+  
+  .Map {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+  
+  .RevenueHist:hover {
+    cursor: pointer;
+    transition: 0.4s ease-out;
+    filter: grayscale(45%);
+    transform: translateY(0) scale(1.05);
+    box-shadow: 4px 4px 4px 6px #ccc;
+  }
+  
+  .Clicks:hover {
+    cursor: pointer;
+    transition: 0.4s ease-out;
+    filter: grayscale(45%);
+    transform: translateY(0) scale(1.05);
+  
+  }
+  .AreaPie:hover {
+    cursor: pointer;
+    transition: 0.4s ease-out;
+    filter: grayscale(45%);
+    transform: translateY(0) scale(1.05);
+    box-shadow: 4px 4px 4px 6px #ccc;
+  }
+  .Panel:hover {
+    cursor: pointer;
+    position: relative;
+    font-weight: 700;
+    background-size: 100%;
+    transition: 0.4s ease-out;
+    transform: translateY(0) scale(1.05);
+    background-color: #87ceeb;
+    color: #fff;
+    box-shadow: 4px 4px 4px 6px #ccc;
+  }
+  
+  .Countries:hover {
+    cursor: pointer;
+    transition: 0.4s ease-out;
+    transform: translateY(0) scale(1.05);
+  }

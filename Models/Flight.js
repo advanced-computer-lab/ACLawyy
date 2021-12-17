@@ -67,7 +67,7 @@ const flightSchema = new Schema(
       type: Number ,
       required: true,
     },
-    BusinessClassSeatsAvailable: {
+    EconomyClassSeatsAvailable: {
       type: Array ,
       required: true,
     },
