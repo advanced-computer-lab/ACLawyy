@@ -10,7 +10,7 @@ import TextField from "@mui/material/TextField";
 import FormLabel from "@mui/material/FormLabel";
 import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import Rank from "./pigeon.png";
+import Rank from "./pigeon.png"; 
 import CheckIcon from "@mui/icons-material/Check";
 import { IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -36,7 +36,9 @@ export function UserPage(props) {
   const [newNumber, setNewNumber] = useState();
   useEffect(() => {
     axios
-      .get("http://localhost:8000/Users/getUserDetails")
+      .post("http://localhost:8000/Users/getUserDetails", {
+        UserID: props.userID,
+      })
       .then((res) => {
         setUser(res.data);
         setIsLoading(false);
@@ -78,19 +80,19 @@ export function UserPage(props) {
   }
   function handleClickF5() {
     axios
-    .post("http://localhost:8000/Users/SearchEmail", {Email:user.Email})
-    .then((res) => {
-      if((res.data).length===0){
-        setIsDisabled5(true);
-        user.Email = userEmail;
-        handleSubmit();
-      }
-      else{
-        alert("Email in use!");
-      }})
-    .catch(() => {
-      alert("error");
-    });
+      .post("http://localhost:8000/Users/SearchEmail", { Email: userEmail })
+      .then((res) => {
+        if (res.data.length === 0) {
+          setIsDisabled5(true);
+          user.Email = userEmail;
+          handleSubmit();
+        } else {
+          alert("Email in use!");
+        }
+      })
+      .catch(() => {
+        alert("error");
+      });
   }
   function handleClickT6() {
     setIsDisabled6(false);
@@ -101,7 +103,7 @@ export function UserPage(props) {
   }
   function handleSubmit() {
     sendFeedback("service_c3t9zmi", "template_fwz2z6b", {
-      message: "hafsha5ak ya kalb elsekak ya 7ayawan",
+      message: "This is a confirmation email.",
       to_name: user.FirstName,
       from_name: "Flights Awyy ;)",
       email: userEmail,
@@ -130,8 +132,6 @@ export function UserPage(props) {
       .catch(() => {
         alert("error");
       });
-
-    
   }
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -153,7 +153,7 @@ export function UserPage(props) {
     setAnchorEl(null);
     alert("Number Added");
   }
-  function CheckEmail(Email){}
+  function CheckEmail(Email) {}
   if (isLoading) {
     return <div className="UserPage">loading...</div>;
   }

@@ -1,6 +1,8 @@
 // start
 const router = require("express").Router();
 let Flight = require("../Models/Flight");
+
+
 //reading from csv file stuff
 const csv = require("csv-parser");
 const fs = require("fs");
@@ -9,17 +11,18 @@ const fs = require("fs");
 // fs.createReadStream("Flights.csv")
 //   .pipe(csv())
 //   .on("data", (row) => {
-//     // date = row.FlightDate.split("-").reverse().join("-");
-//     // console.log(date);
+//     dateArr = row.FlightDate.split("/");
+//     date = dateArr[2]+ "-" + dateArr[0] + "-" + dateArr[1];
+
 //     const FlightNumber = row.ID;
-//     const ArrivalDate = row.FlightDate;
-//     const DepartureDate = row.FlightDate;
+//     const ArrivalDate = date;
+//     const DepartureDate = date;
 //     const DepartureAirport = row.From;
 //     const ArrivalAirport = row.To;
 //     const DepartureTime = row.DepartureTime;
 //     const ArrivalTime = row.ArrivalTime;
-//     const DepartureCity = DepartureAirport + " City";
-//     const ArrivalCity = ArrivalAirport + " City";
+//     const DepartureCity = row.FromCity;
+//     const ArrivalCity = row.ToCity;
 //     const BaggageAllowance = row.Baggage;
 //     const FirstClassSeats = row.FirstClassSeats;
 //     const FirstClassSeatsAvailable=[];
@@ -58,6 +61,9 @@ const fs = require("fs");
 //   .on("end", () => {
 //     console.log("CSV file successfully processed");
 //   });
+
+
+
 
 //beginning of flight methods
 

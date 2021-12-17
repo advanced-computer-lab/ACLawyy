@@ -18,15 +18,15 @@ router.route("/getTA").get((req, res) => {
     .then((users) => res.json(users))
     .catch((err) => res.status(400).json("Error: " + err));
 });
-router.route("/getUserDetails").get((req, res) => {
-  User.findById("61a53ad5cbfb061456411e90")
+router.route("/getUserDetails").post((req, res) => {
+  User.findById(req.body.UserID)
     .then((user) => res.json(user))
     .catch((err) => res.status(400).json("Error: " + err));
-}); 
+});
 router.route("/SearchEmail").post((req, res) => {
   User.find({
-    Email:req.body.Email
-      })
+    Email: req.body.Email,
+  })
     .then((User) => res.json(User))
     .catch((err) => res.status(400).json("Error: " + err));
 });

@@ -12,7 +12,7 @@ const userSchema = new Schema(
       type: String,
       //required: true,
     },
-    HomeAdress: {
+    HomeAddress: {
       type: String,
       //required: true
     },
@@ -32,12 +32,16 @@ const userSchema = new Schema(
       type: String,
       //required: true
     },
+    UserName: {
+      type: String,
+      required: true,
+    },
     Password: {
       type: String,
       required: true,
     },
     UserType: {
-      type: String ,
+      type: Number ,
       required: true,
     },
     ReservedTickets: {

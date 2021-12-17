@@ -1,0 +1,8 @@
+.flights-div {
+  display: flex;
+  flex-direction: column;
+}
+.empty {
+  margin-top: 200px;
+  margin-left: 200px;
+}
