@@ -7,6 +7,19 @@ import Button from "@mui/material/Button";
 import emailjs from "emailjs-com";
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+
+import Box from '@mui/material/Box';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import Divider from '@mui/material/Divider';
+import Popover from '@mui/material/Popover';
+import Typography from '@mui/material/Typography';
+
+
+
 function Booking(props) {
   // const purchase = props.purchase;
   // const tickets = props.Tickets;
@@ -15,6 +28,28 @@ function Booking(props) {
   const [user, setUser] = useState(null);
   const [awayFlight, setAwayFlight] = useState(null);
   const [returnFlight, setReturnFlight] = useState(null);
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleChangeDeparture = () => {
+    alert("changing departure")
+  }
+  const handleChangeReturn = () => {
+    alert("changing return")
+  }
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? 'simple-popover' : undefined;
+
+
 
   useEffect(() => {
     axios
@@ -272,9 +307,22 @@ function Booking(props) {
             <RemoveRedEyeIcon size="25px" />
           </Button>
           
-        <Button >
+        <Button  onClick={handleClick}  >
             <MoreVertIcon size="25px" />
+            
           </Button>
+          <Popover
+        id={id}
+        open={open}
+        anchorEl={anchorEl}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+      >
+        <BasicList onClickDep = {handleChangeDeparture} onClickRet = {handleChangeReturn} />
+      </Popover>
 
         </div>
       </div>
@@ -300,6 +348,30 @@ function Booking(props) {
         })}
       </div>
     </div>
+  );
+}
+
+
+function BasicList(props) {
+  return (
+    <Box sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+
+      <Divider />
+      <nav aria-label="secondary mailbox folders">
+        <List>
+          <ListItem disablePadding>
+            <ListItemButton onClick = {props.onClickDep}>
+              <ListItemText primary="Change Departure Flight" />
+            </ListItemButton>
+          </ListItem>
+          <ListItem disablePadding>
+            <ListItemButton onClick = {props.onClickRet} >
+              <ListItemText primary="Change Return Flight" />
+            </ListItemButton>
+          </ListItem>
+        </List>
+      </nav>
+    </Box>
   );
 }
 export default Booking;
