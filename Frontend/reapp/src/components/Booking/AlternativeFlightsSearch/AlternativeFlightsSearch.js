@@ -23,7 +23,26 @@ function AlternativeFlightsSearch(props) {
     const [showEconomy, setShowEconomy] = useState(true);
     const [isLoading , setLoading] = useState(true);
     const [selectedFlight , setSelectedFlight] = useState(null);
+    const [selectedCabin , setSelectedCabin] = useState(null);
 
+    useEffect(() => {
+        setSelectedFlight(null);
+    } , [showFirst,showBusiness,showEconomy]);
+
+
+    const handleConfirm = () => {
+        alert ("changing flight" + JSON.stringify(selectedFlight));
+    }
+
+    const handleSelect = (flight,cabin) => {
+        setSelectedFlight(flight);
+        setSelectedCabin(cabin);
+    }
+    const isSelected = (id,cab)=>{
+        if (selectedFlight!= null)
+            return selectedFlight._id === id && selectedCabin === cab;
+        return false;
+    }
     
     function handleSearchFlights() {
         var obj = {DepartureCity : actualFlight.DepartureCity, ArrivalCity : actualFlight.ArrivalCity};
@@ -53,7 +72,9 @@ function AlternativeFlightsSearch(props) {
              <Button
 
                 disabled = {selectedFlight===null}
+                onClick= {handleConfirm}
                 variant="contained">
+                
              Select
              </Button >
         </div>
@@ -94,9 +115,9 @@ function AlternativeFlightsSearch(props) {
         <Stack direction="column" spacing={2} >
         {alternativeFlights.map((flight) => (
              <Stack direction="column" spacing={2} >
-            {showEconomy?<FlightCard key = {flight._id +"e" }cabin = "economy" flight = {flight}  isSelected = {()=> {return false}} />:null}
-            {showBusiness?<FlightCard key = {flight._id +"b"}cabin = "business" flight = {flight} isSelected = {()=> {return false}} />:null}
-            {showFirst?<FlightCard key = {flight._id +"f"}cabin = "first" flight = {flight}  isSelected = {()=> {return false}} />:null}
+            {showEconomy?<FlightCard key = {flight._id +"e" }cabin = "economy" flight = {flight} onClick = {handleSelect} isSelected = {isSelected} />:null}
+            {showBusiness?<FlightCard key = {flight._id +"b"}cabin = "business" flight = {flight} onClick = {handleSelect} isSelected = {isSelected} />:null}
+            {showFirst?<FlightCard key = {flight._id +"f"}cabin = "first" flight = {flight} onClick = {handleSelect} isSelected = {isSelected} />:null}
             </Stack>
             )
           )}
