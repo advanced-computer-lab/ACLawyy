@@ -110,6 +110,26 @@ router.route("/modifySeatsAvailable").post((req, res) => {
   res.send();
 });
 
+router.route("/modifyTicket").post((req, res) => {
+  //const AwayFlight = mongoose.Types.ObjectId(req.body.AwayFlight);
+  Ticket.findByIdAndUpdate(req.body.ticketID, req.body, function (err) {
+    if (err) console.log(err);
+    console.log("Ticket updated successfully");
+    console.log(req.body.id);
+  });
+  res.send();
+});
+
+router.route("/modifyPurchase").post((req, res) => {
+  //const AwayFlight = mongoose.Types.ObjectId(req.body.AwayFlight);
+  Purchase.findByIdAndUpdate(req.body.purchaseID, req.body, function (err) {
+    if (err) console.log(err);
+    console.log("Purchase updated successfully");
+    console.log(req.body.id);
+  });
+  res.send();
+});
+
 router.route("/modifyAwaySeat").post((req, res) => {
   //include AwayFlight/UserID/AwaySeat=-1
 

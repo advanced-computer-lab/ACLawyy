@@ -42,7 +42,7 @@ function FlightsSummary(props) {
       ReturnSeat: -1,
       ReturnCabin: cabin2,
       AwayPrice: price1 / 2,
-      ReturnPrice: price2,
+      ReturnPrice: price2 / 2,
       Type: "Child",
     };
     console.log(adultTicket);
@@ -75,133 +75,136 @@ function FlightsSummary(props) {
       axios
         .post("http://localhost:8000/Tickets/CreateTicket", adultTicket)
         .then((res) => {
-
-          if (i == adults -1){
-            if (children == 0){
-
+          if (i == adults - 1) {
+            if (children == 0) {
               axios
-              .post("http://localhost:8000/Tickets/findMyTickets", {
-                UserID: userID,
-                AwayFlight: flight1._id,
-                ReturnFlight: flight2._id,
-              })
-              .then((res) => {
-                const mongotickets = res.data;
-        
-                const mongotickets2 = mongotickets.slice(
-                  0,
-                  parseInt(adults) + parseInt(children)
-                );
-                const purchaseBody = {
+                .post("http://localhost:8000/Tickets/findMyTickets", {
                   UserID: userID,
-                  NumberOfTickets: parseInt(adults) + parseInt(children),
-                  TotalPrice:
-                    (children * price1) / 2 +
-                    (children * price2) / 2 +
-                    adults * price1 +
-                    adults * price2,
-                  Tickets: mongotickets2,
-                };
-                axios
-                  .post("http://localhost:8000/Tickets/CreatePurchase", purchaseBody)
-                  .then((res) => {
-                    axios
-                      .post("http://localhost:8000/flights/updateflight", flight1update)
-                      .then((res) => {
-                        axios
-                          .post(
-                            "http://localhost:8000/flights/updateflight",
-                            flight2update
-                          )
-                          .then((res) => {
-               
-                          })
-                          .catch(() => {
-                            alert("error");
-                          });
-        
-                        window.location.href = "http://localhost:3000/ReservedFlights";
-                      })
-                      .catch(() => {
-                        alert("error");
-                      });
-                  })
-                  .catch((e) => {
-                    alert("error");
-                  });
-              })
-              .catch((e) => {
-                alert("error");
-              });
+                  AwayFlight: flight1._id,
+                  ReturnFlight: flight2._id,
+                })
+                .then((res) => {
+                  const mongotickets = res.data;
+
+                  const mongotickets2 = mongotickets.slice(
+                    0,
+                    parseInt(adults) + parseInt(children)
+                  );
+                  const purchaseBody = {
+                    UserID: userID,
+                    NumberOfTickets: parseInt(adults) + parseInt(children),
+                    TotalPrice:
+                      (children * price1) / 2 +
+                      (children * price2) / 2 +
+                      adults * price1 +
+                      adults * price2,
+                    Tickets: mongotickets2,
+                  };
+                  axios
+                    .post(
+                      "http://localhost:8000/Tickets/CreatePurchase",
+                      purchaseBody
+                    )
+                    .then((res) => {
+                      axios
+                        .post(
+                          "http://localhost:8000/flights/updateflight",
+                          flight1update
+                        )
+                        .then((res) => {
+                          axios
+                            .post(
+                              "http://localhost:8000/flights/updateflight",
+                              flight2update
+                            )
+                            .then((res) => {})
+                            .catch(() => {
+                              alert("error");
+                            });
+
+                          window.location.href =
+                            "http://localhost:3000/ReservedFlights";
+                        })
+                        .catch(() => {
+                          alert("error");
+                        });
+                    })
+                    .catch((e) => {
+                      alert("error");
+                    });
+                })
+                .catch((e) => {
+                  alert("error");
+                });
             }
             for (let j = 0; j < children; j++) {
               tickets.push(childTicket);
-        
+
               axios
                 .post("http://localhost:8000/Tickets/CreateTicket", childTicket)
                 .then((res) => {
-                  if (j == children -1){
-
-                  axios
-                  .post("http://localhost:8000/Tickets/findMyTickets", {
-                    UserID: userID,
-                    AwayFlight: flight1._id,
-                    ReturnFlight: flight2._id,
-                  })
-                  .then((res) => {
-                    const mongotickets = res.data;
-            
-                    const mongotickets2 = mongotickets.slice(
-                      0,
-                      parseInt(adults) + parseInt(children)
-                    );
-                    const purchaseBody = {
-                      UserID: userID,
-                      NumberOfTickets: parseInt(adults) + parseInt(children),
-                      TotalPrice:
-                        (children * price1) / 2 +
-                        (children * price2) / 2 +
-                        adults * price1 +
-                        adults * price2,
-                      Tickets: mongotickets2,
-                    };
+                  if (j == children - 1) {
                     axios
-                      .post("http://localhost:8000/Tickets/CreatePurchase", purchaseBody)
+                      .post("http://localhost:8000/Tickets/findMyTickets", {
+                        UserID: userID,
+                        AwayFlight: flight1._id,
+                        ReturnFlight: flight2._id,
+                      })
                       .then((res) => {
+                        const mongotickets = res.data;
+
+                        const mongotickets2 = mongotickets.slice(
+                          0,
+                          parseInt(adults) + parseInt(children)
+                        );
+                        const purchaseBody = {
+                          UserID: userID,
+                          NumberOfTickets:
+                            parseInt(adults) + parseInt(children),
+                          TotalPrice:
+                            (children * price1) / 2 +
+                            (children * price2) / 2 +
+                            adults * price1 +
+                            adults * price2,
+                          Tickets: mongotickets2,
+                        };
                         axios
-                          .post("http://localhost:8000/flights/updateflight", flight1update)
+                          .post(
+                            "http://localhost:8000/Tickets/CreatePurchase",
+                            purchaseBody
+                          )
                           .then((res) => {
                             axios
                               .post(
                                 "http://localhost:8000/flights/updateflight",
-                                flight2update
+                                flight1update
                               )
                               .then((res) => {
-                   
+                                axios
+                                  .post(
+                                    "http://localhost:8000/flights/updateflight",
+                                    flight2update
+                                  )
+                                  .then((res) => {})
+                                  .catch(() => {
+                                    alert("error");
+                                  });
+
+                                window.location.href =
+                                  "http://localhost:3000/ReservedFlights";
                               })
                               .catch(() => {
                                 alert("error");
                               });
-            
-                            window.location.href = "http://localhost:3000/ReservedFlights";
                           })
-                          .catch(() => {
+                          .catch((e) => {
                             alert("error");
                           });
                       })
                       .catch((e) => {
                         alert("error");
                       });
-                  })
-                  .catch((e) => {
-                    alert("error");
-                  });
-
-
-                }
-
-
-
+                  }
                 })
                 .catch((e) => {
                   alert("error");
@@ -213,10 +216,6 @@ function FlightsSummary(props) {
           alert("error");
         });
     }
-
-
-
-
   };
 
   return (
@@ -303,7 +302,7 @@ function FlightsSummary(props) {
           </div>
         </div>
       </Stack>
-      <Stack direction="row"   justifyContent="center">
+      <Stack direction="row" justifyContent="center">
         <Button variant="outlined" onClick={confirmPurchase}>
           <h4>Reserve</h4>
         </Button>
