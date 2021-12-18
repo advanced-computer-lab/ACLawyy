@@ -1,5 +1,6 @@
 import "./Booking.css";
 import BoardingPass from "./BoardingPass";
+import AlternativeFlightsSearch from "./AlternativeFlightsSearch/AlternativeFlightsSearch";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { CgTrash } from "react-icons/cg";
@@ -31,11 +32,22 @@ function Booking(props) {
 
   const [anchorEl, setAnchorEl] = React.useState(null);
 
-  const handleChangeDeparture = () => {
-    alert("changing departure")
+  const [anchorEl2, setAnchorEl2] = React.useState(null);
+
+  const [flightType, setFlightType] = React.useState(null);
+
+
+  const handleChangeDeparture = (event) => {
+    //alert("changing departure")
+
+    setFlightType("departure");
+    handleClick2(event);
   }
-  const handleChangeReturn = () => {
-    alert("changing return")
+  const handleChangeReturn = (event) => {
+    //alert("changing return")
+
+    setFlightType("return");
+    handleClick2(event);
   }
 
   const handleClick = (event) => {
@@ -45,10 +57,19 @@ function Booking(props) {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
 
+
+  const handleClick2 = (event) => {
+    setAnchorEl2(event.currentTarget);
+  };
+
+  const handleClose2 = () => {
+    setAnchorEl2(null);
+  };
+  const open2 = Boolean(anchorEl2);
+  const id2 = open2 ? 'simple-popover2' : undefined;
 
 
   useEffect(() => {
@@ -323,7 +344,29 @@ function Booking(props) {
       >
         <BasicList onClickDep = {handleChangeDeparture} onClickRet = {handleChangeReturn} />
       </Popover>
-
+      <Popover
+        id={id2}
+        open={open2}
+        anchorEl={anchorEl2}
+        onClose={handleClose2}
+        anchorReference="anchorPosition"
+        anchorPosition={{ top: 300, left: 750 }}
+        anchorOrigin={{
+          vertical: 'center',
+          horizontal: 'center',
+        }}
+        transformOrigin={{
+          vertical: 'center',
+          horizontal: 'center',
+        }}
+      >
+        <AlternativeFlightsSearch 
+        flightType = {flightType} 
+        DepartureFlight = {awayFlight}
+        ReturnFlight = {returnFlight}
+        awayCabin = {props.p.Tickets[0].AwayCabin}
+        returnCabin = {props.p.Tickets[0].ReturnCabin}/>
+      </Popover>
         </div>
       </div>
       <div className = "boarding">
