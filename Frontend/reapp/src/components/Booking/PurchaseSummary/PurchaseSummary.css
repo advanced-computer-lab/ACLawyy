@@ -1,0 +1,45 @@
+.container {
+
+    display: flex;
+    flex-direction: column;
+    align-self: flex-start;
+    gap : 12px 1px;
+  }
+
+  .container2 {
+    height: 450px;
+    width: 650px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-center ;
+    
+    gap : 12px 12px;
+  }
+
+  .elem {
+    flex-grow: 1;
+  }
+  .button2 {
+
+
+    align-self: center;
+  
+    background: #ffffff;
+    height: 10%;
+    width: 30%;
+    box-shadow: 5px 0px 5px rgba(0, 0, 0, 0.3);
+  }
+  .title {
+
+
+    text-align: center;
+
+  }
+  .selectbutt {
+
+    position : fixed ;
+    top : 80px;
+    height : 55px;
+    left : 10px;
+
+  }

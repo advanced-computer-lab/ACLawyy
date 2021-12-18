@@ -5,8 +5,8 @@ import axios from "axios";
 import { CgTrash } from "react-icons/cg";
 import Button from "@mui/material/Button";
 import emailjs from "emailjs-com";
-
-
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 function Booking(props) {
   // const purchase = props.purchase;
   // const tickets = props.Tickets;
@@ -265,9 +265,17 @@ function Booking(props) {
         </div>
         <div className = "spacer"></div>
         <div>
-          <Button onClick={handleDelete}>
+        <Button onClick={handleDelete}>
             <CgTrash size="25px" />
           </Button>
+          <Button >
+            <RemoveRedEyeIcon size="25px" />
+          </Button>
+          
+        <Button >
+            <MoreVertIcon size="25px" />
+          </Button>
+
         </div>
       </div>
       <div className = "boarding">

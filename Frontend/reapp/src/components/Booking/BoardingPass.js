@@ -25,14 +25,14 @@ function BoardingPass({ props, type, isAway, user }) {
   
   const seatNumber = isAway? type.AwaySeat : type.ReturnSeat; 
 
-  const seatParams = {
+  var seatParams = {
     userID: user._id,
     flightID: props._id,
     ticketID: type._id,
     cabinType: cabinType.toLowerCase(),
     seats: 1,
     isAway: isAway,
-    seatNumber : seatNumber
+    seatNumber : mySeat
   };
 
   if (isAway) {

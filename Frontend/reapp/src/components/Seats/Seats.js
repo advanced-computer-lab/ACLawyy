@@ -30,7 +30,7 @@ function Seats(prop) {
   //const isAway = true;
   const isAway = props.isAway;
   
-  const seatNumber = props.seatNumber;
+  const seatNumber = parseInt(props.seatNumber);
 
   const [chosen, setChosen] = useState(0);
   var firstCss = "firstNotAllowed";
@@ -125,11 +125,6 @@ function Seats(prop) {
 
 
     if (cabinType == "first") {
-
-
-
-    
-
       changedIndices = indexOfSeats(FirstAvailable);
 
       let finalSeats =backToOne(FirstAvailable)
@@ -165,51 +160,54 @@ function Seats(prop) {
       .post("http://localhost:8000/Tickets/modifySeatsAvailable", obj)
       .then((res) => {
         console.log("updated");
+        if (isAway) {
+          axios
+            .post("http://localhost:8000/Tickets/modifyAwaySeat", {
+              _id: ticketID,
+              modifiedSeats: changedIndices,
+              AwayFlight: flightID,
+              AwaySeat: seatNumber
+            })
+            .then((res) => {
+    
+              window.location.href = "http://localhost:3000/ReservedFlights";
+              console.log("Changed indices are : ", changedIndices);
+    
+    
+            })
+            .catch((e) => {
+              alert("error");
+              console.log(e);
+            });
+        } else {
+          axios
+            .post("http://localhost:8000/Tickets/modifyReturnSeat", {
+              _id: ticketID,
+              modifiedSeats: changedIndices,
+              ReturnFlight: flightID,
+              ReturnSeat: seatNumber,
+            })
+            .then((res) => {
+              window.location.href = "http://localhost:3000/ReservedFlights";
+              console.log("Changed indices are : ", changedIndices);
+    
+    
+            })
+            .catch((e) => {
+              alert("error");
+              console.log(e);
+            });
+        }
+    
+
+
       })
       .catch((e) => {
         alert("error");
         console.log(e);
       });
 
-    if (isAway) {
-      axios
-        .post("http://localhost:8000/Tickets/modifyAwaySeat", {
-          _id: ticketID,
-          modifiedSeats: changedIndices,
-          AwayFlight: flightID,
-          AwaySeat: seatNumber
-        })
-        .then((res) => {
-
-          window.location.href = "http://localhost:3000/ReservedFlights";
-          console.log("Changed indices are : ", changedIndices);
-
-
-        })
-        .catch((e) => {
-          alert("error");
-          console.log(e);
-        });
-    } else {
-      axios
-        .post("http://localhost:8000/Tickets/modifyReturnSeat", {
-          _id: ticketID,
-          modifiedSeats: changedIndices,
-          ReturnFlight: flightID,
-          ReturnSeat: seatNumber,
-        })
-        .then((res) => {
-          window.location.href = "http://localhost:3000/ReservedFlights";
-          console.log("Changed indices are : ", changedIndices);
-
-
-        })
-        .catch((e) => {
-          alert("error");
-          console.log(e);
-        });
-    }
-
+    
 
   }
 
