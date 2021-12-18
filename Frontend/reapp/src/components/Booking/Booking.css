@@ -1,15 +1,32 @@
-.booking{
-margin: 9% 18%;
+.booking {
+  margin: 8% 18%;
 
-display:flex;
-flex-direction:column;
+  display: flex;
+  flex-direction: column;
+  width : 68.9%;
+  box-shadow: 5px 5px 15px grey;
 
 }
-.booking-top{
-    
+.header {
 
-    
+  width : 100%;
+  display: flex;
+  flex-direction: row;
+  position : relative;
+  right : 50px;
 }
-.booking-bottom{
-    
+
+.labels label {
+  color : rgb(0, 0, 51);
+
+  font-size: 18px;
+  font-family: Helvetica, Arial, sans-serif;
+  padding-right: 5px;
+}
+.spacer  {
+
+  flex: 1;
+}
+.boarding  {
+  padding : 1.5% 1.5%;
 }

@@ -67,7 +67,7 @@ router.route("/ChooseSeat").post((req, res) => {
 router.route("/findMyTickets").post((req, res) => {
   const UserID = mongoose.Types.ObjectId(req.body.UserID);
   const sort = { created_at: -1 };
-  Ticket.find({ UserID })
+  Ticket.find(req.body)
     .sort("-createdAt")
     .exec((err, docs) => res.json(docs));
 });
@@ -111,32 +111,42 @@ router.route("/modifySeatsAvailable").post((req, res) => {
 });
 
 router.route("/modifyAwaySeat").post((req, res) => {
-  //include AwayFlight/UserID/AwaySeat=undefined
-  flightID = req.body.flightID;
-  userID = req.body.userID;
+  //include AwayFlight/UserID/AwaySeat=-1
+
   for (let i = 0; i < req.body.modifiedSeats.length; i++) {
-    console.log(i);
     Ticket.findOneAndUpdate(
       req.body,
       { AwaySeat: req.body.modifiedSeats[i] },
       function (err) {
         if (err) console.log(err);
         console.log("Seats updated successfully");
-        console.log(req.body.id);
+        console.log(req.body);
       }
     );
+    res.send();
   }
-  res.send();
+});
+
+router.route("/findAwaySeat").post((req, res) => {
+  Ticket.findById(req.body.ticketID)
+    .then((ticket) => res.json(ticket))
+    .catch((err) => res.status(400).json("Error: " + err));
+});
+
+router.route("/findReturnSeat").post((req, res) => {
+  Ticket.findById(req.body.ticketID)
+    .then((ticket) => res.json(ticket))
+    .catch((err) => res.status(400).json("Error: " + err));
 });
 
 router.route("/modifyReturnSeat").post((req, res) => {
   //include AwayFlight/UserID/AwaySeat=undefined
   flightID = req.body.flightID;
   userID = req.body.userID;
-  for (let i = 0; i < req.body.modifiedSeats.length - 1; i++) {
+  for (let i = 0; i < req.body.modifiedSeats.length; i++) {
     Ticket.findOneAndUpdate(
       req.body,
-      { ReturnSeat: modifiedSeats[i] },
+      { ReturnSeat: req.body.modifiedSeats[i] },
       function (err) {
         if (err) console.log(err);
         console.log("Seats updated successfully");
@@ -158,6 +168,14 @@ router.route("/DeleteTicket").post((req, res) => {
   Ticket.findByIdAndDelete(req.body._id, function (err) {
     if (err) console.log(err);
     console.log("Ticket deleted successfully");
+  });
+  res.send();
+});
+
+router.route("/DeletePurchase").post((req, res) => {
+  Purchase.findByIdAndDelete(req.body._id, function (err) {
+    if (err) console.log(err);
+    console.log("Purchase deleted successfully");
   });
   res.send();
 });

@@ -1,7 +1,13 @@
 // #Task route solution
 const router = require("express").Router();
 let User = require("../Models/User");
-
+router.route("/UpdateUser").post((req, res) => {
+  User.findByIdAndUpdate("61a53ad5cbfb061456411e90", req.body, function (err) {
+    if (err) console.log(err);
+    console.log("User updated successfully");
+  });
+  res.send();
+});
 router.route("/").get((req, res) => {
   User.find()
     .then((users) => res.json(users))
@@ -10,6 +16,18 @@ router.route("/").get((req, res) => {
 router.route("/getTA").get((req, res) => {
   User.find({ Job: /TA/ })
     .then((users) => res.json(users))
+    .catch((err) => res.status(400).json("Error: " + err));
+});
+router.route("/getUserDetails").post((req, res) => {
+  User.findById(req.body.UserID)
+    .then((user) => res.json(user))
+    .catch((err) => res.status(400).json("Error: " + err));
+});
+router.route("/SearchEmail").post((req, res) => {
+  User.find({
+    Email: req.body.Email,
+  })
+    .then((User) => res.json(User))
     .catch((err) => res.status(400).json("Error: " + err));
 });
 

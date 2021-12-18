@@ -1,0 +1,9 @@
+.container2 {
+    height: 650px;
+    width: 550px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-center ;
+    
+    gap : 12px 12px;
+  }

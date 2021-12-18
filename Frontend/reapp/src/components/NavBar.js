@@ -2,6 +2,12 @@ import "./NavBar.css";
 import { CgProfile } from "react-icons/cg";
 import logo from "../logo.jpeg";
 import Button from "@mui/material/Button";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes as Switch,
+  Link,
+} from "react-router-dom";
 
 function NavBar(props) {
   if (props.type == 0) {
@@ -12,7 +18,7 @@ function NavBar(props) {
             <img src={logo} alt="Logo" />
           </div>
           <div className="navbar-slogan">
-            <a href="/">Love At First Flight  ; )</a>
+            <a href="/">Love At First Flight ; )</a>
           </div>
           <div className="spacer"></div>
           <div className="navbar-nav-items">
@@ -25,9 +31,10 @@ function NavBar(props) {
           </div>
 
           <div className="navbar-profile">
-            <a className="navbar-profile-logo" href="/">
+            <Link className="navbar-profile-logo" to="/profile">
               <CgProfile size="40px" />
-            </a>
+            </Link>
+
             <a href="/">log out</a>
           </div>
         </nav>
@@ -41,24 +48,24 @@ function NavBar(props) {
             <img src={logo} alt="Logo" />
           </div>
           <div className="navbar-slogan">
-            <a href="/">Love At First Flight  ; )</a>
+            <a href="/">Love At First Flight ; )</a>
           </div>
           <div className="spacer"></div>
           <div className="navbar-nav-items">
             <ul>
               <li>
-                <a href="/">Home</a>
-                <a href="/">Book A Flight</a>
-                <a href="/">Reserved Flights</a>
+                <Link to="/">Home</Link>
+                <Link to = "/usersearch" >Book A Flight</Link>
+                <Link to="/ReservedFlights">Reserved Flights</Link>
                 <a href="/">FAQ</a>
               </li>
             </ul>
           </div>
 
           <div className="navbar-profile">
-            <a className="navbar-profile-logo" href="/">
+            <Link className="navbar-profile-logo" to="/profile">
               <CgProfile size="40px" />
-            </a>
+            </Link>
             <a href="/">log out</a>
           </div>
         </nav>
@@ -72,14 +79,14 @@ function NavBar(props) {
             <img src={logo} alt="Logo" />
           </div>
           <div className="navbar-slogan">
-            <a href="/">Love At First Flight  ; )</a>
+            <a href="/">Love At First Flight ; )</a>
           </div>
           <div className="spacer"></div>
           <div className="navbar-nav-items">
             <ul>
               <li>
                 <a href="/">Home</a>
-                <a href="/">Book A Flight</a>
+                <a href="/usersearch">Book A Flight</a>
                 <a href="/">FAQ</a>
               </li>
             </ul>
