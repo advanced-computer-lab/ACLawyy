@@ -5,6 +5,13 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 require("dotenv").config();
 
+router.route("/UpdateUser").post((req, res) => {
+  User.findByIdAndUpdate("61a53ad5cbfb061456411e90", req.body, function (err) {
+    if (err) console.log(err);
+    console.log("User updated successfully");
+  });
+  res.send();
+});
 
 router.route("/").get((req, res) => {
   User.find()
@@ -16,6 +23,61 @@ router.route("/getTA").get((req, res) => {
     .then((users) => res.json(users))
     .catch((err) => res.status(400).json("Error: " + err));
 });
+
+router.route("/SearchEmail").post((req, res) => {
+  User.find({
+    Email: req.body.Email,
+  })
+    .then((User) => res.json(User))
+    .catch((err) => res.status(400).json("Error: " + err));
+});
+
+router.route("/SearchUsername").post((req, res) => {
+  User.find({
+    Username: req.body.Username,
+  })
+    .then((User) => res.json(User))
+    .catch((err) => res.status(400).json("Error: " + err));
+});
+
+// Method that inserted the Administrator
+// router.route("/setAdmin").get((req, res) => {
+//   User.create({ Username: "Administrator", Password: "1234" })
+//     .then(() => res.json("User added!"))
+//     .catch((err) => res.status(400).json("Error: " + err));
+// });
+
+router.route("/add").post((req, res) => {
+  const FirstName = req.body.FirstName;
+  const LastName = req.body.LastName;
+  const HomeAddress = req.body.HomeAddress;
+  const CountryCode = req.body.CountryCode;
+  const TelephoneNumbers = req.body.TelephoneNumbers;
+  const Email = req.body.Email;
+  const PassportNumber = req.body.PassportNumber;
+  const Username = req.body.Username;
+  const Password = req.body.Password;
+
+  const newUser = new User({
+    Name,
+    FirstName,
+    LastName,
+    HomeAddress,
+    CountryCode,
+    TelephoneNumbers,
+    Email,
+    PassportNumber,
+    Email,
+    Username,
+    Password,
+  });
+
+  newUser
+    .save()
+    .then(() => res.json("User added!"))
+    .catch((err) => res.status(400).json("Error: " + err));
+});
+
 router.route("/getUserDetails").post((req, res) => {
   User.findById(req.body.UserID)
     .then((user) => res.json(user))
@@ -45,14 +107,17 @@ router.route("/Login").post( (req, res) => {
           {expiresIn :86400},
           (err,token)=>{
             if(err) return res.json({message:err})
+            console.log("success")
             return res.json({
               message: "Success",
               token:"Bearer"+token,
             })
+            
           }
         )
 
       } else{
+        console.log("fashallllllliure ")
         return res.json({
           message: "Invalid Username or Password"
         })
@@ -91,6 +156,11 @@ console.log(takenEmail);
   }else{
     user.Password = await bcrypt.hash(req.body.Password,10)
     const dbUser = new User({
+      FirstName : user.FirstName,
+      LastName : user.LastName,
+      TelephoneNumbers: [user.TelephoneNumber],
+      PassportNumber : user.PassportNumber,
+      UserType : 1,
       Username : user.Username.toLowerCase(),
       Email: user.Email.toLowerCase(),
       Password: user.Password

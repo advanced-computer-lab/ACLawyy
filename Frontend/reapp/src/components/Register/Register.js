@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -11,6 +12,8 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import axios from "axios";
+import Alert from '@mui/material/Alert';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 function Copyright(props) {
@@ -29,6 +32,104 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignUp() {
+  const [firstName,setFirstName]= useState(" ");
+  const [lastName,setLastName]= useState(" ");
+  const [passportNumber,setPassportNumber]= useState(" ");
+  const [email,setEmail]= useState(" ");
+  const [telephoneNumber,setTelephoneNumber]= useState(" ");
+  const [username,setUsername]= useState(" ");
+  const [password,setPassword]= useState(" ");
+  const [showEmailError, setShowEmailError] = useState(false);
+  const [showUserError, setShowUserError] = useState(false);
+
+
+
+
+  const allFieldsValid = () => {
+    if (firstName == " "||lastName == " "||passportNumber == " "||email == " "||telephoneNumber == " "||username == " "||password == " ")
+      return false;
+    return true;
+  }
+  const handleSignUp = () => {
+
+    const user = 
+    {
+      FirstName : firstName,
+      LastName : lastName,
+      TelephoneNumber: telephoneNumber,
+      PassportNumber : passportNumber,
+      UserType : 1,
+      Username : username,
+      Email: email,
+      Password: password
+    }
+
+
+
+    axios
+    .post(
+      "http://localhost:8000/users/searchemail",
+      user
+    )
+    .then((res) => {
+      if (res.data.length != 0)
+        setShowEmailError(true);
+      else
+        setShowEmailError(false);
+
+        axios
+        .post(
+          "http://localhost:8000/users/searchusername",
+          user
+        )
+        .then((res2) => {
+          if (res2.data.length != 0)
+            setShowUserError(true);
+          else
+            setShowUserError(false);
+
+
+          axios
+          .post(
+            "http://localhost:8000/users/register",
+            user
+          )
+          .then((res) => {
+      
+          })
+          .catch(() => {
+            alert("error");
+          });
+
+        })
+        .catch(() => {
+          alert("error");
+        });
+    
+
+
+
+    })
+    .catch(() => {
+      alert("error");
+    });
+
+
+
+
+
+
+
+
+ 
+    
+
+ 
+
+
+
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -65,6 +166,9 @@ export default function SignUp() {
                   name="firstName"
                   required
                   fullWidth
+                  onChange= {(e)=>
+                    setFirstName(e.target.value)
+                  }
                   id="firstName"
                   label="First Name"
                   autoFocus
@@ -78,6 +182,9 @@ export default function SignUp() {
                   label="Last Name"
                   name="lastName"
                   autoComplete="family-name"
+                  onChange= {(e)=>
+                    setLastName(e.target.value)
+                  }
                 />
               </Grid>
               <Grid item xs={12}>
@@ -89,6 +196,9 @@ export default function SignUp() {
                   type="PassportNumber"
                   id="PassportNumber"
                   autoComplete="new-PassportNumber"
+                  onChange= {(e)=>
+                    setPassportNumber(e.target.value)
+                  }
                 />
               </Grid>
               <Grid item xs={12}>
@@ -99,6 +209,29 @@ export default function SignUp() {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  onChange= {(e)=>
+                    setEmail(e.target.value)
+                  }
+                />
+              </Grid>
+              {showEmailError&&<Grid item xs={12}>
+              <Alert severity="error">This Email is already taken,&nbsp;  
+              <Link href="http://localhost:3000/signin">
+                  Sign in instead?
+                </Link></Alert>
+              </Grid>}
+              
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="TelephoneNumber"
+                  label="Telephone Number"
+                  name="TelephoneNumber"
+                  autoComplete="TelephoneNumber"
+                  onChange= {(e)=>
+                    setTelephoneNumber(e.target.value)
+                  }
                 />
               </Grid>
               <Grid item xs={12}>
@@ -110,8 +243,17 @@ export default function SignUp() {
                   type="Username"
                   id="Username"
                   autoComplete="new-Username"
+                  onChange= {(e)=>
+                    setUsername(e.target.value)
+                  }
                 />
               </Grid>
+              {showUserError&&<Grid item xs={12}>
+              <Alert severity="error">This Username is already taken,&nbsp;  
+              <Link href="http://localhost:3000/signin">
+                  Sign in instead?
+                </Link></Alert>
+              </Grid>}
               <Grid item xs={12}>
                 <TextField
                   required
@@ -121,6 +263,9 @@ export default function SignUp() {
                   type="Password"
                   id="Password"
                   autoComplete="new-Password"
+                  onChange= {(e)=>
+                    setPassword(e.target.value)
+                  }
                 />
               </Grid>
 
@@ -135,6 +280,8 @@ export default function SignUp() {
               type="submit"
               fullWidth
               variant="contained"
+              disabled = {!allFieldsValid()}
+              onClick = {handleSignUp}
               sx={{ mt: 3, mb: 2 }}
             >
               Sign Up

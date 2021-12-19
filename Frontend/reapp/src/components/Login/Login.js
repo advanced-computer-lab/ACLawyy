@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -11,6 +12,8 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import axios from "axios";
+import Alert from '@mui/material/Alert';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 function Copyright(props) {
@@ -29,6 +32,42 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignIn() {
+  const [username,setUsername]= useState(" ");
+  const [password,setPassword]= useState(" ");
+  const [showError, setShowError] = useState(false);
+
+  const allFieldsValid = () => {
+    if (username == " "||password == " ")
+      return false;
+    return true;
+  }
+
+  const handleSignIn = () => {
+    const user = 
+      {
+        Username : username,
+        Password: password
+      }
+    
+
+    axios
+    .post(
+      "http://localhost:8000/users/login",
+      user
+    )
+    .then((res) => {
+      if (res.data.message != "Success")
+        setShowError(true);
+      else
+        setShowError(false);
+
+    })
+    .catch(() => {
+      alert("error");
+    });
+
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -66,6 +105,9 @@ export default function SignIn() {
               label="Username"
               name="Username"
               autoComplete="Username"
+              onChange= {(e)=>
+                setUsername(e.target.value)
+              }
               autoFocus
             />
             <TextField
@@ -76,8 +118,12 @@ export default function SignIn() {
               label="Password"
               type="password"
               id="password"
+              onChange= {(e)=>
+                setPassword(e.target.value)
+              }
               autoComplete="current-password"
             />
+            {showError&&<Alert severity="error">Incorrect Username or Password!</Alert>}
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
@@ -86,6 +132,8 @@ export default function SignIn() {
               type="submit"
               fullWidth
               variant="contained"
+              disabled = {!allFieldsValid()}
+              onClick = {handleSignIn}
               sx={{ mt: 3, mb: 2 }}
             >
               Sign In
