@@ -32,7 +32,7 @@ function AlternativeFlightsSearch(props) {
     setSelectedFlight(null);
   }, [showFirst, showBusiness, showEconomy]);
 
-  const handleDeleteBackEnd = () => {
+  const handleUpdateBackEnd = () => {
     console.log(props.p.Tickets);
     console.log(props.p.Tickets[0]);
     console.log(props.p.Tickets[0]._id);
@@ -213,11 +213,10 @@ function AlternativeFlightsSearch(props) {
     }
   };
 
-  const handlePurchaseCreation = () => {};
 
   const handleConfirm = () => {
-    alert("changing flight" + JSON.stringify(selectedFlight));
-    handleDeleteBackEnd();
+    //alert("changing flight" + JSON.stringify(selectedFlight));
+    handleUpdateBackEnd();
   };
 
   const handleSelect = (flight, cabin) => {
