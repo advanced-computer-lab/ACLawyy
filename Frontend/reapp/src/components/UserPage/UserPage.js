@@ -1,4 +1,5 @@
 import "./UserPage.css";
+import StripeCheckout from "react-stripe-checkout";
 import EditIcon from "@mui/icons-material/Edit";
 import Button from "@mui/material/Button";
 import emailjs from "emailjs-com";
@@ -34,6 +35,12 @@ export function UserPage(props) {
   const [isDisabled6, setIsDisabled6] = useState(true);
   const [anchorEl, setAnchorEl] = useState(null);
   const [newNumber, setNewNumber] = useState();
+  const [product,setProduct] =useState({
+    name:"Pay for reservation",
+    price: "10",
+    Productby:"ACLawyyy ;)"
+    })
+
   useEffect(() => {
     axios
       .post("http://localhost:8000/Users/getUserDetails", {
@@ -255,6 +262,18 @@ export function UserPage(props) {
                 <CheckIcon />
               </IconButton>
             </Stack>
+            {/* <StripeCheckout 
+              stripeKey = "pk_test_51K8BI2DXNkUn4YuszggmHAuUflW7oYdM1B6qTgSdkKwBMSnbmbYfUIWREOch2oSPLkCOmOsldOkvW6am99Dc3skq00Xux5d3q4"
+              token=""
+              name=""
+            >
+              <Button style={{
+                backgroundcolor:"pink",
+                fontSize:"15px"
+              }}>
+              Make Payment
+              </Button>
+            </StripeCheckout>  */}
             <Stack direction="row" spacing={2}>
               <TextField
                 fullWidth

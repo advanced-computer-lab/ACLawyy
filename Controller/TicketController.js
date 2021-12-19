@@ -1,10 +1,11 @@
+
 const router = require("express").Router();
 let Ticket = require("../Models/Ticket");
 let Flight = require("../Models/Flight");
 let User = require("../Models/User");
 let Purchase = require("../Models/Purchase");
 const mongoose = require("mongoose");
-
+const stripe= require("stripe")(process.env.secret);
 router.route("/CreateTicket").post((req, res) => {
   const UserID = mongoose.Types.ObjectId(req.body.UserID);
   const AwayFlight = mongoose.Types.ObjectId(req.body.AwayFlight);
@@ -35,7 +36,27 @@ router.route("/CreateTicket").post((req, res) => {
     .then(() => res.json("Ticket Created!"))
     .catch((err) => res.status(400).json("Error: " + err));
 });
+router.post('/payment', async (req, res) => {
+  const{product,token}=req.body;
+  console.log("PRODUCT",product);
+  console.log("TOKEN",token);
+  return stripe.customers.create({
+    email:token.email,
+    name:token.name
 
+  }).then(customer =>{
+    stripe.charges.create({
+      amount:product.totalPrice,
+      currency:'usd',
+      customer:customer.id,
+      receipt_email:token.email,
+      description:'paying for flight reservation'
+    })
+  })
+  .then(result => res.status(200).json(result))
+  .catch(err =>console.log(err));
+ 
+});
 router.route("/CreatePurchase").post((req, res) => {
   const UserID = mongoose.Types.ObjectId(req.body.UserID);
   const NumberOfTickets = req.body.NumberOfTickets;
