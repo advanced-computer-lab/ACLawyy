@@ -1,6 +1,7 @@
 import "./Booking.css";
 import BoardingPass from "./BoardingPass";
 import AlternativeFlightsSearch from "./AlternativeFlightsSearch/AlternativeFlightsSearch";
+import PurchaseSummary from "./PurchaseSummary/PurchaseSummary";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { CgTrash } from "react-icons/cg";
@@ -30,6 +31,14 @@ function Booking(props) {
   const [user, setUser] = useState(null);
   const [awayFlight, setAwayFlight] = useState(null);
   const [returnFlight, setReturnFlight] = useState(null);
+
+  const [adults,setAdults] = useState(0);
+  const [children,setChildren] = useState(0);
+
+  
+  const [awayCabin,setAwayCabin] = useState(null);
+  const [returnCabin,setReturnCabin] = useState(null);
+
 
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -81,6 +90,22 @@ function Booking(props) {
   const open3 = Boolean(anchorEl3);
   const id3 = open3 ? "simple-popover2" : undefined;
 
+  
+
+  useEffect(() => {
+    for (let i = 0; i < props.p.Tickets.length; i++) {
+      if (props.p.Tickets[i].Type === "Child")
+        setChildren(prev=> prev+1);
+      else
+        setAdults(prev=> prev+1);
+    }
+    setAwayCabin(props.p.Tickets[0].AwayCabin);
+    setReturnCabin(props.p.Tickets[0].ReturnCabin);
+
+
+
+  }, []);
+ 
   useEffect(() => {
     axios
       .post("http://localhost:8000/Tickets/getUserDetails", {
@@ -356,7 +381,14 @@ function Booking(props) {
               horizontal: "left",
             }}
           >
-            <h1>omar shaz</h1>
+            <PurchaseSummary 
+            flight1 = {awayFlight}
+              cabin1 = {awayCabin} 
+              flight2 = {returnFlight}  
+              cabin2 = {returnCabin} 
+              adults = {adults} 
+              children ={children} 
+              userID = {props.userID}/>
           </Popover>
 
           <Button onClick={handleClick}>

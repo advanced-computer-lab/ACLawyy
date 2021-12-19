@@ -1,14 +1,15 @@
 .container {
 
     display: flex;
+    width: 750px;
     flex-direction: column;
     align-self: flex-start;
     gap : 12px 1px;
   }
 
   .container2 {
-    height: 450px;
-    width: 650px;
+    height: 550px;
+    width: 750px;
     display: flex;
     flex-direction: column;
     justify-content: flex-center ;
