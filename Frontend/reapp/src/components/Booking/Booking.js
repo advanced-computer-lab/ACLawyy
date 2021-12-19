@@ -32,13 +32,11 @@ function Booking(props) {
   const [awayFlight, setAwayFlight] = useState(null);
   const [returnFlight, setReturnFlight] = useState(null);
 
-  const [adults,setAdults] = useState(0);
-  const [children,setChildren] = useState(0);
+  const [adults, setAdults] = useState(0);
+  const [children, setChildren] = useState(0);
 
-  
-  const [awayCabin,setAwayCabin] = useState(null);
-  const [returnCabin,setReturnCabin] = useState(null);
-
+  const [awayCabin, setAwayCabin] = useState(null);
+  const [returnCabin, setReturnCabin] = useState(null);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -90,22 +88,15 @@ function Booking(props) {
   const open3 = Boolean(anchorEl3);
   const id3 = open3 ? "simple-popover2" : undefined;
 
-  
-
   useEffect(() => {
     for (let i = 0; i < props.p.Tickets.length; i++) {
-      if (props.p.Tickets[i].Type === "Child")
-        setChildren(prev=> prev+1);
-      else
-        setAdults(prev=> prev+1);
+      if (props.p.Tickets[i].Type === "Child") setChildren((prev) => prev + 1);
+      else setAdults((prev) => prev + 1);
     }
     setAwayCabin(props.p.Tickets[0].AwayCabin);
     setReturnCabin(props.p.Tickets[0].ReturnCabin);
-
-
-
   }, []);
- 
+
   useEffect(() => {
     axios
       .post("http://localhost:8000/Tickets/getUserDetails", {
@@ -176,7 +167,9 @@ function Booking(props) {
       );
     }
   };
-
+  const handleEmailItinerary = () => {
+    //TANTAWY WRITE YOUR METHOD HERE THIS WILL BE CALLED ON PRESS TANTAWY PLS TANTAAAWYYYYYYYYYYYYYYYYY
+  };
   const handleDeleteBackEnd = () => {
     console.log(props.p.Tickets);
     console.log(props.p.Tickets[0]);
@@ -381,14 +374,18 @@ function Booking(props) {
               horizontal: "left",
             }}
           >
-            <PurchaseSummary 
-            flight1 = {awayFlight}
-              cabin1 = {awayCabin} 
-              flight2 = {returnFlight}  
-              cabin2 = {returnCabin} 
-              adults = {adults} 
-              children ={children} 
-              userID = {props.userID}/>
+            {
+              // TANTAWY COPY THIS COMPONENT WE WANT TO SEND THIS ONE PLEASE TANTAWY PLS THX
+            }
+            <PurchaseSummary
+              flight1={awayFlight}
+              cabin1={awayCabin}
+              flight2={returnFlight}
+              cabin2={returnCabin}
+              adults={adults}
+              children={children}
+              userID={props.userID}
+            />
           </Popover>
 
           <Button onClick={handleClick}>
@@ -407,6 +404,7 @@ function Booking(props) {
             <BasicList
               onClickDep={handleChangeDeparture}
               onClickRet={handleChangeReturn}
+              onClickEmail={handleEmailItinerary}
             />
           </Popover>
           <Popover
@@ -475,6 +473,11 @@ function BasicList(props) {
           <ListItem disablePadding>
             <ListItemButton onClick={props.onClickRet}>
               <ListItemText primary="Change Return Flight" />
+            </ListItemButton>
+          </ListItem>
+          <ListItem disablePadding>
+            <ListItemButton onClick={props.onClickEmail}>
+              <ListItemText primary="Email Itinerary to Self" />
             </ListItemButton>
           </ListItem>
         </List>

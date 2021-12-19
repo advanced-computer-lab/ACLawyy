@@ -213,7 +213,6 @@ function AlternativeFlightsSearch(props) {
     }
   };
 
-
   const handleConfirm = () => {
     //alert("changing flight" + JSON.stringify(selectedFlight));
     handleUpdateBackEnd();
