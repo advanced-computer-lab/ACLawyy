@@ -1,0 +1,96 @@
+.Home {
+    display: flex;
+    flex-flow: column;
+    row-gap: 20px;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+  }
+  
+  .SlideShow {
+    margin-bottom: 400px;
+  }
+  
+  .plane-img {
+    position: relative;
+    margin-top: 100px;
+    overflow: hidden;
+  }
+  
+  .plane-img .img {
+    z-index: -100;
+  }
+  .plane-img .h1 {
+    position: absolute;
+    left: 60%;
+    z-index: 1;
+    font-size: 20pt;
+    color: rgba(161, 142, 31, 0.856);
+  }
+  .plane-img .p {
+    position: absolute;
+    z-index: 1;
+    left: 65%;
+    width: 500px;
+    top: 35%;
+    font-size: 18pt;
+    font-weight: 5;
+  }
+  
+  .button {
+    width: fit-content;
+    height: fit-content;
+    margin-top: 10px;
+  }
+  
+  .button a {
+    display: inline-block;
+    overflow: hidden;
+    position: relative;
+    font-size: 17px;
+    color: white;
+    background: rgba(161, 142, 31, 0.856);
+    text-decoration: none;
+    padding: 10px 15px;
+    border: 2px solid #aaa;
+    border-radius: 10px;
+    font-weight: bold;
+    top: 10px;
+    left: 330px;
+  }
+  
+  .button a:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: -10px;
+    width: 0%;
+    background: #111;
+    height: 100%;
+    z-index: -1;
+    transition: width 0.3s ease-in-out;
+    transform: skew(-25deg);
+    transform-origin: right;
+  }
+  
+  .button a:hover:after {
+    width: 150%;
+    left: -10px;
+    transform-origin: left;
+  }
+  
+  .button a:hover {
+    color: #fff;
+    transition: all 0.5s ease;
+  }
+  
+  .Offers {
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+  
+  .Explore {
+    margin-top: 0px;
+    margin-bottom: 50px;
+  }
+  
+  

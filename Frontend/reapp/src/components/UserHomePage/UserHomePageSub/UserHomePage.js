@@ -7,8 +7,8 @@ import Offers from "./Offers/Offers.js";
 import plane from "./plane.jpg";
 export default function UserHomePage() {
   return (
-    <div>
-      <NavBar type="1" />
+    <div> 
+     
       <div class="Home">
         <div class="SlideShow">
           <SlideShow />
