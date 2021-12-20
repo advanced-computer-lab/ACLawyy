@@ -127,6 +127,61 @@ router.route("/Login").post( (req, res) => {
  
 });
 
+router.route("/ChangePassword").post( (req, res) => {
+  const userChangingPass = req.body;
+  User.findOne({ Username: userChangingPass.Username })
+  .then(dbUser=>{
+    if(!dbUser){
+      return res.json({
+        message : "Invalid Password"
+      })
+    }
+    bcrypt.compare(userChangingPass.Password, dbUser.Password)
+    .then(isCorrect=>{
+      if(isCorrect){
+      const payload = {
+        id :dbUser._id,
+        username: dbUser.Username,
+      }
+      jwt.sign( 
+        payload,
+        process.env.JWT_SECRET,
+        {expiresIn :86400},
+        async(err,token)=>{
+          if(err) {
+            return res.json({message:err});
+          console.log("success")}
+          else{
+            userChangingPass.newPassword = await bcrypt.hash(req.body.newPassword,10)
+            User.findByIdAndUpdate(userChangingPass._id, {Password: userChangingPass.newPassword}, function (err) {
+              if (err) console.log(err);
+              console.log("User Password updated successfully");
+            });
+            return res.json({
+              message: "Success",
+              token:"Bearer"+token,
+            })
+            res.send();
+           
+          }
+         
+        }
+       
+      )
+       
+
+
+    } else{
+      console.log("fashallllllliure ")
+      return res.json({
+        message: "Invalid Username or Password"
+      })
+    } 
+  })
+ })
+
+});
+
  //   console.log(user)
   //   if (user.Password !== Password) {
   //     return res.status(403).json("Wrong Password!")

@@ -32,13 +32,13 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignUp() {
-  const [firstName,setFirstName]= useState(" ");
-  const [lastName,setLastName]= useState(" ");
-  const [passportNumber,setPassportNumber]= useState(" ");
-  const [email,setEmail]= useState(" ");
-  const [telephoneNumber,setTelephoneNumber]= useState(" ");
-  const [username,setUsername]= useState(" ");
-  const [password,setPassword]= useState(" ");
+  const [firstName,setFirstName]= useState("");
+  const [lastName,setLastName]= useState("");
+  const [passportNumber,setPassportNumber]= useState("");
+  const [email,setEmail]= useState("");
+  const [telephoneNumber,setTelephoneNumber]= useState("");
+  const [username,setUsername]= useState("");
+  const [password,setPassword]= useState("");
   const [showEmailError, setShowEmailError] = useState(false);
   const [showUserError, setShowUserError] = useState(false);
   const [showSuccess, setShowSuccess]= useState(false);
@@ -47,7 +47,7 @@ export default function SignUp() {
 
 
   const allFieldsValid = () => {
-    if (firstName == " "||lastName == " "||passportNumber == " "||email == " "||telephoneNumber == " "||username == " "||password == " ")
+    if (firstName == ""||lastName == ""||passportNumber == ""||email == ""||telephoneNumber == ""||username == ""||password == "")
       return false;
     return true;
   }
@@ -96,8 +96,17 @@ export default function SignUp() {
             user
           )
           .then((res) => {
-            if(res.data.message != "Username or Email Taken" )
-              setShowSuccess(true)
+            if(res.data.message != "Username or Email Taken" ){
+              setShowSuccess(true);
+              setFirstName("");
+              setLastName("");
+              setPassportNumber("");
+              setEmail("");
+              setTelephoneNumber("");
+              setUsername("");
+              setPassword("");
+            }
+            
             else
               setShowSuccess(false);
       
@@ -118,20 +127,6 @@ export default function SignUp() {
     .catch(() => {
       alert("error");
     });
-
-
-
-
-
-
-
-
- 
-    
-
- 
-
-
 
   }
 
@@ -176,6 +171,7 @@ export default function SignUp() {
                   }
                   id="firstName"
                   label="First Name"
+                  value = {firstName}
                   autoFocus
                 />
               </Grid>
@@ -187,6 +183,7 @@ export default function SignUp() {
                   label="Last Name"
                   name="lastName"
                   autoComplete="family-name"
+                  value = {lastName}
                   onChange= {(e)=>
                     setLastName(e.target.value)
                   }
@@ -200,6 +197,7 @@ export default function SignUp() {
                   label="Passport Number"
                   type="PassportNumber"
                   id="PassportNumber"
+                  value = {passportNumber}
                   autoComplete="new-PassportNumber"
                   onChange= {(e)=>
                     setPassportNumber(e.target.value)
@@ -213,6 +211,7 @@ export default function SignUp() {
                   id="email"
                   label="Email Address"
                   name="email"
+                  value = {email}
                   autoComplete="email"
                   onChange= {(e)=>
                     setEmail(e.target.value)
@@ -233,6 +232,7 @@ export default function SignUp() {
                   id="TelephoneNumber"
                   label="Telephone Number"
                   name="TelephoneNumber"
+                  value = {telephoneNumber}
                   autoComplete="TelephoneNumber"
                   onChange= {(e)=>
                     setTelephoneNumber(e.target.value)
@@ -247,6 +247,7 @@ export default function SignUp() {
                   label="Username"
                   type="Username"
                   id="Username"
+                  value = {username}
                   autoComplete="new-Username"
                   onChange= {(e)=>
                     setUsername(e.target.value)
@@ -267,6 +268,7 @@ export default function SignUp() {
                   label="Password"
                   type="Password"
                   id="Password"
+                  value = {password}
                   autoComplete="new-Password"
                   onChange= {(e)=>
                     setPassword(e.target.value)

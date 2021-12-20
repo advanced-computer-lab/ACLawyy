@@ -17,6 +17,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import Popover from "@mui/material/Popover";
 import AddIcon from "@mui/icons-material/Add";
 import Typography from "@mui/material/Typography";
+import ChangePassword from "../ChangePassword/ChangePassword";
 export function UserPage(props) {
   const [user, setUser] = useState();
   const [userFirstName, setUserFirstName] = useState();
@@ -33,6 +34,7 @@ export function UserPage(props) {
   const [isDisabled5, setIsDisabled5] = useState(true);
   const [isDisabled6, setIsDisabled6] = useState(true);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorEl2, setAnchorEl2] = useState(null);
   const [newNumber, setNewNumber] = useState();
   useEffect(() => {
     axios
@@ -142,12 +144,20 @@ export function UserPage(props) {
   function handleClose() {
     setAnchorEl(null);
   }
+
+  const handleClick2 = (event) => {
+    setAnchorEl2(event.currentTarget);
+  };
+  function handleClose2() {
+    setAnchorEl2(null);
+  }
   function handleDelete(event, index) {
     user.TelephoneNumbers.splice(index, 1);
     setAnchorEl(null);
     alert("Number Deleted");
   }
   const open = Boolean(anchorEl);
+  const open2 = Boolean(anchorEl2);
   function handleButton1(event) {
     user.TelephoneNumbers.push(newNumber);
     setAnchorEl(null);
@@ -322,6 +332,25 @@ export function UserPage(props) {
         <Button className="PopOver" variant="contained" onClick={handleClick}>
           View Mobile numbers
         </Button>
+        <Button className="PopOver" variant="contained" onClick={handleClick2}>
+          Change Password
+        </Button>
+        <Popover
+          anchorPosition={{ top: 0, left: 0 }}
+          open={open2}
+          anchorEl={anchorEl2}
+          onClose={handleClose2}
+          anchorReference="anchorPosition"
+          anchorPosition={{ top: 300, left: 650 }}
+          anchorOrigin={{
+            vertical: 'center',
+            horizontal: 'left',
+          }}
+          transformOrigin={{
+            vertical: 'center',
+            horizontal: 'left',
+          }}
+        ><ChangePassword UserID={user._id} Username ={user.Username}/></Popover>
         <Popover
           anchorPosition={{ top: 0, left: 0 }}
           open={open}
