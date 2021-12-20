@@ -6,6 +6,9 @@ import UserHome from "./components/UserHome/UserHome";
 import UserPage from "./components/UserPage/UserPage";
 import ReservedFlights from "./components/Booking/ReservedFlights";
 import Seats from "./components/Seats/Seats";
+
+import Login from "./components/Login/Login"
+import Register from "./components/Register/Register"
 import {
   BrowserRouter as Router,
   Route,
@@ -15,7 +18,7 @@ import {
 
 function App() {
   const [currPage, setCurrPage] = useState(0);
-  const userID = "61a53ad5cbfb061456411e90";
+  const userID = "61c075c5ef16b34644b686c8";
   const [seatProps, setSeatProps] = useState({});
 
   return (
@@ -33,6 +36,17 @@ function App() {
             path="/reservedflights"
             element={<ReservedFlights UserID={userID} onSeats={setSeatProps} />}
           ></Route>
+         <Route
+            exact
+            path="/signin"
+            element={<Login/>}
+          ></Route>
+           <Route
+            exact
+            path="/register"
+            element={<Register/>}
+          ></Route>
+
 
           <Route path="/chooseSeats/:seatParams" element={<Seats />}></Route>
         </Switch>

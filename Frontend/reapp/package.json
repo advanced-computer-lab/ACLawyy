@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@date-io/date-fns": "^1.3.13",
     "@emotion/react": "^11.5.0",
     "@emotion/styled": "^11.3.0",
     "@fortawesome/fontawesome-svg-core": "^1.3.0-beta3",
@@ -30,7 +31,7 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-icons": "^4.3.1",
-    "react-router-dom": "^6.0.2",
+    "react-router-dom": "^6.2.1",
     "react-scripts": "4.0.3",
     "react-simple-arrows": "^0.2.0",
     "react-xarrows": "^2.0.2",

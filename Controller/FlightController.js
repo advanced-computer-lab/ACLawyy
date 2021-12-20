@@ -206,7 +206,7 @@ router.route("/CreateFlight").post((req, res) => {
   newFlight
     .save()
     .then(() => res.json("Flight added!"))
-    .catch((err) => res.status(400).json("Error: " + err));
+    .catch((err) => console.log(err));
 });
 
 //../flights/deleteFlight
