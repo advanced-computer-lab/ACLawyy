@@ -15,6 +15,8 @@ import Container from '@mui/material/Container';
 import axios from "axios";
 import Alert from '@mui/material/Alert';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import {ReactSession} from 'react-client-session';
+
 
 function Copyright(props) {
   return (
@@ -31,11 +33,15 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function SignIn() {
+export default function SignIn(props) {
   const [username,setUsername]= useState(" ");
   const [password,setPassword]= useState(" ");
   const [showError, setShowError] = useState(false);
 
+
+  useEffect(()=> {
+    ReactSession.set("userType", 2);
+  },[])
   const allFieldsValid = () => {
     if (username == " "||password == " ")
       return false;
@@ -48,8 +54,6 @@ export default function SignIn() {
         Username : username,
         Password: password
       }
-    
-
     axios
     .post(
       "http://localhost:8000/users/login",
@@ -58,8 +62,20 @@ export default function SignIn() {
     .then((res) => {
       if (res.data.message != "Success")
         setShowError(true);
-      else
+      else{
         setShowError(false);
+        props.setUserID(res.data.userID);
+        props.setUserType(res.data.UserType);
+
+      ReactSession.set("userType", res.data.UserType);
+       ReactSession.set("id", res.data.userID);
+
+        alert(res.data.UserType);
+       if (res.data.UserType == 0)
+        window.location.href = "http://localhost:3000/adminhome";
+       else 
+        window.location.href = "http://localhost:3000/home";
+      }
 
     })
     .catch(() => {

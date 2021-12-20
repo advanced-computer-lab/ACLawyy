@@ -2,15 +2,26 @@ import "./NavBar.css";
 import { CgProfile } from "react-icons/cg";
 import logo from "../logo.jpeg";
 import Button from "@mui/material/Button";
+
+import React, { useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
   Route,
   Routes as Switch,
   Link,
 } from "react-router-dom";
+import {ReactSession} from 'react-client-session';
 
 function NavBar(props) {
-  if (props.type == 0) {
+
+ const [type, setType]= useState(props.type);
+  useEffect(()=> {
+   // alert(ReactSession.get("userType"));
+    setType(ReactSession.get("userType"));
+
+  },[])
+
+  if (type == 0) {
     return (
       <header className="navbar">
         <nav className="navbar-nav">
@@ -35,12 +46,12 @@ function NavBar(props) {
               <CgProfile size="40px" />
             </Link>
 
-            <a href="/">log out</a>
+            <a href="/" onClick = {() => ReactSession.set("userType", 2)}>log out</a>
           </div>
         </nav>
       </header>
     );
-  } else if (props.type == 1) {
+  } else if (type == 1) {
     return (
       <header className="navbar">
         <nav className="navbar-nav">
@@ -54,7 +65,7 @@ function NavBar(props) {
           <div className="navbar-nav-items">
             <ul>
               <li>
-                <Link to="/">Home</Link>
+                <Link to="/home">Home</Link>
                 <Link to = "/usersearch" >Book A Flight</Link>
                 <Link to="/ReservedFlights">Reserved Flights</Link>
                 <a href="/">FAQ</a>
@@ -66,7 +77,7 @@ function NavBar(props) {
             <Link className="navbar-profile-logo" to="/profile">
               <CgProfile size="40px" />
             </Link>
-            <a href="/">log out</a>
+            <a href="/" onClick = {() => ReactSession.set("userType", 0)}>log out</a>
           </div>
         </nav>
       </header>
@@ -85,7 +96,7 @@ function NavBar(props) {
           <div className="navbar-nav-items">
             <ul>
               <li>
-                <a href="/">Home</a>
+                <a href="/home">Home</a>
                 <a href="/usersearch">Book A Flight</a>
                 <a href="/">FAQ</a>
               </li>
@@ -93,10 +104,10 @@ function NavBar(props) {
           </div>
 
           <div className="navbar-profile-buttons">
-            <Button variant="contained" color="primary" size="small">
+            <Button variant="contained" href="http://localhost:3000/register" color="primary" size="small">
               Sign Up
             </Button>
-            <Button variant="text" color="primary" size="small">
+            <Button variant="text" href="http://localhost:3000" color="primary" size="small">
               Sign in
             </Button>
           </div>

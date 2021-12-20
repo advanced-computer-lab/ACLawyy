@@ -54,28 +54,41 @@ export function UserPage(props) {
   }
   function handleClickF1() {
     setIsDisabled1(true);
-    user.FirstName = userFirstName;
+    const newUser = JSON.parse(JSON.stringify(user));
+    newUser.FirstName = userFirstName;
+    setUser(newUser);
   }
   function handleClickT2() {
     setIsDisabled2(false);
   }
   function handleClickF2() {
     setIsDisabled2(true);
-    user.LastName = userLastName;
+
+    const newUser = JSON.parse(JSON.stringify(user));
+    newUser.LastName = userLastName;
+    setUser(newUser);
   }
   function handleClickT3() {
     setIsDisabled3(false);
   }
   function handleClickF3() {
     setIsDisabled3(true);
-    user.HomeAdress = userHomeAdress;
+    
+    const newUser = JSON.parse(JSON.stringify(user));
+    newUser.HomeAdress = userHomeAdress;
+    setUser(newUser);
+
   }
   function handleClickT4() {
     setIsDisabled4(false);
   }
   function handleClickF4() {
     setIsDisabled4(true);
-    user.CountryCode = userCountryCode;
+  
+    const newUser = JSON.parse(JSON.stringify(user));
+    newUser.CountryCode = userCountryCode;
+    setUser(newUser);
+
   }
   function handleClickT5() {
     setIsDisabled5(false);
@@ -101,7 +114,13 @@ export function UserPage(props) {
   }
   function handleClickF6() {
     setIsDisabled6(true);
-    user.PassportNumber = userPassportNumber;
+    
+
+    const newUser = JSON.parse(JSON.stringify(user));
+    newUser.PassportNumber = userPassportNumber;
+    setUser(newUser);
+
+
   }
   function handleSubmit() {
     sendFeedback("service_c3t9zmi", "template_fwz2z6b", {
@@ -129,6 +148,7 @@ export function UserPage(props) {
     axios
       .post("http://localhost:8000/users/updateUser", user)
       .then((res) => {
+        //alert(JSON.stringify(user));
         alert("Profile Updated");
       })
       .catch(() => {

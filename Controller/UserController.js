@@ -6,7 +6,7 @@ const bcrypt = require("bcrypt");
 require("dotenv").config();
 
 router.route("/UpdateUser").post((req, res) => {
-  User.findByIdAndUpdate("61a53ad5cbfb061456411e90", req.body, function (err) {
+  User.findByIdAndUpdate(req.body._id, req.body, function (err) {
     if (err) console.log(err);
     console.log("User updated successfully");
   });
@@ -99,6 +99,7 @@ router.route("/Login").post( (req, res) => {
         if(isCorrect){
         const payload = {
           id :dbUser._id,
+
           username: dbUser.Username,
         }
         jwt.sign(
@@ -111,6 +112,8 @@ router.route("/Login").post( (req, res) => {
             return res.json({
               message: "Success",
               token:"Bearer"+token,
+              userID : dbUser._id,
+              UserType : dbUser.UserType
             })
             
           }
