@@ -41,6 +41,7 @@ export default function SignUp() {
   const [password,setPassword]= useState(" ");
   const [showEmailError, setShowEmailError] = useState(false);
   const [showUserError, setShowUserError] = useState(false);
+  const [showSuccess, setShowSuccess]= useState(false);
 
 
 
@@ -95,6 +96,10 @@ export default function SignUp() {
             user
           )
           .then((res) => {
+            if(res.data.message != "Username or Email Taken" )
+              setShowSuccess(true)
+            else
+              setShowSuccess(false);
       
           })
           .catch(() => {
@@ -274,7 +279,13 @@ export default function SignUp() {
                   control={<Checkbox value="allowExtraEmails" color="primary" />}
                   label="I want to receive inspiration, marketing promotions and updates via email."
                 />
-              </Grid>
+            </Grid>
+            {showSuccess&&<Grid item xs={12}>
+              <Alert severity="success">You successfully Signed Up!&nbsp;
+              <Link href="http://localhost:3000/signin">
+                  Sign In
+                </Link> </Alert>
+              </Grid>}
             </Grid>
             <Button
               type="submit"
@@ -289,7 +300,7 @@ export default function SignUp() {
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link href="http://localhost:3000/signin" variant="body2">
-                  Already have an account? Sign in
+                  Already have an account? Sign In
                 </Link>
               </Grid>
             </Grid>
