@@ -4,7 +4,7 @@ import axios from "axios";
 import BlockTextFields from "../BlockTextFields/BlockTextFields";
 import Button from "@mui/material/Button";
 import UserSearch from "../UserSearch/UserSearch";
-import FlightResults from "../FlightResults/FlightResults"
+//import FlightResults from "../FlightResults/FlightResults"
 import ReactDOM from 'react-dom';
 import { Stack } from "@mui/material";
 import { useParams } from "react-router-dom";
@@ -78,7 +78,9 @@ function UserHome(props) {
         <div class="SlideShow">
           <SlideShow />
         </div>
-        <div>SEARCH</div>
+        <div class="Explore">
+          <Explore />
+        </div>
         <div class="plane-img">
           <div class="h1">
             <h1>
@@ -94,19 +96,16 @@ function UserHome(props) {
               <br /> This is our way of thanking you for putting your faith in
               us.
             </p>
+          </div>
             <div class="button">
               <a class="btn" href="#">
                 JOIN NOW
               </a>
             </div>
-          </div>
           <img src={plane} alt=""></img>
         </div>
         <div class="Offers">
           <Offers />
-        </div>
-        <div class="Explore">
-          <Explore />
         </div>
       </div>
       <BottomPage class="BottomPage" />

@@ -4,19 +4,19 @@
   }
   
   .hh {
-    font-family: cursive;
+    font-family: 'Times New Roman', Times, serif;
     padding: 5px 35px;
   }
   
   .container {
     display: flex;
     justify-content: center;
-    align-items: center;
-    width: 100vw;
+    align-items: left;
     height: 70vh;
-    flex-wrap: nowrap;
-    width: 100%;
-    margin: 20px 0 80px;
+    flex-wrap: wrap;
+    width: 50%;
+    margin: 20px 0px;
+    left:-5%;
   }
   
   .card {

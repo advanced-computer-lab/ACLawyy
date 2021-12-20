@@ -25,21 +25,29 @@
     z-index: 1;
     font-size: 20pt;
     color: rgba(161, 142, 31, 0.856);
+    font-family:'Times New Roman', Times, serif;
+    text-align: left;
   }
   .plane-img .p {
     position: absolute;
     z-index: 1;
-    left: 65%;
+    left: 60%;
     width: 500px;
+    text-align: justify;
     top: 35%;
     font-size: 18pt;
     font-weight: 5;
+    font-family:'Times New Roman', Times, serif;
   }
   
   .button {
     width: fit-content;
     height: fit-content;
     margin-top: 10px;
+    position:absolute;
+    z-index:5;
+    left:51%;
+    top:70%;
   }
   
   .button a {
