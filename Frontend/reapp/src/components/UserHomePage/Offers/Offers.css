@@ -1,0 +1,376 @@
+.Off {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    left: 0;
+    margin-left: 20px;
+    margin-top: 100px;
+    row-gap: 10px;
+  }
+  .body {
+    display: flex;
+    flex-flow: row;
+    column-gap: 10px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .Head {
+    font-size: calc(20px + 8vh);
+    line-height: calc(20px);
+    text-shadow: 0 0 5px #b8acaa, 0 0 15px #b8acaa, 0 0 20px #b8acaa,
+      0 0 40px #b8acaa, 0 0 60px #b8acaa, 0 0 10px #b8acaa, 0 0 90px #ff0000;
+    color: #ce2a1ee3;
+    font-family: "Lucida Handwriting";
+    text-align: center;
+    animation: blink 12s infinite;
+    -webkit-animation: blink 12s infinite;
+  }
+  @keyframes blink {
+    20%,
+    24%,
+    55% {
+      color: #fff;
+      text-shadow: none;
+    }
+  
+    0%,
+    19%,
+    21%,
+    23%,
+    25%,
+    54%,
+    56%,
+    100% {
+      text-shadow: 0 0 5px #b8acaa, 0 0 15px #b8acaa, 0 0 20px #b8acaa,
+        0 0 40px #b8acaa, 0 0 60px #b8acaa, 0 0 10px #b8acaa, 0 0 90px #ff0000;
+      color: #ce2a1ee3;
+    }
+  }
+  @keyframes blink {
+    20%,
+    24%,
+    55% {
+      color: #fff;
+      text-shadow: none;
+    }
+  
+    0%,
+    19%,
+    21%,
+    23%,
+    25%,
+    54%,
+    56%,
+    100% {
+      text-shadow: 0 0 5px #b8acaa, 0 0 15px #b8acaa, 0 0 20px #b8acaa,
+        0 0 40px #b8acaa, 0 0 60px #b8acaa, 0 0 10px #b8acaa, 0 0 90px #ff0000;
+      color: #ce2a1ee3;
+    }
+  }
+  .christmas-outer {
+    position: relative;
+    border-radius: 20px;
+    background: rgba(129, 19, 19, 0.89);
+    height: 310px;
+    width: 460px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+  }
+  
+  .christmas-pic {
+    position: absolute;
+    top: 0px;
+    right: -20px;
+    z-index: 0;
+    animation-delay: 0.5s;
+    width: 250px;
+  }
+  
+  .christmas-content {
+    animation-delay: 0.3s;
+    position: absolute;
+    left: 20px;
+    z-index: 3;
+  }
+  
+  .christmas-h1 {
+    color: rgb(5, 5, 5);
+  }
+  
+  .christmas-p {
+    width: 200px;
+    font-size: 15px;
+    line-height: 1.4;
+    color: white;
+    margin: 20px 0;
+  }
+  
+  .christmas-bg {
+    display: inline-block;
+    color: #fff;
+    background: rgb(230, 21, 21);
+    padding: 5px 10px;
+    border-radius: 50px;
+    font-size: 1.2em;
+  }
+  .christmas-button {
+    width: fit-content;
+    height: fit-content;
+    margin-top: 10px;
+  }
+  
+  .christmas-button a {
+    display: inline-block;
+    overflow: hidden;
+    position: relative;
+    font-size: 11px;
+    color: #111;
+    background: rgba(191, 218, 156, 0.774);
+    text-decoration: none;
+    padding: 10px 15px;
+    border: 2px solid #aaa;
+    font-weight: bold;
+  }
+  
+  .christmas-button a:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: -10px;
+    width: 0%;
+    background: #111;
+    height: 100%;
+    z-index: -1;
+    transition: width 0.3s ease-in-out;
+    transform: skew(-25deg);
+    transform-origin: right;
+  }
+  
+  .christmas-button a:hover:after {
+    width: 150%;
+    left: -10px;
+    transform-origin: left;
+  }
+  
+  .christmas-button a:hover {
+    color: #fff;
+    transition: all 0.5s ease;
+  }
+  
+  .christmas-button a:nth-of-type(1) {
+    border-radius: 50px 0 0 50px;
+    border-right: none;
+  }
+  
+  .christmas-button a:nth-of-type(2) {
+    border-radius: 0px 50px 50px 0;
+  }
+  
+  .cart-icon {
+    padding-right: 8px;
+  }
+  
+  .japan-outer {
+    position: relative;
+    border-radius: 20px;
+    background: rgb(199, 132, 132);
+    height: 310px;
+    width: 460px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+  }
+  
+  .japan-pic {
+    position: absolute;
+    top: 0px;
+    right: -20px;
+    z-index: 0;
+    animation-delay: 0.5s;
+    width: 250px;
+  }
+  
+  .japan-content {
+    animation-delay: 0.3s;
+    position: absolute;
+    left: 20px;
+    z-index: 3;
+  }
+  
+  .japan-h1 {
+    color: rgb(3, 3, 3);
+  }
+  
+  .japan-p {
+    width: 200px;
+    font-size: 15px;
+    line-height: 1.4;
+    color: white;
+    margin: -5px 0;
+  }
+  
+  .japan-bg {
+    display: inline-block;
+    color: #fff;
+    background: rgb(230, 21, 21);
+    padding: 5px 10px;
+    border-radius: 50px;
+    font-size: 1.2em;
+  }
+  .japan-button {
+    width: fit-content;
+    height: fit-content;
+    margin-top: 10px;
+  }
+  
+  .japan-button a {
+    display: inline-block;
+    overflow: hidden;
+    position: relative;
+    font-size: 11px;
+    color: #111;
+    background: rgba(156, 215, 218, 0.774);
+    text-decoration: none;
+    padding: 10px 15px;
+    border: 2px solid #aaa;
+    font-weight: bold;
+  }
+  
+  .japan-button a:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: -10px;
+    width: 0%;
+    background: #111;
+    height: 100%;
+    z-index: -1;
+    transition: width 0.3s ease-in-out;
+    transform: skew(-25deg);
+    transform-origin: right;
+  }
+  
+  .japan-button a:hover:after {
+    width: 150%;
+    left: -10px;
+    transform-origin: left;
+  }
+  
+  .japan-button a:hover {
+    color: #fff;
+    transition: all 0.5s ease;
+  }
+  
+  .japan-button a:nth-of-type(1) {
+    border-radius: 50px 0 0 50px;
+    border-right: none;
+  }
+  
+  .japan-button a:nth-of-type(2) {
+    border-radius: 0px 50px 50px 0;
+  }
+  
+  .italy-outer {
+    position: relative;
+    border-radius: 20px;
+    background: rgba(206, 175, 118, 0.856);
+    height: 310px;
+    width: 460px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+  }
+  
+  .italy-pic {
+    position: absolute;
+    top: 0px;
+    right: -20px;
+    z-index: 0;
+    animation-delay: 0.5s;
+    width: 250px;
+  }
+  
+  .italy-content {
+    animation-delay: 0.3s;
+    position: absolute;
+    left: 20px;
+    z-index: 3;
+  }
+  
+  .italy-h1 {
+    color: rgb(3, 3, 3);
+  }
+  
+  .italy-p {
+    width: 200px;
+    font-size: 15px;
+    line-height: 1.4;
+    color: white;
+    margin: -5px 0;
+  }
+  
+  .italy-bg {
+    display: inline-block;
+    color: #fff;
+    background: rgb(230, 21, 21);
+    padding: 5px 10px;
+    border-radius: 50px;
+    font-size: 1.2em;
+  }
+  .italy-button {
+    width: fit-content;
+    height: fit-content;
+    margin-top: 10px;
+  }
+  
+  .italy-button a {
+    display: inline-block;
+    overflow: hidden;
+    position: relative;
+    font-size: 11px;
+    color: #111;
+    background: rgba(146, 76, 29, 0.774);
+    text-decoration: none;
+    padding: 10px 15px;
+    border: 2px solid #aaa;
+    font-weight: bold;
+  }
+  
+  .italy-button a:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: -10px;
+    width: 0%;
+    background: #111;
+    height: 100%;
+    z-index: -1;
+    transition: width 0.3s ease-in-out;
+    transform: skew(-25deg);
+    transform-origin: right;
+  }
+  
+  .italy-button a:hover:after {
+    width: 150%;
+    left: -10px;
+    transform-origin: left;
+  }
+  
+  .italy-button a:hover {
+    color: #fff;
+    transition: all 0.5s ease;
+  }
+  
+  .italy-button a:nth-of-type(1) {
+    border-radius: 50px 0 0 50px;
+    border-right: none;
+  }
+  
+  .italy-button a:nth-of-type(2) {
+    border-radius: 0px 50px 50px 0;
+  }
+  
