@@ -1,0 +1,13 @@
+.center{
+    position: absolute;
+left: 50%;
+top: 60%;
+transform: translate(-50%, -50%);
+padding: 10px;
+}
+.B1{
+    position: absolute;
+left: 50%;
+transform: translate(-50%, 0%);
+padding: 10px;
+}
