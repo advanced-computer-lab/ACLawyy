@@ -3,7 +3,6 @@ const router = require("express").Router();
 let Ticket = require("../Models/Ticket");
 let Flight = require("../Models/Flight");
 let User = require("../Models/User");
-let Purchase = require("../Models/Purchase");
 const mongoose = require("mongoose");
 const stripe= require("stripe")(process.env.secret);
 router.route("/CreateTicket").post((req, res) => {

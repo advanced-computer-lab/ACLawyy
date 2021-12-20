@@ -6,6 +6,7 @@ import UserHome from "./components/UserHome/UserHome";
 import UserPage from "./components/UserPage/UserPage";
 import ReservedFlights from "./components/Booking/ReservedFlights";
 import Seats from "./components/Seats/Seats";
+import Payment from "./components/Payment/Payment";
 import {
   BrowserRouter as Router,
   Route,
@@ -28,6 +29,10 @@ function App() {
             path="/profile"
             element={<UserPage userID={userID} />}
           ></Route>
+          <Route
+            exact
+            path="/payment"
+            element={<Payment/>}></Route>
           <Route
             exact
             path="/reservedflights"
