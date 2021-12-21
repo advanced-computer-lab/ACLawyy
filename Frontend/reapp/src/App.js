@@ -60,6 +60,10 @@ function App() {
           ></Route>
           <Route
             exact
+            path="/payment"
+            element={<Payment/>}></Route>
+          <Route
+            exact
             path="/reservedflights"
             element={<ReservedFlights userID={ReactSession.get("id")} onSeats={setSeatProps} />}
           ></Route>

@@ -35,14 +35,16 @@
     "react-router-dom": "^6.2.1",
     "react-scripts": "4.0.3",
     "react-simple-arrows": "^0.2.0",
+    "react-stripe-checkout": "^2.6.3",
     "react-xarrows": "^2.0.2",
     "reactstrap": "^9.0.0",
-    "vanta": "^0.5.21",
+    "routines": "^0.3.0",
+    "stripe": "^8.194.0",
     "web-vitals": "^1.1.2"
   },
   "scripts": {
     "start": "react-scripts --openssl-legacy-provider start",
-    "build": "react-scripts --openssl-legacy-provider build",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
