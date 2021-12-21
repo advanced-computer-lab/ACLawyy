@@ -77,7 +77,7 @@ function UserHome(props) {
 
         <UserSearch onSearch = {handleSearch}/>
         {outboundFlights.length>0&&inboundFlights.length>0&&<FlightResults  userID = {UserID} children = {children} adults = {adults} isAfter = {checkIfAfterDeparture} enoughSeats = {checkIfSeatsEnough} outFlights= {outboundFlights} inFlights = {inboundFlights} econ = {economy} bus = {business} first = {first}/>}
-      </Stack> */}
+      </Stack> 
       <div class="Home">
         <div class="Offers">
           <Offers />
@@ -115,7 +115,7 @@ function UserHome(props) {
       
     </div>
 
-
+    </div>
     );
 
 }

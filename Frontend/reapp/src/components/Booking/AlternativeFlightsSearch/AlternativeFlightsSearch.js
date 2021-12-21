@@ -1,6 +1,7 @@
 import "./AlternativeFlightsSearch.css";
 import React, { useState, useEffect } from "react";
 import FlightCard from "../../FlightCard/FlightCard";
+import Loading from "../../Loading/Loading";
 
 import { Button } from "@mui/material";
 
@@ -292,7 +293,7 @@ function AlternativeFlightsSearch(props) {
       </div>
 
       {isLoading ? (
-        <h3> loading </h3>
+        <Loading/>
       ) : (
         <div>
           <Stack direction="column" spacing={2}>
