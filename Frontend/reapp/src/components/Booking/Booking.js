@@ -163,7 +163,11 @@ function Booking(props) {
         )
       );
   }
+  const sendMail = ()=> {
+    alert("mail sent");
 
+
+  }
   const handleDelete = () => {
     const con = window.confirm(
       "Are you sure you want to cancel this purchase?"
@@ -407,6 +411,7 @@ function Booking(props) {
             <BasicList
               onClickDep={handleChangeDeparture}
               onClickRet={handleChangeReturn}
+              sendMail = {sendMail}
             />
           </Popover>
           <Popover
@@ -475,6 +480,11 @@ function BasicList(props) {
           <ListItem disablePadding>
             <ListItemButton onClick={props.onClickRet}>
               <ListItemText primary="Change Return Flight" />
+            </ListItemButton>
+          </ListItem>
+          <ListItem disablePadding>
+            <ListItemButton onClick={props.sendMail}>
+              <ListItemText primary="Email itinerary to self" />
             </ListItemButton>
           </ListItem>
         </List>
