@@ -40,7 +40,7 @@
     font-family:'Times New Roman', Times, serif;
   }
   
-  .button {
+  .buttonx {
     width: fit-content;
     height: fit-content;
     margin-top: 10px;
@@ -50,7 +50,7 @@
     top:70%;
   }
   
-  .button a {
+  .buttonx a {
     display: inline-block;
     overflow: hidden;
     position: relative;
@@ -66,7 +66,7 @@
     left: 330px;
   }
   
-  .button a:after {
+  .buttonx a:after {
     content: "";
     position: absolute;
     top: 0;
@@ -80,13 +80,13 @@
     transform-origin: right;
   }
   
-  .button a:hover:after {
+  .buttonx a:hover:after {
     width: 150%;
     left: -10px;
     transform-origin: left;
   }
   
-  .button a:hover {
+  .buttonx a:hover {
     color: #fff;
     transition: all 0.5s ease;
   }
