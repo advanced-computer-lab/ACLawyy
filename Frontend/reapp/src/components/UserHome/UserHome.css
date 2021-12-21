@@ -5,14 +5,13 @@
     flex-wrap: nowrap;
     justify-content: space-around;
   }
-  
   .SlideShow {
     margin-bottom: 400px;
   }
   
   .plane-img {
     position: relative;
-    margin-top: 100px;
+    margin-top: 0px;
     overflow: hidden;
   }
   

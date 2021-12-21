@@ -6,7 +6,8 @@
     flex-wrap: wrap;
     left: 0;
     margin-left: 20px;
-    margin-top: 100px;
+    margin-top: 30px;
+    margin-bottom:20px;
     row-gap: 10px;
   }
   .body {
@@ -79,6 +80,7 @@
     overflow: hidden;
     display: flex;
     align-items: center;
+    padding-top:10px;
   }
   
   .christmas-pic {
@@ -99,6 +101,7 @@
   
   .christmas-h1 {
     color: rgb(5, 5, 5);
+    text-align: left;
   }
   
   .christmas-p {
@@ -107,15 +110,16 @@
     line-height: 1.4;
     color: white;
     margin: 20px 0;
+    text-align: left;
   }
   
   .christmas-bg {
-    display: inline-block;
     color: #fff;
     background: rgb(230, 21, 21);
     padding: 5px 10px;
     border-radius: 50px;
     font-size: 1.2em;
+    top:10px;
   }
   .christmas-button {
     width: fit-content;
@@ -170,15 +174,11 @@
     border-radius: 0px 50px 50px 0;
   }
   
-  .cart-icon {
-    padding-right: 8px;
-  }
-  
   .japan-outer {
     position: relative;
     border-radius: 20px;
     background: rgb(199, 132, 132);
-    height: 310px;
+    height: 320px;
     width: 460px;
     overflow: hidden;
     display: flex;
@@ -203,6 +203,7 @@
   
   .japan-h1 {
     color: rgb(3, 3, 3);
+    text-align: left;
   }
   
   .japan-p {
@@ -211,15 +212,16 @@
     line-height: 1.4;
     color: white;
     margin: -5px 0;
+    text-align:left
   }
   
   .japan-bg {
-    display: inline-block;
     color: #fff;
     background: rgb(230, 21, 21);
     padding: 5px 10px;
     border-radius: 50px;
     font-size: 1.2em;
+
   }
   .japan-button {
     width: fit-content;
@@ -283,6 +285,7 @@
     overflow: hidden;
     display: flex;
     align-items: center;
+    padding-top:10px;
   }
   
   .italy-pic {
@@ -303,6 +306,7 @@
   
   .italy-h1 {
     color: rgb(3, 3, 3);
+    text-align: left;
   }
   
   .italy-p {
@@ -311,16 +315,17 @@
     line-height: 1.4;
     color: white;
     margin: -5px 0;
+    text-align: left;
   }
   
   .italy-bg {
-    display: inline-block;
     color: #fff;
     background: rgb(230, 21, 21);
     padding: 5px 10px;
     border-radius: 50px;
     font-size: 1.2em;
   }
+
   .italy-button {
     width: fit-content;
     height: fit-content;

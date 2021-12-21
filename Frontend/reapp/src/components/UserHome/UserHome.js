@@ -75,6 +75,9 @@ function UserHome(props) {
         {outboundFlights.length>0&&inboundFlights.length>0&&<FlightResults  userID = {UserID} children = {children} adults = {adults} isAfter = {checkIfAfterDeparture} enoughSeats = {checkIfSeatsEnough} outFlights= {outboundFlights} inFlights = {inboundFlights} econ = {economy} bus = {business} first = {first}/>}
       </Stack> */}
       <div class="Home">
+        <div class="Offers">
+          <Offers />
+        </div>
         <div class="SlideShow">
           <SlideShow />
         </div>
@@ -103,9 +106,6 @@ function UserHome(props) {
               </a>
             </div>
           <img src={plane} alt=""></img>
-        </div>
-        <div class="Offers">
-          <Offers />
         </div>
       </div>
       <BottomPage class="BottomPage" />
