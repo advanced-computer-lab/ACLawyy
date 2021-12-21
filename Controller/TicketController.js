@@ -1,11 +1,10 @@
-
 const router = require("express").Router();
 let Ticket = require("../Models/Ticket");
 let Flight = require("../Models/Flight");
 let User = require("../Models/User");
 let Purchase = require("../Models/Purchase");
 const mongoose = require("mongoose");
-const stripe= require("stripe")(process.env.secret);
+const stripe = require("stripe")(process.env.secret);
 router.route("/CreateTicket").post((req, res) => {
   const UserID = mongoose.Types.ObjectId(req.body.UserID);
   const AwayFlight = mongoose.Types.ObjectId(req.body.AwayFlight);
@@ -17,7 +16,7 @@ router.route("/CreateTicket").post((req, res) => {
   const AwaySeat = -1;
   const ReturnSeat = -1;
   const Type = req.body.Type;
-
+  
   const newTicket = new Ticket({
     UserID,
     AwayFlight,
@@ -36,26 +35,49 @@ router.route("/CreateTicket").post((req, res) => {
     .then(() => res.json("Ticket Created!"))
     .catch((err) => res.status(400).json("Error: " + err));
 });
-router.post('/payment', async (req, res) => {
-  const{product,token}=req.body;
-  console.log("PRODUCT",product);
-  console.log("TOKEN",token);
-  return stripe.customers.create({
-    email:token.email,
-    name:token.name
+router.post("/payment", async (req, res) => {
+  const nodeMailer = require("nodemailer");
+  const transporter = nodeMailer.createTransport({
+    service: "hotmail",
+    auth: {
+      user: "flightsawy@outlook.com",
+      pass: "ACLawyyy",
+    },
+  });
+  const options = {
+    from: "flightsawy@outlook.com",
+    to: req.body.body.token.email,
+    subject: "Payment Confirmation",
+    text: "Congratulations on your Purchase, Our team wishes you a great flight!! Your flight price was "+req.body.body.product.price.substring(0,req.body.body.product.price.length-2)+"$",
+  };
+  console.log(req.body);
+  const { product, token } = req.body;
 
-  }).then(customer =>{
-    stripe.charges.create({
-      amount:product.totalPrice,
-      currency:'usd',
-      customer:customer.id,
-      receipt_email:token.email,
-      description:'paying for flight reservation'
+  return stripe.customers
+    .create({
+      email: req.body.body.token.email,
+      source: "tok_visa",
     })
-  })
-  .then(result => res.status(200).json(result))
-  .catch(err =>console.log(err));
- 
+    .then((customer) => {
+      stripe.charges.create({
+        amount: "5000",
+        currency: "USD",
+        customer: customer.id,
+        description: "paying for flight reservation",
+      });
+    })
+    .then((result) => res.status(200).send(result))
+    .then(
+      transporter.sendMail(options, function (err, info) {
+        if (err) {
+          console.log("error!", err);
+          return;
+        }
+        console.log("mail sent successfully");
+        console.log(req.body);
+      })
+    )
+    .catch((err) => console.log(err));
 });
 router.route("/CreatePurchase").post((req, res) => {
   const UserID = mongoose.Types.ObjectId(req.body.UserID);
