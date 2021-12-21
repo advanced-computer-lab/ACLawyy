@@ -5,6 +5,7 @@ import axios from "axios";
 import "./AppTest.css";
 import BlockTextFields from "./BlockTextFields/BlockTextFields";
 import Button from "@mui/material/Button";
+import {ReactSession} from 'react-client-session';
 
 import {
   BrowserRouter as Router,
@@ -13,6 +14,9 @@ import {
 } from "react-router-dom";
 
 function AdminPage(props) {
+  useEffect(()=> {
+    ReactSession.set("userType", 0);
+  },[])
   const [rows, setRows] = useState([]);
   const [results, setResults] = useState([]);
   const columns = [
@@ -83,19 +87,22 @@ function AdminPage(props) {
         alert("error");
       });
   }
+  useEffect(()=> {
+    ReactSession.set("userType", 0);
+  },[])
 
   return (
-    <Router>
+
       <div className="App">
         <Switch>
-          <Route path="/adminhome" element={<AdminHome />}>
-            {" "}
-          </Route>
+          <Route path="/adminhome" element={<AdminHome />}></Route>
 
           <Route path="/manageflights" element={fullTable}></Route>
         </Switch>
+      {props.currPage==="home"&& <AdminHome/>}
+      {props.currPage==="table"&& fullTable}
       </div>
-    </Router>
+
   );
 }
 export default AdminPage;

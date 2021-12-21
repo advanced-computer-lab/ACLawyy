@@ -4,14 +4,18 @@ import Booking from "./Booking";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
+import {ReactSession} from 'react-client-session';
+
 function ReservedFlights(props) {
   const [purchases, setPurchases] = useState([]);
+  const userID =ReactSession.get("id");
+
   //   const [noOfPurchases,setNoOfPurchases]=useState
 
   useEffect(() => {
     axios
       .post("http://localhost:8000/Tickets/findMyPurchases", {
-        UserID: props.UserID,
+        UserID: userID,
       })
       .then((res) => {
         console.log(res.data);
@@ -27,7 +31,7 @@ function ReservedFlights(props) {
         console.log(purchases);
         return (
           <div>
-            <Booking UserID={props.UserID} p={pur} onSeats={props.onSeats} />
+            <Booking UserID={userID} p={pur} onSeats={props.onSeats} />
           </div>
         );
       })}

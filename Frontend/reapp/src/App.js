@@ -1,11 +1,18 @@
 import "./App.css";
 import React, { useState, useEffect } from "react";
 import AdminPage from "./components/AdminPage";
+import AdminHome from "./components/AdminHome";
 import NavBar from "./components/NavBar";
 import UserHome from "./components/UserHome/UserHome";
 import UserPage from "./components/UserPage/UserPage";
 import ReservedFlights from "./components/Booking/ReservedFlights";
 import Seats from "./components/Seats/Seats";
+
+import Login from "./components/Login/Login"
+import Register from "./components/Register/Register"
+
+
+import {ReactSession} from 'react-client-session';
 import {
   BrowserRouter as Router,
   Route,
@@ -13,31 +20,62 @@ import {
   Link,
 } from "react-router-dom";
 
+
+ReactSession.setStoreType("localStorage");
+
 function App() {
   const [currPage, setCurrPage] = useState(0);
-  const userID = "61a53ad5cbfb061456411e90";
   const [seatProps, setSeatProps] = useState({});
+ // const [userID,setUserID] = useState (null);
 
+ //const [userType, setUserType] = useState(2);
+
+
+
+  const setUserID = (id) => {
+
+    ReactSession.set("id", id);
+  }
+  const setUserType = (type) => {
+
+    ReactSession.set("userType", type);
+  }
+
+  // useEffect (()=> {
+  //    ReactSession.set("userType", 2);
+  // },[])
   return (
     <Router>
       <div>
         <Switch>
-          <Route exact path="/" element={<UserHome userID={userID} />}></Route>
+          <Route exact path="/home"  UserID={ReactSession.get("id")} element={<UserHome/>}></Route>
           <Route
             exact
             path="/profile"
-            element={<UserPage userID={userID} />}
+            element={<UserPage userID={ReactSession.get("id")} />}
           ></Route>
           <Route
             exact
             path="/reservedflights"
-            element={<ReservedFlights UserID={userID} onSeats={setSeatProps} />}
+            element={<ReservedFlights userID={ReactSession.get("id")} onSeats={setSeatProps} />}
           ></Route>
-
+         <Route
+            exact
+            path="/"
+            element={<Login  setUserID = {setUserID} setUserType = {setUserType}/>}
+          ></Route>
+           <Route
+            exact
+            path="/register"
+            element={<Register/>}
+          ></Route>
           <Route path="/chooseSeats/:seatParams" element={<Seats />}></Route>
-        </Switch>
+
+          
+
+          </Switch>
       </div>
-      <NavBar type="1" />
+      <NavBar type={ReactSession.get("userType")}  />
     </Router>
   );
 

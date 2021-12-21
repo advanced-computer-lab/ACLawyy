@@ -1,6 +1,11 @@
 import "./AdminHome.css";
+import {ReactSession} from 'react-client-session';
+import React, { useState, useEffect } from "react";
 
 function AdminHome() {
+  useEffect(()=> {
+    ReactSession.set("userType", 0);
+  },[])
   return (
     <div className="Home">
       <div className="Numbers">

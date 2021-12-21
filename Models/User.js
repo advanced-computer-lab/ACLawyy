@@ -1,3 +1,4 @@
+
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 mongoose.Promise = global.Promise;
@@ -26,13 +27,13 @@ const userSchema = new Schema(
     },
     Email: {
       type: String,
-      //required: true
+      required: true
     },
     PassportNumber: {
       type: String,
       //required: true
     },
-    UserName: {
+    Username: {
       type: String,
       required: true,
     },
@@ -42,11 +43,11 @@ const userSchema = new Schema(
     },
     UserType: {
       type: Number ,
-      required: true,
+      //required: true,
     },
     ReservedTickets: {
       type:  Array ,
-      required: true,
+      //required: true,
     },
     
   },

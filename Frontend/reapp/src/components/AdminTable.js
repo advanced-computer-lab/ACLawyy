@@ -20,8 +20,12 @@ import Tooltip from "@mui/material/Tooltip";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CheckIcon from "@mui/icons-material/Check";
 import EditIcon from "@mui/icons-material/Edit";
+import {ReactSession} from 'react-client-session';
 
 function AdminTable(props) {
+  useEffect(()=> {
+    ReactSession.set("userType", 0);
+  },[])
   const [selected, setSelected] = useState([]);
   const [editable, setEditable] = useState(-1);
   const [depAir, setDepAir] = useState();
@@ -90,8 +94,9 @@ function AdminTable(props) {
       alert("Item(s) deleted successfuly");
     }
   };
-  props.refresh();
+
   useEffect(() => {
+    props.refresh();
     clearUpdates();
   }, []);
 

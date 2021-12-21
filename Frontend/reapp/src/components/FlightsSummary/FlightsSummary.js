@@ -7,6 +7,7 @@ import PermIdentityIcon from "@mui/icons-material/PermIdentity";
 import ChildCareIcon from "@mui/icons-material/ChildCare";
 import axios from "axios";
 
+import {ReactSession} from 'react-client-session';
 const calculatePrice = (flight, cabin) => {
   if (cabin == "first") return 2 * flight.EconomyPrice;
   if (cabin == "business") return 1.5 * flight.EconomyPrice;
@@ -18,7 +19,8 @@ function FlightsSummary(props) {
   const price1 = calculatePrice(flight1, cabin1);
   const price2 = calculatePrice(flight2, cabin2);
 
-  const userID = props.userID;
+  //const userID = props.userID;
+  const userID =ReactSession.get("id");
 
   const confirmPurchase = () => {
     const adultTicket = {
