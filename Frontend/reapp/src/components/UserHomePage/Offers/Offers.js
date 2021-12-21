@@ -6,14 +6,10 @@ import italy from "./italy.jpg";
 function Offers() {
   return (
     <div class="Off">
-      <div class="Head">
-        <p>OFFERS</p>
-      </div>
       <div class="body">
         <div class="Italy">
           <div class="italy-outer">
             <div class="italy-content animated fadeInLeft">
-              <span class="italy-bg animated fadeInDown">EXCLUSIVE</span>
               <div class="italy-h1">
                 <h1>
                   Visit
@@ -44,7 +40,6 @@ function Offers() {
         <div class="Japan">
           <div class="japan-outer">
             <div class="japan-content animated fadeInLeft">
-              <span class="japan-bg animated fadeInDown">EXCLUSIVE</span>
               <div class="japan-h1">
                 <h1>
                   Visit
@@ -55,7 +50,7 @@ function Offers() {
                 <p>
                   Experience the highlights of Japan on this tour of Tokyo and
                   Kyoto and enjoy a climb up the iconic Mount Fujiyama, all at a
-                  very special discount.
+                  very special discount. <br /> &nbsp;
                 </p>
               </div>
 
@@ -75,7 +70,6 @@ function Offers() {
         <div class="Christmas">
           <div class="christmas-outer">
             <div class="christmas-content animated fadeInLeft">
-              <span class="christmas-bg animated fadeInDown">EXCLUSIVE</span>
               <div class="christmas-h1">
                 <h1>
                   Happy
