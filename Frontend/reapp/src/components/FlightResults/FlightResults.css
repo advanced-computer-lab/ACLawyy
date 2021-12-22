@@ -9,7 +9,7 @@
   width: 15%;
   box-shadow: 5px 0px 5px rgba(0, 0, 0, 0.3);
 }
-.button2 {
+.button2 { 
 
   float : center;
   z-index: 100;
@@ -58,6 +58,7 @@
     position : relative;
     right : 80px;
     top : 30px;
+    margin-bottom: 100px;
   }
   
   

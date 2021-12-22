@@ -3,11 +3,13 @@ import BoardingPass from "./BoardingPass";
 import Booking from "./Booking";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Loading from "../Loading/Loading";
 
 import {ReactSession} from 'react-client-session';
 
 function ReservedFlights(props) {
   const [purchases, setPurchases] = useState([]);
+  const [isLoading, setLoading] =  useState(true);
   const userID =ReactSession.get("id");
 
   //   const [noOfPurchases,setNoOfPurchases]=useState
@@ -20,9 +22,12 @@ function ReservedFlights(props) {
       .then((res) => {
         console.log(res.data);
         setPurchases(res.data);
+        setLoading(false);
       });
   }, []);
-  if (purchases.length === 0)
+  if (isLoading)
+    return <Loading/>
+  else if (purchases.length === 0)
     return <h1 className="empty"> You don't have any reserved flights </h1>;
 
   return (

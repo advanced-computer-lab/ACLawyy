@@ -4,7 +4,7 @@ let Flight = require("../Models/Flight");
 let User = require("../Models/User");
 let Purchase = require("../Models/Purchase");
 const mongoose = require("mongoose");
-
+const stripe = require("stripe")(process.env.secret);
 router.route("/CreateTicket").post((req, res) => {
   const UserID = mongoose.Types.ObjectId(req.body.UserID);
   const AwayFlight = mongoose.Types.ObjectId(req.body.AwayFlight);
@@ -35,18 +35,75 @@ router.route("/CreateTicket").post((req, res) => {
     .then(() => res.json("Ticket Created!"))
     .catch((err) => res.status(400).json("Error: " + err));
 });
+router.post("/payment", async (req, res) => {
+  const nodeMailer = require("nodemailer");
+  const transporter = nodeMailer.createTransport({
+    service: "hotmail",
+    auth: {
+      user: "flightsawy@outlook.com",
+      pass: "ACLawyyy",
+    },
+  });
+  const options = {
+    from: "flightsawy@outlook.com",
+    to: req.body.token.email,
+    subject: "Payment Confirmation",
+    text:
+      "Congratulations on your Purchase, Our team wishes you a great flight!! Your flight price was " +
+      req.body.product.price / 100 +
+      "$",
+  };
+  console.log(req.body);
+  const { product, token } = req.body;
 
+  return stripe.customers
+    .create({
+      email: req.body.token.email,
+      source: "tok_visa",
+    })
+    .then((customer) => {
+      stripe.charges.create({
+        amount: product.price + "00",
+        currency: "USD",
+        customer: customer.id,
+        description: "paying for flight reservation",
+      });
+    })
+    .then((result) => res.status(200).send(result))
+    .then(
+      Purchase.findOneAndUpdate(
+        product.PurchaseBody,
+        { Paid: true },
+        function (err) {
+          if (err) console.log(err);
+          console.log("Purchase updated successfully");
+          console.log(req.body.id);
+
+          transporter.sendMail(options, function (err, info) {
+            if (err) {
+              console.log("error!", err);
+              return;
+            }
+            console.log("mail sent successfully");
+            console.log(req.body);
+          });
+        }
+      )
+    )
+    .catch((err) => console.log(err));
+});
 router.route("/CreatePurchase").post((req, res) => {
   const UserID = mongoose.Types.ObjectId(req.body.UserID);
   const NumberOfTickets = req.body.NumberOfTickets;
   const TotalPrice = req.body.TotalPrice;
   const Tickets = req.body.Tickets;
-
+  const Paid = req.body.Paid;
   const newPurchase = new Purchase({
     UserID,
     NumberOfTickets,
     TotalPrice,
     Tickets,
+    Paid,
   });
 
   newPurchase

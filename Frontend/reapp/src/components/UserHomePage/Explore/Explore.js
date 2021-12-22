@@ -6,9 +6,6 @@ import mountain from "./mountain.jpg";
 function Offers() {
   return (
     <div class="big-div">
-      <div class="hh">
-        <h1>Find the perfect trip</h1>
-      </div>
       <div class="container">
         <div class="card">
           <div class="card__thumb">

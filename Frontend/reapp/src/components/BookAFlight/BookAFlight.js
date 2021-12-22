@@ -1,4 +1,3 @@
-
 import React, { useState,useEffect } from "react";
 import axios from "axios";
 import BlockTextFields from "../BlockTextFields/BlockTextFields";
@@ -8,16 +7,11 @@ import FlightResults from "../FlightResults/FlightResults"
 import ReactDOM from 'react-dom';
 import { Stack } from "@mui/material";
 import { useParams } from "react-router-dom";
-import "./UserHome.css";
+import "./BookAFlight.css";
 
-import BottomPage from "../../components/UserHomePage/BottomPage/BottomPage";
-import SlideShow from "../../components/UserHomePage/SlideShow/SlideShow.js";
-import Explore from "../../components/UserHomePage/Explore/Explore.js";
-import Offers from "../../components/UserHomePage/Offers/Offers.js";
-import plane from "./plane.jpg";
- 
 
-function UserHome(props) {
+
+function BookAFlight(props) {
   const [outboundFlights,setOutboundFlights] = useState([]);
   const [inboundFlights,setInboundFlights] = useState([]);
   const [adults,setAdults] = useState(0);
@@ -70,54 +64,18 @@ function UserHome(props) {
     return (
       <div>
 
-        <div class="Explore">
-          <Explore />
-        </div>
+
       <Stack direction="row" spacing={0}>
 
         <UserSearch onSearch = {handleSearch}/>
         {outboundFlights.length>0&&inboundFlights.length>0&&<FlightResults  userID = {UserID} children = {children} adults = {adults} isAfter = {checkIfAfterDeparture} enoughSeats = {checkIfSeatsEnough} outFlights= {outboundFlights} inFlights = {inboundFlights} econ = {economy} bus = {business} first = {first}/>}
-      </Stack> 
-      <div class="Home">
-        <div class="Offers">
-          <Offers />
-        </div>
-        <div class="SlideShow">
-          <SlideShow />
-        </div>
-      <div class="Home">
+      </Stack>
+      <div className = "spacing"></div>
+       </div>
 
 
-        <div class="plane-img">
-          <div class="h1">
-            <h1>
-              JOIN OUR
-              <br />
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LOYALTY CLUB
-            </h1>
-          </div>
-          <div class="p">
-            <p>
-              Get exclusive offers and great discounts when you join our loyalty
-              club. You get access to tons of packages the more you fly!
-              <br /> This is our way of thanking you for putting your faith in
-              us.
-            </p>
-          </div>
-            <div class="buttonx">
-              <a class="btn" href="#">
-                JOIN NOW
-              </a>
-            </div>
-          <img src={plane} alt=""></img>
-        </div>
-      </div>
-      
-    </div>
-
-    </div>
     );
 
 }
-  export default UserHome;
+  export default BookAFlight;
   

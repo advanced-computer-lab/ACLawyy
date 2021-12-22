@@ -5,6 +5,7 @@ import { Button } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import PermIdentityIcon from "@mui/icons-material/PermIdentity";
 import ChildCareIcon from "@mui/icons-material/ChildCare";
+
 import axios from "axios";
 
 import {ReactSession} from 'react-client-session';
@@ -18,7 +19,7 @@ function FlightsSummary(props) {
   const { flight1, cabin1, flight2, cabin2, adults, children, u } = props;
   const price1 = calculatePrice(flight1, cabin1);
   const price2 = calculatePrice(flight2, cabin2);
-
+  
   //const userID = props.userID;
   const userID =ReactSession.get("id");
 
@@ -101,6 +102,7 @@ function FlightsSummary(props) {
                       adults * price1 +
                       adults * price2,
                     Tickets: mongotickets2,
+                    Paid:false,
                   };
                   axios
                     .post(
@@ -124,8 +126,8 @@ function FlightsSummary(props) {
                               alert("error");
                             });
 
-                          window.location.href =
-                            "http://localhost:3000/ReservedFlights";
+                          window.location.href =`/payment/${JSON.stringify(purchaseBody)}`
+                            
                         })
                         .catch(() => {
                           alert("error");
@@ -193,7 +195,7 @@ function FlightsSummary(props) {
                                   });
 
                                 window.location.href =
-                                  "http://localhost:3000/ReservedFlights";
+                                `/payment/${JSON.stringify(purchaseBody)}`;
                               })
                               .catch(() => {
                                 alert("error");

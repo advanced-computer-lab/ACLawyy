@@ -7,9 +7,11 @@ import UserHome from "./components/UserHome/UserHome";
 import UserPage from "./components/UserPage/UserPage";
 import ReservedFlights from "./components/Booking/ReservedFlights";
 import Seats from "./components/Seats/Seats";
-
+import Payment from "./components/Payment/Payment"
 import Login from "./components/Login/Login"
 import Register from "./components/Register/Register"
+import BookAFlight from "./components/BookAFlight/BookAFlight"
+import BottomPage from "./components/UserHomePage/BottomPage/BottomPage";
 
 
 import {ReactSession} from 'react-client-session';
@@ -48,12 +50,17 @@ function App() {
     <Router>
       <div>
         <Switch>
-          <Route exact path="/home"  UserID={ReactSession.get("id")} element={<UserHome/>}></Route>
+          <Route exact path="/home"   element={<UserHome UserID={ReactSession.get("id")}/>}></Route>
+          <Route exact path="/booking"   element={<BookAFlight UserID={ReactSession.get("id")}/>}></Route>
+          
           <Route
             exact
             path="/profile"
             element={<UserPage userID={ReactSession.get("id")} />}
           ></Route>
+          <Route
+            path="/payment/:purchaseBody"
+            element={<Payment/>}></Route>
           <Route
             exact
             path="/reservedflights"
@@ -76,6 +83,7 @@ function App() {
           </Switch>
       </div>
       <NavBar type={ReactSession.get("userType")}  />
+      <BottomPage class="BottomPage" />
     </Router>
   );
 

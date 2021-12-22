@@ -101,7 +101,7 @@ function FlightCard(props){
 
 
   return(
-    <Card variant="outlined" sx={{ maxWidth: 300 ,minWidth: 300 , boxShadow: 3,borderColor: color,borderWidth: 2,backgroundColor:bgCol,flexGrow :0}}>
+    <Card variant="outlined" sx={{  position : 'relative',maxWidth: 300 ,minWidth: 300 , boxShadow: 3,borderColor: color,borderWidth: 2,backgroundColor:bgCol,flexGrow :0}}>
       <CardActionArea onClick = {()=>{
         if (props.isSelected(flight._id,cabin))
           props.onClick(null,null)

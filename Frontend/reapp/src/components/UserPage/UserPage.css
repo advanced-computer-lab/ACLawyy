@@ -1,9 +1,20 @@
 .UserPage{
 
-  height: 25cm;
+  height: 16cm;
   width: 30cm;
   margin-left : 3%;
 }
+
+.vl {
+  position: relative;
+  border-left: 4px solid rgba(128, 128, 128, 0.651);
+  height: 137%;
+  left:330px;
+  top:-100%;
+  z-index:-1000;
+}
+
+
 .icons {
 
   transform: translateY(0) scale(4);
@@ -46,30 +57,58 @@
 }
 .TextBox {
   width: 550%;
-  height: 125%;
+  height: 20%;
+}
+
+.TextBox2 {
+  width: 92%;
+  height: 20%;
+}
+
+.TextBox-home {
+  left: -12px;
+}
+
+.button-addPhone{
+  width:60%;
 }
 .Submit {
-  position: fixed;
-  top: 2cm;
-  width: 300px;
+  position: relative;
+  top: 25%;
+  width: 250px;
   height: 50px;
+
 }
-.PopOver {
-  position: fixed;
-  top: 2cm;
-  left: 3cm;
+.PopOver-mobile {
+  position: relative;
+  top: 25%;
+  left: -90%;
+  width: 200px;
+  height: 50px;
+  font-size: 10pt;
+}
+
+.PopOver-changePass {
+  position: relative;
+  top: 25%;
+  left: 3%;
   right: 0cm;
-  width: 300px;
+  width: 250px;
   height: 50px;
 }
-.realPopOut {
-  width: 800px;
-  height: 800px;
+.mobilePopOut {
+  display:flex;
+  flex-flow:column;
+  row-gap: 20px;
+  width: 700px;
+  height: 400px;
+  position:relative;
+  margin:40px;
 }
-.popUps {
-  position: absolute;
-  top: 0px;
-  bottom: 0px;
-  right: 0px;
-  left: 0px;
+.current-mobile{
+  display:flex;
+}
+.TextBox-mob{
+width:92%;
+
 }

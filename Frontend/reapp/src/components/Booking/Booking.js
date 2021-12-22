@@ -9,6 +9,7 @@ import Button from "@mui/material/Button";
 import emailjs from "emailjs-com";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+import Loading from "../Loading/Loading";
 
 import Box from "@mui/material/Box";
 import List from "@mui/material/List";
@@ -19,6 +20,8 @@ import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
 import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
+
+const nodeMailer = require("nodemailer");
 
 function Booking(props) {
   // const purchase = props.purchase;
@@ -132,6 +135,10 @@ function Booking(props) {
     }
   }, []);
 
+  const handlePay = () => {
+    window.location.href = `/payment/${JSON.stringify(props.p)}`;
+    alert("pay");
+  };
   function handleSubmit() {
     sendFeedback("service_c3t9zmi", "template_fwz2z6b", {
       message: message,
@@ -154,7 +161,29 @@ function Booking(props) {
         )
       );
   }
-
+  const sendMail = () => {
+    alert("mail sent");
+    const transporter = nodeMailer.createTransport({
+      service: "hotmail",
+      auth: {
+        user: "flightsawy@outlook.com", //Email Address
+        pass: "ACLawyyy", //password
+      },
+    });
+    const options = {
+      from: "flightsawy@outlook.com",
+      to: props.Email,
+      subject: "Booking Details",
+      text: "insert itenerary here",
+    };
+    transporter.sendMail(options, function (err, info) {
+      if (err) {
+        console.log(err);
+        return;
+      }
+      console.log("Sent :" + info.response);
+    });
+  };
   const handleDelete = () => {
     const con = window.confirm(
       "Are you sure you want to cancel this purchase?"
@@ -317,7 +346,7 @@ function Booking(props) {
   };
 
   if (awayFlight === null || user === null || returnFlight === null)
-    return <div> Loading...</div>;
+    return <Loading />;
 
   return (
     <div className="booking">
@@ -374,9 +403,6 @@ function Booking(props) {
               horizontal: "left",
             }}
           >
-            {
-              // TANTAWY COPY THIS COMPONENT WE WANT TO SEND THIS ONE PLEASE TANTAWY PLS THX
-            }
             <PurchaseSummary
               flight1={awayFlight}
               cabin1={awayCabin}
@@ -404,7 +430,9 @@ function Booking(props) {
             <BasicList
               onClickDep={handleChangeDeparture}
               onClickRet={handleChangeReturn}
-              onClickEmail={handleEmailItinerary}
+              sendMail={sendMail}
+              paid={props.p.Paid}
+              handlePay={handlePay}
             />
           </Popover>
           <Popover
@@ -476,10 +504,17 @@ function BasicList(props) {
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>
-            <ListItemButton onClick={props.onClickEmail}>
-              <ListItemText primary="Email Itinerary to Self" />
+            <ListItemButton onClick={props.sendMail}>
+              <ListItemText primary="Email itinerary to self" />
             </ListItemButton>
           </ListItem>
+          {!props.paid && (
+            <ListItem disablePadding>
+              <ListItemButton onClick={props.handlePay}>
+                <ListItemText primary="Make Payment" />
+              </ListItemButton>
+            </ListItem>
+          )}
         </List>
       </nav>
     </Box>
