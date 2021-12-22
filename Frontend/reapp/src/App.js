@@ -7,7 +7,7 @@ import UserHome from "./components/UserHome/UserHome";
 import UserPage from "./components/UserPage/UserPage";
 import ReservedFlights from "./components/Booking/ReservedFlights";
 import Seats from "./components/Seats/Seats";
-
+import Payment from "./components/Payment/Payment"
 import Login from "./components/Login/Login"
 import Register from "./components/Register/Register"
 import BookAFlight from "./components/BookAFlight/BookAFlight"
@@ -59,8 +59,7 @@ function App() {
             element={<UserPage userID={ReactSession.get("id")} />}
           ></Route>
           <Route
-            exact
-            path="/payment"
+            path="/payment/:purchaseBody"
             element={<Payment/>}></Route>
           <Route
             exact

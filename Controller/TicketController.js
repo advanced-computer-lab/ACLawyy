@@ -84,12 +84,13 @@ router.route("/CreatePurchase").post((req, res) => {
   const NumberOfTickets = req.body.NumberOfTickets;
   const TotalPrice = req.body.TotalPrice;
   const Tickets = req.body.Tickets;
-
+  const Paid = req.body.Paid;
   const newPurchase = new Purchase({
     UserID,
     NumberOfTickets,
     TotalPrice,
     Tickets,
+    Paid,
   });
 
   newPurchase

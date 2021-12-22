@@ -20,6 +20,10 @@ const purchaseSchema = new Schema(
       type: Number,
       required: true,
     },
+    Paid:{
+      type:Boolean,
+      required:true,
+    },
   },
   { timestamps: true }
 );

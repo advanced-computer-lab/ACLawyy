@@ -12,6 +12,9 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 import CardHeader from "@mui/material/CardHeader";
+
+
+import { useParams } from "react-router-dom";
 export default function Payment() {
   const [number, setNumber] = useState(0);
   const [product, setProduct] = useState({
@@ -20,7 +23,8 @@ export default function Payment() {
     Productby: "ACLawyyy ;)",
   });
   
-  
+  const props = JSON.parse(useParams().purchaseBody);
+  alert(JSON.stringify(props));
   return (
     <div className="center">
       <Card sx={{ maxWidth: 500, width: 500 }}>
