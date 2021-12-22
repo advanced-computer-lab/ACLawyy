@@ -9,6 +9,8 @@ import Button from "@mui/material/Button";
 import emailjs from "emailjs-com";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+import Loading from "../Loading/Loading";
+
 
 import Box from "@mui/material/Box";
 import List from "@mui/material/List";
@@ -332,7 +334,7 @@ function Booking(props) {
   };
 
   if (awayFlight === null || user === null || returnFlight === null)
-    return <div> Loading...</div>;
+    return <Loading/>;
 
   return (
     <div className="booking">

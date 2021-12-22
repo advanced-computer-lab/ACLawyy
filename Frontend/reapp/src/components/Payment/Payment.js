@@ -17,17 +17,19 @@ import CardHeader from "@mui/material/CardHeader";
 import { useParams } from "react-router-dom";
 export default function Payment() {
   const props = JSON.parse(useParams().purchaseBody);
-  setNumber(props.TotalPrice*100);
-  const [number, setNumber] = useState(0);
-  const [product, setProduct] = useState({
+
+  //const [number, setNumber] = useState(0);
+  //setNumber(props.TotalPrice*100);
+  const number = props.TotalPrice*100;
+
+  const product = {
     name: "Pay for reservation",
     price: { number },
     Productby: "ACLawyyy ;)",
-    PurchaseBody:purchaseBody,
-  });
+    PurchaseBody:props,
+  }
   
-  
-  alert(JSON.stringify(props));
+  // alert(JSON.stringify(props));
   return (
     <div className="center">
       <Card sx={{ maxWidth: 500, width: 500 }}>
@@ -45,7 +47,7 @@ export default function Payment() {
               By clicking Make Payment you are agreeing to the terms and
               conditions
             </Typography>
-            <PaymentComponent/>
+            <PaymentComponent product = {product}/>
           </CardActionArea>
         </CardContent>
       </Card>

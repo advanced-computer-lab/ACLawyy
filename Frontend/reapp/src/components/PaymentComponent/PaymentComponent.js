@@ -20,12 +20,13 @@ const options = {
   subject: "Email trial",
   text: "Let's see",
 };
-function PaymentComponent() {
-  const [product, setProduct] = useState({
-    name: "Pay for reservation",
-    price: "4000",
-    Productby: "cloud9",
-  });
+function PaymentComponent(props) {
+  // const [product, setProduct] = useState({
+  //   name: "Pay for reservation",
+  //   price: "4000",
+  //   Productby: "cloud9",
+  // });
+  const product = props.product;
 
   const pay = (token) => {
     const body = {
@@ -37,20 +38,46 @@ function PaymentComponent() {
       "Content-Type": "application/json",
     };
 
-    axios
-      .post("http://localhost:8000/Tickets/payment", {
-        method: "POST",
-        headers,
-        body: body,
-      })
-      .then((response) => {
-        console.log("MABROOOOOK");
-        const { status } = response;
+    // axios
+    //   .post("http://localhost:8000/Tickets/payment", {
+    //     method: "POST",
+    //     headers,
+    //     body: body,
+    //   })
+    //   .then((response) => {
+    //     console.log("MABROOOOOK");
+    //     const { status } = response;
 
-        console.log("STATUS");
+    //     console.log("STATUS");
+    //   })
+    //   .catch((error) => console.log("GIRL FE MASHAKEL" + error));
+  
+  
+      axios
+      .post(
+        "http://localhost:8000/Tickets/payment",
+        {
+          token,
+          product,
+        }
+      )
+      .then((res) => {
+
+        console.log("payment succ");
+        window.location.href ="/reservedflights"
+                          
       })
-      .catch((error) => console.log("GIRL FE MASHAKEL" + error));
-  };
+      .catch(() => {
+        alert("error");
+      });
+
+  
+  
+  
+
+
+
+    };
   return (
     <Container>
       <StripeCheckout

@@ -46,21 +46,21 @@ router.post("/payment", async (req, res) => {
   });
   const options = {
     from: "flightsawy@outlook.com",
-    to: req.body.body.token.email,
+    to: req.body.token.email,
     subject: "Payment Confirmation",
-    text: "Congratulations on your Purchase, Our team wishes you a great flight!! Your flight price was "+req.body.body.product.price.substring(0,req.body.body.product.price.length-2)+"$",
+    text: "Congratulations on your Purchase, Our team wishes you a great flight!! Your flight price was "+req.body.product.price/100 + "$",
   };
   console.log(req.body);
   const { product, token } = req.body;
 
   return stripe.customers
     .create({
-      email: req.body.body.token.email,
+      email: req.body.token.email,
       source: "tok_visa",
     })
     .then((customer) => {
       stripe.charges.create({
-        amount: req.body.body.product.price,
+        amount: product.price,
         currency: "USD",
         customer: customer.id,
         description: "paying for flight reservation",
@@ -68,19 +68,23 @@ router.post("/payment", async (req, res) => {
     })
     .then((result) => res.status(200).send(result))
     .then(
-      Purchase.findByIdAndUpdate(req.body.body.product.PurchaseBody, {Paid:true}, function (err) {
+      Purchase.findOneAndUpdate(product.PurchaseBody, {Paid:true}, function (err) {
     if (err) console.log(err);
     console.log("Purchase updated successfully");
     console.log(req.body.id);
-  }),
-      transporter.sendMail(options, function (err, info) {
-        if (err) {
-          console.log("error!", err);
-          return;
-        }
-        console.log("mail sent successfully");
-        console.log(req.body);
-      })
+
+    transporter.sendMail(options, function (err, info) {
+      if (err) {
+        console.log("error!", err);
+        return;
+      }
+      console.log("mail sent successfully");
+      console.log(req.body);
+    })
+
+
+  })
+
     )
     .catch((err) => console.log(err));
 });
