@@ -11,7 +11,6 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import Loading from "../Loading/Loading";
 
-
 import Box from "@mui/material/Box";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -34,13 +33,11 @@ function Booking(props) {
   const [awayFlight, setAwayFlight] = useState(null);
   const [returnFlight, setReturnFlight] = useState(null);
 
-  const [adults,setAdults] = useState(0);
-  const [children,setChildren] = useState(0);
+  const [adults, setAdults] = useState(0);
+  const [children, setChildren] = useState(0);
 
-  
-  const [awayCabin,setAwayCabin] = useState(null);
-  const [returnCabin,setReturnCabin] = useState(null);
-
+  const [awayCabin, setAwayCabin] = useState(null);
+  const [returnCabin, setReturnCabin] = useState(null);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -92,22 +89,15 @@ function Booking(props) {
   const open3 = Boolean(anchorEl3);
   const id3 = open3 ? "simple-popover2" : undefined;
 
-  
-
   useEffect(() => {
     for (let i = 0; i < props.p.Tickets.length; i++) {
-      if (props.p.Tickets[i].Type === "Child")
-        setChildren(prev=> prev+1);
-      else
-        setAdults(prev=> prev+1);
+      if (props.p.Tickets[i].Type === "Child") setChildren((prev) => prev + 1);
+      else setAdults((prev) => prev + 1);
     }
     setAwayCabin(props.p.Tickets[0].AwayCabin);
     setReturnCabin(props.p.Tickets[0].ReturnCabin);
-
-
-
   }, []);
- 
+
   useEffect(() => {
     axios
       .post("http://localhost:8000/Tickets/getUserDetails", {
@@ -143,10 +133,10 @@ function Booking(props) {
     }
   }, []);
 
-  const handlePay = ()=>{
-    window.location.href =`/payment/${JSON.stringify(props.p)}`
+  const handlePay = () => {
+    window.location.href = `/payment/${JSON.stringify(props.p)}`;
     alert("pay");
-  }
+  };
   function handleSubmit() {
     sendFeedback("service_c3t9zmi", "template_fwz2z6b", {
       message: message,
@@ -169,11 +159,29 @@ function Booking(props) {
         )
       );
   }
-  const sendMail = ()=> {
+  const sendMail = () => {
     alert("mail sent");
-
-
-  }
+    const transporter = nodeMailer.createTransport({
+      service: "hotmail",
+      auth: {
+        user: "flightsawy@outlook.com", //Email Address
+        pass: "ACLawyyy", //password
+      },
+    });
+    const options = {
+      from: "flightsawy@outlook.com",
+      to: props.Email,
+      subject: "Booking Details",
+      text: "insert itenerary here",
+    };
+    transporter.sendMail(options, function (err, info) {
+      if (err) {
+        console.log(err);
+        return;
+      }
+      console.log("Sent :" + info.response);
+    });
+  };
   const handleDelete = () => {
     const con = window.confirm(
       "Are you sure you want to cancel this purchase?"
@@ -334,7 +342,7 @@ function Booking(props) {
   };
 
   if (awayFlight === null || user === null || returnFlight === null)
-    return <Loading/>;
+    return <Loading />;
 
   return (
     <div className="booking">
@@ -391,14 +399,15 @@ function Booking(props) {
               horizontal: "left",
             }}
           >
-            <PurchaseSummary 
-            flight1 = {awayFlight}
-              cabin1 = {awayCabin} 
-              flight2 = {returnFlight}  
-              cabin2 = {returnCabin} 
-              adults = {adults} 
-              children ={children} 
-              userID = {props.userID}/>
+            <PurchaseSummary
+              flight1={awayFlight}
+              cabin1={awayCabin}
+              flight2={returnFlight}
+              cabin2={returnCabin}
+              adults={adults}
+              children={children}
+              userID={props.userID}
+            />
           </Popover>
 
           <Button onClick={handleClick}>
@@ -417,9 +426,9 @@ function Booking(props) {
             <BasicList
               onClickDep={handleChangeDeparture}
               onClickRet={handleChangeReturn}
-              sendMail = {sendMail}
-              paid = {props.p.Paid}
-              handlePay = {handlePay}
+              sendMail={sendMail}
+              paid={props.p.Paid}
+              handlePay={handlePay}
             />
           </Popover>
           <Popover
@@ -495,16 +504,13 @@ function BasicList(props) {
               <ListItemText primary="Email itinerary to self" />
             </ListItemButton>
           </ListItem>
-          {
-            !props.paid && 
+          {!props.paid && (
             <ListItem disablePadding>
-            <ListItemButton onClick = {props.handlePay}>
-              <ListItemText primary="Make Payment" />
-            </ListItemButton>
-          </ListItem>
-
-
-          }
+              <ListItemButton onClick={props.handlePay}>
+                <ListItemText primary="Make Payment" />
+              </ListItemButton>
+            </ListItem>
+          )}
         </List>
       </nav>
     </Box>

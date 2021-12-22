@@ -51,40 +51,27 @@ function PaymentComponent(props) {
     //     console.log("STATUS");
     //   })
     //   .catch((error) => console.log("GIRL FE MASHAKEL" + error));
-  
-  
-      axios
-      .post(
-        "http://localhost:8000/Tickets/payment",
-        {
-          token,
-          product,
-        }
-      )
-      .then((res) => {
 
+    axios
+      .post("http://localhost:8000/Tickets/payment", {
+        token,
+        product,
+      })
+      .then((res) => {
         console.log("payment succ");
-        window.location.href ="/reservedflights"
-                          
+        window.location.href = "/reservedflights";
       })
       .catch(() => {
         alert("error");
       });
-
-  
-  
-  
-
-
-
-    };
+  };
   return (
     <Container>
       <StripeCheckout
         stripeKey="pk_test_51K8BI2DXNkUn4YuszggmHAuUflW7oYdM1B6qTgSdkKwBMSnbmbYfUIWREOch2oSPLkCOmOsldOkvW6am99Dc3skq00Xux5d3q4"
         token={pay}
         name=""
-        amount={product.price}
+        amount={product.price + "00"}
         backgroundcolor="purple"
         currency="USD"
       >
@@ -99,5 +86,5 @@ function PaymentComponent(props) {
       </StripeCheckout>
     </Container>
   );
-};
+}
 export default PaymentComponent;

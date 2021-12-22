@@ -13,22 +13,21 @@ import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 import CardHeader from "@mui/material/CardHeader";
 
-
 import { useParams } from "react-router-dom";
 export default function Payment() {
   const props = JSON.parse(useParams().purchaseBody);
 
   //const [number, setNumber] = useState(0);
   //setNumber(props.TotalPrice*100);
-  const number = props.TotalPrice*100;
+  const number = props.TotalPrice.toString();
 
   const product = {
     name: "Pay for reservation",
-    price: { number },
+    price: number,
     Productby: "ACLawyyy ;)",
-    PurchaseBody:props,
-  }
-  
+    PurchaseBody: props,
+  };
+
   // alert(JSON.stringify(props));
   return (
     <div className="center">
@@ -47,7 +46,7 @@ export default function Payment() {
               By clicking Make Payment you are agreeing to the terms and
               conditions
             </Typography>
-            <PaymentComponent product = {product}/>
+            <PaymentComponent product={product} />
           </CardActionArea>
         </CardContent>
       </Card>

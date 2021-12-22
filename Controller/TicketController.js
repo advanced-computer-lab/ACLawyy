@@ -16,7 +16,7 @@ router.route("/CreateTicket").post((req, res) => {
   const AwaySeat = -1;
   const ReturnSeat = -1;
   const Type = req.body.Type;
-  
+
   const newTicket = new Ticket({
     UserID,
     AwayFlight,
@@ -48,7 +48,10 @@ router.post("/payment", async (req, res) => {
     from: "flightsawy@outlook.com",
     to: req.body.token.email,
     subject: "Payment Confirmation",
-    text: "Congratulations on your Purchase, Our team wishes you a great flight!! Your flight price was "+req.body.product.price/100 + "$",
+    text:
+      "Congratulations on your Purchase, Our team wishes you a great flight!! Your flight price was " +
+      req.body.product.price / 100 +
+      "$",
   };
   console.log(req.body);
   const { product, token } = req.body;
@@ -60,7 +63,7 @@ router.post("/payment", async (req, res) => {
     })
     .then((customer) => {
       stripe.charges.create({
-        amount: product.price,
+        amount: product.price + "00",
         currency: "USD",
         customer: customer.id,
         description: "paying for flight reservation",
@@ -68,23 +71,24 @@ router.post("/payment", async (req, res) => {
     })
     .then((result) => res.status(200).send(result))
     .then(
-      Purchase.findOneAndUpdate(product.PurchaseBody, {Paid:true}, function (err) {
-    if (err) console.log(err);
-    console.log("Purchase updated successfully");
-    console.log(req.body.id);
+      Purchase.findOneAndUpdate(
+        product.PurchaseBody,
+        { Paid: true },
+        function (err) {
+          if (err) console.log(err);
+          console.log("Purchase updated successfully");
+          console.log(req.body.id);
 
-    transporter.sendMail(options, function (err, info) {
-      if (err) {
-        console.log("error!", err);
-        return;
-      }
-      console.log("mail sent successfully");
-      console.log(req.body);
-    })
-
-
-  })
-
+          transporter.sendMail(options, function (err, info) {
+            if (err) {
+              console.log("error!", err);
+              return;
+            }
+            console.log("mail sent successfully");
+            console.log(req.body);
+          });
+        }
+      )
     )
     .catch((err) => console.log(err));
 });
