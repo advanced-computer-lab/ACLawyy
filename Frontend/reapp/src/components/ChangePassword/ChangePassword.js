@@ -39,7 +39,12 @@ export default function ChangePassword(props) {
 
     return(
         <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
+             <Grid item xs={16} sm={12} >
+            <h1> Change Password</h1>
+
+             </Grid>
+                
+              <Grid item xs={16} sm={12}>
                 <TextField
                   autoComplete="given-name"
                   name="oldPassword"
@@ -54,7 +59,7 @@ export default function ChangePassword(props) {
                   autoFocus
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={16} sm={12}>
                 <TextField
                   required
                   fullWidth
@@ -68,7 +73,8 @@ export default function ChangePassword(props) {
                   type="Password"
                   
                 />
-              </Grid>
+                </Grid>
+              
               <Button
               type="submit"
               fullWidth
