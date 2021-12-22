@@ -21,8 +21,6 @@ import Divider from "@mui/material/Divider";
 import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
 
-const nodeMailer = require('nodemailer');
-
 function Booking(props) {
   // const purchase = props.purchase;
   const nodeMailer = require("nodemailer");

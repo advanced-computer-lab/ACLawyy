@@ -1,5 +1,4 @@
 import "./UserPage.css";
-import StripeCheckout from "react-stripe-checkout";
 import EditIcon from "@mui/icons-material/Edit";
 import Button from "@mui/material/Button";
 import emailjs from "emailjs-com";
@@ -11,15 +10,13 @@ import TextField from "@mui/material/TextField";
 import FormLabel from "@mui/material/FormLabel";
 import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import Rank from "./pigeon.png"; 
+import Rank from "./pigeon.png";
 import CheckIcon from "@mui/icons-material/Check";
 import { IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Popover from "@mui/material/Popover";
-import AddIcon from "@mui/icons-material/Add";
-import Typography from "@mui/material/Typography";
 import ChangePassword from "../ChangePassword/ChangePassword";
-import Alert from '@mui/material/Alert';
+import Alert from "@mui/material/Alert";
 export function UserPage(props) {
   const [user, setUser] = useState();
   const [userFirstName, setUserFirstName] = useState();
@@ -38,12 +35,8 @@ export function UserPage(props) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [anchorEl2, setAnchorEl2] = useState(null);
   const [newNumber, setNewNumber] = useState();
-  const [showSuccess, setShowSuccess]= useState(false);
-  const [product,setProduct] =useState({
-    name:"Pay for reservation",
-    price: "10",
-    Productby:"ACLawyyy ;)"
-    })
+  const [newNumber1, setNewNumber1] = useState();
+  const [showSuccess, setShowSuccess] = useState(false);
 
   useEffect(() => {
     axios
@@ -82,22 +75,20 @@ export function UserPage(props) {
   }
   function handleClickF3() {
     setIsDisabled3(true);
-    
+
     const newUser = JSON.parse(JSON.stringify(user));
     newUser.HomeAdress = userHomeAdress;
     setUser(newUser);
-
   }
   function handleClickT4() {
     setIsDisabled4(false);
   }
   function handleClickF4() {
     setIsDisabled4(true);
-  
+
     const newUser = JSON.parse(JSON.stringify(user));
     newUser.CountryCode = userCountryCode;
     setUser(newUser);
-
   }
   function handleClickT5() {
     setIsDisabled5(false);
@@ -123,13 +114,10 @@ export function UserPage(props) {
   }
   function handleClickF6() {
     setIsDisabled6(true);
-    
 
     const newUser = JSON.parse(JSON.stringify(user));
     newUser.PassportNumber = userPassportNumber;
     setUser(newUser);
-
-
   }
   function handleSubmit() {
     sendFeedback("service_c3t9zmi", "template_fwz2z6b", {
@@ -168,12 +156,9 @@ export function UserPage(props) {
     setAnchorEl(event.currentTarget);
   };
   function handleClose() {
+    setShowSuccess(false);
     setAnchorEl(null);
   }
-  function handleClose() {
-    setAnchorEl(null);
-  }
-
   const handleClick2 = (event) => {
     setAnchorEl2(event.currentTarget);
   };
@@ -182,19 +167,14 @@ export function UserPage(props) {
   }
   function handleDelete(event, index) {
     user.TelephoneNumbers.splice(index, 1);
-    setAnchorEl(null);
     alert("Number Deleted");
   }
   const open = Boolean(anchorEl);
   const open2 = Boolean(anchorEl2);
   function handleButton1(event) {
     user.TelephoneNumbers.push(newNumber);
-    setAnchorEl(null);
     setShowSuccess(true);
-    
   }
-
-  function CheckEmail(Email) {}
   if (isLoading) {
     return <div className="UserPage">loading...</div>;
   }
@@ -234,9 +214,8 @@ export function UserPage(props) {
       <div className="Rank">
         <img src={Rank} alt="Rank" height="130px" width="150px" />
       </div>
-      
 
-<div class="vl"></div>
+      <div class="vl"></div>
 
       <div className="biography">
         <Stack direction="column" spacing={10}>
@@ -364,10 +343,18 @@ export function UserPage(props) {
         <Button className="Submit" variant="contained" onClick={handleButton}>
           Update
         </Button>
-        <Button className="PopOver-mobile" variant="contained" onClick={handleClick}>
+        <Button
+          className="PopOver-mobile"
+          variant="contained"
+          onClick={handleClick}
+        >
           View Mobile numbers
         </Button>
-        <Button className="PopOver-changePass" variant="contained" onClick={handleClick2}>
+        <Button
+          className="PopOver-changePass"
+          variant="contained"
+          onClick={handleClick2}
+        >
           Change Password
         </Button>
         <Popover
@@ -378,14 +365,16 @@ export function UserPage(props) {
           anchorReference="anchorPosition"
           anchorPosition={{ top: 350, left: 350 }}
           anchorOrigin={{
-            vertical: 'center',
-            horizontal: 'left',
+            vertical: "center",
+            horizontal: "left",
           }}
           transformOrigin={{
-            vertical: 'center',
-            horizontal: 'left',
+            vertical: "center",
+            horizontal: "left",
           }}
-        ><ChangePassword UserID={user._id} Username ={user.Username}/></Popover>
+        >
+          <ChangePassword className="changePassword" UserID={user._id} Username={user.Username} />
+        </Popover>
         <Popover
           anchorPosition={{ top: 0, left: 0 }}
           open={open}
@@ -421,7 +410,7 @@ export function UserPage(props) {
             ))}
             <div className="current-mobile">
               <TextField
-               width="100px"
+                width="100px"
                 InputProps={{
                   readOnly: false,
                 }}
@@ -429,14 +418,18 @@ export function UserPage(props) {
                 id="outlined-required"
                 label="Add New Number"
                 onChange={(e) => setNewNumber(e.target.value)}
+                defaultValue={""}
               />
 
               <IconButton onClick={handleButton1}>
-              <CheckIcon />
-                </IconButton>
-              </div>
-                {showSuccess&&<Alert severity="success">Mobile Added Successfully!&nbsp; </Alert>}
-                
+                <CheckIcon />
+              </IconButton>
+            </div>
+            {showSuccess && (
+              <Alert severity="success">
+                Mobile Added Successfully!&nbsp;{" "}
+              </Alert>
+            )}
           </div>
         </Popover>
       </div>
