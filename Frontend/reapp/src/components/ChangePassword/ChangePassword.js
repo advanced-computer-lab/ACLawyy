@@ -4,6 +4,7 @@ import axios from "axios";
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
+import "./ChangePassword.css";
 
 
 export default function ChangePassword(props) {
@@ -38,8 +39,15 @@ export default function ChangePassword(props) {
     }
 
     return(
-        <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
+        <div classname ="Popoverr" >
+
+            <div classname = "changeTitle">
+            
+            <h1> &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Change Password</h1>
+
+            
+            </div>
+             
                 <TextField
                   autoComplete="given-name"
                   name="oldPassword"
@@ -50,11 +58,11 @@ export default function ChangePassword(props) {
                   label="Old Password"
                   onChange= {(e)=>
                     setOldPassword(e.target.value)
-                  }
-                  autoFocus
+                }
+                autoFocus
                 />
-              </Grid>
-              <Grid item xs={12} sm={6}>
+            
+              
                 <TextField
                   required
                   fullWidth
@@ -64,21 +72,22 @@ export default function ChangePassword(props) {
                   autoComplete="newPassword"
                   onChange= {(e)=>
                     setNewPassword(e.target.value)
-                  }
-                  type="Password"
-                  
+                }
+                type="Password"
+                
                 />
-              </Grid>
+            
               <Button
               type="submit"
               fullWidth
               variant="contained"
               onClick = {handleChangePassword}
               sx={{ mt: 3, mb: 2 }}
-            >
+              >
               Change Password
             </Button>
-              </Grid>
+                </div>
+              
     )
 
 }
