@@ -141,6 +141,10 @@ function Booking(props) {
     }
   }, []);
 
+  const handlePay = ()=>{
+    window.location.href =`/payment/${JSON.stringify(props.p)}`
+    alert("pay");
+  }
   function handleSubmit() {
     sendFeedback("service_c3t9zmi", "template_fwz2z6b", {
       message: message,
@@ -412,6 +416,8 @@ function Booking(props) {
               onClickDep={handleChangeDeparture}
               onClickRet={handleChangeReturn}
               sendMail = {sendMail}
+              paid = {props.p.Paid}
+              handlePay = {handlePay}
             />
           </Popover>
           <Popover
@@ -487,6 +493,16 @@ function BasicList(props) {
               <ListItemText primary="Email itinerary to self" />
             </ListItemButton>
           </ListItem>
+          {
+            !props.paid && 
+            <ListItem disablePadding>
+            <ListItemButton onClick = {props.handlePay}>
+              <ListItemText primary="Make Payment" />
+            </ListItemButton>
+          </ListItem>
+
+
+          }
         </List>
       </nav>
     </Box>
