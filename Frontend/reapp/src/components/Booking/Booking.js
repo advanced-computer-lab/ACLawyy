@@ -23,6 +23,7 @@ import Typography from "@mui/material/Typography";
 
 function Booking(props) {
   // const purchase = props.purchase;
+  const nodeMailer = require("nodemailer");
   // const tickets = props.Tickets;
   const { number, tickets, price, userID, _id } = props.p;
   const message =
