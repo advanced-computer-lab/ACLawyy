@@ -60,7 +60,7 @@ router.post("/payment", async (req, res) => {
     })
     .then((customer) => {
       stripe.charges.create({
-        amount: "5000",
+        amount: req.body.body.product.price,
         currency: "USD",
         customer: customer.id,
         description: "paying for flight reservation",
@@ -68,6 +68,11 @@ router.post("/payment", async (req, res) => {
     })
     .then((result) => res.status(200).send(result))
     .then(
+      Purchase.findByIdAndUpdate(req.body.body.product.PurchaseBody, {Paid:true}, function (err) {
+    if (err) console.log(err);
+    console.log("Purchase updated successfully");
+    console.log(req.body.id);
+  }),
       transporter.sendMail(options, function (err, info) {
         if (err) {
           console.log("error!", err);

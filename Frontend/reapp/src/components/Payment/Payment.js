@@ -16,14 +16,17 @@ import CardHeader from "@mui/material/CardHeader";
 
 import { useParams } from "react-router-dom";
 export default function Payment() {
+  const props = JSON.parse(useParams().purchaseBody);
+  setNumber(props.TotalPrice*100);
   const [number, setNumber] = useState(0);
   const [product, setProduct] = useState({
     name: "Pay for reservation",
     price: { number },
     Productby: "ACLawyyy ;)",
+    PurchaseBody:purchaseBody,
   });
   
-  const props = JSON.parse(useParams().purchaseBody);
+  
   alert(JSON.stringify(props));
   return (
     <div className="center">
