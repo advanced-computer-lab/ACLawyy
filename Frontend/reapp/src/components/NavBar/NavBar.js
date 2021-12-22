@@ -48,7 +48,7 @@ function NavBar(props) {
                 <a href="/">Home</a>
                 <a href="/booking">Book A Flight</a>
                 <a href="/">Reserved Flights</a>
-                <a href="/">FAQ</a>
+                <a href="#">FAQ</a>
               </li>
             </ul>
           </div>

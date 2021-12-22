@@ -19,6 +19,7 @@ import Popover from "@mui/material/Popover";
 import AddIcon from "@mui/icons-material/Add";
 import Typography from "@mui/material/Typography";
 import ChangePassword from "../ChangePassword/ChangePassword";
+import Alert from '@mui/material/Alert';
 export function UserPage(props) {
   const [user, setUser] = useState();
   const [userFirstName, setUserFirstName] = useState();
@@ -37,6 +38,7 @@ export function UserPage(props) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [anchorEl2, setAnchorEl2] = useState(null);
   const [newNumber, setNewNumber] = useState();
+  const [showSuccess, setShowSuccess]= useState(false);
   const [product,setProduct] =useState({
     name:"Pay for reservation",
     price: "10",
@@ -188,8 +190,10 @@ export function UserPage(props) {
   function handleButton1(event) {
     user.TelephoneNumbers.push(newNumber);
     setAnchorEl(null);
-    alert("Number Added");
+    setShowSuccess(true);
+    
   }
+
   function CheckEmail(Email) {}
   if (isLoading) {
     return <div className="UserPage">loading...</div>;
@@ -230,6 +234,10 @@ export function UserPage(props) {
       <div className="Rank">
         <img src={Rank} alt="Rank" height="130px" width="150px" />
       </div>
+      
+
+<div class="vl"></div>
+
       <div className="biography">
         <Stack direction="column" spacing={10}>
           <Stack direction="row" spacing={15}>
@@ -292,18 +300,6 @@ export function UserPage(props) {
                 <CheckIcon />
               </IconButton>
             </Stack>
-            {/* <StripeCheckout 
-              stripeKey = "pk_test_51K8BI2DXNkUn4YuszggmHAuUflW7oYdM1B6qTgSdkKwBMSnbmbYfUIWREOch2oSPLkCOmOsldOkvW6am99Dc3skq00Xux5d3q4"
-              token=""
-              name=""
-            >
-              <Button style={{
-                backgroundcolor:"pink",
-                fontSize:"15px"
-              }}>
-              Make Payment
-              </Button>
-            </StripeCheckout>  */}
             <Stack direction="row" spacing={2}>
               <TextField
                 fullWidth
@@ -350,7 +346,7 @@ export function UserPage(props) {
                 InputProps={{
                   readOnly: isDisabled3,
                 }}
-                className="TextBox"
+                className="TextBox-home"
                 id="outlined-required"
                 label="Home Adress"
                 defaultValue={user.HomeAdress}
@@ -368,10 +364,10 @@ export function UserPage(props) {
         <Button className="Submit" variant="contained" onClick={handleButton}>
           Update
         </Button>
-        <Button className="PopOver" variant="contained" onClick={handleClick}>
+        <Button className="PopOver-mobile" variant="contained" onClick={handleClick}>
           View Mobile numbers
         </Button>
-        <Button className="PopOver" variant="contained" onClick={handleClick2}>
+        <Button className="PopOver-changePass" variant="contained" onClick={handleClick2}>
           Change Password
         </Button>
         <Popover
@@ -380,7 +376,7 @@ export function UserPage(props) {
           anchorEl={anchorEl2}
           onClose={handleClose2}
           anchorReference="anchorPosition"
-          anchorPosition={{ top: 300, left: 650 }}
+          anchorPosition={{ top: 350, left: 350 }}
           anchorOrigin={{
             vertical: 'center',
             horizontal: 'left',
@@ -404,20 +400,16 @@ export function UserPage(props) {
             horizontal: "center",
           }}
         >
-          <div className="realPopOut">
-            <Typography>Phonenumbers </Typography>
-            <Typography>
-              -------------------------------------------------------------------------------------------------------------------------------------------------
-            </Typography>
+          <div className="mobilePopOut">
+            <h1>Phonenumbers </h1>
             {user.TelephoneNumbers.map((Number, index) => (
-              <Stack direction="row" spacing={2}>
+              <div className="current-mobile">
                 <TextField
-                  className="popUps"
                   width="100px"
                   InputProps={{
                     readOnly: true,
                   }}
-                  className="TextBox"
+                  className="TextBox-mob"
                   id="outlined-required"
                   label={"Mobile" + index}
                   defaultValue={Number}
@@ -425,23 +417,26 @@ export function UserPage(props) {
                 <IconButton onClick={() => handleDelete(index)}>
                   <DeleteIcon className="DeleteIcon" />
                 </IconButton>
-              </Stack>
+              </div>
             ))}
-            <Stack>
+            <div className="current-mobile">
               <TextField
-                fullWidth
+               width="100px"
                 InputProps={{
                   readOnly: false,
                 }}
-                className="TextBox"
+                className="TextBox2"
                 id="outlined-required"
-                label="New Number"
+                label="Add New Number"
                 onChange={(e) => setNewNumber(e.target.value)}
               />
-              <Button variant="contained" onClick={handleButton1}>
-                Add new PhoneNumber
-              </Button>
-            </Stack>
+
+              <IconButton onClick={handleButton1}>
+              <CheckIcon />
+                </IconButton>
+              </div>
+                {showSuccess&&<Alert severity="success">Mobile Added Successfully!&nbsp; </Alert>}
+                
           </div>
         </Popover>
       </div>
