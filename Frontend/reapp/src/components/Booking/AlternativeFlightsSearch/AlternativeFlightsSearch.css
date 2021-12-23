@@ -1,9 +1,37 @@
 .container2 {
-    height: 650px;
-    width: 550px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-center ;
-    
-    gap : 12px 12px;
-  }
+  height: 650px;
+  width: 660px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-center;
+  margin: 1% 0%;
+  gap: 12px 12px;
+}
+.price-difference {
+  display: flex;
+  flex-direction: column;
+  gap: 10% 10%;
+  width: 100%;
+  background-color: rgb(250, 250, 255);
+  padding: 0% 2%;
+  margin-bottom: 2%;
+}
+.change-details {
+  width: 93%;
+  margin-top: 1%;
+  margin-left: 0%;
+  margin-right: 3%;
+}
+
+.change-details Button {
+  margin-left: 38%;
+}
+.changed-flights {
+  display: flex;
+  flex-direction: row;
+  /* gap: 5% 0%; */
+}
+.spacerIcon {
+  margin-top: 6%;
+}
