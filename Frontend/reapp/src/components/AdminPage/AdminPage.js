@@ -36,10 +36,9 @@ function AdminPage(props) {
   };
 
   const handleSearch = (e) => {
-    setResults(e.map((obj) => ({ ...obj, id: obj._id })));
-    table = (
-      <AdminTable rows={results} columns={columns} refresh={handleAllFlights} />
-    );
+    const x = e.map((obj) => ({ ...obj, id: obj._id }));
+    setResults(x);
+
     // console.log(JSON.stringify(e))
   };
 
@@ -100,15 +99,25 @@ function AdminPage(props) {
   }
 
   return (
-    <Router>
-      <div className="App">
-        <Switch>
-          <Route path="/adminhome" element={<AdminHome />}></Route>
 
-          <Route path="/manageflights" element={fullTable}></Route>
-        </Switch>
+      <div className="App">
+
+          {fullTable}
       </div>
-    </Router>
+
   );
 }
 export default AdminPage;
+
+// return (
+//   <Router>
+//     <div className="App">
+//       <Switch>
+//         <Route path="/adminhome" element={<AdminHome />}></Route>
+
+//         <Route path="/manageflights" element={fullTable}></Route>
+//       </Switch>
+//     </div>
+//   </Router>
+// );
+// }

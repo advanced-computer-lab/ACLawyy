@@ -20,3 +20,20 @@ transporter.sendMail(options,function(err,info){
     }
     console.log("Sent :"+info.response);
 })
+const sendMail = () => {
+    alert("mail sent");
+    const obj = {
+      email : user.Email,
+      subject : "Itinerary",
+      text : "The user itinerary"
+    }
+    axios
+                  .post("http://localhost:8000/Tickets/email", 
+                    obj
+                  )
+                  .then((res) => {
+                    console.log("mail sent");
+                  }).catch((err) => {
+                    console.log(err)
+                  })
+  };

@@ -11,6 +11,24 @@ import Typography from "@mui/material/Typography";
 import { inflateSync } from "zlib";
 
 function MiniUserSearch(props) {
+
+
+  const formatCityName = (name) => {
+    let formattedName = name.trim();
+    formattedName = formattedName.toLowerCase();
+
+    for (var i = 0; i < formattedName.length; i++) {
+      if (i === 0 || (i > 0 && formattedName.charAt(i - 1) === " ")) {
+        formattedName =
+          formattedName.substring(0, i) +
+          formattedName.charAt(i).toUpperCase() +
+          formattedName.substring(i + 1);
+      }
+    }
+    return formattedName;
+  };
+
+
   const [departureCityC, setDepartureCity] = useState("");
   const [arrivalCityC, setArrivalCity] = useState("");
   const [passengersC, setPassengers] = useState(0);
@@ -78,7 +96,7 @@ function MiniUserSearch(props) {
               id="outlined-basic"
               label="Departing City"
               variant="outlined"
-              onChange={(e) => setDepartureCity(e.target.value)}
+              onChange={(e) => setDepartureCity(formatCityName(e.target.value))}
             />
           </div>
         </Stack>
@@ -88,7 +106,7 @@ function MiniUserSearch(props) {
               id="outlined-basic"
               label="Arrival City"
               variant="outlined"
-              onChange={(e) => setArrivalCity(e.target.value)}
+              onChange={(e) => setArrivalCity(formatCityName(e.target.value))}
             />
           </div>
         </Stack>

@@ -65,7 +65,8 @@ function NavBar(props) {
           <div className="navbar-nav-items">
             <ul>
               <li>
-                <Link to="/home">Home</Link>
+                <Link to="/
+                ">Home</Link>
                 <Link to = "/booking" >Book A Flight</Link>
                 <Link to="/ReservedFlights">Reserved Flights</Link>
                 <a href="/">FAQ</a>
@@ -96,7 +97,7 @@ function NavBar(props) {
           <div className="navbar-nav-items">
             <ul>
               <li>
-                <a href="/home">Home</a>
+                <a href="/">Home</a>
                 <a href="/booking">Book A Flight</a>
                 <a href="/">FAQ</a>
               </li>
@@ -107,7 +108,7 @@ function NavBar(props) {
             <Button variant="contained" href="http://localhost:3000/register" color="primary" size="small">
               Sign Up
             </Button>
-            <Button variant="text" href="http://localhost:3000" color="primary" size="small">
+            <Button variant="text" href="http://localhost:3000/login" color="primary" size="small">
               Sign in
             </Button>
           </div>
