@@ -50,8 +50,7 @@ function App() {
     <Router>
       <div>
         <Switch>
-          <Route exact path="/home"   element={
-          <UserHome UserID={ReactSession.get("id")}/>}></Route>
+          <Route exact path="/home"   element={<UserHome UserID={ReactSession.get("id")}/>}></Route>
           <Route exact path="/booking"   element={<BookAFlight UserID={ReactSession.get("id")}/>}></Route>
           
           <Route
@@ -79,7 +78,7 @@ function App() {
           ></Route>
           <Route path="/chooseSeats/:seatParams" element={<Seats />}></Route>
 
-          <Route path="/adminhome2" element={ <AdminPage />}></Route>
+          
 
           </Switch>
       </div>
@@ -87,11 +86,11 @@ function App() {
       <BottomPage class="BottomPage" />
     </Router>
   );
-
+  
   return (
     <div style={{ height: 400, width: "100%" }}>
-      <AdminPage currPage={currPage} />
       <NavBar type="0" goTo={setCurrPage} />
+      <AdminPage currPage={currPage} />
     </div>
   );
 }
