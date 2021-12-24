@@ -1,52 +1,51 @@
 .pic-ctn {
     width: 1000px;
-    height: 200px;
+    height: 500px;
     left: -400px;
     position: absolute;
     margin: 15vh;
+    margin-bottom: 20px;
+  }
+  .pic{
+    height: 440px;
   }
   
   @keyframes display {
     0% {
-      transform: translateX(100px);
       opacity: 0;
     }
     10% {
-      transform: translateX(0);
       opacity: 1;
     }
     20% {
-      transform: translateX(0);
       opacity: 1;
     }
     30% {
-      transform: translateX(-150px);
       opacity: 0;
     }
     100% {
-      transform: translateX(-150px);
       opacity: 0;
     }
   }
   
   .pic-ctn > img {
     position: absolute;
-    top: 0;
-    left: calc(50% - 100px);
+    top: -50px;
+    left: 19px;
     opacity: 0;
-    animation: display 10s infinite;
+    animation: display 16s infinite;
   }
   
   img:nth-child(2) {
-    animation-delay: 2s;
-  }
-  img:nth-child(3) {
     animation-delay: 4s;
   }
+  img:nth-child(3) {
+    animation-delay: 8s;
+  }
   img:nth-child(4) {
-    animation-delay: 6s;
+    animation-delay: 12s;
   }
   img:nth-child(5) {
-    animation-delay: 8s;
+    animation-delay: 16s;
   }
   

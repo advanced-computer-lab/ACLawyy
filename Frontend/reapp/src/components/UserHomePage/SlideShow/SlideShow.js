@@ -9,11 +9,11 @@ function SlideShow() {
   return (
     <div class="panel">
       <div class="pic-ctn">
-        <img src={travel} alt="" class="pic"></img>
-        <img src={travel2} alt="" class="pic"></img>
-        <img src={travel3} alt="" class="pic"></img>
-        <img src={travel4} alt="" class="pic"></img>
-        <img src={travel5} alt="" class="pic"></img>
+        <img src={travel} alt="" className="pic"></img>
+        <img src={travel2} alt="" className="pic"></img>
+        <img src={travel3} alt="" className="pic"></img>
+        <img src={travel4} alt="" className="pic"></img>
+        <img src={travel5} alt="" className="pic"></img>
       </div>
     </div>
   );
