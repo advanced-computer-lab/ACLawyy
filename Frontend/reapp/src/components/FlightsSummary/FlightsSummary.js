@@ -8,7 +8,7 @@ import ChildCareIcon from "@mui/icons-material/ChildCare";
 
 import axios from "axios";
 
-import {ReactSession} from 'react-client-session';
+import { ReactSession } from "react-client-session";
 const calculatePrice = (flight, cabin) => {
   if (cabin == "first") return 2 * flight.EconomyPrice;
   if (cabin == "business") return 1.5 * flight.EconomyPrice;
@@ -19,9 +19,9 @@ function FlightsSummary(props) {
   const { flight1, cabin1, flight2, cabin2, adults, children, u } = props;
   const price1 = calculatePrice(flight1, cabin1);
   const price2 = calculatePrice(flight2, cabin2);
-  
+
   //const userID = props.userID;
-  const userID =ReactSession.get("id");
+  const userID = ReactSession.get("id");
 
   const confirmPurchase = () => {
     const adultTicket = {
@@ -102,7 +102,7 @@ function FlightsSummary(props) {
                       adults * price1 +
                       adults * price2,
                     Tickets: mongotickets2,
-                    Paid:false,
+                    Paid: false,
                   };
                   axios
                     .post(
@@ -126,8 +126,9 @@ function FlightsSummary(props) {
                               alert("error");
                             });
 
-                          window.location.href =`/payment/${JSON.stringify(purchaseBody)}`
-                            
+                          window.location.href = `/payment/${JSON.stringify(
+                            purchaseBody
+                          )}`;
                         })
                         .catch(() => {
                           alert("error");
@@ -171,6 +172,7 @@ function FlightsSummary(props) {
                             adults * price1 +
                             adults * price2,
                           Tickets: mongotickets2,
+                          Paid: false,
                         };
                         axios
                           .post(
@@ -194,8 +196,9 @@ function FlightsSummary(props) {
                                     alert("error");
                                   });
 
-                                window.location.href =
-                                `/payment/${JSON.stringify(purchaseBody)}`;
+                                window.location.href = `/payment/${JSON.stringify(
+                                  purchaseBody
+                                )}`;
                               })
                               .catch(() => {
                                 alert("error");

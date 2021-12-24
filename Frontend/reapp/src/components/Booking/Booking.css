@@ -3,30 +3,27 @@
 
   display: flex;
   flex-direction: column;
-  width : 68.9%;
+  width: 63.9%;
   box-shadow: 5px 5px 15px grey;
-
 }
 .header {
-
-  width : 100%;
+  width: 100%;
   display: flex;
   flex-direction: row;
-  position : relative;
-  right : 50px;
+  position: relative;
+  right: 50px;
 }
 
 .labels label {
-  color : rgb(0, 0, 51);
+  color: rgb(0, 0, 51);
 
   font-size: 18px;
   font-family: Helvetica, Arial, sans-serif;
   padding-right: 5px;
 }
-.spacer  {
-
+.spacer {
   flex: 1;
 }
-.boarding  {
-  padding : 1.5% 1.5%;
+.boarding {
+  padding: 1.5% 1.5%;
 }

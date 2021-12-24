@@ -2,7 +2,7 @@ import "./AlternativeFlightsSearch.css";
 import React, { useState, useEffect } from "react";
 import FlightCard from "../../FlightCard/FlightCard";
 import Loading from "../../Loading/Loading";
-
+import { MdOutlineDoubleArrow } from "react-icons/md";
 import { Button } from "@mui/material";
 
 import Popover from "@mui/material/Popover";
@@ -28,10 +28,72 @@ function AlternativeFlightsSearch(props) {
   const [isLoading, setLoading] = useState(true);
   const [selectedFlight, setSelectedFlight] = useState(null);
   const [selectedCabin, setSelectedCabin] = useState(null);
+  const [childTickets, setChildTickets] = useState(0);
+  const [adultTickets, setAdultTickets] = useState(0);
+
+  var adultsPriceDifference =
+    selectedFlight === null
+      ? 0
+      : (selectedFlight.EconomyPrice *
+          (selectedCabin === "business"
+            ? 1.5
+            : selectedCabin === "first"
+            ? 2
+            : 1) -
+          actualFlight.EconomyPrice *
+            (actualCabin === "business"
+              ? 1.5
+              : actualCabin === "first"
+              ? 2
+              : 1)) *
+        adultTickets;
+
+  var childrenPriceDifference =
+    selectedFlight === null
+      ? 0
+      : (selectedFlight.EconomyPrice *
+          (selectedCabin === "business"
+            ? 1.5
+            : selectedCabin === "first"
+            ? 2
+            : 1) -
+          actualFlight.EconomyPrice *
+            (actualCabin === "business"
+              ? 1.5
+              : actualCabin === "first"
+              ? 2
+              : 1)) *
+        childTickets;
+  var purchasePriceDifference = childrenPriceDifference + adultsPriceDifference;
+  var flightPriceDifference =
+    selectedFlight === null
+      ? 0
+      : selectedFlight.EconomyPrice *
+          (selectedCabin === "business"
+            ? 1.5
+            : selectedCabin === "first"
+            ? 2
+            : 1) -
+        actualFlight.EconomyPrice *
+          (actualCabin === "business" ? 1.5 : actualCabin === "first" ? 2 : 1);
 
   useEffect(() => {
     setSelectedFlight(null);
   }, [showFirst, showBusiness, showEconomy]);
+
+  useEffect(() => {
+    var noOfChildren = 0;
+    var noOfAdults = 0;
+    for (let i = 0; i < props.p.Tickets.length; i++) {
+      if (props.p.Tickets[i].type == "Child") {
+        noOfChildren += 1;
+      } else {
+        noOfAdults += 1;
+      }
+    }
+    setAdultTickets(noOfAdults);
+    setChildTickets(noOfChildren);
+  }, []);
 
   const handleUpdateBackEnd = () => {
     console.log(props.p.Tickets);
@@ -214,7 +276,6 @@ function AlternativeFlightsSearch(props) {
     }
   };
 
-
   const handleConfirm = () => {
     //alert("changing flight" + JSON.stringify(selectedFlight));
     handleUpdateBackEnd();
@@ -255,14 +316,110 @@ function AlternativeFlightsSearch(props) {
 
   return (
     <div className="container2">
-      <div>
-        <h3> Alternative {props.flightType} flights </h3>
+      <h2> Alternative {props.flightType} flights </h2>
+      <div className="changed-flights" hidden={selectedFlight === null}>
+        <div>
+          {actualCabin === "economy" && selectedFlight != null ? (
+            <FlightCard
+              key={actualFlight._id + "e"}
+              cabin="economy"
+              flight={actualFlight}
+              onClick={null}
+              isSelected={isSelected}
+            />
+          ) : null}
+          {actualCabin === "business" && selectedFlight != null ? (
+            <FlightCard
+              key={actualFlight._id + "b"}
+              cabin="business"
+              flight={actualFlight}
+              onClick={null}
+              isSelected={isSelected}
+            />
+          ) : null}
+          {actualCabin === "first" && selectedFlight != null ? (
+            <FlightCard
+              key={actualFlight._id + "f"}
+              cabin="first"
+              flight={actualFlight}
+              onClick={null}
+              isSelected={isSelected}
+            />
+          ) : null}
+        </div>
+        <div className="spacerIcon" hidden={selectedFlight === null}>
+          <MdOutlineDoubleArrow size="30px"></MdOutlineDoubleArrow>
+        </div>
+        <div>
+          {selectedCabin === "economy" && selectedFlight != null ? (
+            <FlightCard
+              key={selectedFlight._id + "e"}
+              cabin="economy"
+              flight={selectedFlight}
+              onClick={null}
+              isSelected={isSelected}
+            />
+          ) : null}
+          {selectedCabin === "business" && selectedFlight != null ? (
+            <FlightCard
+              key={selectedFlight._id + "b"}
+              cabin="business"
+              flight={selectedFlight}
+              onClick={null}
+              isSelected={isSelected}
+            />
+          ) : null}
+          {selectedCabin === "first" && selectedFlight != null ? (
+            <FlightCard
+              key={selectedFlight._id + "f"}
+              cabin="first"
+              flight={selectedFlight}
+              onClick={null}
+              isSelected={isSelected}
+            />
+          ) : null}
+        </div>
+      </div>
+      <div className="change-details">
+        <div className="price-difference">
+          <div className="flight-difference">
+            <p hidden={selectedFlight === null}>
+              <strong>Price difference:</strong>
+            </p>
+            <p hidden={selectedFlight === null}>
+              {flightPriceDifference < 0
+                ? " -$" + flightPriceDifference * -1 + " "
+                : " $" + flightPriceDifference + " "}
+              per adult ticket
+            </p>
+            <p hidden={selectedFlight === null}>
+              {flightPriceDifference < 0
+                ? " -$" + flightPriceDifference * -0.5 + " "
+                : " $" + flightPriceDifference * 0.5 + " "}
+              per child ticket
+            </p>
+          </div>
+          <div className="purchase-difference">
+            <p hidden={selectedFlight === null}>
+              <strong>
+                {purchasePriceDifference < 0
+                  ? "Amount to be refunded for entire booking:"
+                  : "Amount to be paid for entire booking:"}
+              </strong>
+            </p>
+            <p hidden={selectedFlight === null}>
+              {purchasePriceDifference < 0
+                ? "$" + purchasePriceDifference * -1
+                : "$" + purchasePriceDifference}
+            </p>
+          </div>
+        </div>
         <Button
           disabled={selectedFlight === null}
           onClick={handleConfirm}
           variant="contained"
         >
-          Select
+          Confirm Change
         </Button>
       </div>
       <div className="cabins">
@@ -293,7 +450,7 @@ function AlternativeFlightsSearch(props) {
       </div>
 
       {isLoading ? (
-        <Loading/>
+        <Loading />
       ) : (
         <div>
           <Stack direction="column" spacing={2}>
@@ -317,7 +474,7 @@ function AlternativeFlightsSearch(props) {
                     isSelected={isSelected}
                   />
                 ) : null}
-                {showFirst ? (
+                {showFirst && childTickets === 0 ? (
                   <FlightCard
                     key={flight._id + "f"}
                     cabin="first"

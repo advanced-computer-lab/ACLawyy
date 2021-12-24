@@ -21,7 +21,7 @@ import Divider from "@mui/material/Divider";
 import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
 
-const nodeMailer = require('nodemailer');
+const nodeMailer = require("nodemailer");
 
 function Booking(props) {
   // const purchase = props.purchase;
@@ -196,7 +196,9 @@ function Booking(props) {
       );
     }
   };
-
+  const handleEmailItinerary = () => {
+    //TANTAWY WRITE YOUR METHOD HERE THIS WILL BE CALLED ON PRESS TANTAWY PLS TANTAAAWYYYYYYYYYYYYYYYYY
+  };
   const handleDeleteBackEnd = () => {
     console.log(props.p.Tickets);
     console.log(props.p.Tickets[0]);
@@ -391,7 +393,7 @@ function Booking(props) {
             anchorEl={anchorEl3}
             onClose={handleClose3}
             anchorReference="anchorPosition"
-            anchorPosition={{ top: 350, left: 650 }}
+            anchorPosition={{ top: 100, left: 420 }}
             anchorOrigin={{
               vertical: "bottom",
               horizontal: "left",

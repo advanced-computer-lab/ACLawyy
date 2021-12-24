@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import "./PurchaseSummary.css";
 import FlightCard from "../../FlightCard/FlightCard";
 import { Button } from "@mui/material";
 import Stack from "@mui/material/Stack";
@@ -19,7 +19,6 @@ function PurchaseSummary(props) {
   const price2 = calculatePrice(flight2, cabin2);
 
   const userID = props.userID;
-
 
   return (
     <div className="container2">
