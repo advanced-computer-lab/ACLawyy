@@ -370,7 +370,9 @@ export function UserPage(props) {
         <Button className="PopOver-changePass" variant="contained" onClick={handleClick2}>
           Change Password
         </Button>
+        <div classname ="changePop"> 
         <Popover
+          margin = "40 px"
           anchorPosition={{ top: 0, left: 0 }}
           open={open2}
           anchorEl={anchorEl2}
@@ -386,6 +388,7 @@ export function UserPage(props) {
             horizontal: 'left',
           }}
         ><ChangePassword UserID={user._id} Username ={user.Username}/></Popover>
+        </div>
         <Popover
           anchorPosition={{ top: 0, left: 0 }}
           open={open}
