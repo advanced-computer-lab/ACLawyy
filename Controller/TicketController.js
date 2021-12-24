@@ -51,7 +51,7 @@ router.post("/payment", async (req, res) => {
     subject: "Payment Confirmation",
     text:
       "Congratulations on your Purchase, Our team wishes you a great flight!! Your flight price was " +
-      req.body.product.price / 100 +
+      req.body.product.price +
       "$",
   };
   console.log(req.body);

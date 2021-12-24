@@ -47,7 +47,7 @@ function MiniWrapper(props) {
     <div>
       <Stack direction="column" spacing={0}>
         <div className="search-div">
-          <div>
+          <div className="actual-search">
             <MiniUserSearch onSearch={handleSearch} />
           </div>
         </div>
