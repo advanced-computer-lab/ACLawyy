@@ -37,7 +37,8 @@ export function UserPage(props) {
   const [newNumber, setNewNumber] = useState();
   const [newNumber1, setNewNumber1] = useState();
   const [showSuccess, setShowSuccess] = useState(false);
-
+  const [textToDisplay,setTextToDisplay]=useState("Edit");
+  const [disp,setDisp] = useState(true);
   useEffect(() => {
     axios
       .post("http://localhost:8000/Users/getUserDetails", {
@@ -50,75 +51,7 @@ export function UserPage(props) {
       .catch(() => {
         alert("error");
       });
-  }, []);
-  function handleClickT1() {
-    setIsDisabled1(false);
-  }
-  function handleClickF1() {
-    setIsDisabled1(true);
-    const newUser = JSON.parse(JSON.stringify(user));
-    newUser.FirstName = userFirstName;
-    setUser(newUser);
-  }
-  function handleClickT2() {
-    setIsDisabled2(false);
-  }
-  function handleClickF2() {
-    setIsDisabled2(true);
-
-    const newUser = JSON.parse(JSON.stringify(user));
-    newUser.LastName = userLastName;
-    setUser(newUser);
-  }
-  function handleClickT3() {
-    setIsDisabled3(false);
-  }
-  function handleClickF3() {
-    setIsDisabled3(true);
-
-    const newUser = JSON.parse(JSON.stringify(user));
-    newUser.HomeAdress = userHomeAdress;
-    setUser(newUser);
-  }
-  function handleClickT4() {
-    setIsDisabled4(false);
-  }
-  function handleClickF4() {
-    setIsDisabled4(true);
-
-    const newUser = JSON.parse(JSON.stringify(user));
-    newUser.CountryCode = userCountryCode;
-    setUser(newUser);
-  }
-  function handleClickT5() {
-    setIsDisabled5(false);
-  }
-  function handleClickF5() {
-    axios
-      .post("http://localhost:8000/Users/SearchEmail", { Email: userEmail })
-      .then((res) => {
-        if (res.data.length === 0) {
-          setIsDisabled5(true);
-          user.Email = userEmail;
-          handleSubmit();
-        } else {
-          alert("Email in use!");
-        }
-      })
-      .catch(() => {
-        alert("error");
-      });
-  }
-  function handleClickT6() {
-    setIsDisabled6(false);
-  }
-  function handleClickF6() {
-    setIsDisabled6(true);
-
-    const newUser = JSON.parse(JSON.stringify(user));
-    newUser.PassportNumber = userPassportNumber;
-    setUser(newUser);
-  }
+  }, [disp]);
   function handleSubmit() {
     sendFeedback("service_c3t9zmi", "template_fwz2z6b", {
       message: "This is a confirmation email.",
@@ -142,15 +75,59 @@ export function UserPage(props) {
       );
   }
   function handleButton() {
+    
+    if(disp===true){
+      setIsDisabled1(false);
+      setIsDisabled2(false);
+      setIsDisabled3(false);
+      setIsDisabled4(false);
+      setIsDisabled5(false);
+      setIsDisabled6(false);
+      setTextToDisplay("Update");
+      
+    }
+    else{
+      setIsDisabled1(true);
+      setIsDisabled2(true);
+      setIsDisabled3(true);
+      setIsDisabled4(true);
+      setIsDisabled5(true);
+      setIsDisabled6(true);
+      
+      setTextToDisplay("Edit");
+    const newUser = JSON.parse(JSON.stringify(user));
+    newUser.FirstName = userFirstName;
+    newUser.LastName = userLastName;
+    newUser.CountryCode = userCountryCode;
+    newUser.Email = userEmail;
+    newUser.HomeAdress = userHomeAdress;
+    newUser.PassportNumber = userPassportNumber;
+    setUser(newUser);
     axios
-      .post("http://localhost:8000/users/updateUser", user)
+      .post("http://localhost:8000/Users/SearchEmail", { Email: userEmail })
       .then((res) => {
-        //alert(JSON.stringify(user));
-        alert("Profile Updated");
+        if (res.data.length === 0) {
+          
+          
+          handleSubmit();
+          axios
+            .post("http://localhost:8000/users/updateUser", user)
+            .then((res) => {
+              //alert(JSON.stringify(user));
+              alert("Profile Updated");
+            })
+            .catch(() => {
+              alert("error");
+            });
+        } else {
+          alert("Email in use!");
+        }
       })
       .catch(() => {
         alert("error");
       });
+    }
+    setDisp(!disp);
   }
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -232,12 +209,7 @@ export function UserPage(props) {
                 defaultValue={user.FirstName}
                 onChange={(e) => setUserFirstName(e.target.value)}
               />
-              <IconButton onClick={handleClickT1}>
-                <EditIcon className="EditIcon" />
-              </IconButton>
-              <IconButton onClick={handleClickF1}>
-                <CheckIcon />
-              </IconButton>
+              
             </Stack>
             <Stack direction="row" spacing={2}>
               <TextField
@@ -251,12 +223,7 @@ export function UserPage(props) {
                 defaultValue={user.LastName}
                 onChange={(e) => setUserLastName(e.target.value)}
               />
-              <IconButton onClick={handleClickT2}>
-                <EditIcon className="EditIcon" />
-              </IconButton>
-              <IconButton onClick={handleClickF2}>
-                <CheckIcon />
-              </IconButton>
+              
             </Stack>
           </Stack>
           <Stack direction="row" spacing={15}>
@@ -272,13 +239,7 @@ export function UserPage(props) {
                 defaultValue={user.CountryCode}
                 onChange={(e) => setUserCountryCode(e.target.value)}
               />
-              <IconButton onClick={handleClickT4}>
-                <EditIcon className="EditIcon" />
-              </IconButton>
-              <IconButton onClick={handleClickF4}>
-                <CheckIcon />
-              </IconButton>
-            </Stack>
+              </Stack>
             <Stack direction="row" spacing={2}>
               <TextField
                 fullWidth
@@ -291,12 +252,7 @@ export function UserPage(props) {
                 defaultValue={user.Email}
                 onChange={(e) => setUserEmail(e.target.value)}
               />
-              <IconButton onClick={handleClickT5}>
-                <EditIcon className="EditIcon" />
-              </IconButton>
-              <IconButton onClick={handleClickF5}>
-                <CheckIcon />
-              </IconButton>
+              
             </Stack>
           </Stack>
           <Stack direction="row" spacing={15}>
@@ -312,12 +268,7 @@ export function UserPage(props) {
                 defaultValue={user.PassportNumber}
                 onChange={(e) => setUserPassportNumber(e.target.value)}
               />
-              <IconButton onClick={handleClickT6}>
-                <EditIcon className="EditIcon" />
-              </IconButton>
-              <IconButton onClick={handleClickF6}>
-                <CheckIcon />
-              </IconButton>
+              
             </Stack>
             <Stack direction="row" spacing={2}>
               <TextField
@@ -331,17 +282,12 @@ export function UserPage(props) {
                 defaultValue={user.HomeAdress}
                 onChange={(e) => setUserHomeAdress(e.target.value)}
               />
-              <IconButton onClick={handleClickT3}>
-                <EditIcon className="EditIcon" />
-              </IconButton>
-              <IconButton onClick={handleClickF3}>
-                <CheckIcon />
-              </IconButton>
+              
             </Stack>
           </Stack>
         </Stack>
         <Button className="Submit" variant="contained" onClick={handleButton}>
-          Update
+          {textToDisplay}
         </Button>
         <Button
           className="PopOver-mobile"
@@ -373,7 +319,11 @@ export function UserPage(props) {
             horizontal: "left",
           }}
         >
-          <ChangePassword className="changePassword" UserID={user._id} Username={user.Username} />
+          <ChangePassword
+            className="changePassword"
+            UserID={user._id}
+            Username={user.Username}
+          />
         </Popover>
         <Popover
           anchorPosition={{ top: 0, left: 0 }}
