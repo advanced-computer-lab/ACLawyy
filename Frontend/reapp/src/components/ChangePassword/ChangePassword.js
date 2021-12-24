@@ -29,6 +29,7 @@ export default function ChangePassword(props) {
   };
 
     return(
+      <div>
         <Grid container spacing={2}>
              <Grid item xs={16} sm={12} >
             <h1> Change Password</h1>
@@ -87,7 +88,7 @@ export default function ChangePassword(props) {
         onClick={handleChangePassword}
         sx={{ mt: 3, mb: 2 }}
       >
-        Change Password
+        Change Password;
       </Button>
     </div>
   );
