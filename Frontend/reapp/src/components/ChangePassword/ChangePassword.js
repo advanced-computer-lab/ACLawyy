@@ -5,12 +5,17 @@ import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import "./ChangePassword.css";
+import Alert from '@mui/material/Alert';
 
 
 export default function ChangePassword(props) {
     const [oldPassword, setOldPassword]= useState("");
     const [newPassword, setNewPassword]= useState("");
-    
+    const [showError, setShowError] = useState(false);
+    const [showSuccess, setShowSuccess]= useState(false);
+    const [close,setClose]=useState(false);
+    const [change, setChange]= useState(true);
+
     const handleChangePassword = () => {
         
         const user = 
@@ -27,7 +32,20 @@ export default function ChangePassword(props) {
           user
         )
         .then((res) => {
-            alert(res.data.message)
+          if (res.data.message != "Success"){
+
+            setShowError(true);
+            setShowSuccess(false);
+          
+          }
+          else{
+            setShowError(false);
+            setShowSuccess(true);
+            setChange(false);
+            setClose(true);
+
+          }
+        
          
           
     
@@ -75,8 +93,20 @@ export default function ChangePassword(props) {
                 
                 />
                 </Grid>
-              
-              <Button
+                <Grid item xs={16} sm={12}>
+                {showError &&<Alert severity="error">Incorrect Old Password!</Alert>}
+                {showSuccess && <Alert severity="success">You successfully Changed your Password!</Alert>}
+                </Grid>
+                {close && <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              onClick = {handleChangePassword}
+              sx={{ mt: 3, mb: 2 }}
+              >
+              Close Window
+            </Button> }  
+              {change && <Button
               type="submit"
               fullWidth
               variant="contained"
@@ -84,7 +114,7 @@ export default function ChangePassword(props) {
               sx={{ mt: 3, mb: 2 }}
               >
               Change Password
-            </Button>
+            </Button>}
                 </Grid>
                
               

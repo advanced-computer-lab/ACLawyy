@@ -70,7 +70,7 @@ export default function SignIn(props) {
       ReactSession.set("userType", res.data.UserType);
        ReactSession.set("id", res.data.userID);
 
-        alert(res.data.UserType);
+      
        if (res.data.UserType == 0)
         window.location.href = "http://localhost:3000/adminhome2";
        else 

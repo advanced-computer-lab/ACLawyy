@@ -5,6 +5,7 @@ import Button from "@mui/material/Button";
 import emailjs from "emailjs-com";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import Grid from '@mui/material/Grid';
 import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
@@ -39,6 +40,7 @@ export function UserPage(props) {
   const [anchorEl2, setAnchorEl2] = useState(null);
   const [newNumber, setNewNumber] = useState();
   const [showSuccess, setShowSuccess]= useState(false);
+  const [showError, setShowError]= useState(false);
   const [product,setProduct] =useState({
     name:"Pay for reservation",
     price: "10",
@@ -110,8 +112,10 @@ export function UserPage(props) {
           setIsDisabled5(true);
           user.Email = userEmail;
           handleSubmit();
+          setShowError(false);
         } else {
-          alert("Email in use!");
+          setShowError(true);
+          
         }
       })
       .catch(() => {
@@ -158,7 +162,7 @@ export function UserPage(props) {
       .post("http://localhost:8000/users/updateUser", user)
       .then((res) => {
         //alert(JSON.stringify(user));
-        alert("Profile Updated");
+        setShowSuccess(true);
       })
       .catch(() => {
         alert("error");
@@ -281,6 +285,23 @@ export function UserPage(props) {
             </Stack>
           </Stack>
           <Stack direction="row" spacing={15}>
+            <Stack direction="column" spacing={5}>
+              <TextField
+                fullWidth
+                InputProps={{
+                  readOnly: isDisabled5,
+                }}
+                className="TextBox"
+                id="outlined-required"
+                label="Email"
+                defaultValue={user.Email}
+                onChange={(e) => setUserEmail(e.target.value)}
+              />
+              
+             
+          {showError && <Alert severity="error">This Email is already in Use!&nbsp; </Alert>}
+            
+            </Stack>
             <Stack direction="row" spacing={2}>
               <TextField
                 fullWidth
@@ -300,26 +321,9 @@ export function UserPage(props) {
                 <CheckIcon />
               </IconButton>
             </Stack>
-            <Stack direction="row" spacing={2}>
-              <TextField
-                fullWidth
-                InputProps={{
-                  readOnly: isDisabled5,
-                }}
-                className="TextBox"
-                id="outlined-required"
-                label="Email"
-                defaultValue={user.Email}
-                onChange={(e) => setUserEmail(e.target.value)}
-              />
-              <IconButton onClick={handleClickT5}>
-                <EditIcon className="EditIcon" />
-              </IconButton>
-              <IconButton onClick={handleClickF5}>
-                <CheckIcon />
-              </IconButton>
-            </Stack>
+            
           </Stack>
+          
           <Stack direction="row" spacing={15}>
             <Stack direction="row" spacing={3}>
               <TextField
@@ -361,15 +365,18 @@ export function UserPage(props) {
             </Stack>
           </Stack>
         </Stack>
+        
         <Button className="Submit" variant="contained" onClick={handleButton}>
           Update
         </Button>
+        
         <Button className="PopOver-mobile" variant="contained" onClick={handleClick}>
           View Mobile numbers
         </Button>
         <Button className="PopOver-changePass" variant="contained" onClick={handleClick2}>
           Change Password
         </Button>
+        {showSuccess && <Alert severity="success">Profile Updated Successfuly!&nbsp; </Alert>}
         <div classname ="changePop"> 
         <Popover
           margin = "40 px"
@@ -438,7 +445,6 @@ export function UserPage(props) {
               <CheckIcon />
                 </IconButton>
               </div>
-                {showSuccess&&<Alert severity="success">Mobile Added Successfully!&nbsp; </Alert>}
                 
           </div>
         </Popover>

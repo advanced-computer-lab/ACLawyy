@@ -97,7 +97,7 @@ router.route("/Login").post( (req, res) => {
         const payload = {
           id :dbUser._id,
 
-          username: dbUser.Username,
+          username: dbUser.Username.toLowerCase(),
         }
         jwt.sign(
           payload,
