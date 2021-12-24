@@ -28,41 +28,57 @@ export default function ChangePassword(props) {
       });
   };
 
-  return (
-    <div classname="Popoverr">
-      <div classname="changeTitle">
-        <h1>
-          {" "}
-          &nbsp;&nbsp;
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Change
-          Password
-        </h1>
-      </div>
+    return(
+        <Grid container spacing={2}>
+             <Grid item xs={16} sm={12} >
+            <h1> Change Password</h1>
 
-      <TextField
-        className="oldPassword"
-        autoComplete="given-name"
-        name="oldPassword"
-        required
-        fullWidth
-        id="Password"
-        type="Password"
-        label="Old Password"
-        onChange={(e) => setOldPassword(e.target.value)}
-        autoFocus
-      />
-
-      <TextField
-        className="newPassword"
-        required
-        fullWidth
-        id="newPassword"
-        label="New Password"
-        name="newPassword"
-        autoComplete="newPassword"
-        onChange={(e) => setNewPassword(e.target.value)}
-        type="Password"
-      />
+             </Grid>
+                
+              <Grid item xs={16} sm={12}>
+                <TextField
+                  autoComplete="given-name"
+                  name="oldPassword"
+                  required
+                  fullWidth
+                  id="Password"
+                  type="Password"
+                  label="Old Password"
+                  onChange= {(e)=>
+                    setOldPassword(e.target.value)
+                }
+                autoFocus
+                />
+              </Grid>
+              <Grid item xs={16} sm={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="newPassword"
+                  label="New Password"
+                  name="newPassword"
+                  autoComplete="newPassword"
+                  onChange= {(e)=>
+                    setNewPassword(e.target.value)
+                }
+                type="Password"
+                
+                />
+                </Grid>
+              
+              <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              onClick = {handleChangePassword}
+              sx={{ mt: 3, mb: 2 }}
+              >
+              Change Password
+            </Button>
+                </Grid>
+               
+              
+    )
 
       <Button
         type="submit"
