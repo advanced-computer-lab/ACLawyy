@@ -88,11 +88,11 @@ function App() {
       <BottomPage class="BottomPage" />
     </Router>
   );
-
+  
   return (
     <div style={{ height: 400, width: "100%" }}>
-      <AdminPage currPage={currPage} />
       <NavBar type="0" goTo={setCurrPage} />
+      <AdminPage currPage={currPage} />
     </div>
   );
 }
