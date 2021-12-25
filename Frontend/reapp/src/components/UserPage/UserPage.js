@@ -211,6 +211,7 @@ export function UserPage(props) {
                 InputProps={{
                   readOnly: isDisabled1,
                 }}
+                focused={!isDisabled1}
                 className="TextBox"
                 id="outlined-required"
                 label="First Name"
@@ -225,6 +226,8 @@ export function UserPage(props) {
                 InputProps={{
                   readOnly: isDisabled2,
                 }}
+
+                focused={!isDisabled2}
                 className="TextBox"
                 id="outlined-required"
                 label="Last Name"
@@ -241,6 +244,7 @@ export function UserPage(props) {
                 InputProps={{
                   readOnly: isDisabled5,
                 }}
+                focused={!isDisabled5}
                 className="TextBox"
                 id="outlined-required"
                 label="Email"
@@ -258,6 +262,7 @@ export function UserPage(props) {
                 InputProps={{
                   readOnly: isDisabled4,
                 }}
+                focused={!isDisabled4}
                 className="TextBox"
                 id="outlined-required"
                 label="Country Code"
@@ -276,6 +281,7 @@ export function UserPage(props) {
                 InputProps={{
                   readOnly: isDisabled6,
                 }}
+                focused={!isDisabled6}
                 className="TextBox"
                 id="outlined-required"
                 label="Passport Number"
@@ -290,6 +296,7 @@ export function UserPage(props) {
                 InputProps={{
                   readOnly: isDisabled3,
                 }}
+                focused={!isDisabled3}
                 className="TextBox-home"
                 id="outlined-required"
                 label="Home Address"
