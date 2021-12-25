@@ -68,7 +68,7 @@ function BookAFlight(props) {
       <Stack direction="row" spacing={0}>
         <UserSearch onSearch={handleSearch} />
         {outboundFlights.length > 0 && inboundFlights.length > 0 && (
-          <FlightResults
+          <FlightResults columns={false}
             userID={UserID}
             children={children}
             adults={adults}

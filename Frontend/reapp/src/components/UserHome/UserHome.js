@@ -71,18 +71,18 @@ function UserHome(props) {
   };
   return (
     <div>
+        {/* <div class="SlideShow">
+          <SlideShow />
+        </div> */}
       <MiniWrapper />
+        <div class="Offers">
+          <Offers />
+        </div>
       <div class="Explore">
         <Explore />
       </div>
       <Stack direction="row" spacing={0}></Stack>
       <div class="Home">
-        <div class="Offers">
-          <Offers />
-        </div>
-        <div class="SlideShow">
-          <SlideShow />
-        </div>
         <div class="Home">
           <div class="plane-img">
             <div class="h1">
