@@ -6,11 +6,10 @@ import FlightCard from "../FlightCard/FlightCard";
 import FlightsSummary from "../FlightsSummary/FlightsSummary";
 import Popover from "@mui/material/Popover";
 import Stack from "@mui/material/Stack";
-import Alert from '@mui/material/Alert';
+import Alert from "@mui/material/Alert";
 import axios from "axios";
 
 import UserSearch from "../FlightsSummary/FlightsSummary";
-
 
 const checkIfAfterDeparture = (flight1, flight2) => {
   const depDate = new Date(flight1.DepartureDate);
@@ -20,8 +19,8 @@ const checkIfAfterDeparture = (flight1, flight2) => {
 };
 
 function MiniFlightResults(props) {
-var padding=props.columns?"120px":"0";
-var space=props.columns?1:5;
+  var padding = props.columns ? "120px" : "0";
+  var space = props.columns ? 1 : 5;
 
   const [flights, setFlights] = useState([]);
   const [inboundFlight, setInboundFlight] = useState(null);
@@ -36,17 +35,14 @@ var space=props.columns?1:5;
   const children = props.children;
   console.log(props.userID);
   const handleClick = (event) => {
-    if (checkIfAfterDeparture(outboundFlight, inboundFlight)){
-
+    if (checkIfAfterDeparture(outboundFlight, inboundFlight)) {
       setAnchorEl(event.currentTarget);
-     // setShowError(false);
-    }
-    else{
-
+      // setShowError(false);
+    } else {
       //setShowError(true);
-        window.alert(
-          "You can't select a return flight with a date earlier than your away flight, please reselect"
-        );
+      window.alert(
+        "You can't select a return flight with a date earlier than your away flight, please reselect"
+      );
     }
   };
 
@@ -95,134 +91,147 @@ var space=props.columns?1:5;
 
   return (
     <div>
-    <div className="container1">
-      <Stack direction="column" spacing={space}>
-        <div className="outbound">
-          <h1 style={{ textAlign: "left" , marginBottom : 0}}>Away</h1>
-          <Stack direction="row" spacing={2}>
-          {outFlights.map((flight) => (
+      <div className="container1">
+        <Stack direction="column" spacing={space}>
+          <div className="outbound">
+            <h1 style={{ textAlign: "left", marginBottom: 0 }}>Away</h1>
             <Stack direction="row" spacing={2}>
-              {props.econ && props.enoughSeats(flight, "economy") ? (
-                <div><FlightCard
-                  key={flight._id + "e"}
-                  cabin="economy"
-                  flight={flight}
-                  onClick={handleOut}
-                  isSelected={isSelectedOut}
-                /></div>
-              ) : null}
-              {props.bus && props.enoughSeats(flight, "business") ? (
-                <div><FlightCard
-                  key={flight._id + "b"}
-                  cabin="business"
-                  flight={flight}
-                  onClick={handleOut}
-                  isSelected={isSelectedOut}
-                /></div>
-              ) : null}
-              {props.first && props.enoughSeats(flight, "first") ? (
-                <div><FlightCard
-                  key={flight._id + "f"}
-                  cabin="first"
-                  flight={flight}
-                  onClick={handleOut}
-                  isSelected={isSelectedOut}
-                /></div>
-              ) : null}
+              {outFlights.map((flight) => (
+                <Stack direction="row" spacing={2}>
+                  {props.econ && props.enoughSeats(flight, "economy") ? (
+                    <div>
+                      <FlightCard
+                        key={flight._id + "e"}
+                        cabin="economy"
+                        flight={flight}
+                        onClick={handleOut}
+                        isSelected={isSelectedOut}
+                      />
+                    </div>
+                  ) : null}
+                  {props.bus && props.enoughSeats(flight, "business") ? (
+                    <div>
+                      <FlightCard
+                        key={flight._id + "b"}
+                        cabin="business"
+                        flight={flight}
+                        onClick={handleOut}
+                        isSelected={isSelectedOut}
+                      />
+                    </div>
+                  ) : null}
+                  {props.first && props.enoughSeats(flight, "first") ? (
+                    <div>
+                      <FlightCard
+                        key={flight._id + "f"}
+                        cabin="first"
+                        flight={flight}
+                        onClick={handleOut}
+                        isSelected={isSelectedOut}
+                      />
+                    </div>
+                  ) : null}
+                </Stack>
+              ))}
             </Stack>
-          ))}
-      </Stack>
-        </div>
+          </div>
 
-        <Popover
-          id={id}
-          open={open}
-          anchorEl={anchorEl}
-          onClose={handleClose}
-          anchorReference="anchorPosition"
-          anchorPosition={{ top: 300, left: 600 }}
-          anchorOrigin={{
-            vertical: "center",
-            horizontal: "center",
-          }}
-          transformOrigin={{
-            vertical: "center",
-            horizontal: "center",
-          }}
-        >
-          <FlightsSummary
-            flight1={outboundFlight}
-            cabin1={outboundCabin}
-            flight2={inboundFlight}
-            cabin2={inboundCabin}
-            adults={adults}
-            children={children}
-            userID={props.userID}
-          ></FlightsSummary>
-        </Popover>
-          
-        <div className="inbound" >
-        <h1 style={{ textAlign: "left" , marginBottom : 0 }}>Return</h1>
-        <Stack direction="row"  spacing={2}>
-          
-          {inFlights.map((flight) => (
-            <Stack direction="row"  spacing={2}>
-              {props.isSmol ||
-              (props.isAfter(flight) &&
-                props.econ &&
-                props.enoughSeats(flight, "economy")) ? (
-                <div><FlightCard
-                  key={flight._id + "e"}
-                  cabin="economy"
-                  flight={flight}
-                  onClick={handleIn}
-                  isSelected={isSelectedIn}
-                /></div>
-              ) : null}
-              {props.isSmol ||
-              (props.isAfter(flight) &&
-                props.bus &&
-                props.enoughSeats(flight, "business")) ? (
-                  <div><FlightCard
-                  key={flight._id + "b"}
-                  cabin="business"
-                  flight={flight}
-                  onClick={handleIn}
-                  isSelected={isSelectedIn}
-                /></div>
-              ) : null}
-              {props.isSmol ||
-              (props.isAfter(flight) &&
-                props.first &&
-                props.enoughSeats(flight, "first")) ? (
-                  <div><FlightCard
-                  key={flight._id + "f"}
-                  cabin="first"
-                  flight={flight}
-                  onClick={handleIn}
-                  isSelected={isSelectedIn}
-                /></div>
-              ) : null}
+          <Popover
+            id={id}
+            open={open}
+            anchorEl={anchorEl}
+            onClose={handleClose}
+            anchorReference="anchorPosition"
+            anchorPosition={{ top: 300, left: 600 }}
+            anchorOrigin={{
+              vertical: "center",
+              horizontal: "center",
+            }}
+            transformOrigin={{
+              vertical: "center",
+              horizontal: "center",
+            }}
+          >
+            <FlightsSummary
+              flight1={outboundFlight}
+              cabin1={outboundCabin}
+              flight2={inboundFlight}
+              cabin2={inboundCabin}
+              adults={adults}
+              children={children}
+              userID={props.userID}
+            ></FlightsSummary>
+          </Popover>
+
+          <div className="inbound">
+            <h1 style={{ textAlign: "left", marginBottom: 0 }}>Return</h1>
+            <Stack direction="row" spacing={2}>
+              {inFlights.map((flight) => (
+                <Stack direction="row" spacing={2}>
+                  {props.isSmol ||
+                  (props.isAfter(flight) &&
+                    props.econ &&
+                    props.enoughSeats(flight, "economy")) ? (
+                    <div>
+                      <FlightCard
+                        key={flight._id + "e"}
+                        cabin="economy"
+                        flight={flight}
+                        onClick={handleIn}
+                        isSelected={isSelectedIn}
+                      />
+                    </div>
+                  ) : null}
+                  {props.isSmol ||
+                  (props.isAfter(flight) &&
+                    props.bus &&
+                    props.enoughSeats(flight, "business")) ? (
+                    <div>
+                      <FlightCard
+                        key={flight._id + "b"}
+                        cabin="business"
+                        flight={flight}
+                        onClick={handleIn}
+                        isSelected={isSelectedIn}
+                      />
+                    </div>
+                  ) : null}
+                  {props.isSmol ||
+                  (props.isAfter(flight) &&
+                    props.first &&
+                    props.enoughSeats(flight, "first")) ? (
+                    <div>
+                      <FlightCard
+                        key={flight._id + "f"}
+                        cabin="first"
+                        flight={flight}
+                        onClick={handleIn}
+                        isSelected={isSelectedIn}
+                      />
+                    </div>
+                  ) : null}
+                </Stack>
+              ))}
             </Stack>
-          ))}
+          </div>
         </Stack>
-        </div>
-
-      </Stack>
-
-    
+      </div>
+      <div className="selectbuttx">
+        <Button
+          style={{
+            maxWidth: "200px",
+            maxHeight: "50px",
+            minWidth: "170px",
+            minHeight: "55px",
+          }}
+          disabled={!bothSelected()}
+          variant="contained"
+          onClick={handleClick}
+        >
+          Select
+        </Button>
+      </div>
     </div>
-    <div className="selectbuttx">
-<Button
-style={{maxWidth: '200px', maxHeight: '50px', minWidth: '170px', minHeight: '55px'}}
-disabled={!bothSelected()}
-variant="contained"
-onClick={handleClick}
->
-Select
-</Button>
-</div>
-  </div>
   );
 }
 export default MiniFlightResults;

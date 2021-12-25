@@ -2,6 +2,10 @@ import StripeCheckout from "react-stripe-checkout";
 import { React, useState } from "react";
 import { Button, TableBody } from "@mui/material";
 import { Container } from "@mui/material";
+
+import Link from "@mui/material/Link";
+import Alert from "@mui/material/Alert";
+
 const axios = require("axios").default;
 const nodemailer = require("nodemailer");
 const stripe = require("stripe")(
@@ -21,6 +25,8 @@ const options = {
   text: "Let's see",
 };
 function PaymentComponent(props) {
+  const [paymentReceived, setPaymentReceived] = useState(false);
+
   // const [product, setProduct] = useState({
   //   name: "Pay for reservation",
   //   price: "4000",
@@ -59,11 +65,10 @@ function PaymentComponent(props) {
       })
       .then((res) => {
         console.log("payment succ");
-        if (props.isEdit){
+        if (props.isEdit) {
           props.editSuccessful(true);
-
         }
-
+        setPaymentReceived(true);
         // window.location.href = "/reservedflights";
       })
       .catch(() => {
@@ -81,14 +86,26 @@ function PaymentComponent(props) {
         currency="USD"
       >
         <Button
+          disabled={paymentReceived}
           style={{
             backgroundcolor: "pink",
             fontSize: "15px",
+            zIndex: "100",
           }}
         >
           Make Payment
         </Button>
       </StripeCheckout>
+      {paymentReceived && (
+        <Alert severity="warning">
+          Payment received successfully, please check your email for
+          confirmation, head over to the{" "}
+          <Link href="http://localhost:3000/reservedflights" variant="body2">
+            Reserved Flights
+          </Link>{" "}
+          tab to check your itinerary
+        </Alert>
+      )}
     </Container>
   );
 }

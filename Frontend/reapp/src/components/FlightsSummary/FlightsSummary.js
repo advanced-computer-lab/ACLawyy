@@ -5,9 +5,9 @@ import { Button } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import PermIdentityIcon from "@mui/icons-material/PermIdentity";
 import ChildCareIcon from "@mui/icons-material/ChildCare";
-import Alert from '@mui/material/Alert';
+import Alert from "@mui/material/Alert";
 import axios from "axios";
-import Link from '@mui/material/Link';
+import Link from "@mui/material/Link";
 import { ReactSession } from "react-client-session";
 const calculatePrice = (flight, cabin) => {
   if (cabin == "first") return 2 * flight.EconomyPrice;
@@ -19,7 +19,7 @@ function FlightsSummary(props) {
   const { flight1, cabin1, flight2, cabin2, adults, children, u } = props;
   const price1 = calculatePrice(flight1, cabin1);
   const price2 = calculatePrice(flight2, cabin2);
-  const [user,setUser] = useState();
+  const [user, setUser] = useState();
   //const userID = props.userID;
   const userID = ReactSession.get("id");
 
@@ -30,34 +30,59 @@ function FlightsSummary(props) {
       })
       .then((res) => {
         setUser(res.data);
-
       })
       .catch(() => {
         alert("error");
       });
   }, []);
 
-    const sendMail = () => {
-  
+  const sendMail = () => {
     const obj = {
       email: user.Email,
       subject: "Itinerary",
-      text: "Dear "+user.FirstName+",\n"+"You booked "+adults+" adult ticket and "+children+" child tickets from "+flight1.DepartureCity+" to "+flight1.ArrivalCity+" and back\n"+"The flight leaves on "+flight1.DepartureDate+" at "+flight1.DepartureTime+" From "+flight1.DepartureAirport+" Airport and you will arrive at "+flight1.ArrivalAirport+" Airport\n"+"Your total booking cost is "+(price1+price2)+" $.\n"+"We wish you safe travels.\n"+"Flights awyy;)",
+      text:
+        "Dear " +
+        user.FirstName +
+        ",\n" +
+        "You booked " +
+        adults +
+        " adult ticket and " +
+        children +
+        " child tickets from " +
+        flight1.DepartureCity +
+        " to " +
+        flight1.ArrivalCity +
+        " and back\n" +
+        "The flight leaves on " +
+        flight1.DepartureDate +
+        " at " +
+        flight1.DepartureTime +
+        " From " +
+        flight1.DepartureAirport +
+        " Airport and you will arrive at " +
+        flight1.ArrivalAirport +
+        " Airport\n" +
+        "Your total booking cost is " +
+        (price1 + price2) +
+        " $.\n" +
+        "We wish you safe travels.\n" +
+        "Flights awyy;)",
     };
-    alert(obj.text);
+
     axios
       .post("http://localhost:8000/Tickets/email", obj)
       .then((res) => {
-        alert("Please check your email, the details of your flight have been sent.");
+        alert(
+          "Please check your email, the details of your flight have been sent."
+        );
       })
       .catch((err) => {
         console.log(err);
       });
   };
-  const confirmPurchase = () =>{
-      confirmPurchase2();
-      
-  }
+  const confirmPurchase = () => {
+    confirmPurchase2();
+  };
   const confirmPurchase2 = () => {
     const adultTicket = {
       UserID: userID,
@@ -160,7 +185,7 @@ function FlightsSummary(props) {
                             .catch(() => {
                               alert("error");
                             });
-                            sendMail();
+                          sendMail();
                           window.location.href = `/payment/${JSON.stringify(
                             purchaseBody
                           )}`;
@@ -230,7 +255,7 @@ function FlightsSummary(props) {
                                   .catch(() => {
                                     alert("error");
                                   });
-                                  sendMail();
+                                sendMail();
                                 window.location.href = `/payment/${JSON.stringify(
                                   purchaseBody
                                 )}`;
@@ -345,12 +370,23 @@ function FlightsSummary(props) {
         </div>
       </Stack>
       <Stack direction="row" justifyContent="center">
-        <Button variant="outlined" disabled = {ReactSession.get("userType") != "1"} onClick={confirmPurchase}>
+        <Button
+          variant="outlined"
+          disabled={ReactSession.get("userType") != "1"}
+          onClick={confirmPurchase}
+        >
           <h4>Reserve</h4>
         </Button>
-        
       </Stack>
-      {ReactSession.get("userType") != "1"&& <Alert severity="warning">You must <Link href="http://localhost:3000/login" variant="body2">Sign in</Link> to reserve the flights </Alert>}
+      {ReactSession.get("userType") != "1" && (
+        <Alert severity="warning">
+          You must{" "}
+          <Link href="http://localhost:3000/login" variant="body2">
+            Sign in
+          </Link>{" "}
+          to reserve the flights{" "}
+        </Alert>
+      )}
     </div>
   );
 }

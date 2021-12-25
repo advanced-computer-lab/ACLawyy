@@ -4,7 +4,7 @@ import Button from "@mui/material/Button";
 import emailjs from "emailjs-com";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import Grid from '@mui/material/Grid';
+import Grid from "@mui/material/Grid";
 import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
@@ -18,6 +18,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import Popover from "@mui/material/Popover";
 import ChangePassword from "../ChangePassword/ChangePassword";
 import Alert from "@mui/material/Alert";
+import { blueGrey } from "@mui/material/colors";
 export function UserPage(props) {
   const [user, setUser] = useState();
   const [userFirstName, setUserFirstName] = useState();
@@ -36,10 +37,10 @@ export function UserPage(props) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [anchorEl2, setAnchorEl2] = useState(null);
   const [newNumber, setNewNumber] = useState();
-  const [showSuccess, setShowSuccess]= useState(false);
-  const [showError, setShowError]= useState(false);
-  const [textToDisplay,setTextToDisplay]=useState("Edit");
-  const [disp,setDisp] = useState(true);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [showError, setShowError] = useState(false);
+  const [textToDisplay, setTextToDisplay] = useState("Edit");
+  const [disp, setDisp] = useState(true);
   useEffect(() => {
     axios
       .post("http://localhost:8000/Users/getUserDetails", {
@@ -76,8 +77,7 @@ export function UserPage(props) {
       );
   }
   function handleButton() {
-    
-    if(disp===true){
+    if (disp === true) {
       setIsDisabled1(false);
       setIsDisabled2(false);
       setIsDisabled3(false);
@@ -85,9 +85,7 @@ export function UserPage(props) {
       setIsDisabled5(false);
       setIsDisabled6(false);
       setTextToDisplay("Update");
-      
-    }
-    else{
+    } else {
       setIsLoading(true);
       setIsDisabled1(true);
       setIsDisabled2(true);
@@ -95,44 +93,41 @@ export function UserPage(props) {
       setIsDisabled4(true);
       setIsDisabled5(true);
       setIsDisabled6(true);
-      
+
       setTextToDisplay("Edit");
-    const newUser = JSON.parse(JSON.stringify(user));
-    newUser.FirstName = userFirstName;
-    newUser.LastName = userLastName;
-    newUser.CountryCode = userCountryCode;
-    newUser.Email = userEmail;
-    newUser.HomeAddress = userHomeAddress;
-    newUser.PassportNumber = userPassportNumber;
-    // setUser(newUser);
-    axios
-      .post("http://localhost:8000/Users/SearchEmail", { Email: userEmail })
-      .then((res) => {
-        if (res.data.length === 0 || user.Email===userEmail) {
-          setShowError(false);
-          
-          handleSubmit();
-          axios
-            .post("http://localhost:8000/users/updateUser", newUser)
-            .then((res) => {
-              //alert(JSON.stringify(user));
-              setShowSuccess(true);
-              setIsLoading(true);
-            })
-            .catch(() => {
-              alert("error");
-              setShowSuccess(false);
-            });
-        } else {
-          setShowError(true);
-        }
-      })
-      .catch(() => {
-        alert("error");
-      });
-            
-            
-    
+      const newUser = JSON.parse(JSON.stringify(user));
+      newUser.FirstName = userFirstName;
+      newUser.LastName = userLastName;
+      newUser.CountryCode = userCountryCode;
+      newUser.Email = userEmail;
+      newUser.HomeAddress = userHomeAddress;
+      newUser.PassportNumber = userPassportNumber;
+      // setUser(newUser);
+      axios
+        .post("http://localhost:8000/Users/SearchEmail", { Email: userEmail })
+        .then((res) => {
+          if (res.data.length === 0 || user.Email === userEmail) {
+            setShowError(false);
+
+            handleSubmit();
+            axios
+              .post("http://localhost:8000/users/updateUser", newUser)
+              .then((res) => {
+                //alert(JSON.stringify(user));
+                setShowSuccess(true);
+                setIsLoading(true);
+              })
+              .catch(() => {
+                alert("error");
+                setShowSuccess(false);
+              });
+          } else {
+            setShowError(true);
+          }
+        })
+        .catch(() => {
+          alert("error");
+        });
     }
     setDisp(!disp);
     setIsLoading(false);
@@ -176,7 +171,9 @@ export function UserPage(props) {
         ();
       </script>
       <div className="icons">
-        <Avatar>{user.FirstName.charAt(0)}</Avatar>
+        <Avatar sx={{ bgcolor: blueGrey[800] }}>
+          {user.FirstName.charAt(0)}
+        </Avatar>
       </div>
       <div className="Label">
         <Stack direction="column" spacing={1}>
@@ -218,7 +215,6 @@ export function UserPage(props) {
                 defaultValue={user.FirstName}
                 onChange={(e) => setUserFirstName(e.target.value)}
               />
-              
             </Stack>
             <Stack direction="row" spacing={2}>
               <TextField
@@ -226,7 +222,6 @@ export function UserPage(props) {
                 InputProps={{
                   readOnly: isDisabled2,
                 }}
-
                 focused={!isDisabled2}
                 className="TextBox"
                 id="outlined-required"
@@ -234,7 +229,6 @@ export function UserPage(props) {
                 defaultValue={user.LastName}
                 onChange={(e) => setUserLastName(e.target.value)}
               />
-              
             </Stack>
           </Stack>
           <Stack direction="row" spacing={15}>
@@ -251,10 +245,12 @@ export function UserPage(props) {
                 defaultValue={user.Email}
                 onChange={(e) => setUserEmail(e.target.value)}
               />
-              
-             
-          {showError && <Alert severity="error">This Email is already in Use!&nbsp; </Alert>}
-            
+
+              {showError && (
+                <Alert severity="error">
+                  This Email is already in Use!&nbsp;{" "}
+                </Alert>
+              )}
             </Stack>
             <Stack direction="row" spacing={2}>
               <TextField
@@ -269,11 +265,9 @@ export function UserPage(props) {
                 defaultValue={user.CountryCode}
                 onChange={(e) => setUserCountryCode(e.target.value)}
               />
-              
             </Stack>
-            
           </Stack>
-          
+
           <Stack direction="row" spacing={15}>
             <Stack direction="row" spacing={3}>
               <TextField
@@ -288,7 +282,6 @@ export function UserPage(props) {
                 defaultValue={user.PassportNumber}
                 onChange={(e) => setUserPassportNumber(e.target.value)}
               />
-              
             </Stack>
             <Stack direction="row" spacing={2}>
               <TextField
@@ -300,15 +293,13 @@ export function UserPage(props) {
                 className="TextBox-home"
                 id="outlined-required"
                 label="Home Address"
-
                 defaultValue={user.HomeAddress}
                 onChange={(e) => setUserHomeAddress(e.target.value)}
               />
-              
             </Stack>
           </Stack>
         </Stack>
-        
+
         <Button className="Submit" variant="contained" onClick={handleButton}>
           {textToDisplay}
         </Button>
@@ -326,90 +317,95 @@ export function UserPage(props) {
         >
           Change Password
         </Button>
-        {showSuccess && <Alert severity="success">Profile Updated Successfuly!&nbsp; </Alert>}
-        <div classname ="changePop"> 
-        <Popover
-          margin = "40 px"
-          anchorPosition={{ top: 0, left: 0 }}
-          open={open2}
-          anchorEl={anchorEl2}
-          onClose={handleClose2}
-          anchorReference="anchorPosition"
-          anchorPosition={{ top: 230, left: 550 }}
-          anchorOrigin={{
-            vertical: "center",
-            horizontal: "left",
-          }}
-          transformOrigin={{
-            vertical: "center",
-            horizontal: "left",
-          }}
-        >
-          <ChangePassword
-            className="changePassword"
-            UserID={user._id}
-            Username={user.Username}
-          />
-        </Popover>
-        <Popover
-          anchorPosition={{ top: 0, left: 0 }}
-          open={open}
-          anchorEl={anchorEl}
-          onClose={handleClose}
-          anchorOrigin={{
-            vertical: "center",
-            horizontal: "center",
-          }}
-          transformOrigin={{
-            vertical: "center",
-            horizontal: "center",
-          }}
-        >
-          <div className="mobilePopOut">
-            <h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Phone Numbers </h1>
-            {user.TelephoneNumbers.map((Number, index) => (
+        {showSuccess && (
+          <Alert severity="success">Profile Updated Successfuly!&nbsp; </Alert>
+        )}
+        <div classname="changePop">
+          <Popover
+            margin="40 px"
+            anchorPosition={{ top: 0, left: 0 }}
+            open={open2}
+            anchorEl={anchorEl2}
+            onClose={handleClose2}
+            anchorReference="anchorPosition"
+            anchorPosition={{ top: 230, left: 550 }}
+            anchorOrigin={{
+              vertical: "center",
+              horizontal: "left",
+            }}
+            transformOrigin={{
+              vertical: "center",
+              horizontal: "left",
+            }}
+          >
+            <ChangePassword
+              className="changePassword"
+              UserID={user._id}
+              Username={user.Username}
+            />
+          </Popover>
+          <Popover
+            anchorPosition={{ top: 0, left: 0 }}
+            open={open}
+            anchorEl={anchorEl}
+            onClose={handleClose}
+            anchorOrigin={{
+              vertical: "center",
+              horizontal: "center",
+            }}
+            transformOrigin={{
+              vertical: "center",
+              horizontal: "center",
+            }}
+          >
+            <div className="mobilePopOut">
+              <h1>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Phone
+                Numbers{" "}
+              </h1>
+              {user.TelephoneNumbers.map((Number, index) => (
+                <div className="current-mobile">
+                  <TextField
+                    width="100px"
+                    InputProps={{
+                      readOnly: true,
+                    }}
+                    className="TextBox-mob"
+                    id="outlined-required"
+                    label={"Mobile" + index}
+                    defaultValue={Number}
+                  />
+                  <IconButton onClick={() => handleDelete(index)}>
+                    <DeleteIcon className="DeleteIcon" />
+                  </IconButton>
+                </div>
+              ))}
               <div className="current-mobile">
                 <TextField
                   width="100px"
                   InputProps={{
-                    readOnly: true,
+                    readOnly: false,
                   }}
-                  className="TextBox-mob"
+                  className="TextBox2"
                   id="outlined-required"
-                  label={"Mobile" + index}
-                  defaultValue={Number}
+                  label="Add New Number"
+                  onChange={(e) => setNewNumber(e.target.value)}
+                  defaultValue={""}
                 />
-                <IconButton onClick={() => handleDelete(index)}>
-                  <DeleteIcon className="DeleteIcon" />
+
+                <IconButton onClick={handleButton1}>
+                  <CheckIcon />
                 </IconButton>
               </div>
-            ))}
-            <div className="current-mobile">
-              <TextField
-                width="100px"
-                InputProps={{
-                  readOnly: false,
-                }}
-                className="TextBox2"
-                id="outlined-required"
-                label="Add New Number"
-                onChange={(e) => setNewNumber(e.target.value)}
-                defaultValue={""}
-              />
-
-              <IconButton onClick={handleButton1}>
-                <CheckIcon />
-              </IconButton>
+              {showSuccess && (
+                <Alert severity="success">
+                  Mobile Added Successfully!&nbsp;{" "}
+                </Alert>
+              )}
             </div>
-            {showSuccess && (
-              <Alert severity="success">
-                Mobile Added Successfully!&nbsp;{" "}
-              </Alert>
-            )}
-          </div>
-        </Popover>
+          </Popover>
+        </div>
       </div>
-    </div>
     </div>
   );
 }

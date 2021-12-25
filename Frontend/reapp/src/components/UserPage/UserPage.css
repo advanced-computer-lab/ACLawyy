@@ -1,22 +1,22 @@
-.UserPage{
-
+.UserPage {
   height: 16cm;
   width: 30cm;
-  margin-left : 3%;
+  margin-left: 3%;
 }
 
 .vl {
   position: relative;
-  border-left: 4px solid rgba(128, 128, 128, 0.651);
+  background-color: rgba(104, 156, 201, 0.651);
+  /*border-right: 4px 4px 4px 4px rgba(59, 94, 107, 0.651);*/
+  box-shadow: 0px 0px 2px 2px rgba(81, 119, 151, 0.651);
   height: 137%;
-  left:330px;
-  top:-100%;
-  z-index:-1000;
+  width: 40%;
+  left: -4%;
+  top: -100%;
+  z-index: -1000;
 }
 
-
 .icons {
-
   transform: translateY(0) scale(4);
   margin-top: 5cm;
   margin-left: 19cm;
@@ -26,24 +26,38 @@
 .Label {
   top: 0px;
   left: 0px;
+  margin-top: 0%;
+  margin-bottom: 1%;
+  margin-left: 3%;
+  margin-right: 3%;
   right: 0;
   bottom: 0px;
 }
 .DistanceTravelled {
   top: 0px;
   left: 0px;
+  margin-top: 0%;
+  margin-bottom: 1%;
+  margin-left: 3%;
+  margin-right: 3%;
   right: 0px;
   bottom: 0px;
 }
 .HoursFlown {
   top: 0px;
   left: 0px;
+  margin-top: 0%;
+  margin-bottom: 1%;
+  margin-left: 3%;
+  margin-right: 3%;
   right: 0px;
   bottom: 0px;
 }
 .Rank {
   top: 0px;
   left: 0px;
+
+  margin: 0.5% 7%;
   right: 0px;
   bottom: 0px;
   border-image-width: 0px;
@@ -53,7 +67,6 @@
   bottom: 0;
   top: 4cm;
   right: 5cm;
-
 }
 .TextBox {
   width: 550%;
@@ -69,8 +82,8 @@
   left: -12px;
 }
 
-.button-addPhone{
-  width:60%;
+.button-addPhone {
+  width: 60%;
 }
 .Submit {
   position: relative;
@@ -78,12 +91,11 @@
   top: 25%;
   width: 250px;
   height: 50px;
-
 }
 .PopOver-mobile {
   position: relative;
   top: 25%;
-  left: -120%;
+  left: -109%;
   width: 200px;
   height: 50px;
   font-size: 10pt;
@@ -98,21 +110,20 @@
   height: 50px;
 }
 .mobilePopOut {
-  display:flex;
-  flex-flow:column;
+  display: flex;
+  flex-flow: column;
   row-gap: 20px;
   width: 700px;
   height: 350px;
-  position:relative;
-  margin:40px;
+  position: relative;
+  margin: 40px;
 }
-.current-mobile{
-  display:flex;
+.current-mobile {
+  display: flex;
 }
-.TextBox-mob{
-width:92%;
-
+.TextBox-mob {
+  width: 92%;
 }
-.changePop{
+.changePop {
   padding: 40 px;
 }
