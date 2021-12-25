@@ -473,7 +473,6 @@ router.route("/findMyTickets").post((req, res) => {
 - To display User details on the boarding pass of ticket 
 ```javascript
 router.route("/getAwayDetails").post((req, res) => {
-  //const AwayFlight = mongoose.Types.ObjectId(req.body.AwayFlight);
   Flight.findById(req.body.AwayFlight)
     .then((flight) => res.json(flight))
     .catch((err) => res.status(400).json("Error: " + err));
@@ -482,14 +481,12 @@ router.route("/getAwayDetails").post((req, res) => {
 - To Display Away and Return Flight's details on the boarding pass
 ```javascript 
 router.route("/getAwayDetails").post((req, res) => {
-  //const AwayFlight = mongoose.Types.ObjectId(req.body.AwayFlight);
   Flight.findById(req.body.AwayFlight)
     .then((flight) => res.json(flight))
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
 router.route("/getReturnDetails").post((req, res) => {
-  //const AwayFlight = mongoose.Types.ObjectId(req.body.ReturnFlight);
   Flight.findById(req.body.ReturnFlight)
     .then((flight) => res.json(flight))
     .catch((err) => res.status(400).json("Error: " + err));
@@ -498,7 +495,7 @@ router.route("/getReturnDetails").post((req, res) => {
 - To modify the seats available upon selecting a seat 
 ```javascript
 router.route("/modifySeatsAvailable").post((req, res) => {
-  //const AwayFlight = mongoose.Types.ObjectId(req.body.AwayFlight);
+
   Flight.findByIdAndUpdate(req.body._id, req.body, function (err) {
     if (err) console.log(err);
     console.log("Seats updated successfully");
@@ -510,7 +507,6 @@ router.route("/modifySeatsAvailable").post((req, res) => {
 - To edit the selected seat in return and away flights 
 ```javascript
 router.route("/modifyAwaySeat").post((req, res) => {
-  //include AwayFlight/UserID/AwaySeat=-1
 
   for (let i = 0; i < req.body.modifiedSeats.length; i++) {
     Ticket.findOneAndUpdate(
@@ -527,7 +523,6 @@ router.route("/modifyAwaySeat").post((req, res) => {
 });
 
 router.route("/modifyReturnSeat").post((req, res) => {
-  //include AwayFlight/UserID/AwaySeat=undefined
   flightID = req.body.flightID;
   userID = req.body.userID;
   for (let i = 0; i < req.body.modifiedSeats.length; i++) {
@@ -625,17 +620,17 @@ once they confirm, it brings the user back to the reserved flights page, where t
 
 The user can edit from this edit menu either the departure/arrival flights or the chosen seat 
 
-![edit list]()
+![edit list](/Screenshots/UserChangeFlight.png)
 
 When the user clicks on the change flight option, we are faced with a pop over with all the available flights that they could choose from, once the user chooses a new flight it compares it to the other flight and if they already paid they make the payment difference on the spot. 
-![change reserved flights]()
-
+![change reserved flights](/Screenshots/UserAlternativeFlights.png)
+![change reserved flights with price difference](/Screenshots/UserAlternativeFlightsDifference.png)
 When changing the seat it simply redirects us to the same seating chart to select a different seat. 
 
 
 Finally, The existing user can access their information through the profile icon in the navbar, where they access their profile and they can edit all their information except of the username through the edit button. 
 
-![userpage]()
+![userpage](![change reserved flights](/Screenshots/UserPage.png))
 
 
 ## How the routing is done
@@ -655,9 +650,6 @@ ReactSession.setStoreType("localStorage");
 function App() {
   const [currPage, setCurrPage] = useState(0);
   const [seatProps, setSeatProps] = useState({});
-  // const [userID,setUserID] = useState (null);
-
-  //const [userType, setUserType] = useState(2);
 
   const setUserID = (id) => {
     ReactSession.set("id", id);
@@ -666,9 +658,7 @@ function App() {
     ReactSession.set("userType", type);
   };
 
-  // useEffect (()=> {
-  //    ReactSession.set("userType", 2);
-  // },[])
+
   return (
     <Router>
       <div>
