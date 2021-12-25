@@ -51,7 +51,7 @@ export function UserPage(props) {
       .catch(() => {
         alert("error");
       });
-  }, [disp]);
+  }, [isLoading]);
   function handleSubmit() {
     sendFeedback("service_c3t9zmi", "template_fwz2z6b", {
       message: "This is a confirmation email.",
@@ -87,6 +87,7 @@ export function UserPage(props) {
       
     }
     else{
+      setIsLoading(true);
       setIsDisabled1(true);
       setIsDisabled2(true);
       setIsDisabled3(true);
@@ -104,21 +105,15 @@ export function UserPage(props) {
     newUser.PassportNumber = userPassportNumber;
     setUser(newUser);
     axios
-      .post("http://localhost:8000/Users/SearchEmail", { Email: userEmail })
-      .then((res) => {
-        if (res.data.length === 0) {
-          
-          
-          handleSubmit();
-          axios
             .post("http://localhost:8000/users/updateUser", user)
             .then((res) => {
               //alert(JSON.stringify(user));
               alert("Profile Updated");
-            })
-            .catch(() => {
-              alert("error");
-            });
+              axios
+      .post("http://localhost:8000/Users/SearchEmail", { Email: userEmail })
+      .then((res) => {
+        if (res.data.length === 0) {
+          handleSubmit();
         } else {
           alert("Email in use!");
         }
@@ -126,8 +121,14 @@ export function UserPage(props) {
       .catch(() => {
         alert("error");
       });
+            })
+            .catch(() => {
+              alert("error");
+            });
+    
     }
     setDisp(!disp);
+    setIsLoading(false);
   }
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
