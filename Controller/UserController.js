@@ -19,11 +19,7 @@ router.route("/").get((req, res) => {
     .then((users) => res.json(users))
     .catch((err) => res.status(400).json("Error: " + err));
 });
-router.route("/getTA").get((req, res) => {
-  User.find({ Job: /TA/ })
-    .then((users) => res.json(users))
-    .catch((err) => res.status(400).json("Error: " + err));
-});
+
 
 router.route("/SearchEmail").post((req, res) => {
   User.find({
@@ -101,7 +97,7 @@ router.route("/Login").post( (req, res) => {
         const payload = {
           id :dbUser._id,
 
-          username: dbUser.Username,
+          username: dbUser.Username.toLowerCase(),
         }
         jwt.sign(
           payload,
@@ -172,8 +168,6 @@ router.route("/ChangePassword").post( (req, res) => {
         }
        
       )
-       
-
 
     } else{
       console.log("fashallllllliure ")

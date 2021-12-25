@@ -8,13 +8,13 @@
     padding: 5px 35px;
   }
   
-  .container {
+  .containerExplore {
     display: flex;
     justify-content: center;
     align-items: left;
     height: 70vh;
     flex-wrap: wrap;
-    width: 50%;
+    width: 100%;
     margin: 20px 0px;
     left:-5%;
   }

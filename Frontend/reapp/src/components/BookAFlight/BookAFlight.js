@@ -64,11 +64,11 @@ function BookAFlight(props) {
     }
   };
   return (
-    <div>
+    <div >
       <Stack direction="row" spacing={0}>
         <UserSearch onSearch={handleSearch} />
         {outboundFlights.length > 0 && inboundFlights.length > 0 && (
-          <FlightResults
+          <FlightResults columns={false}
             userID={UserID}
             children={children}
             adults={adults}

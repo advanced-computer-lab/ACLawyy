@@ -6,7 +6,7 @@ import italy from "./italy.jpg";
 function Offers() {
   return (
     <div class="Off">
-      <div class="body">
+      <div class="body-off">
         <div class="Italy">
           <div class="italy-outer">
             <div class="italy-content animated fadeInLeft">

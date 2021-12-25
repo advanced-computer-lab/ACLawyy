@@ -10,7 +10,7 @@
     margin-bottom:20px;
     row-gap: 10px;
   }
-  .body {
+  .body-off {
     display: flex;
     flex-flow: row;
     column-gap: 10px;

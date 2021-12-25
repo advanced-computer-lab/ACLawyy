@@ -32,8 +32,8 @@ export default function Payment() {
   return (
     <div className="center">
       <Card sx={{ maxWidth: 500, width: 500 }}>
-        <CardContent>
-          <CardMedia component="img" height="250" src={visa} alt="visa" />
+        <CardContent className="visa-page">
+          <CardMedia className ="visa-img" component="img" height="250" src={visa} alt="visa" />
           <Typography gutterBottom variant="h5" component="div">
             Checkout:
           </Typography>

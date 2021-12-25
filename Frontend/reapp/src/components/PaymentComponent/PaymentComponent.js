@@ -59,7 +59,12 @@ function PaymentComponent(props) {
       })
       .then((res) => {
         console.log("payment succ");
-        window.location.href = "/reservedflights";
+        if (props.isEdit){
+          props.editSuccessful(true);
+
+        }
+
+        // window.location.href = "/reservedflights";
       })
       .catch(() => {
         alert("error");

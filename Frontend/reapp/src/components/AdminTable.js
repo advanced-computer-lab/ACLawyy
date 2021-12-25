@@ -84,13 +84,17 @@ function AdminTable(props) {
       selected.forEach((item, index) => {
         axios
           .post("http://localhost:8000/flights/deleteflight", { _id: item })
-          .then((res) => {})
+          .then((res) => {
+
+            props.refresh();
+
+          })
           .catch(() => {
             alert("error");
           });
       });
       setSelected([]);
-      props.refresh();
+
       alert("Item(s) deleted successfuly");
     }
   };
@@ -130,6 +134,7 @@ function AdminTable(props) {
 
     clearUpdates();
     props.refresh();
+
   };
 
   const handleClick = (event, name) => {

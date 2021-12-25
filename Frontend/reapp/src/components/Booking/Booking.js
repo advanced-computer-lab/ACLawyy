@@ -164,26 +164,20 @@ function Booking(props) {
   }
   const sendMail = () => {
     alert("mail sent");
-    const transporter = nodeMailer.createTransport({
-      service: "hotmail",
-      auth: {
-        user: "flightsawy@outlook.com", //Email Address
-        pass: "ACLawyyy", //password
-      },
-    });
-    const options = {
-      from: "flightsawy@outlook.com",
-      to: props.Email,
-      subject: "Booking Details",
-      text: "insert itenerary here",
-    };
-    transporter.sendMail(options, function (err, info) {
-      if (err) {
-        console.log(err);
-        return;
-      }
-      console.log("Sent :" + info.response);
-    });
+    const obj = {
+      email : user.Email,
+      subject : "Itinerary",
+      text : "The user itinerary"
+    }
+    axios
+                  .post("http://localhost:8000/Tickets/email", 
+                    obj
+                  )
+                  .then((res) => {
+                    console.log("mail sent");
+                  }).catch((err) => {
+                    console.log(err)
+                  })
   };
   const handleDelete = () => {
     const con = window.confirm(
@@ -198,7 +192,7 @@ function Booking(props) {
     }
   };
   const handleEmailItinerary = () => {
-    //TANTAWY WRITE YOUR METHOD HERE THIS WILL BE CALLED ON PRESS TANTAWY PLS TANTAAAWYYYYYYYYYYYYYYYYY
+    sendMail();
   };
   const handleDeleteBackEnd = () => {
     console.log(props.p.Tickets);
@@ -459,6 +453,7 @@ function Booking(props) {
               ReturnFlight={returnFlight}
               awayCabin={props.p.Tickets[0].AwayCabin}
               returnCabin={props.p.Tickets[0].ReturnCabin}
+              userEmail={user.Email}
             />
           </Popover>
         </div>

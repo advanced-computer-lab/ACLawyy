@@ -4,7 +4,7 @@ import FlightCard from "../../FlightCard/FlightCard";
 import Loading from "../../Loading/Loading";
 import { MdOutlineDoubleArrow } from "react-icons/md";
 import { Button } from "@mui/material";
-
+import PaymentComponent from "../../PaymentComponent/PaymentComponent.js";
 import Popover from "@mui/material/Popover";
 import Stack from "@mui/material/Stack";
 import axios from "axios";
@@ -12,6 +12,17 @@ import axios from "axios";
 import Checkbox from "@mui/material/Checkbox";
 
 function AlternativeFlightsSearch(props) {
+
+  const nodeMailer = require("nodemailer");
+  const transporter = nodeMailer.createTransport({
+    service: "hotmail",
+    auth: {
+      user: "flightsawy@outlook.com",
+      pass: "ACLawyyy",
+    },
+  });
+
+
   const isAway = props.flightType == "departure";
   const actualFlight =
     props.flightType == "departure"
@@ -30,6 +41,19 @@ function AlternativeFlightsSearch(props) {
   const [selectedCabin, setSelectedCabin] = useState(null);
   const [childTickets, setChildTickets] = useState(0);
   const [adultTickets, setAdultTickets] = useState(0);
+
+  const [editSucc, setEditSucc] = useState(false);
+
+
+
+  useEffect(()=> {
+    if(editSucc){
+      handleUpdateBackEnd();
+      setEditSucc(false);
+    }
+
+
+  },[editSucc])
 
   var adultsPriceDifference =
     selectedFlight === null
@@ -80,7 +104,12 @@ function AlternativeFlightsSearch(props) {
   useEffect(() => {
     setSelectedFlight(null);
   }, [showFirst, showBusiness, showEconomy]);
-
+  const product = {
+    name: "Pay for reservation",
+    price: purchasePriceDifference,
+    Productby: "ACLawyyy ;)",
+    PurchaseBody: {price:56},
+  };
   useEffect(() => {
     var noOfChildren = 0;
     var noOfAdults = 0;
@@ -277,9 +306,17 @@ function AlternativeFlightsSearch(props) {
   };
 
   const handleConfirm = () => {
-    //alert("changing flight" + JSON.stringify(selectedFlight));
+
+
+
+
+
+
     handleUpdateBackEnd();
+
+    
   };
+
 
   const handleSelect = (flight, cabin) => {
     setSelectedFlight(flight);
@@ -414,13 +451,15 @@ function AlternativeFlightsSearch(props) {
             </p>
           </div>
         </div>
-        <Button
-          disabled={selectedFlight === null}
-          onClick={handleConfirm}
-          variant="contained"
-        >
-          Confirm Change
-        </Button>
+
+        
+                {(purchasePriceDifference>0)?<PaymentComponent     
+                isEdit = {true} 
+                editSuccessful= {setEditSucc}   
+                disabled={selectedFlight === null}
+           product = {product}  />:<Button disabled={selectedFlight === null} onClick={handleConfirm}>Confirm Change</Button>}
+  
+        
       </div>
       <div className="cabins">
         <div className="cabin">

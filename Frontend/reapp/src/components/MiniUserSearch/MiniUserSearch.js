@@ -11,6 +11,24 @@ import Typography from "@mui/material/Typography";
 import { inflateSync } from "zlib";
 
 function MiniUserSearch(props) {
+
+
+  const formatCityName = (name) => {
+    let formattedName = name.trim();
+    formattedName = formattedName.toLowerCase();
+
+    for (var i = 0; i < formattedName.length; i++) {
+      if (i === 0 || (i > 0 && formattedName.charAt(i - 1) === " ")) {
+        formattedName =
+          formattedName.substring(0, i) +
+          formattedName.charAt(i).toUpperCase() +
+          formattedName.substring(i + 1);
+      }
+    }
+    return formattedName;
+  };
+
+
   const [departureCityC, setDepartureCity] = useState("");
   const [arrivalCityC, setArrivalCity] = useState("");
   const [passengersC, setPassengers] = useState(0);
@@ -73,47 +91,58 @@ function MiniUserSearch(props) {
     <div className="container70">
       <div className="alldetails">
         <Stack spacing={2}>
-          <div>
-            <TextField
+          <div className="Text1">
+            <TextField fullWidth label="fullWidth"
               id="outlined-basic"
               label="Departing City"
-              variant="outlined"
-              onChange={(e) => setDepartureCity(e.target.value)}
+              variant="standard"
+              size="xlarge"
+              inputProps={{style: {fontSize: 25}}}
+              InputLabelProps={{style: {fontSize: 25}}}
+
+              onChange={(e) => setDepartureCity(formatCityName(e.target.value))}
             />
           </div>
         </Stack>
         <Stack spacing={2}>
-          <div>
-            <TextField
+          <div className="Text1">
+            <TextField fullWidth label="fullWidth"
               id="outlined-basic"
               label="Arrival City"
-              variant="outlined"
-              onChange={(e) => setArrivalCity(e.target.value)}
+              variant="standard"
+              size="xlarge"
+              inputProps={{style: {fontSize: 25}}}
+              InputLabelProps={{style: {fontSize: 25}}}
+
+              onChange={(e) => setArrivalCity(formatCityName(e.target.value))}
             />
           </div>
         </Stack>
         <Stack spacing={2}>
-          <div>
-            <TextField
+          <div className="Text1">
+            <TextField fullWidth label="fullWidth"
               id="outlined-basic"
               label="Number of Passengers"
-              variant="outlined"
+              variant="standard"
               type="number"
+              size="xlarge"
+              inputProps={{style: {fontSize: 25}}}
+              InputLabelProps={{style: {fontSize: 25}}}
+          
               onChange={(e) => setPassengersBig(e)}
               value={passengersC}
             />
           </div>
         </Stack>
-      </div>
-      <Stack direction="row" spacing={10}>
-        <Button
+        <Button 
+        style={{maxWidth: '200px', maxHeight: '70px', minWidth: '170px', minHeight: '55px'}}
           disabled={isMissing()}
           variant="contained"
           onClick={handleSearchFlights}
         >
           Search
         </Button>
-      </Stack>
+      </div>
     </div>
   );
 }

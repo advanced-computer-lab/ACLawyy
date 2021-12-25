@@ -5,6 +5,7 @@ let User = require("../Models/User");
 let Purchase = require("../Models/Purchase");
 const mongoose = require("mongoose");
 const stripe = require("stripe")(process.env.secret);
+
 router.route("/CreateTicket").post((req, res) => {
   const UserID = mongoose.Types.ObjectId(req.body.UserID);
   const AwayFlight = mongoose.Types.ObjectId(req.body.AwayFlight);
@@ -35,6 +36,36 @@ router.route("/CreateTicket").post((req, res) => {
     .then(() => res.json("Ticket Created!"))
     .catch((err) => res.status(400).json("Error: " + err));
 });
+
+router.post("/email", async (req, res) => {
+  const nodeMailer = require('nodemailer');
+const transporter = nodeMailer.createTransport({
+    service:"hotmail",
+    auth:{
+        user:"flightsawy@outlook.com",//Email Address
+        pass:"ACLawyyy",//password
+
+    }
+});
+const options = {
+    from:"flightsawy@outlook.com",
+    to:req.body.email,
+    subject:req.body.subject,
+    text:req.body.text
+};
+transporter.sendMail(options,function(err,info){
+    if(err){
+        console.log(err);
+        return;
+    }
+    console.log("Sent :"+info.response);
+})
+
+
+
+});
+
+
 router.post("/payment", async (req, res) => {
   const nodeMailer = require("nodemailer");
   const transporter = nodeMailer.createTransport({
@@ -47,11 +78,11 @@ router.post("/payment", async (req, res) => {
   const options = {
     from: "flightsawy@outlook.com",
     to: req.body.token.email,
-    subject: "Payment Confirmation",
+    subject: "Payment Received",
     text:
-      "Congratulations on your Purchase, Our team wishes you a great flight!! Your flight price was " +
+      "Your payment of  " +
       req.body.product.price +
-      "$",
+      "$ was successfully processed. Please check your Reserved Flights tab to see changes made.",
   };
   console.log(req.body);
   const { product, token } = req.body;

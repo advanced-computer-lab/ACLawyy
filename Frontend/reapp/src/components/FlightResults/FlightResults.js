@@ -6,9 +6,11 @@ import FlightCard from "../FlightCard/FlightCard";
 import FlightsSummary from "../FlightsSummary/FlightsSummary";
 import Popover from "@mui/material/Popover";
 import Stack from "@mui/material/Stack";
+import Alert from '@mui/material/Alert';
 import axios from "axios";
 
 import UserSearch from "../FlightsSummary/FlightsSummary";
+
 
 const checkIfAfterDeparture = (flight1, flight2) => {
   const depDate = new Date(flight1.DepartureDate);
@@ -18,24 +20,34 @@ const checkIfAfterDeparture = (flight1, flight2) => {
 };
 
 function FlightResults(props) {
+var padding=props.columns?"120px":"0";
+var space=props.columns?1:5;
+
   const [flights, setFlights] = useState([]);
   const [inboundFlight, setInboundFlight] = useState(null);
   const [outboundFlight, setOutboundFlight] = useState(null);
   const [outboundCabin, setOutboundCabin] = useState(null);
   const [inboundCabin, setInboundCabin] = useState(null);
   const [anchorEl, setAnchorEl] = React.useState(null);
+  //const [showError, setShowError]= useState(false);
   const outFlights = props.outFlights;
   const inFlights = props.inFlights;
   const adults = props.adults;
   const children = props.children;
   console.log(props.userID);
   const handleClick = (event) => {
-    if (checkIfAfterDeparture(outboundFlight, inboundFlight))
+    if (checkIfAfterDeparture(outboundFlight, inboundFlight)){
+
       setAnchorEl(event.currentTarget);
-    else
-      window.alert(
-        "You can't select a return flight with a date earlier than your away flight, please reselect"
-      );
+     // setShowError(false);
+    }
+    else{
+
+      //setShowError(true);
+        window.alert(
+          "You can't select a return flight with a date earlier than your away flight, please reselect"
+        );
+    }
   };
 
   const handleClose = () => {
@@ -83,12 +95,12 @@ function FlightResults(props) {
 
   return (
     <div className="container1">
-      <Stack direction="row" spacing={5}>
+      <Stack direction={props.columns?"column":"row"} spacing={space}>
         <div className="outbound">
           <h2 style={{ textAlign: "center" }}>Away</h2>
 
           {outFlights.map((flight) => (
-            <Stack direction="column" spacing={2}>
+            <Stack direction={props.columns?"row":"column"} spacing={2}>
               {props.econ && props.enoughSeats(flight, "economy") ? (
                 <FlightCard
                   key={flight._id + "e"}
@@ -147,10 +159,10 @@ function FlightResults(props) {
           ></FlightsSummary>
         </Popover>
 
-        <div className="inbound">
+        <div className="inbound" style={{paddingLeft:padding}}>
           <h2 style={{ textAlign: "center" }}>Return</h2>
           {inFlights.map((flight) => (
-            <Stack direction="column" spacing={2}>
+            <Stack direction={props.columns?"row":"column"}  spacing={2}>
               {props.isSmol ||
               (props.isAfter(flight) &&
                 props.econ &&
@@ -199,6 +211,7 @@ function FlightResults(props) {
       >
         Select
       </Button>
+      
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import "./App.css";
 import React, { useState, useEffect } from "react";
-import AdminPage from "./components/AdminPage";
+import AdminPage from "./components/AdminPage/AdminPage.js";
 import AdminHome from "./components/AdminHome";
 import NavBar from "./components/NavBar";
 import UserHome from "./components/UserHome/UserHome";
@@ -50,7 +50,7 @@ function App() {
     <Router>
       <div>
         <Switch>
-          <Route exact path="/home"   element={
+          <Route exact path="/"   element={
           <UserHome UserID={ReactSession.get("id")}/>}></Route>
           <Route exact path="/booking"   element={<BookAFlight UserID={ReactSession.get("id")}/>}></Route>
           
@@ -69,7 +69,7 @@ function App() {
           ></Route>
          <Route
             exact
-            path="/"
+            path="/login"
             element={<Login  setUserID = {setUserID} setUserType = {setUserType}/>}
           ></Route>
            <Route
@@ -79,19 +79,20 @@ function App() {
           ></Route>
           <Route path="/chooseSeats/:seatParams" element={<Seats />}></Route>
 
-          <Route path="/adminhome2" element={ <AdminPage />}></Route>
+          {ReactSession.get("userType")==0&&<Route path="/adminhome" element={ <AdminHome />}></Route>}
 
+          {ReactSession.get("userType")==0&&<Route path="/manageflights" element={ <AdminPage />}></Route>}
           </Switch>
       </div>
       <NavBar type={ReactSession.get("userType")}  />
       <BottomPage class="BottomPage" />
     </Router>
   );
-
+  
   return (
     <div style={{ height: 400, width: "100%" }}>
-      <AdminPage currPage={currPage} />
       <NavBar type="0" goTo={setCurrPage} />
+      <AdminPage currPage={currPage} />
     </div>
   );
 }

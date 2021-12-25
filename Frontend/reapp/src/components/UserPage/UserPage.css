@@ -74,6 +74,7 @@
 }
 .Submit {
   position: relative;
+  left: -3%;
   top: 25%;
   width: 250px;
   height: 50px;
@@ -82,7 +83,7 @@
 .PopOver-mobile {
   position: relative;
   top: 25%;
-  left: -90%;
+  left: -120%;
   width: 200px;
   height: 50px;
   font-size: 10pt;
@@ -91,7 +92,7 @@
 .PopOver-changePass {
   position: relative;
   top: 25%;
-  left: 3%;
+  left: -20%;
   right: 0cm;
   width: 250px;
   height: 50px;
@@ -111,4 +112,7 @@
 .TextBox-mob{
 width:92%;
 
+}
+.changePop{
+  padding: 40 px;
 }
