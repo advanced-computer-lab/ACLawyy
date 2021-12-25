@@ -1,7 +1,7 @@
 # Airline Reservation System: ACLawyy
 
 
-## Flight Awy
+## Flights Awy
 Our project is a Website implemented using MERN stack that helps Airlines be more accessible online and through it, an admin manages the available flights from one end and the user is able to search and view the available flight to book his/her desirable flights from the other end . 
 
 ## Motivation 
