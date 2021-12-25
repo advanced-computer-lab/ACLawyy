@@ -94,7 +94,7 @@ function Seats(prop) {
 
   function handleSeatsBusiness(index, businessCss) {
 
-    if (chosen < nbOfSeats && businessCss == "bsuiness"&&index!=newSeat) {
+    if (chosen < nbOfSeats && businessCss == "business"&&index!=newSeat) {
       console.log("seat is", index);
       let list = [...BusinessAvailable];
       console.log("now it's index in list is ", list[index]);

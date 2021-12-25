@@ -5,9 +5,9 @@ import { Button } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import PermIdentityIcon from "@mui/icons-material/PermIdentity";
 import ChildCareIcon from "@mui/icons-material/ChildCare";
-
+import Alert from '@mui/material/Alert';
 import axios from "axios";
-
+import Link from '@mui/material/Link';
 import { ReactSession } from "react-client-session";
 const calculatePrice = (flight, cabin) => {
   if (cabin == "first") return 2 * flight.EconomyPrice;
@@ -315,7 +315,9 @@ function FlightsSummary(props) {
         <Button variant="outlined" disabled = {ReactSession.get("userType") != "1"} onClick={confirmPurchase}>
           <h4>Reserve</h4>
         </Button>
+        
       </Stack>
+      {ReactSession.get("userType") != "1"&& <Alert severity="warning">You must <Link href="http://localhost:3000/login" variant="body2">Sign in</Link> to reserve the flights </Alert>}
     </div>
   );
 }

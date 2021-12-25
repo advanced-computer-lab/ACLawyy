@@ -51,7 +51,7 @@ export default function SignIn(props) {
   const handleSignIn = () => {
     const user = 
       {
-        Username : username,
+        Username : username.toLowerCase(),
         Password: password
       }
     axios

@@ -88,7 +88,8 @@ function AlternativeFlightsSearch(props) {
               ? 2
               : 1)) *
         childTickets;
-  var purchasePriceDifference = childrenPriceDifference + adultsPriceDifference;
+  
+  
   var flightPriceDifference =
     selectedFlight === null
       ? 0
@@ -100,7 +101,8 @@ function AlternativeFlightsSearch(props) {
             : 1) -
         actualFlight.EconomyPrice *
           (actualCabin === "business" ? 1.5 : actualCabin === "first" ? 2 : 1);
-
+  var purchasePriceDifference = (flightPriceDifference)*(adultTickets) + (flightPriceDifference)*(childTickets) * 0.5  ;
+ 
   useEffect(() => {
     setSelectedFlight(null);
   }, [showFirst, showBusiness, showEconomy]);
@@ -114,7 +116,7 @@ function AlternativeFlightsSearch(props) {
     var noOfChildren = 0;
     var noOfAdults = 0;
     for (let i = 0; i < props.p.Tickets.length; i++) {
-      if (props.p.Tickets[i].type == "Child") {
+      if (props.p.Tickets[i].Type == "Child") {
         noOfChildren += 1;
       } else {
         noOfAdults += 1;
@@ -122,6 +124,7 @@ function AlternativeFlightsSearch(props) {
     }
     setAdultTickets(noOfAdults);
     setChildTickets(noOfChildren);
+   
   }, []);
 
   const handleUpdateBackEnd = () => {
@@ -465,8 +468,8 @@ function AlternativeFlightsSearch(props) {
         <div className="cabin">
           <Checkbox
             color="primary"
-            checked={showFirst}
-            onChange={(e) => setShowFirst((prev) => !prev)}
+            checked={showFirst && childTickets == 0 }
+            onChange={(e) => setShowFirst((prev) => !prev && childTickets == 0 )}
           />
           <h5> Bourgeoisie Purple </h5>
         </div>

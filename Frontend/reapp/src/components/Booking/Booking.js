@@ -489,16 +489,16 @@ function BasicList(props) {
       <Divider />
       <nav aria-label="secondary mailbox folders">
         <List>
-          <ListItem disablePadding>
+          {props.paid&&<ListItem disablePadding>
             <ListItemButton onClick={props.onClickDep}>
               <ListItemText primary="Change Departure Flight" />
             </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
+          </ListItem>}
+          {props.paid&&<ListItem disablePadding>
             <ListItemButton onClick={props.onClickRet}>
               <ListItemText primary="Change Return Flight" />
             </ListItemButton>
-          </ListItem>
+          </ListItem>}
           <ListItem disablePadding>
             <ListItemButton onClick={props.sendMail}>
               <ListItemText primary="Email itinerary to self" />
