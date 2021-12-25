@@ -163,7 +163,7 @@ function Booking(props) {
       );
   }
   const sendMail = () => {
-    alert("mail sent");
+  
     const obj = {
       email: user.Email,
       subject: "Itinerary",
@@ -172,7 +172,7 @@ function Booking(props) {
     axios
       .post("http://localhost:8000/Tickets/email", obj)
       .then((res) => {
-        console.log("mail sent");
+        alert("Please check your email, the details of your flight have been sent.");
       })
       .catch((err) => {
         console.log(err);

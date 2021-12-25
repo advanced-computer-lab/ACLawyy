@@ -19,11 +19,44 @@ function FlightsSummary(props) {
   const { flight1, cabin1, flight2, cabin2, adults, children, u } = props;
   const price1 = calculatePrice(flight1, cabin1);
   const price2 = calculatePrice(flight2, cabin2);
-
+  const [user,setUser] = useState();
   //const userID = props.userID;
   const userID = ReactSession.get("id");
+
+  useEffect(() => {
+    axios
+      .post("http://localhost:8000/Users/getUserDetails", {
+        UserID: userID,
+      })
+      .then((res) => {
+        setUser(res.data);
+
+      })
+      .catch(() => {
+        alert("error");
+      });
+  }, []);
+
+    const sendMail = () => {
+  
+    const obj = {
+      email: user.Email,
+      subject: "Itinerary",
+      text: "Dear "+user.FirstName+",\n"+"You booked "+adults+" adult ticket and "+children+" child tickets from "+flight1.DepartureCity+" to "+flight1.ArrivalCity+" and back\n"+"The flight leaves on "+flight1.DepartureDate+" at "+flight1.DepartureTime+" From "+flight1.DepartureAirport+" Airport and you will arrive at "+flight1.ArrivalAirport+" Airport\n"+"Your total booking cost is "+(price1+price2)+" $.\n"+"We wish you safe travels.\n"+"Flights awyy;)",
+    };
+    alert(obj.text);
+    axios
+      .post("http://localhost:8000/Tickets/email", obj)
+      .then((res) => {
+        alert("Please check your email, the details of your flight have been sent.");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   const confirmPurchase = () =>{
       confirmPurchase2();
+      
   }
   const confirmPurchase2 = () => {
     const adultTicket = {
@@ -127,7 +160,7 @@ function FlightsSummary(props) {
                             .catch(() => {
                               alert("error");
                             });
-
+                            sendMail();
                           window.location.href = `/payment/${JSON.stringify(
                             purchaseBody
                           )}`;
@@ -197,7 +230,7 @@ function FlightsSummary(props) {
                                   .catch(() => {
                                     alert("error");
                                   });
-
+                                  sendMail();
                                 window.location.href = `/payment/${JSON.stringify(
                                   purchaseBody
                                 )}`;

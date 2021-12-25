@@ -94,13 +94,13 @@ var space=props.columns?1:5;
   };
 
   return (
-    <div className="container1">
-      <Stack direction={props.columns?"column":"row"} spacing={space}>
-        <div className="outbound">
+    <div className="containerx">
+      <Stack direction="row" spacing={space}>
+        <div className="outboundx">
           <h2 style={{ textAlign: "center" }}>Away</h2>
 
           {outFlights.map((flight) => (
-            <Stack direction={props.columns?"row":"column"} spacing={2}>
+            <Stack direction="column" spacing={2}>
               {props.econ && props.enoughSeats(flight, "economy") ? (
                 <FlightCard
                   key={flight._id + "e"}
@@ -159,7 +159,7 @@ var space=props.columns?1:5;
           ></FlightsSummary>
         </Popover>
 
-        <div className="inbound" style={{paddingLeft:padding}}>
+        <div className="inboundx" style={{paddingLeft:padding}}>
           <h2 style={{ textAlign: "center" }}>Return</h2>
           {inFlights.map((flight) => (
             <Stack direction={props.columns?"row":"column"}  spacing={2}>

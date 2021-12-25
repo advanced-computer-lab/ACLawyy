@@ -26,16 +26,17 @@
   gap: 10px 10px;
   justify-content: space-between;
 }
-.outbound {
+.outboundx {
   padding-left: 50px;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   row-gap: 10px;
   margin-left: 60px;
+  position: relative;
   margin-top: 60px;
 }
-.inbound {
+.inboundx {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
@@ -46,7 +47,7 @@
   top: 60px;
 }
 
-.container1 {
+.containerx {
   display: flex;
   flex-direction: row;
   position: relative;
