@@ -151,10 +151,10 @@ function BlockTextFields(props) {
   } else if (props.type === 1) {
     //search
     return (
-      <div className="block">
+      <div className="blockkkk">
         <label className="flightInfo">Flight Information</label>
-        <div className="container">
-          <div className="field">
+        <div className="containerrrr">
+          <div className="fieldddd">
             <TextField
               id="flightNumber"
               label="Flight Number"
@@ -162,7 +162,7 @@ function BlockTextFields(props) {
               onChange={(e) => setFlightNumber(e.target.value)}
             />
           </div>
-          <div className="field">
+          <div className="fieldddd">
             <TextField
               id="baggageAllowance"
               label="Baggage Allowance"
@@ -171,7 +171,7 @@ function BlockTextFields(props) {
               onChange={(e) => setBaggageAllowance(e.target.value)}
             />
           </div>
-          <div className="field">
+          <div className="fieldddd">
             <TextField
               id="economyPrice"
               label="Basic Price"
@@ -180,8 +180,8 @@ function BlockTextFields(props) {
             />
           </div>
         </div>
-        <div className="container">
-          <div className="field">
+        <div className="containerrrr">
+          <div className="fieldddd">
             <TextField
               id="firstClassSeats"
               label="First Class Seats"
@@ -190,7 +190,7 @@ function BlockTextFields(props) {
               onChange={(e) => setFirstClassSeats(e.target.value)}
             />
           </div>
-          <div className="field">
+          <div className="fieldddd">
             <TextField
               id="businessClassSeats"
               label="Business Class Seats"
@@ -199,7 +199,7 @@ function BlockTextFields(props) {
               onChange={(e) => setBusinessClassSeats(e.target.value)}
             />
           </div>
-          <div className="field">
+          <div className="fieldddd">
             <TextField
               id="economyClassSeats"
               label="Economy Class Seats"
@@ -210,17 +210,17 @@ function BlockTextFields(props) {
           </div>
         </div>
 
-        <div className="align">
+        <div className="alignnnn">
           <div>
             <label className="depInfo">Departure Information</label>
-            <div className="container">
-              <div className="field">
+            <div className="containerrrr">
+              <div className="fieldddd">
                 <BasicDatePicker
                   label="Departure Date"
                   changeHandler={setDepartureDate}
                 />
               </div>
-              <div className="field">
+              <div className="fieldddd">
                 <TextField
                   id="depatureAirport"
                   label="Departure Airport"
@@ -229,14 +229,14 @@ function BlockTextFields(props) {
                 />
               </div>
             </div>
-            <div className="container">
-              <div className="field">
+            <div className="containerrrr">
+              <div className="fieldddd">
                 <BasicTimePicker
                   label="Departure Time"
                   changeHandler={setDepartureTime}
                 />
               </div>
-              <div className="field">
+              <div className="fieldddd">
                 <TextField
                   id="depatureCity"
                   label="Departure City"
@@ -249,14 +249,14 @@ function BlockTextFields(props) {
           <div>
             <label className="depInfo">Arrival Information</label>
 
-            <div className="container">
-              <div className="field">
+            <div className="containerrrr">
+              <div className="fieldddd">
                 <BasicDatePicker
                   label="Arrival Date"
                   changeHandler={setArrivalDate}
                 />
               </div>
-              <div className="field">
+              <div className="fieldddd">
                 <TextField
                   id="arrivalAirport"
                   label="Arrival Airport"
@@ -265,14 +265,14 @@ function BlockTextFields(props) {
                 />
               </div>
             </div>
-            <div className="container">
-              <div className="field">
+            <div className="containerrrr">
+              <div className="fieldddd">
                 <BasicTimePicker
                   label="Arrival Time"
                   changeHandler={setArrivalTime}
                 />
               </div>
-              <div className="field">
+              <div className="fieldddd">
                 <TextField
                   id="arrivalCity"
                   label="Arrival City"
@@ -283,7 +283,7 @@ function BlockTextFields(props) {
             </div>
           </div>
         </div>
-        <div className="block-button">
+        <div className="block-buttonnnn">
           <Button
             variant="contained"
             color="error"
@@ -306,10 +306,11 @@ function BlockTextFields(props) {
   } else {
     //create
     return (
-      <div className="block">
+      <div className="blockkkk">
         <label className="flightInfo">Flight Information</label>
-        <div className="container">
-          <div className="field">
+        <div classname = "bothcontainers">
+        <div className="containerrrr">
+          <div className="fieldddd">
             <TextField
               id="flightNumber"
               label="Flight Number"
@@ -317,7 +318,7 @@ function BlockTextFields(props) {
               onChange={(e) => setFlightNumber(e.target.value)}
             />
           </div>
-          <div className="field">
+          <div className="fieldddd">
             <TextField
               id="baggageAllowance"
               label="Baggage Allowance"
@@ -326,7 +327,7 @@ function BlockTextFields(props) {
               onChange={(e) => setBaggageAllowance(e.target.value)}
             />
           </div>
-          <div className="field">
+          <div className="fieldddd">
             <TextField
               id="economyPrice"
               label="Basic Price"
@@ -335,8 +336,8 @@ function BlockTextFields(props) {
             />
           </div>
         </div>
-        <div className="container">
-          <div className="field">
+        <div className="containerrrr">
+          <div className="fieldddd">
             <TextField
               id="firstClassSeats"
               label="First Class Seats"
@@ -345,7 +346,7 @@ function BlockTextFields(props) {
               onChange={(e) => setFirstClassSeats(e.target.value)}
             />
           </div>
-          <div className="field">
+          <div className="fieldddd">
             <TextField
               id="businessClassSeats"
               label="Business Class Seats"
@@ -354,7 +355,7 @@ function BlockTextFields(props) {
               onChange={(e) => setBusinessClassSeats(e.target.value)}
             />
           </div>
-          <div className="field">
+          <div className="fieldddd">
             <TextField
               id="economyClassSeats"
               label="Economy Class Seats"
@@ -364,18 +365,19 @@ function BlockTextFields(props) {
             />
           </div>
         </div>
+        </div>
 
-        <div className="align">
+        <div className="alignnnn">
           <div>
             <label className="depInfo">Departure Information</label>
-            <div className="container">
-              <div className="field">
+            <div className="containerrrr">
+              <div className="fieldddd">
                 <BasicDatePicker
                   label="Departure Date"
                   changeHandler={setDepartureDate}
                 />
               </div>
-              <div className="field">
+              <div className="fieldddd">
                 <TextField
                   id="depatureAirport"
                   label="Departure Airport"
@@ -384,14 +386,14 @@ function BlockTextFields(props) {
                 />
               </div>
             </div>
-            <div className="container">
-              <div className="field">
+            <div className="containerrrr">
+              <div className="fieldddd">
                 <BasicTimePicker
                   label="Departure Time"
                   changeHandler={setDepartureTime}
                 />
               </div>
-              <div className="field">
+              <div className="fieldddd">
                 <TextField
                   id="depatureCity"
                   label="Departure City"
@@ -404,14 +406,14 @@ function BlockTextFields(props) {
           <div>
             <label className="depInfo">Arrival Information</label>
 
-            <div className="container">
-              <div className="field">
+            <div className="containerrrr">
+              <div className="fieldddd">
                 <BasicDatePicker
                   label="Arrival Date"
                   changeHandler={setArrivalDate}
                 />
               </div>
-              <div className="field">
+              <div className="fieldddd">
                 <TextField
                   id="arrivalAirport"
                   label="Arrival Airport"
@@ -420,14 +422,14 @@ function BlockTextFields(props) {
                 />
               </div>
             </div>
-            <div className="container">
-              <div className="field">
+            <div className="containerrrr">
+              <div className="fieldddd">
                 <BasicTimePicker
                   label="Arrival Time"
                   changeHandler={setArrivalTime}
                 />
               </div>
-              <div className="field">
+              <div className="fieldddd">
                 <TextField
                   id="arrivalCity"
                   label="Arrival City"
@@ -438,7 +440,7 @@ function BlockTextFields(props) {
             </div>
           </div>
         </div>
-        <div className="block-button">
+        <div className="block-buttonnnn">
           <Button
             variant="contained"
             color="error"
