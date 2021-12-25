@@ -210,11 +210,11 @@ var space=props.columns?1:5;
 
       </Stack>
 
-      
+    
     </div>
-<div className="selectbutt">
+    <div className="selectbuttx">
 <Button
-
+style={{maxWidth: '200px', maxHeight: '50px', minWidth: '170px', minHeight: '55px'}}
 disabled={!bothSelected()}
 variant="contained"
 onClick={handleClick}

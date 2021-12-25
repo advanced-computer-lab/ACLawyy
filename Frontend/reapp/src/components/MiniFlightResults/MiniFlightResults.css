@@ -31,7 +31,7 @@
   flex-direction: column;
   flex-wrap: wrap;
   row-gap: 10px;
-  margin-left: 60px;
+
   position: absolute;
   margin-top: 60px;
   z-index: 100;
@@ -42,9 +42,9 @@
   flex-wrap: wrap;
   row-gap: 10px;
   position: absolute;
-  margin-left: 60px;
+  left: 50px;
   margin-top: 60px;
-  left : 110px;
+
   top: 260px;
   z-index: 10;
 }
@@ -54,12 +54,12 @@
   display: flex;
   flex-direction: row;
   position: relative;
-  top : -80px;
+  top : -80px; 
 
 }
-.selectbutt{
+.selectbuttx{
 
-  position: relative;
-  right : 50px;
+  position: absolute;
+  right : 100px;
   bottom : 50 px;
 }
