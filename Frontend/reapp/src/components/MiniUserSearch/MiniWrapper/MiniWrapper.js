@@ -53,7 +53,7 @@ function MiniWrapper(props) {
           <SlideShow />
           </div>
         <div className="search-div">
-          <div className="actual-search">
+          <div className="actual-search"> 
             <MiniUserSearch onSearch={handleSearch} />
           </div>
         </div>
