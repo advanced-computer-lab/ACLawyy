@@ -167,7 +167,7 @@ function Booking(props) {
     const obj = {
       email: user.Email,
       subject: "Itinerary",
-      text: "Dear "+user.FirstName+",\n"+"You booked "+adults+" adult ticket and "+children+" child tickets from "+awayFlight.DepartureCity+" to "+awayFlight.ArrivalCity+" and back\n"+"Your booking cost: "+props.p.TotalPrice+" $.\n"+"We wish you safe travels.\n"+"Flights awyy;)",
+      text: "Dear "+user.FirstName+",\n"+"You booked "+adults+" adult ticket and "+children+" child tickets from "+awayFlight.DepartureCity+" to "+awayFlight.ArrivalCity+" and back\n"+"The flight leaves on "+awayFlight.DepartureDate+" at "+awayFlight.DepartureTime+" From "+awayFlight.DepartureAirport+" Airport and you will arrive at "+awayFlight.ArrivalAirport+" Airport\n"+"Your total booking cost is "+props.p.TotalPrice+" $.\n"+"We wish you safe travels.\n"+"Flights awyy;)",
     };
     axios
       .post("http://localhost:8000/Tickets/email", obj)
