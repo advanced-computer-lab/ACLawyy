@@ -8,7 +8,7 @@ import galaxy from "./galaxy.png";
 function Offers() {
   return (
     <div class="big-div">
-      <div class="container">
+      <div class="containerExplore">
         <div class="card">
           <div class="card__thumb">
             <img
