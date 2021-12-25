@@ -334,7 +334,7 @@ export function UserPage(props) {
           anchorEl={anchorEl2}
           onClose={handleClose2}
           anchorReference="anchorPosition"
-          anchorPosition={{ top: 350, left: 350 }}
+          anchorPosition={{ top: 230, left: 550 }}
           anchorOrigin={{
             vertical: "center",
             horizontal: "left",
@@ -365,7 +365,7 @@ export function UserPage(props) {
           }}
         >
           <div className="mobilePopOut">
-            <h1>Phonenumbers </h1>
+            <h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Phone Numbers </h1>
             {user.TelephoneNumbers.map((Number, index) => (
               <div className="current-mobile">
                 <TextField

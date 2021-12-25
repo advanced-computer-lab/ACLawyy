@@ -14,8 +14,11 @@ export default function ChangePassword(props) {
     const [showSuccess, setShowSuccess]= useState(false);
     const [close,setClose]=useState(false);
     const [change, setChange]= useState(true);
-
+    const handleClose = ()=>{
+      this.handleRequestClose();
+    }
     const handleChangePassword = () => {
+      
         
         const user = 
         {
@@ -64,14 +67,17 @@ export default function ChangePassword(props) {
   };
 
     return(
-      <div>
-        <Grid container spacing={2}>
-             <Grid item xs={16} sm={12} >
-            <h1> Change Password</h1>
+      <div classname = "changePassKollaha">
+        
+          <div classname = "bigPop">
+          
+            <h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Change Password</h1>
 
-             </Grid>
+        
+          </div>
+             
                 
-              <Grid item xs={16} sm={12}>
+              
                 <TextField
                   autoComplete="given-name"
                   name="oldPassword"
@@ -85,8 +91,8 @@ export default function ChangePassword(props) {
                 }
                 autoFocus
                 />
-              </Grid>
-              <Grid item xs={16} sm={12}>
+              
+              
                 <TextField
                   required
                   fullWidth
@@ -100,21 +106,23 @@ export default function ChangePassword(props) {
                 type="Password"
                 
                 />
-                </Grid>
+                
                 <Grid item xs={16} sm={12}>
                 {showError &&<Alert severity="error">Incorrect Old Password!</Alert>}
                 {showSuccess && <Alert severity="success">You successfully Changed your Password!</Alert>}
                 </Grid>
                 {close && <Button
+                
               type="submit"
               fullWidth
               variant="contained"
-              onClick = {handleChangePassword}
+              disabled = {true}
               sx={{ mt: 3, mb: 2 }}
               >
-              Close Window
+             Click Outside Window to Close
             </Button> }  
               {change && <Button
+              classname = "changebutton"
               type="submit"
               fullWidth
               variant="contained"
@@ -123,20 +131,12 @@ export default function ChangePassword(props) {
               >
               Change Password
             </Button>}
-                </Grid>
+                
                
               
-    )
+    
 
-      <Button
-        type="submit"
-        fullWidth
-        variant="contained"
-        onClick={handleChangePassword}
-        sx={{ mt: 3, mb: 2 }}
-      >
-        Change Password;
-      </Button>
+      
     </div>
   );
 }
