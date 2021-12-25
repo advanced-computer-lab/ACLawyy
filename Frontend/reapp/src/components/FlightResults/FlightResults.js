@@ -6,6 +6,7 @@ import FlightCard from "../FlightCard/FlightCard";
 import FlightsSummary from "../FlightsSummary/FlightsSummary";
 import Popover from "@mui/material/Popover";
 import Stack from "@mui/material/Stack";
+import Alert from '@mui/material/Alert';
 import axios from "axios";
 
 import UserSearch from "../FlightsSummary/FlightsSummary";
@@ -28,18 +29,25 @@ var space=props.columns?1:5;
   const [outboundCabin, setOutboundCabin] = useState(null);
   const [inboundCabin, setInboundCabin] = useState(null);
   const [anchorEl, setAnchorEl] = React.useState(null);
+  //const [showError, setShowError]= useState(false);
   const outFlights = props.outFlights;
   const inFlights = props.inFlights;
   const adults = props.adults;
   const children = props.children;
   console.log(props.userID);
   const handleClick = (event) => {
-    if (checkIfAfterDeparture(outboundFlight, inboundFlight))
+    if (checkIfAfterDeparture(outboundFlight, inboundFlight)){
+
       setAnchorEl(event.currentTarget);
-    else
-      window.alert(
-        "You can't select a return flight with a date earlier than your away flight, please reselect"
-      );
+     // setShowError(false);
+    }
+    else{
+
+      //setShowError(true);
+        window.alert(
+          "You can't select a return flight with a date earlier than your away flight, please reselect"
+        );
+    }
   };
 
   const handleClose = () => {
@@ -203,6 +211,7 @@ var space=props.columns?1:5;
       >
         Select
       </Button>
+      
     </div>
   );
 }
