@@ -737,7 +737,7 @@ export default App;
 
 
 ## Build Status 
-Our team implemented all the functional requirements in our project but we integrated some dummy data to make the website look more professional and aesthetically pleasing, like the loyalty club and the offers in the User Home page, and the analytics in the Admin Page. It would be more useful to make those features functional in the near future. 
+Our team implemented all the functional requirements in our project but we integrated some dummy data to make the website look more professional and aesthetically pleasing, like the loyalty club and the offers and the Frequently asked questions in the User Home page, and the analytics in the Admin Page. It would be more useful to make those features functional in the near future. 
 
 ## Extra Feature 
 We implemented an extra feature in our project which is the Forget Password feature. By clicking on the forget password link in the login page, an auto generated password is sent to the user by email. 
