@@ -10,10 +10,12 @@ Our project aims to create a smooth experience for both the manager and the clie
 ## Table of Content 
 ### 1. Key Functionalities  
 ### 2. Backend Structure
-### 3. How to Navigate through the project 
+### 3. Detailed Functionalities 
 ### 4. How the routing is done
-### 5. Installations 
-### 6. License 
+### 5. Build Status 
+### 6. Extra Feature
+### 7. Installations 
+### 8. License 
 
 ## Key Functionalities 
 The following Functionalities will be covered in this unit:
@@ -565,14 +567,6 @@ router.route("/DeletePurchase").post((req, res) => {
 ```
 
 
-
-
- 
-
-
-
-
-
 ## Detailed Functionalities
 Now that we explored how our backend works, in the following section, we will present in detail how each functionality works from the frontend by going through each user journey. 
 
@@ -646,11 +640,107 @@ Finally, The existing user can access their information through the profile icon
 ![userpage]()
 
 
+## How the routing is done
+Through the App.js we provide the fuction below that handles all the routing in our project using the react-client-session to keep track of the current user and react-router-dom for general navigation
+
+```javascript
+import { ReactSession } from "react-client-session";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes as Switch,
+  Link,
+} from "react-router-dom";
+
+ReactSession.setStoreType("localStorage");
+
+function App() {
+  const [currPage, setCurrPage] = useState(0);
+  const [seatProps, setSeatProps] = useState({});
+  // const [userID,setUserID] = useState (null);
+
+  //const [userType, setUserType] = useState(2);
+
+  const setUserID = (id) => {
+    ReactSession.set("id", id);
+  };
+  const setUserType = (type) => {
+    ReactSession.set("userType", type);
+  };
+
+  // useEffect (()=> {
+  //    ReactSession.set("userType", 2);
+  // },[])
+  return (
+    <Router>
+      <div>
+        <Switch>
+          <Route
+            exact
+            path="/"
+            element={<UserHome UserID={ReactSession.get("id")} />}
+          ></Route>
+          <Route
+            exact
+            path="/booking"
+            element={<BookAFlight UserID={ReactSession.get("id")} />}
+          ></Route>
+
+          <Route
+            exact
+            path="/profile"
+            element={<UserPage userID={ReactSession.get("id")} />}
+          ></Route>
+          <Route path="/payment/:purchaseBody" element={<Payment />}></Route>
+          <Route
+            exact
+            path="/reservedflights"
+            element={
+              <ReservedFlights
+                userID={ReactSession.get("id")}
+                onSeats={setSeatProps}
+              />
+            }
+          ></Route>
+          <Route
+            exact
+            path="/login"
+            element={<Login setUserID={setUserID} setUserType={setUserType} />}
+          ></Route>
+          <Route exact path="/register" element={<Register />}></Route>
+          <Route path="/chooseSeats/:seatParams" element={<Seats />}></Route>
+
+          {ReactSession.get("userType") == 0 && (
+            <Route path="/adminhome" element={<AdminHome />}></Route>
+          )}
+
+          {ReactSession.get("userType") == 0 && (
+            <Route path="/manageflights" element={<AdminPage />}></Route>
+          )}
+        </Switch>
+      </div>
+      <NavBar type={ReactSession.get("userType")} />
+      <BottomPage class="BottomPage" />
+    </Router>
+  );
+
+  return (
+    <div style={{ height: 400, width: "100%" }}>
+      <NavBar type="0" goTo={setCurrPage} />
+      <AdminPage currPage={currPage} />
+    </div>
+  );
+}
+export default App;
+
+```
 
 
+## Build Status 
+Our team implemented all the functional requirements in our project but we integrated some dummy data to make the website look more professional and aesthetically pleasing, like the loyalty club and the offers in the User Home page, and the analytics in the Admin Page. It would be more useful to make those features functional in the near future. 
 
-
-
+## Extra Feature 
+We implemented an extra feature in our project which is the Forget Password feature. By clicking on the forget password link in the login page, an auto generated password is sent to the user by email. 
 
 
 
