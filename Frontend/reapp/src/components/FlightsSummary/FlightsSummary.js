@@ -22,8 +22,10 @@ function FlightsSummary(props) {
 
   //const userID = props.userID;
   const userID = ReactSession.get("id");
-
-  const confirmPurchase = () => {
+  const confirmPurchase = () =>{
+      confirmPurchase2();
+  }
+  const confirmPurchase2 = () => {
     const adultTicket = {
       UserID: userID,
       AwayFlight: flight1._id,
@@ -310,7 +312,7 @@ function FlightsSummary(props) {
         </div>
       </Stack>
       <Stack direction="row" justifyContent="center">
-        <Button variant="outlined" onClick={confirmPurchase}>
+        <Button variant="outlined" disabled = {ReactSession.get("userType") != "1"} onClick={confirmPurchase}>
           <h4>Reserve</h4>
         </Button>
       </Stack>

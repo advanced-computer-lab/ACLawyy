@@ -41,10 +41,10 @@ function BlockTextFields(props) {
   }
 
   function handleSearchFlights() {
-    props.blockRemover();
-    handleAllFlights();
+
+  
     var obj = {};
-    props.blockRemover();
+
 
     if (flightNumberC.length !== 0) {
       obj = { ...obj, ["FlightNumber"]: flightNumberC };
@@ -106,6 +106,7 @@ function BlockTextFields(props) {
       .then((res) => {
         const x = res.data;
         props.searchHandler(x);
+        props.blockRemover();
         //alert("search? fy datagrid");
       })
       .catch((e) => {
@@ -119,8 +120,8 @@ function BlockTextFields(props) {
     axios
       .post("http://localhost:8000/Flights/CreateFlight", {
         FlightNumber: flightNumberC,
-        ArrivalDate: JSON.stringify(arrivalDateC).slice(0, 11),
-        DepartureDate: JSON.stringify(departureDateC).slice(0, 11),
+        ArrivalDate: JSON.stringify(arrivalDateC).slice(1, 11),
+        DepartureDate: JSON.stringify(departureDateC).slice(1, 11),
         DepartureAirport: departureAirportC,
         ArrivalAirport: arrivalAirportC,
         DepartureTime: JSON.stringify(departureTimeC).slice(12, 17),
@@ -138,6 +139,7 @@ function BlockTextFields(props) {
         alert(
           "Flight created successfully UwU, Please click show all flights to see your new flight!"
         );
+        handleAllFlights();
       })
       .catch(() => {
         alert("error");

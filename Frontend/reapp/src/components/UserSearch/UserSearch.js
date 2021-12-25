@@ -171,7 +171,7 @@ function UserSearch(props) {
       });
   }
   return (
-    <div className="container">
+    <div className="containerSearch">
       <div className="cabins">
         <div
           className="cabin"
@@ -289,7 +289,7 @@ function UserSearch(props) {
           </div>
         </Stack>
       </div>
-      <Stack direction="row" spacing={10}>
+      <Stack direction="row" spacing={10} marginTop={2} marginLeft={6}>
         <div>
           <BasicDatePicker
             label="Departing Date"

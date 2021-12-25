@@ -1,9 +1,12 @@
-.container {
+.containerSearch {
   margin-top: 100px;
   display: flex;
   flex-direction: column;
   position : relative;
   right : 0px;
+  width:600px;
+  margin-left: 10px;
+  height: 490px;
 }
 
 .cabin {
@@ -14,9 +17,6 @@
 .cabins {
   display: flex;
   flex-direction: row;
-
-
-
 }
 .details {
   display: flex;

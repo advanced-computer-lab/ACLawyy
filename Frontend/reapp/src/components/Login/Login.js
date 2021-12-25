@@ -72,9 +72,9 @@ export default function SignIn(props) {
 
       
        if (res.data.UserType == 0)
-        window.location.href = "http://localhost:3000/adminhome2";
+        window.location.href = "http://localhost:3000/adminhome";
        else 
-        window.location.href = "http://localhost:3000/home";
+        window.location.href = "http://localhost:3000/";
       }
 
     })

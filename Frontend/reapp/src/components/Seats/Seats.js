@@ -4,7 +4,9 @@ import axios from "axios";
 import { set } from "date-fns";
 import Button from "@mui/material/Button";
 import { useParams } from "react-router-dom";
-import plane from "./planeACL1.png";
+import plane from "./Tayara2.png";
+import Loading from "../Loading/Loading";
+
 
 //flightID and cabin type are props to seats function???
 //seat chosen needs to be tied to backend
@@ -12,6 +14,8 @@ function Seats(prop) {
   const [FirstClassSeats, setFirstClassSeats] = useState();
   const [BusinessSeats, setBusinessSeats] = useState();
   const [EconomySeats, setEconomySeats] = useState();
+  const [newSeat, setNewSeat] = useState(-1);
+
 
   const props = JSON.parse(useParams().seatParams);
   console.log("in seats with props", props);
@@ -23,6 +27,8 @@ function Seats(prop) {
 
   //const cabinType="economy";
   const cabinType = props.cabinType;
+
+  const SeatCabin= cabinType.charAt(0).toUpperCase();
 
   //const nbOfSeats= 100;
   const nbOfSeats = props.seats;
@@ -39,6 +45,8 @@ function Seats(prop) {
   const [FirstAvailable, setFirstAvailable] = useState([]);
   const [BusinessAvailable, setBusinessAvailable] = useState([]);
   const [EconomyAvailable, setEconomyAvailable] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     axios
       .post("http://localhost:8000/Flights/Search", { _id: flightID })
@@ -51,6 +59,7 @@ function Seats(prop) {
         setFirstAvailable(x[0].FirstClassSeatsAvailable);
         setBusinessAvailable(x[0].BusinessClassSeatsAvailable);
         setEconomyAvailable(x[0].EconomyClassSeatsAvailable);
+        setIsLoading(false);
       })
       .catch((e) => {
         alert("error");
@@ -59,44 +68,77 @@ function Seats(prop) {
   }, []);
   //to pick seat onClick:
   function handleSeatsFirst(index, firstCss) {
-    if (chosen < nbOfSeats && firstCss == "first") {
+    if (chosen < nbOfSeats && firstCss == "first"&&index!=newSeat) {
       console.log("seat is", index);
       let list = [...FirstAvailable];
       console.log("now it's index in list is ", list[index]);
-      list[index] = 2;
+      list[index] = 2; //0
       setFirstAvailable(list);
       console.log(list[index]);
       setChosen((prev) => prev + 1);
-    } else {
+      setNewSeat(index);
     }
+      else {
+        console.log("seat is", index);
+        let list = [...FirstAvailable];
+        console.log("now it's index in list is ", list[index]);
+        list[index] = 0; //0
+        setFirstAvailable(list);
+        console.log(list[index]);
+        setChosen((prev) => prev - 1);
+        setNewSeat(-1);
+    
+    } 
+    
   }
 
   function handleSeatsBusiness(index, businessCss) {
-    if (chosen < nbOfSeats && businessCss == "business") {
+
+    if (chosen < nbOfSeats && businessCss == "bsuiness"&&index!=newSeat) {
       console.log("seat is", index);
       let list = [...BusinessAvailable];
-      console.log(list[index]);
       console.log("now it's index in list is ", list[index]);
-      list[index] = 2;
+      list[index] = 2; //0
       setBusinessAvailable(list);
       console.log(list[index]);
       setChosen((prev) => prev + 1);
-    } else {
+      setNewSeat(index);
     }
+      else {
+        console.log("seat is", index);
+        let list = [...BusinessAvailable];
+        console.log("now it's index in list is ", list[index]);
+        list[index] = 0; //0
+        setBusinessAvailable(list);
+        console.log(list[index]);
+        setChosen((prev) => prev - 1);
+        setNewSeat(-1);
+    
+    } 
   }
 
   function handleSeatsEconomy(index, economyCss) {
-    if (chosen < nbOfSeats && economyCss == "economy") {
+    if (chosen < nbOfSeats && economyCss == "economy"&&index!=newSeat) {
       console.log("seat is", index);
       let list = [...EconomyAvailable];
-      console.log(list[index]);
       console.log("now it's index in list is ", list[index]);
-      list[index] = 2;
+      list[index] = 2; //0
       setEconomyAvailable(list);
       console.log(list[index]);
       setChosen((prev) => prev + 1);
-    } else {
+      setNewSeat(index);
     }
+      else {
+        console.log("seat is", index);
+        let list = [...EconomyAvailable];
+        console.log("now it's index in list is ", list[index]);
+        list[index] = 0; //0
+        setEconomyAvailable(list);
+        console.log(list[index]);
+        setChosen((prev) => prev - 1);
+        setNewSeat(-1);
+    
+    } 
   }
 
   function indexOfSeats(array) {
@@ -219,14 +261,12 @@ function Seats(prop) {
   } else if (cabinType == "business") {
     businessCss = "business";
   }
+if (isLoading)
+  return( <Loading />);
 
   return (
+    <div className= "SeatsBig">
     <div className="seats">
-      <h1 className="header">Seat selection: </h1>
-      <h2 className="header">
-        {" "}
-        {chosen} seat(s) out of {nbOfSeats} selected.{" "}
-      </h2>
       <div className="seatsTop">
         <ul className={firstCss}>
           {Array.from({ length: FirstAvailable.length / 4 }).map((_, index) => (
@@ -240,7 +280,11 @@ function Seats(prop) {
                   {" "}
                 </li>
               )}
-              {FirstAvailable[index] == 2 && <li className="selected"> </li>}
+              {FirstAvailable[index] == 2 && <li className="selected" onClick={() =>
+                    handleSeatsFirst(
+                      index,firstCss
+                    )
+                  }> </li>}
             </div>
           ))}
 
@@ -263,7 +307,12 @@ function Seats(prop) {
                 </li>
               )}
               {FirstAvailable[index + FirstAvailable.length / 4] == 2 && (
-                <li className="selected"> </li>
+                <li className="selected" onClick={() =>
+                  handleSeatsFirst(
+                    index + FirstAvailable.length / 4,
+                    firstCss
+                  )
+                }> </li>
               )}
             </div>
           ))}
@@ -282,7 +331,7 @@ function Seats(prop) {
                   </li>
                 )}
                 {BusinessAvailable[index] === 2 && (
-                  <li className="selected"> </li>
+                  <li className="selected" onClick={() => handleSeatsBusiness(index, businessCss)}> </li>
                 )}
               </div>
             )
@@ -306,7 +355,12 @@ function Seats(prop) {
                 </li>
               )}
               {BusinessAvailable[index + BusinessAvailable.length / 4] ===
-                2 && <li className="selected"> </li>}
+                2 && <li className="selected" onClick={() =>
+                  handleSeatsBusiness(
+                    index + BusinessAvailable.length / 4,
+                    businessCss
+                  )
+                }> </li>}
             </div>
           ))}
         </ul>
@@ -324,7 +378,7 @@ function Seats(prop) {
                   </li>
                 )}
                 {EconomyAvailable[index] === 2 && (
-                  <li className="selected"> </li>
+                  <li className="selected"  onClick={() => handleSeatsEconomy(index, economyCss)}> </li>
                 )}
               </div>
             )
@@ -350,7 +404,12 @@ function Seats(prop) {
                   </li>
                 )}
                 {EconomyAvailable[index + EconomyAvailable.length / 4] ===
-                  2 && <li className="selected"> </li>}
+                  2 && <li className="selected" onClick={() =>
+                    handleSeatsEconomy(
+                      index + EconomyAvailable.length / 4,
+                      economyCss
+                    )
+                  }> </li>}
               </div>
             )
           )}
@@ -383,7 +442,12 @@ function Seats(prop) {
                 </li>
               )}
               {FirstAvailable[index + FirstAvailable.length / 2] == 2 && (
-                <li className="selected"> </li>
+                <li className="selected" onClick={() =>
+                  handleSeatsFirst(
+                    index + FirstAvailable.length / 2,
+                    firstCss
+                  )
+                }> </li>
               )}
             </div>
           ))}
@@ -406,7 +470,12 @@ function Seats(prop) {
                 </li>
               )}
               {FirstAvailable[index + (3 * FirstAvailable.length) / 4] == 2 && (
-                <li className="selected"> </li>
+                <li className="selected" onClick={() =>
+                  handleSeatsFirst(
+                    index + (3 * FirstAvailable.length) / 4,
+                    firstCss
+                  )
+                }> </li>
               )}
             </div>
           ))}
@@ -432,7 +501,12 @@ function Seats(prop) {
                   </li>
                 )}
                 {BusinessAvailable[index + BusinessAvailable.length / 2] ===
-                  2 && <li className="selected"> </li>}
+                  2 && <li className="selected" onClick={() =>
+                    handleSeatsBusiness(
+                      index + BusinessAvailable.length / 2,
+                      businessCss
+                    )
+                  }> </li>}
               </div>
             )
           )}
@@ -459,7 +533,12 @@ function Seats(prop) {
                 )}
                 {BusinessAvailable[
                   index + (3 * BusinessAvailable.length) / 4
-                ] === 2 && <li className="selected"> </li>}
+                ] === 2 && <li className="selected" onClick={() =>
+                  handleSeatsBusiness(
+                    index + (3 * BusinessAvailable.length) / 4,
+                    businessCss
+                  )
+                }> </li>}
               </div>
             )
           )}
@@ -485,7 +564,12 @@ function Seats(prop) {
                   </li>
                 )}
                 {EconomyAvailable[index + EconomyAvailable.length / 2] ===
-                  2 && <li className="selected"> </li>}
+                  2 && <li className="selected" onClick={() =>
+                    handleSeatsEconomy(
+                      index + EconomyAvailable.length / 2,
+                      economyCss
+                    )
+                  }> </li>}
               </div>
             )
           )}
@@ -509,19 +593,30 @@ function Seats(prop) {
                   </li>
                 )}
                 {EconomyAvailable[index + (3 * EconomyAvailable.length) / 4] ===
-                  2 && <li className="selected"> </li>}
+                  2 && <li className="selected" onClick={() =>
+                    handleSeatsEconomy(
+                      index + (3 * EconomyAvailable.length) / 4,
+                      economyCss
+                    )
+                  }> </li>}
               </div>
             )
           )}
         </ul>
       </div>
+      <div className="header">
+      <h4>Seat selection: 
+        &nbsp; {SeatCabin}{newSeat!=-1&&newSeat} selected.{" "}
+      </h4>
+      </div>
       <Button
-        sx={{ width: "100px", left: "100px" ,top :"100px"}}
+        sx={{ width: "100px", left: "10px" ,top :"60px"}}
         onClick={() => confirmSeat()}
         variant="contained"
       >
         Confirm
       </Button>
+    </div>
     </div>
   );
 }

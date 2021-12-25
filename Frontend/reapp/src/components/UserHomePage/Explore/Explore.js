@@ -2,15 +2,17 @@ import "./Explore.css";
 import desert from "./desert.jpg";
 import beach from "./beach.jpg";
 import mountain from "./mountain.jpg";
+import galaxy from "./galaxy.png";
+
 
 function Offers() {
   return (
     <div class="big-div">
-      <div class="container">
+      <div class="containerExplore">
         <div class="card">
           <div class="card__thumb">
             <img
-              src="https://source.unsplash.com/75S9fpDJVdo/300x510"
+              src={galaxy}
               alt="Picture by Kyle Cottrell"
               class="card__image"
             ></img>

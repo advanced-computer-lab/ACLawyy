@@ -6,9 +6,9 @@ import { FaTwitter } from "react-icons/fa";
 
 function BottomPage() {
   return (
-    <div class="Parent">
-      <div class="links">
-        <div class="stroke">
+    <div className="Parent">
+      <div className="links">
+        <div className="stroke">
           <ul>
             <li>
               <a href="#">About</a>
@@ -28,37 +28,37 @@ function BottomPage() {
           </ul>
         </div>
       </div>
-      <div class="wrapper">
-        <div class="icon facebook">
-          <div class="tooltip">Facebook</div>
+      <div className="wrapper">
+        <div className="icon facebook">
+          <div className="tooltip">Facebook</div>
           <span>
             {" "}
             <FaFacebookF />
-            <i class="fab fa-facebook-f"></i>
+            <i className="fab fa-facebook-f"></i>
           </span>
         </div>
-        <div class="icon twitter">
-          <div class="tooltip">Twitter</div>
+        <div className="icon twitter">
+          <div className="tooltip">Twitter</div>
           <span>
             <FaTwitter />
-            <i class="fab fa-twitter"></i>
+            <i className="fab fa-twitter"></i>
           </span>
         </div>
-        <div class="icon instagram">
-          <div class="tooltip">Instagram</div>
+        <div className="icon instagram">
+          <div className="tooltip">Instagram</div>
           <span>
             <FaInstagram />
-            <i class="fab fa-instagram"></i>
+            <i className="fab fa-instagram"></i>
           </span>
         </div>
         <div
-          class="icon github"
+          className="icon github"
           onclick="parent.open('https://github.com/advanced-computer-lab/ACLawyy')"
         >
-          <div class="tooltip">Github</div>
+          <div className="tooltip">Github</div>
           <span>
             <FaGithub />
-            <i class="fab fa-github"></i>
+            <i className="fab fa-github"></i>
           </span>
         </div>
       </div>
