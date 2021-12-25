@@ -97,7 +97,7 @@ function PaymentComponent(props) {
         </Button>
       </StripeCheckout>
       {paymentReceived && (
-        <Alert severity="warning">
+        <Alert severity="info">
           Payment received successfully, please check your email for
           confirmation, head over to the{" "}
           <Link href="http://localhost:3000/reservedflights" variant="body2">
