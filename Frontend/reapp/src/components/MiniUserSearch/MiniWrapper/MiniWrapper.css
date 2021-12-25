@@ -1,8 +1,8 @@
 .flight-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+
+
   height: 600px;
   width: 100%;
   background-color: #87cfebe8;;

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Button from "@mui/material/Button";
-import FlightResults from "../../FlightResults/FlightResults";
+import MiniFlightResults from "../../MiniFlightResults/MiniFlightResults";
+
 import ReactDOM from "react-dom";
 import { Stack } from "@mui/material";
 import { useParams } from "react-router-dom";
@@ -58,7 +59,8 @@ function MiniWrapper(props) {
         </div>
         {outboundFlights.length > 0 && inboundFlights.length > 0 && (
           <div className="flight-container">
-            <FlightResults columns={true}
+            <MiniFlightResults
+              columns={true}
               userID={UserID}
               children={0}
               adults={passengers}
