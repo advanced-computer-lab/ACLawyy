@@ -104,21 +104,20 @@ export function UserPage(props) {
     newUser.Email = userEmail;
     newUser.HomeAdress = userHomeAdress;
     newUser.PassportNumber = userPassportNumber;
-    setUser(newUser);
+    // setUser(newUser);
     axios
       .post("http://localhost:8000/Users/SearchEmail", { Email: userEmail })
       .then((res) => {
-        if (res.data.length === 0) {
-          alert(res.data);
+        if (res.data.length === 0 || user.Email===userEmail) {
           setShowError(false);
           
           handleSubmit();
-          return axios
-            .post("http://localhost:8000/users/updateUser", user)
+          axios
+            .post("http://localhost:8000/users/updateUser", newUser)
             .then((res) => {
               //alert(JSON.stringify(user));
-              alert("Profile Updated");
               setShowSuccess(true);
+              setIsLoading(true);
             })
             .catch(() => {
               alert("error");
