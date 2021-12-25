@@ -1,30 +1,28 @@
 import "./UserPage.css";
-import StripeCheckout from "react-stripe-checkout";
 import EditIcon from "@mui/icons-material/Edit";
 import Button from "@mui/material/Button";
 import emailjs from "emailjs-com";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import Grid from '@mui/material/Grid';
 import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import FormLabel from "@mui/material/FormLabel";
 import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import Rank from "./pigeon.png"; 
+import Rank from "./pigeon.png";
 import CheckIcon from "@mui/icons-material/Check";
 import { IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Popover from "@mui/material/Popover";
-import AddIcon from "@mui/icons-material/Add";
-import Typography from "@mui/material/Typography";
 import ChangePassword from "../ChangePassword/ChangePassword";
-import Alert from '@mui/material/Alert';
+import Alert from "@mui/material/Alert";
 export function UserPage(props) {
   const [user, setUser] = useState();
   const [userFirstName, setUserFirstName] = useState();
   const [userLastName, setUserLastName] = useState();
-  const [userHomeAdress, setUserHomeAdress] = useState();
+  const [userHomeAddress, setUserHomeAddress] = useState();
   const [userCountryCode, setUserCountryCode] = useState();
   const [userEmail, setUserEmail] = useState();
   const [userPassportNumber, setUserPassportNumber] = useState();
@@ -39,12 +37,9 @@ export function UserPage(props) {
   const [anchorEl2, setAnchorEl2] = useState(null);
   const [newNumber, setNewNumber] = useState();
   const [showSuccess, setShowSuccess]= useState(false);
-  const [product,setProduct] =useState({
-    name:"Pay for reservation",
-    price: "10",
-    Productby:"ACLawyyy ;)"
-    })
-
+  const [showError, setShowError]= useState(false);
+  const [textToDisplay,setTextToDisplay]=useState("Edit");
+  const [disp,setDisp] = useState(true);
   useEffect(() => {
     axios
       .post("http://localhost:8000/Users/getUserDetails", {
@@ -57,80 +52,7 @@ export function UserPage(props) {
       .catch(() => {
         alert("error");
       });
-  }, []);
-  function handleClickT1() {
-    setIsDisabled1(false);
-  }
-  function handleClickF1() {
-    setIsDisabled1(true);
-    const newUser = JSON.parse(JSON.stringify(user));
-    newUser.FirstName = userFirstName;
-    setUser(newUser);
-  }
-  function handleClickT2() {
-    setIsDisabled2(false);
-  }
-  function handleClickF2() {
-    setIsDisabled2(true);
-
-    const newUser = JSON.parse(JSON.stringify(user));
-    newUser.LastName = userLastName;
-    setUser(newUser);
-  }
-  function handleClickT3() {
-    setIsDisabled3(false);
-  }
-  function handleClickF3() {
-    setIsDisabled3(true);
-    
-    const newUser = JSON.parse(JSON.stringify(user));
-    newUser.HomeAdress = userHomeAdress;
-    setUser(newUser);
-
-  }
-  function handleClickT4() {
-    setIsDisabled4(false);
-  }
-  function handleClickF4() {
-    setIsDisabled4(true);
-  
-    const newUser = JSON.parse(JSON.stringify(user));
-    newUser.CountryCode = userCountryCode;
-    setUser(newUser);
-
-  }
-  function handleClickT5() {
-    setIsDisabled5(false);
-  }
-  function handleClickF5() {
-    axios
-      .post("http://localhost:8000/Users/SearchEmail", { Email: userEmail })
-      .then((res) => {
-        if (res.data.length === 0) {
-          setIsDisabled5(true);
-          user.Email = userEmail;
-          handleSubmit();
-        } else {
-          alert("Email in use!");
-        }
-      })
-      .catch(() => {
-        alert("error");
-      });
-  }
-  function handleClickT6() {
-    setIsDisabled6(false);
-  }
-  function handleClickF6() {
-    setIsDisabled6(true);
-    
-
-    const newUser = JSON.parse(JSON.stringify(user));
-    newUser.PassportNumber = userPassportNumber;
-    setUser(newUser);
-
-
-  }
+  }, [isLoading]);
   function handleSubmit() {
     sendFeedback("service_c3t9zmi", "template_fwz2z6b", {
       message: "This is a confirmation email.",
@@ -154,26 +76,74 @@ export function UserPage(props) {
       );
   }
   function handleButton() {
+    
+    if(disp===true){
+      setIsDisabled1(false);
+      setIsDisabled2(false);
+      setIsDisabled3(false);
+      setIsDisabled4(false);
+      setIsDisabled5(false);
+      setIsDisabled6(false);
+      setTextToDisplay("Update");
+      
+    }
+    else{
+      setIsLoading(true);
+      setIsDisabled1(true);
+      setIsDisabled2(true);
+      setIsDisabled3(true);
+      setIsDisabled4(true);
+      setIsDisabled5(true);
+      setIsDisabled6(true);
+      
+      setTextToDisplay("Edit");
+    const newUser = JSON.parse(JSON.stringify(user));
+    newUser.FirstName = userFirstName;
+    newUser.LastName = userLastName;
+    newUser.CountryCode = userCountryCode;
+    newUser.Email = userEmail;
+    newUser.HomeAddress = userHomeAddress;
+    newUser.PassportNumber = userPassportNumber;
+    // setUser(newUser);
     axios
-      .post("http://localhost:8000/users/updateUser", user)
+      .post("http://localhost:8000/Users/SearchEmail", { Email: userEmail })
       .then((res) => {
-        //alert(JSON.stringify(user));
-        alert("Profile Updated");
+        if (res.data.length === 0 || user.Email===userEmail) {
+          setShowError(false);
+          
+          handleSubmit();
+          axios
+            .post("http://localhost:8000/users/updateUser", newUser)
+            .then((res) => {
+              //alert(JSON.stringify(user));
+              setShowSuccess(true);
+              setIsLoading(true);
+            })
+            .catch(() => {
+              alert("error");
+              setShowSuccess(false);
+            });
+        } else {
+          setShowError(true);
+        }
       })
       .catch(() => {
         alert("error");
       });
+            
+            
+    
+    }
+    setDisp(!disp);
+    setIsLoading(false);
   }
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
   function handleClose() {
+    setShowSuccess(false);
     setAnchorEl(null);
   }
-  function handleClose() {
-    setAnchorEl(null);
-  }
-
   const handleClick2 = (event) => {
     setAnchorEl2(event.currentTarget);
   };
@@ -182,19 +152,14 @@ export function UserPage(props) {
   }
   function handleDelete(event, index) {
     user.TelephoneNumbers.splice(index, 1);
-    setAnchorEl(null);
     alert("Number Deleted");
   }
   const open = Boolean(anchorEl);
   const open2 = Boolean(anchorEl2);
   function handleButton1(event) {
     user.TelephoneNumbers.push(newNumber);
-    setAnchorEl(null);
     setShowSuccess(true);
-    
   }
-
-  function CheckEmail(Email) {}
   if (isLoading) {
     return <div className="UserPage">loading...</div>;
   }
@@ -234,9 +199,8 @@ export function UserPage(props) {
       <div className="Rank">
         <img src={Rank} alt="Rank" height="130px" width="150px" />
       </div>
-      
 
-<div class="vl"></div>
+      <div class="vl"></div>
 
       <div className="biography">
         <Stack direction="column" spacing={10}>
@@ -247,18 +211,14 @@ export function UserPage(props) {
                 InputProps={{
                   readOnly: isDisabled1,
                 }}
+                focused={!isDisabled1}
                 className="TextBox"
                 id="outlined-required"
                 label="First Name"
                 defaultValue={user.FirstName}
                 onChange={(e) => setUserFirstName(e.target.value)}
               />
-              <IconButton onClick={handleClickT1}>
-                <EditIcon className="EditIcon" />
-              </IconButton>
-              <IconButton onClick={handleClickF1}>
-                <CheckIcon />
-              </IconButton>
+              
             </Stack>
             <Stack direction="row" spacing={2}>
               <TextField
@@ -266,60 +226,54 @@ export function UserPage(props) {
                 InputProps={{
                   readOnly: isDisabled2,
                 }}
+
+                focused={!isDisabled2}
                 className="TextBox"
                 id="outlined-required"
                 label="Last Name"
                 defaultValue={user.LastName}
                 onChange={(e) => setUserLastName(e.target.value)}
               />
-              <IconButton onClick={handleClickT2}>
-                <EditIcon className="EditIcon" />
-              </IconButton>
-              <IconButton onClick={handleClickF2}>
-                <CheckIcon />
-              </IconButton>
+              
             </Stack>
           </Stack>
           <Stack direction="row" spacing={15}>
-            <Stack direction="row" spacing={2}>
-              <TextField
-                fullWidth
-                InputProps={{
-                  readOnly: isDisabled4,
-                }}
-                className="TextBox"
-                id="outlined-required"
-                label="Country Code"
-                defaultValue={user.CountryCode}
-                onChange={(e) => setUserCountryCode(e.target.value)}
-              />
-              <IconButton onClick={handleClickT4}>
-                <EditIcon className="EditIcon" />
-              </IconButton>
-              <IconButton onClick={handleClickF4}>
-                <CheckIcon />
-              </IconButton>
-            </Stack>
-            <Stack direction="row" spacing={2}>
+            <Stack direction="column" spacing={5}>
               <TextField
                 fullWidth
                 InputProps={{
                   readOnly: isDisabled5,
                 }}
+                focused={!isDisabled5}
                 className="TextBox"
                 id="outlined-required"
                 label="Email"
                 defaultValue={user.Email}
                 onChange={(e) => setUserEmail(e.target.value)}
               />
-              <IconButton onClick={handleClickT5}>
-                <EditIcon className="EditIcon" />
-              </IconButton>
-              <IconButton onClick={handleClickF5}>
-                <CheckIcon />
-              </IconButton>
+              
+             
+          {showError && <Alert severity="error">This Email is already in Use!&nbsp; </Alert>}
+            
             </Stack>
+            <Stack direction="row" spacing={2}>
+              <TextField
+                fullWidth
+                InputProps={{
+                  readOnly: isDisabled4,
+                }}
+                focused={!isDisabled4}
+                className="TextBox"
+                id="outlined-required"
+                label="Country Code"
+                defaultValue={user.CountryCode}
+                onChange={(e) => setUserCountryCode(e.target.value)}
+              />
+              
+            </Stack>
+            
           </Stack>
+          
           <Stack direction="row" spacing={15}>
             <Stack direction="row" spacing={3}>
               <TextField
@@ -327,18 +281,14 @@ export function UserPage(props) {
                 InputProps={{
                   readOnly: isDisabled6,
                 }}
+                focused={!isDisabled6}
                 className="TextBox"
                 id="outlined-required"
                 label="Passport Number"
                 defaultValue={user.PassportNumber}
                 onChange={(e) => setUserPassportNumber(e.target.value)}
               />
-              <IconButton onClick={handleClickT6}>
-                <EditIcon className="EditIcon" />
-              </IconButton>
-              <IconButton onClick={handleClickF6}>
-                <CheckIcon />
-              </IconButton>
+              
             </Stack>
             <Stack direction="row" spacing={2}>
               <TextField
@@ -346,46 +296,61 @@ export function UserPage(props) {
                 InputProps={{
                   readOnly: isDisabled3,
                 }}
+                focused={!isDisabled3}
                 className="TextBox-home"
                 id="outlined-required"
-                label="Home Adress"
-                defaultValue={user.HomeAdress}
-                onChange={(e) => setUserHomeAdress(e.target.value)}
+                label="Home Address"
+
+                defaultValue={user.HomeAddress}
+                onChange={(e) => setUserHomeAddress(e.target.value)}
               />
-              <IconButton onClick={handleClickT3}>
-                <EditIcon className="EditIcon" />
-              </IconButton>
-              <IconButton onClick={handleClickF3}>
-                <CheckIcon />
-              </IconButton>
+              
             </Stack>
           </Stack>
         </Stack>
+        
         <Button className="Submit" variant="contained" onClick={handleButton}>
-          Update
+          {textToDisplay}
         </Button>
-        <Button className="PopOver-mobile" variant="contained" onClick={handleClick}>
+        <Button
+          className="PopOver-mobile"
+          variant="contained"
+          onClick={handleClick}
+        >
           View Mobile numbers
         </Button>
-        <Button className="PopOver-changePass" variant="contained" onClick={handleClick2}>
+        <Button
+          className="PopOver-changePass"
+          variant="contained"
+          onClick={handleClick2}
+        >
           Change Password
         </Button>
+        {showSuccess && <Alert severity="success">Profile Updated Successfuly!&nbsp; </Alert>}
+        <div classname ="changePop"> 
         <Popover
+          margin = "40 px"
           anchorPosition={{ top: 0, left: 0 }}
           open={open2}
           anchorEl={anchorEl2}
           onClose={handleClose2}
           anchorReference="anchorPosition"
-          anchorPosition={{ top: 350, left: 350 }}
+          anchorPosition={{ top: 230, left: 550 }}
           anchorOrigin={{
-            vertical: 'center',
-            horizontal: 'left',
+            vertical: "center",
+            horizontal: "left",
           }}
           transformOrigin={{
-            vertical: 'center',
-            horizontal: 'left',
+            vertical: "center",
+            horizontal: "left",
           }}
-        ><ChangePassword UserID={user._id} Username ={user.Username}/></Popover>
+        >
+          <ChangePassword
+            className="changePassword"
+            UserID={user._id}
+            Username={user.Username}
+          />
+        </Popover>
         <Popover
           anchorPosition={{ top: 0, left: 0 }}
           open={open}
@@ -401,7 +366,7 @@ export function UserPage(props) {
           }}
         >
           <div className="mobilePopOut">
-            <h1>Phonenumbers </h1>
+            <h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Phone Numbers </h1>
             {user.TelephoneNumbers.map((Number, index) => (
               <div className="current-mobile">
                 <TextField
@@ -421,7 +386,7 @@ export function UserPage(props) {
             ))}
             <div className="current-mobile">
               <TextField
-               width="100px"
+                width="100px"
                 InputProps={{
                   readOnly: false,
                 }}
@@ -429,17 +394,22 @@ export function UserPage(props) {
                 id="outlined-required"
                 label="Add New Number"
                 onChange={(e) => setNewNumber(e.target.value)}
+                defaultValue={""}
               />
 
               <IconButton onClick={handleButton1}>
-              <CheckIcon />
-                </IconButton>
-              </div>
-                {showSuccess&&<Alert severity="success">Mobile Added Successfully!&nbsp; </Alert>}
-                
+                <CheckIcon />
+              </IconButton>
+            </div>
+            {showSuccess && (
+              <Alert severity="success">
+                Mobile Added Successfully!&nbsp;{" "}
+              </Alert>
+            )}
           </div>
         </Popover>
       </div>
+    </div>
     </div>
   );
 }

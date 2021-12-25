@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Button from "@mui/material/Button";
-import FlightResults from "../../FlightResults/FlightResults";
+import MiniFlightResults from "../../MiniFlightResults/MiniFlightResults";
+
 import ReactDOM from "react-dom";
 import { Stack } from "@mui/material";
 import { useParams } from "react-router-dom";
 import "./MiniWrapper.css";
 import MiniUserSearch from "../MiniUserSearch.js";
+import SlideShow from "../../UserHomePage/SlideShow/SlideShow.js";
+
 
 function MiniWrapper(props) {
   const [outboundFlights, setOutboundFlights] = useState([]);
@@ -46,14 +49,18 @@ function MiniWrapper(props) {
   return (
     <div>
       <Stack direction="column" spacing={0}>
+          <div className="SlideShow">
+          <SlideShow />
+          </div>
         <div className="search-div">
-          <div className="actual-search">
+          <div className="actual-search"> 
             <MiniUserSearch onSearch={handleSearch} />
           </div>
         </div>
         {outboundFlights.length > 0 && inboundFlights.length > 0 && (
           <div className="flight-container">
-            <FlightResults
+            <MiniFlightResults
+              columns={true}
               userID={UserID}
               children={0}
               adults={passengers}

@@ -1,5 +1,5 @@
 import "./SlideShow.css";
-import travel from "./travel.jpg";
+import travel from "./travel1.jpg";
 import travel2 from "./travel2.jpg";
 import travel3 from "./travel3.jpg";
 import travel4 from "./travel4.jpg";

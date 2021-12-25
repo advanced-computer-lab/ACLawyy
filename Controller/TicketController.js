@@ -5,6 +5,7 @@ let User = require("../Models/User");
 let Purchase = require("../Models/Purchase");
 const mongoose = require("mongoose");
 const stripe = require("stripe")(process.env.secret);
+
 router.route("/CreateTicket").post((req, res) => {
   const UserID = mongoose.Types.ObjectId(req.body.UserID);
   const AwayFlight = mongoose.Types.ObjectId(req.body.AwayFlight);

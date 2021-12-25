@@ -14,6 +14,12 @@ import {ReactSession} from 'react-client-session';
 
 function NavBar(props) {
 
+  const handleSignOut= ()=>{
+    ReactSession.set("userType", 2);
+    window.location.href = "http://localhost:3000/";
+
+  }
+
  const [type, setType]= useState(props.type);
   useEffect(()=> {
    // alert(ReactSession.get("userType"));
@@ -46,7 +52,7 @@ function NavBar(props) {
               <CgProfile size="40px" />
             </Link>
 
-            <a href="/" onClick = {() => ReactSession.set("userType", 2)}>log out</a>
+            <a onClick = {() => handleSignOut()}>log out</a>
           </div>
         </nav>
       </header>
@@ -78,7 +84,7 @@ function NavBar(props) {
             <Link className="navbar-profile-logo" to="/profile">
               <CgProfile size="40px" />
             </Link>
-            <a href="/" onClick = {() => ReactSession.set("userType", 0)}>log out</a>
+            <a onClick = {() => handleSignOut()}>log out</a>
           </div>
         </nav>
       </header>

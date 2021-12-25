@@ -68,7 +68,7 @@ function Seats(prop) {
   }, []);
   //to pick seat onClick:
   function handleSeatsFirst(index, firstCss) {
-    if (chosen < nbOfSeats && firstCss == "first"&&index!=newSeat) {
+    if (chosen < nbOfSeats && firstCss == "first"&&index!=newSeat && newSeat == -1) {
       console.log("seat is", index);
       let list = [...FirstAvailable];
       console.log("now it's index in list is ", list[index]);
@@ -78,7 +78,7 @@ function Seats(prop) {
       setChosen((prev) => prev + 1);
       setNewSeat(index);
     }
-      else {
+      else if (index==newSeat) {
         console.log("seat is", index);
         let list = [...FirstAvailable];
         console.log("now it's index in list is ", list[index]);
@@ -94,7 +94,7 @@ function Seats(prop) {
 
   function handleSeatsBusiness(index, businessCss) {
 
-    if (chosen < nbOfSeats && businessCss == "bsuiness"&&index!=newSeat) {
+    if (chosen < nbOfSeats && businessCss == "business"&&index!=newSeat && newSeat == -1) {
       console.log("seat is", index);
       let list = [...BusinessAvailable];
       console.log("now it's index in list is ", list[index]);
@@ -104,7 +104,7 @@ function Seats(prop) {
       setChosen((prev) => prev + 1);
       setNewSeat(index);
     }
-      else {
+      else if (index==newSeat) {
         console.log("seat is", index);
         let list = [...BusinessAvailable];
         console.log("now it's index in list is ", list[index]);
@@ -118,7 +118,7 @@ function Seats(prop) {
   }
 
   function handleSeatsEconomy(index, economyCss) {
-    if (chosen < nbOfSeats && economyCss == "economy"&&index!=newSeat) {
+    if (chosen < nbOfSeats && economyCss == "economy"&&index!=newSeat && newSeat == -1) {
       console.log("seat is", index);
       let list = [...EconomyAvailable];
       console.log("now it's index in list is ", list[index]);
@@ -128,7 +128,7 @@ function Seats(prop) {
       setChosen((prev) => prev + 1);
       setNewSeat(index);
     }
-      else {
+      else if (index==newSeat){
         console.log("seat is", index);
         let list = [...EconomyAvailable];
         console.log("now it's index in list is ", list[index]);

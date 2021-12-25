@@ -25,6 +25,7 @@ const nodeMailer = require("nodemailer");
 
 function Booking(props) {
   // const purchase = props.purchase;
+  const nodeMailer = require("nodemailer");
   // const tickets = props.Tickets;
   const { number, tickets, price, userID, _id } = props.p;
   const message =
@@ -162,21 +163,20 @@ function Booking(props) {
       );
   }
   const sendMail = () => {
-    alert("mail sent");
+  
     const obj = {
-      email : user.Email,
-      subject : "Itinerary",
-      text : "The user itinerary"
-    }
+      email: user.Email,
+      subject: "Itinerary",
+      text: "Dear "+user.FirstName+",\n"+"You booked "+adults+" adult ticket and "+children+" child tickets from "+awayFlight.DepartureCity+" to "+awayFlight.ArrivalCity+" and back\n"+"The flight leaves on "+awayFlight.DepartureDate+" at "+awayFlight.DepartureTime+" From "+awayFlight.DepartureAirport+" Airport and you will arrive at "+awayFlight.ArrivalAirport+" Airport\n"+"Your total booking cost is "+props.p.TotalPrice+" $.\n"+"We wish you safe travels.\n"+"Flights awyy;)",
+    };
     axios
-                  .post("http://localhost:8000/Tickets/email", 
-                    obj
-                  )
-                  .then((res) => {
-                    console.log("mail sent");
-                  }).catch((err) => {
-                    console.log(err)
-                  })
+      .post("http://localhost:8000/Tickets/email", obj)
+      .then((res) => {
+        alert("Please check your email, the details of your flight have been sent.");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   const handleDelete = () => {
     const con = window.confirm(
@@ -488,16 +488,20 @@ function BasicList(props) {
       <Divider />
       <nav aria-label="secondary mailbox folders">
         <List>
-          <ListItem disablePadding>
-            <ListItemButton onClick={props.onClickDep}>
-              <ListItemText primary="Change Departure Flight" />
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton onClick={props.onClickRet}>
-              <ListItemText primary="Change Return Flight" />
-            </ListItemButton>
-          </ListItem>
+          {props.paid && (
+            <ListItem disablePadding>
+              <ListItemButton onClick={props.onClickDep}>
+                <ListItemText primary="Change Departure Flight" />
+              </ListItemButton>
+            </ListItem>
+          )}
+          {props.paid && (
+            <ListItem disablePadding>
+              <ListItemButton onClick={props.onClickRet}>
+                <ListItemText primary="Change Return Flight" />
+              </ListItemButton>
+            </ListItem>
+          )}
           <ListItem disablePadding>
             <ListItemButton onClick={props.sendMail}>
               <ListItemText primary="Email itinerary to self" />

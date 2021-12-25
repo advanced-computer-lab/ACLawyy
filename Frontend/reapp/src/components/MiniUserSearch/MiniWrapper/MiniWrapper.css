@@ -1,18 +1,30 @@
 .flight-container {
-  height: 600px;
+  display: flex;
+  flex-direction: column;
+
+
+  height: 400px;
   width: 100%;
-  background-color: rgb(245, 245, 255);
-  box-shadow: 0px 0px 2px 2px lightgrey;
+  background-color: #a8ddf1e8;;
+  box-shadow: 0px 0px 2px 2px #87cfebe8;;
   border-color: grey;
   overflow-y: scroll;
 }
-.search-div {
-  margin-top: 120px;
 
-  height: 130px;
+.SlideShow{
+  margin-top:35px;
+  z-index: -5;
+  margin-bottom: 285px;
+}
+.search-div {
+  display: flex;
+  column-gap: 20px;
+  margin-top: 117px;
+  height: 100px;
   width: 100%;
-  background-color: rgb(245, 245, 255);
-  box-shadow: 0px 0px 2px 2px lightgrey;
+  background-color: #87cfebe8;
+  box-shadow: 0px 0px 2px 2px #87ceeb;
+  bottom:-50px;
 }
 
 .actual-search{
