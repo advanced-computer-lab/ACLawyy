@@ -220,7 +220,7 @@ export default function SignUp() {
               </Grid>
               {showEmailError&&<Grid item xs={12}>
               <Alert severity="error">This Email is already taken,&nbsp;  
-              <Link href="http://localhost:3000">
+              <Link href="http://localhost:3000/login">
                   Sign in instead?
                 </Link></Alert>
               </Grid>}
@@ -256,7 +256,7 @@ export default function SignUp() {
               </Grid>
               {showUserError&&<Grid item xs={12}>
               <Alert severity="error">This Username is already taken,&nbsp;  
-              <Link href="http://localhost:3000">
+              <Link href="http://localhost:3000/login">
                   Sign in instead?
                 </Link></Alert>
               </Grid>}
@@ -284,7 +284,7 @@ export default function SignUp() {
             </Grid>
             {showSuccess&&<Grid item xs={12}>
               <Alert severity="success">You successfully Signed Up!&nbsp;
-              <Link href="http://localhost:3000">
+              <Link href="http://localhost:3000/login">
                   Sign In
                 </Link> </Alert>
               </Grid>}
@@ -301,7 +301,7 @@ export default function SignUp() {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="http://localhost:3000" variant="body2">
+                <Link href="http://localhost:3000/login" variant="body2">
                   Already have an account? Sign In
                 </Link>
               </Grid>
