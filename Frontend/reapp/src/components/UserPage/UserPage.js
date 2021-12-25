@@ -397,11 +397,7 @@ export function UserPage(props) {
                   <CheckIcon />
                 </IconButton>
               </div>
-              {showSuccess && (
-                <Alert severity="success">
-                  Mobile Added Successfully!&nbsp;{" "}
-                </Alert>
-              )}
+ 
             </div>
           </Popover>
         </div>

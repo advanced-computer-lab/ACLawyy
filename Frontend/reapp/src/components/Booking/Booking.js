@@ -138,7 +138,7 @@ function Booking(props) {
 
   const handlePay = () => {
     window.location.href = `/payment/${JSON.stringify(props.p)}`;
-    alert("pay");
+
   };
   function handleSubmit() {
     sendFeedback("service_c3t9zmi", "template_fwz2z6b", {

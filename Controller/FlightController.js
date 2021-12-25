@@ -4,10 +4,10 @@ let Flight = require("../Models/Flight");
 
 
 //reading from csv file stuff
-const csv = require("csv-parser");
-const fs = require("fs");
+// const csv = require("csv-parser");
+// const fs = require("fs");
 
-//first run to import csv file into db
+// // first run to import csv file into db
 // fs.createReadStream("Flights.csv")
 //   .pipe(csv())
 //   .on("data", (row) => {
