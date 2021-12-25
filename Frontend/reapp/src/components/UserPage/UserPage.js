@@ -22,7 +22,7 @@ export function UserPage(props) {
   const [user, setUser] = useState();
   const [userFirstName, setUserFirstName] = useState();
   const [userLastName, setUserLastName] = useState();
-  const [userHomeAdress, setUserHomeAdress] = useState();
+  const [userHomeAddress, setUserHomeAddress] = useState();
   const [userCountryCode, setUserCountryCode] = useState();
   const [userEmail, setUserEmail] = useState();
   const [userPassportNumber, setUserPassportNumber] = useState();
@@ -102,7 +102,7 @@ export function UserPage(props) {
     newUser.LastName = userLastName;
     newUser.CountryCode = userCountryCode;
     newUser.Email = userEmail;
-    newUser.HomeAdress = userHomeAdress;
+    newUser.HomeAddress = userHomeAddress;
     newUser.PassportNumber = userPassportNumber;
     // setUser(newUser);
     axios
@@ -292,9 +292,10 @@ export function UserPage(props) {
                 }}
                 className="TextBox-home"
                 id="outlined-required"
-                label="Home Adress"
-                defaultValue={user.HomeAdress}
-                onChange={(e) => setUserHomeAdress(e.target.value)}
+                label="Home Address"
+
+                defaultValue={user.HomeAddress}
+                onChange={(e) => setUserHomeAddress(e.target.value)}
               />
               
             </Stack>
