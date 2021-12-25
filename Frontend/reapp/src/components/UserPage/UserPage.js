@@ -108,7 +108,7 @@ export function UserPage(props) {
       .post("http://localhost:8000/Users/SearchEmail", { Email: userEmail })
       .then((res) => {
         if (res.data.length === 0) {
-          
+          setShowError(false);
           
           handleSubmit();
           axios
@@ -116,12 +116,14 @@ export function UserPage(props) {
             .then((res) => {
               //alert(JSON.stringify(user));
               alert("Profile Updated");
+              setShowSuccess(true);
             })
             .catch(() => {
               alert("error");
+              setShowSuccess(false);
             });
         } else {
-          alert("Email in use!");
+          setShowError(true);
         }
       })
       .catch(() => {
