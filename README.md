@@ -574,13 +574,84 @@ router.route("/DeletePurchase").post((req, res) => {
 
 
 ## Detailed Functionalities
-Now that we explored how our backend works, in the following section, we will present in detail how each functionality works from the frontend by going through each user journey.  
+Now that we explored how our backend works, in the following section, we will present in detail how each functionality works from the frontend by going through each user journey. 
 
 ### 1. Admin Point of View 
+Our only admin has a username of Admin and password admin. 
+Admin in the backend is referred to as type 0 
+
+By logging in as an admin, we route to the admin home where we can check all analytics of the website. 
+![Admin Home]()
+Then by clicking manage flights we face a list of all the created flights. 
+![Table of flights]()
+Above this table we Have 2 buttons 
+- Search Button 
+By clicking this button we access the block that allows us to enter our search criteria to display the desired flights in the table below. 
+![Search Block Example]()
+- Create Button 
+By Clicking this button we access the block that allows us to Add a new flight to our table and when we refresh the page we can see that the flight is added successfully. 
+![Create Block Example]()
+
 
 ### 2. Guest User Point of View 
+Guest User is referred to as Type 2 
+
+Anyone who clicks on our website is considered to be a guest user until they log in and then we part them into admin point of view versus a normal user point of view \
+Through the Home of the guest user, he/she can search through the mini search in the home page or the  Book a flight tab with a more advanced search. 
+
+![mini search]()
+
+![advanced search]()
+
+When we select the round trip, we can not proceed as a guest user any longer, we Have to Sign in or Sign up to access the booking features in our website. 
+
+#### Sign Up, Sign In 
+Through The guest user Navbar, We can either sign up or sign in
+![Sign Up]()
+![Sign In]()
 
 ### 3. Existing user Point of View 
+Existing User is referred to as Type 1
+
+The existing user can access All The features of the Guest User alongside other extra featured. 
+
+The Existing user can Reserve the flights
+![reserve from summary]()
+The user is then directed to pay for the reservation on the spot. 
+![make payment example]()
+
+The user has the option to pay later if they click on the reserved flights tab. 
+
+in the reserved flights tab, the user can access all their bookings and see an itinerary of all the tickets that they purchased. 
+![example itinerary]()
+
+Through this page the user can select seat by selecting the choose seat, which will redirect us to a choosing seats page, where the user could choose only from the booked cabin. 
+![seats page]()
+
+once they confirm, it brings the user back to the reserved flights page, where the seat will be changed to the chosen seat. 
+![Seat chosen]()
+
+The user can edit from this edit menu either the departure/arrival flights or the chosen seat 
+
+![edit list]()
+
+When the user clicks on the change flight option, we are faced with a pop over with all the available flights that they could choose from, once the user chooses a new flight it compares it to the other flight and if they already paid they make the payment difference on the spot. 
+![change reserved flights]()
+
+When changing the seat it simply redirects us to the same seating chart to select a different seat. 
+
+
+Finally, The existing user can access their information through the profile icon in the navbar, where they access their profile and they can edit all their information except of the username through the edit button. 
+
+![userpage]()
+
+
+
+
+
+
+
+
 
 
 
