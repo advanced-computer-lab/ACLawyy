@@ -575,7 +575,7 @@ Our only admin has a username of Admin and password admin.
 Admin in the backend is referred to as type 0 
 
 By logging in as an admin, we route to the admin home where we can check all analytics of the website. 
-![Admin Home]()
+![Admin Home](/Screenshots/AdminHome.png)
 Then by clicking manage flights we face a list of all the created flights. 
 ![Table of flights]()
 Above this table we Have 2 buttons 
