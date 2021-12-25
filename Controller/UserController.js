@@ -6,6 +6,32 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 require("dotenv").config();
 
+
+router.route("/ForgotPassword").post((req, res) => {
+
+  const userChangingPass = req.body;
+
+  userChangingPass.newPassword = bcrypt.hash(userChangingPass.newPassword,10).then (
+    ()=> {
+      User.findByIdAndUpdate(userChangingPass._id, {Password: userChangingPass.newPassword}, function (err) {
+        if (err) console.log(err);
+        console.log("User Password updated successfully");
+      });
+
+    }
+
+
+  )
+
+  return res.json({
+    message: "Success"
+
+  })
+
+
+});
+
+
 router.route("/UpdateUser").post((req, res) => {
   User.findByIdAndUpdate(req.body._id, req.body, function (err) {
     if (err) console.log(err);
@@ -81,6 +107,11 @@ router.route("/getUserDetails").post((req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
+router.route("/getUserDetailsNoID").post((req, res) => {
+  User.findOne(req.body)
+    .then((user) => res.json(user))
+    .catch((err) => res.status(400).json("Error: " + err));
+});
 
 router.route("/Login").post( (req, res) => {
     const userLoggingIn = req.body;
@@ -179,6 +210,42 @@ router.route("/ChangePassword").post( (req, res) => {
  })
 
 });
+
+
+router.route("/forgotpassword2").post( (req, res) => {
+  const userChangingPass = req.body;
+      const payload = {
+        id :userChangingPass._id,
+        username: userChangingPass.Username,
+      }
+      jwt.sign( 
+        payload,
+        process.env.JWT_SECRET,
+        {expiresIn :86400},
+        async(err,token)=>{
+          if(err) {
+            return res.json({message:err});
+          console.log("success")}
+          else{
+            userChangingPass.newPassword = await bcrypt.hash(req.body.newPassword,10)
+            User.findByIdAndUpdate(userChangingPass._id, {Password: userChangingPass.newPassword}, function (err) {
+              if (err) console.log(err);
+              console.log("User Password updated successfully");
+            });
+            return res.json({
+              message: "Success",
+              token:"Bearer"+token,
+            })
+            res.send();
+           
+          }
+         
+        }
+       
+      )
+
+    });
+
 
  //   console.log(user)
   //   if (user.Password !== Password) {
