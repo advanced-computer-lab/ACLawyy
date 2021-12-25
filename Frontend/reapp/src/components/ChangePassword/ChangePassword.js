@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
-import * as React from 'react';
+import * as React from "react";
 import axios from "axios";
-import TextField from '@mui/material/TextField';
-import Grid from '@mui/material/Grid';
-import Button from '@mui/material/Button';
+import TextField from "@mui/material/TextField";
+import Grid from "@mui/material/Grid";
+import Button from "@mui/material/Button";
 import "./ChangePassword.css";
 import Alert from '@mui/material/Alert';
-
 
 export default function ChangePassword(props) {
     const [oldPassword, setOldPassword]= useState("");
@@ -54,9 +53,18 @@ export default function ChangePassword(props) {
           alert("error");
         });
 
-    }
+    axios
+      .post("http://localhost:8000/users/changepassword", user)
+      .then((res) => {
+        alert(res.data.message);
+      })
+      .catch(() => {
+        alert("error");
+      });
+  };
 
     return(
+      <div>
         <Grid container spacing={2}>
              <Grid item xs={16} sm={12} >
             <h1> Change Password</h1>
@@ -120,4 +128,15 @@ export default function ChangePassword(props) {
               
     )
 
+      <Button
+        type="submit"
+        fullWidth
+        variant="contained"
+        onClick={handleChangePassword}
+        sx={{ mt: 3, mb: 2 }}
+      >
+        Change Password;
+      </Button>
+    </div>
+  );
 }
